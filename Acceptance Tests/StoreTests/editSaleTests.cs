@@ -37,10 +37,11 @@ namespace Acceptance_Tests.StoreTests
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
 
-            store = ss.createStore("Abowim", zahi);
+            int storeid = ss.createStore("abowim", zahi);
+            Store store = storeArchive.getInstance().getStore(storeid);
 
-            cola = ss.addProductInStore("cola", 3.2, 10, zahi, store);
-
+            int c = ss.addProductInStore("cola", 3.2, 10, zahi, storeid);
+            cola = ProductArchive.getInstance().getProductInStore(c);
             ss.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 2, "20/5/2018");
 
             LinkedList<Sale> SL = ss.viewSalesByStore(store);
