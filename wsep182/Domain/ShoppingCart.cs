@@ -22,23 +22,26 @@ namespace wsep182.Domain
                 return UserCartsArchive.getInstance().getUserShoppingCart(session.getUserName());
         }
 
-        public Boolean addToCart(User session, int saleId, int amount)
+        public int addToCart(User session, int saleId, int amount)
         {
             Sale saleExist = SalesArchive.getInstance().getSale(saleId);
-            if (saleExist == null || !checkValidDate(saleExist))
+            if (saleExist == null)
             {
-                return false;
+                return -3; //-3 = saleId entered doesn't exist
             }
-            
+            if (!checkValidDate(saleExist))
+            {
+                return -4; // -4 = the date for the sale is no longer valid
+            }
             if (saleExist.TypeOfSale != 1)
-                return false;
+                return -5; //-5 = trying to add a sale with type different from regular sale type
             int amountInStore = ProductArchive.getInstance().getProductInStore(saleExist.ProductInStoreId).getAmount();
             if (amount > amountInStore || amount <= 0)
-                return false;
+                return -6; // -6 = amount is bigger than the amount that exist in stock
 
             int amountForSale = SalesArchive.getInstance().getSale(saleId).Amount;
             if (amount > amountForSale || amount <= 0)
-                return false;
+                return -7; //amount is bigger than the amount currently up for sale
 
             if (!(session.getState() is Guest))
                 UserCartsArchive.getInstance().updateUserCarts(session.getUserName(), saleId, amount);
@@ -47,17 +50,17 @@ namespace wsep182.Domain
             foreach (UserCart c in products)
             {
                 if(c.getUserName().Equals(toAdd.getUserName()) && c.getSaleId() == toAdd.getSaleId()){
-                    if(c.getAmount() + amount <= amountInStore)
+                    if(c.getAmount() + amount <= amountForSale)
                     {
                         c.setAmount(c.getAmount() + amount);
-                        return true;
+                        return 1; // OK
                     }
-                    return false;
+                    return -7;
                 }
             }
 
             products.AddLast(toAdd);
-            return true;
+            return 1;
         }
 
         public Boolean addToCartRaffle(User session, Sale sale, double offer)

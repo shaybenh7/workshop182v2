@@ -31,13 +31,13 @@ namespace wsep182.services
         }
 
         //req 1.5 a
-        public Boolean addProductToCart(User user, Sale sale, int amount)
+        public int addProductToCart(User user, int saleId, int amount)
         {
-            if (user == null || sale == null)
+            if (user == null)
             {
-                return false;
+                return -1; // user is null error
             }
-            return user.addToCart(sale.SaleId, amount);
+            return user.addToCart(saleId, amount);
         }
         //req 1.5 b
         public Boolean addRaffleProductToCart(User user, Sale sale, double offer)

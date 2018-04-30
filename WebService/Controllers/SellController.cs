@@ -25,11 +25,55 @@ namespace WebService.Controllers
             return response;
         }
 
+
         [Route("api/store/addProductToCart")]
         [HttpPut]
-        public string addProductToCart(String storeName, int UserId)
+        public HttpResponseMessage addProductToCart(int saleId, int amount)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            /* Confimation = 1
+             * Errors:
+             * -1 = user is null (should not ever happen)
+             * -2 = amount can't be zero or lower
+             * -3 = saleId entered doesn't exist
+             * -4 = the date for the sale is no longer valid
+             * -5 = trying to add a sale with type different from regular sale type
+             * -6 = amount is bigger than the amount that exist in stock
+             * -7 = amount is bigger than the amount currently up for sale
+             */
+            int added = session.addToCart(saleId, amount);
+            HttpResponseMessage response;
+            switch (added)
+            {
+                case 1:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Product was added successfully!");
+                    break;
+                case -1:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: user is not valid!");
+                    break;
+                case -2:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: amount can't be zero or lower!");
+                    break;
+                case -3:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: The sale id does not exist!");
+                    break;
+                case -4:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: the sale has ended!");
+                    break;
+                case -5:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: Trying to add to cart sale different than immediate sale!");
+                    break;
+                case -6:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: Amount in bigger than currently exist in stock!");
+                    break;
+                case -7:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: Amount in bigger than currently available for purchase!");
+                    break;
+                default:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: Unkown error!");
+                    break;
+            }
+            return response;
         }
 
         [Route("api/store/addRaffleProductToCart")]

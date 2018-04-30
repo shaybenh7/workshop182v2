@@ -129,10 +129,10 @@ namespace wsep182.Domain
 
 
 
-        public Boolean addToCart(int saleId, int amount)
+        public int addToCart(int saleId, int amount)
         {
             if (amount <= 0)
-                return false;
+                return -2; // amount can't be zero or lower
             return shoppingCart.addToCart(this, saleId, amount);
         }
 
