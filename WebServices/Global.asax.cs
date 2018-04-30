@@ -10,8 +10,7 @@ using System.Web.Security;
 using wsep182.services;
 using wsep182.Domain;
 
-
-namespace WebService
+namespace WebServices
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
