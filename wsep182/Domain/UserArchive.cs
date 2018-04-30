@@ -73,7 +73,13 @@ namespace wsep182.Domain
             return null;
         }
 
-        public Boolean removeUser(string userName)
+        /*
+         *   0 if user removed successfuly
+         *  -2 user to remove is not exist
+         *  -6 user who is owner or creator of store can not be removed
+         */
+
+        public int removeUser(string userName)
         {
             foreach (User u in users)
                 if (u.getUserName().Equals(userName))
@@ -82,13 +88,13 @@ namespace wsep182.Domain
                     foreach(Store s in allStores)
                     {
                         if(s.getStoreCreator().getUserName().Equals(u.getUserName()) && s.getIsActive() == 1)
-                            return false;
+                            return -6;
                     }
                     //users.Remove(u);
                     u.setIsActive(false);
-                    return true;
+                    return 0;
                 }
-            return false;
+            return -2;
         }
 
     }

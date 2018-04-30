@@ -38,24 +38,36 @@ namespace WebService.Controllers
 
         [Route("api/user/viewProductsInStore")]
         [HttpGet]
-        public IHttpActionResult viewProductsInStore(int storeId)
+        public HttpResponseMessage viewProductsInStore(int storeId)
         {
-            return Ok(new { results = "sas" });
+            LinkedList<ProductInStore> pis = userServices.getInstance().viewProductsInStore(storeId);
+            HttpResponseMessage response;
+            if (pis == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NotFound, "Store is not exist");
+                return response;
+            }
+            response = Request.CreateResponse(HttpStatusCode.OK, pis);
+            return response;
         }
 
         [Route("api/user/viewProductsInStores")]
         [HttpGet]
-        public string viewProductsInStores()
+        public HttpResponseMessage viewProductsInStores()
         {
-            return "not implemented";
+            LinkedList<ProductInStore> pis = userServices.getInstance().viewProductsInStores();
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, pis);
+            return response;
         }
 
 
         [Route("api/user/viewStores")]
         [HttpGet]
-        public string viewStores()
+        public HttpResponseMessage viewStores()
         {
-            return "not implemented";
+            LinkedList<Store> stores = userServices.getInstance().viewStores();
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, stores);
+            return response;
         }
 
         [Route("api/user/login")]
@@ -82,8 +94,27 @@ namespace WebService.Controllers
 
         [Route("api/user/removeUser")]
         [HttpDelete]
-        public string removeUser(String userMakingDeletion, String userDeleted)
+        public string removeUser(String userDeleted)
         {
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = userServices.getInstance().removeUser(session, userDeleted);
+            switch(ans)
+            {
+                case 0:
+                    return "user has been removed succesfully";
+                case -1:
+                    return "you are not admin";
+                case -2:
+                    return "the user you want to remove is not exist";
+                case -3:
+                    return "the user you want to remove is allready removed";
+                case -4:
+                    return "you are not allowed to remove yourself";
+                case -5:
+                    return "the user you want to remove have raffle sale";
+                case -6:
+                    return "the user you want to remove is a owner or creator of other stores";
+            }
             return "not implemented";
         }
 

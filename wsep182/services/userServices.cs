@@ -47,8 +47,11 @@ namespace wsep182.services
         }
 
         //req 1.3 a
-        public LinkedList<ProductInStore> viewProductsInStore(Store s)
+        public LinkedList<ProductInStore> viewProductsInStore(int storeId)
         {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            if (s == null)
+                return null;
             return s.getProductsInStore();
         }
 
@@ -79,15 +82,23 @@ namespace wsep182.services
             return session.login(userName, password);
         }
 
-
+        /*
+         * return :
+         *           0 if user removed successfuly
+         *          -1 if you are not loggin
+         *          -2 user to remove is not exist
+         *          -3 user to remove allready removed
+         *          -4 user cannot remove himself
+         *          -5 user who has raffle sale can not be removed
+         *          -6 user who is owner or creator of store can not be removed
+         */
         // req 5.2
-        public Boolean removeUser(User userMakingDeletion, String userDeleted)
+        public int removeUser(User userMakingDeletion, String userDeleted)
         {
-            if (!userMakingDeletion.getState().isLogedIn())
-                return false;
             return userMakingDeletion.removeUser(userDeleted);
         }
 
 
-    }
+  }
 }
+ 
