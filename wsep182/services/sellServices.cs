@@ -25,7 +25,7 @@ namespace wsep182.services
         }
 
         //req 1.3 d
-        public LinkedList<Sale> viewSalesByProductInStoreId(ProductInStore productInStore)
+        public LinkedList<Sale> viewSalesByProductInStoreId(int productInStore)
         {
             return User.viewSalesByProductInStoreId(productInStore);
         }
