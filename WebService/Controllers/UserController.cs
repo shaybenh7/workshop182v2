@@ -50,10 +50,14 @@ namespace WebService.Controllers
         [HttpGet]
         public string login(String Username, String Password)
         {
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            bool ans = userServices.getInstance().login(session, Username, Password);
+            if (ans)
+                return "user has been logged in succesfuly";
             return "not implemented";
         }
 
-        [Route("api/user/login")]
+        [Route("api/user/removeUser")]
         [HttpDelete]
         public string removeUser(String userMakingDeletion, String userDeleted)
         {
