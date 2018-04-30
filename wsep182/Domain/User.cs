@@ -114,7 +114,7 @@ namespace wsep182.Domain
             return this.state.createStore(storeName, this);
         }
 
-        public Boolean removeUser(String userName)
+        public int removeUser(String userName)
         {
             return this.state.removeUser(this,userName);
         }

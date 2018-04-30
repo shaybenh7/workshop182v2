@@ -35,9 +35,9 @@ namespace wsep182.Domain
         }
 
 
-        public virtual Boolean removeUser(User session, string userDeleted)
+        public virtual int removeUser(User session, string userDeleted)
         {
-            return false;
+            return -1;
         }
 
 

@@ -8,19 +8,32 @@ namespace wsep182.Domain
 {
     public class Admin : UserState
     {
-        public override Boolean removeUser(User session, string userDeleted)
+        /*
+         * return :
+         *          0 if user removed successfuly
+         *          -2 user to remove is not exist
+         *          -3 user to remove allready removed
+         *          -4 user cannot remove himself
+         *          -5 user who has raffle sale can not be removed
+         *          -6 user who is owner or creator of store can not be removed
+         */
+
+
+        public override int removeUser(User session, string userDeleted)
         {
             User userToDelete = UserArchive.getInstance().getUser(userDeleted);
-            if (userToDelete == null || !userToDelete.getIsActive() || userToDelete.getUserName() == session.getUserName())
-                return false;
+            if (userToDelete == null )
+                return -2;
+            if (!userToDelete.getIsActive())
+                return -3;
+            if (userToDelete.getUserName() == session.getUserName())
+                return -4;
             if (RaffleSalesArchive.getInstance().getAllRaffleSalesByUserName(userDeleted).Count > 0)
-                return false;
+                return -5;
             LinkedList<StoreRole> roles = storeArchive.getInstance().getAllStoreRolesOfAUser(userDeleted);
             if (checkLoneOwnerOrCreator(roles))
-                return false;
-
-            if (!removeAllRolesOfAUser(roles))
-                return false;
+                return -6;
+            removeAllRolesOfAUser(roles);
             return UserArchive.getInstance().removeUser(userDeleted);
         }
 
