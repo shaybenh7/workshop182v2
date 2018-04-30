@@ -57,11 +57,11 @@ namespace wsep182.services
             return user.getShoppingCart();
         }
         // req 1.6 b
-        public Boolean editCart(User user, Sale sale, int newAmount)
+        public int editCart(User user, int saleId, int newAmount)
         {
-            if (user == null||sale==null)
-                return false;
-            return user.editCart(sale.SaleId, newAmount);
+            if (user == null)
+                return -1; // user is null (should not ever happen)
+            return user.editCart(saleId, newAmount);
         }
 
         //req 1.7 a
