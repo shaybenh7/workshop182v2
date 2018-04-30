@@ -7,20 +7,20 @@ using wsep182.Domain;
 
 namespace wsep182.services
 {
-    class hashServices
+    public class hashServices
     {
-        public Boolean configureUser(string hash, User user)
+        public static Boolean configureUser(string hash, User user)
         {
             return HashArchive.getInstance().configureUser(hash, user);
         }
 
-        public string generateID()
+        public static string generateID()
         {
             return HashArchive.getInstance().generateID();
         }
 
 
-        public User getUserByHash(string hash)
+        public static User getUserByHash(string hash)
         {
             return HashArchive.getInstance().getUserByHash(hash);
         }
