@@ -74,22 +74,37 @@ namespace wsep182.services
         *          -8 if illegal product in store Id
         *          -9 database eror
         */
-        public virtual int editProductInStore(User session, int sId,int pId, int quantity, double price)
+        public virtual int editProductInStore(User session, int sId,int pisId, int quantity, double price)
         {
             Store s = storeArchive.getInstance().getStore(sId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
                 return -4;//-4 if don't have premition
-            ProductInStore p = ProductArchive.getInstance().getProductInStore(pId);
+            ProductInStore p = ProductArchive.getInstance().getProductInStore(pisId);
             return sR.editProductInStore(session, p, quantity, price);
         }
 
         //req 3.1 c
-        public Boolean removeProductFromStore(Store s, ProductInStore p, User session)
+        /*
+        * return:
+        *           0 on sucess
+        *          -1 if user Not Login
+        *          -2 if Store Name already exist
+        *          -3 if illegal product name
+        *          -4 if don't have premition
+        *          -5 if illegal amount
+        *          -6 if illegal store id
+        *          -7 if illegal price
+        *          -8 if illegal product in store Id
+        *          -9 database eror
+        */
+        public int removeProductFromStore(int sId, int pisId, User session)
         {
+            Store s = storeArchive.getInstance().getStore(sId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
-                return false;
+                return -4;//-4 if don't have premition
+            ProductInStore p = ProductArchive.getInstance().getProductInStore(pisId);
             return sR.removeProductFromStore(session, s, p);
         }
 

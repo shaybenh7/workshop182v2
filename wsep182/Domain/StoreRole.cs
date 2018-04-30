@@ -77,12 +77,17 @@ namespace wsep182.Domain
 
 
         }
-
-        public virtual Boolean removeProductFromStore(User session, Store s, ProductInStore p)
+        public virtual int removeProductFromStore(User session, Store s, ProductInStore p)
         {
-            if (session == null || s == null || p == null)
-                return false;
-            return ProductArchive.getInstance().removeProductInStore(p.getProductInStoreId(), s.getStoreId());
+            if (session == null)
+                return -1;//-1 if user Not Login
+            if (s == null)
+                return -6;//-6 if illegal store id
+            if (p == null)
+                return -8;//-8 if illegal product in store Id
+            if (ProductArchive.getInstance().removeProductInStore(p.getProductInStoreId(), s.getStoreId()))
+                return 0;
+            return -9;
 
         }
         public virtual Boolean addStoreManager(User session, Store s, String newManagerUserName)

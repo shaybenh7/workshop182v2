@@ -92,9 +92,34 @@ namespace WebService.Controllers
 
         [Route("api/store/removeProductFromStore")]
         [HttpDelete]
-        public string removeProductFromStore(int storeId, int ProductInStoreId, String Username)
+        public string removeProductFromStore(int storeId, int ProductInStoreId)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().removeProductFromStore(storeId, ProductInStoreId, session);
+            if (ans > 0)
+                return "product in store " + ans + " successfuly added";
+            switch (ans)
+            {
+                case -1:
+                    return "error: username is not login";
+                case -2:
+                    return "error: store name allready exist";
+                case -3:
+                    return "error: illegal product name";
+                case -4:
+                    return "error: don't have permission";
+                case -5:
+                    return "error: illegal amount";
+                case -6:
+                    return "error: illegal store id";
+                case -7:
+                    return "error: illegal price";
+                case -8:
+                    return "error: illegal product in store Id";
+                case -9:
+                    return "error: database error";
+            }
+            return "server error: not suppose to happend";
         }
 
         [Route("api/store/removeStoreOwner")]

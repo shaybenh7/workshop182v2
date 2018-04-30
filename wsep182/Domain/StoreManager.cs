@@ -68,11 +68,11 @@ namespace wsep182.Domain
             return false;
         }
 
-        public override Boolean removeProductFromStore(User session, Store s, ProductInStore p)
+        public override int removeProductFromStore(User session, Store s, ProductInStore p)
         {
             if (premissions.checkPrivilege(s.getStoreId(), session.getUserName(),"removeProductFromStore"))
                 return base.removeProductFromStore(session, s, p);
-            return false;
+            return -4;// -4 if don't have premition
         }
 
         public override Boolean addStoreManager(User session, Store s, String newManager)

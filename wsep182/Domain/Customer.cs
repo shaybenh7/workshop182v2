@@ -37,9 +37,9 @@ namespace wsep182.Domain
             return -4;//-4 if don't have premition
         }
 
-        public override Boolean removeProductFromStore(User session, Store s, ProductInStore p)
+        public override int removeProductFromStore(User session, Store s, ProductInStore p)
         {
-            return false;
+            return -4;//-4 if don't have premition
         }
 
         public override Boolean addStoreManager(User session, Store s, String newManager)
