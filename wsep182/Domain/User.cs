@@ -145,11 +145,11 @@ namespace wsep182.Domain
             return shoppingCart.buyProducts(this, creditCard,couponId);
         }
 
-        public Boolean addToCartRaffle(Sale sale, double offer)
+        public int addToCartRaffle(int saleId, double offer)
         {
-            if (sale == null || offer <= 0)
-                return false;
-            return shoppingCart.addToCartRaffle(this, sale, offer);
+            if (offer <= 0)
+                return -2; // offer can't be zero or lower
+            return shoppingCart.addToCartRaffle(this, saleId, offer);
         }
 
         public static LinkedList<Sale> viewSalesByProductInStoreId(int product)

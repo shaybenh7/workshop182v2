@@ -63,42 +63,47 @@ namespace wsep182.Domain
             return 1;
         }
 
-        public Boolean addToCartRaffle(User session, Sale sale, double offer)
+        public int addToCartRaffle(User session, int saleId, double offer)
         {
-            if (sale == null || sale.TypeOfSale != 3 || !checkValidDate(sale))
-                return false;
+            Sale sale = SalesArchive.getInstance().getSale(saleId);
+            if (sale == null)
+                return -3; // sale id entered does not exist
+            if (sale.TypeOfSale != 3)
+                return -4; // sale is not of type raffle
+            if (!checkValidDate(sale))
+                return -5; // the date for the sale is no longer valid
 
             UserCart isExist = UserCartsArchive.getInstance().getUserCart(session.getUserName(), sale.SaleId);
             if (isExist != null)
             {
-                return false;
+                return -6; // already have an instance of the raffle sale in the cart
             }
-                
+           /*     
             foreach(UserCart uc in session.getShoppingCart())
             {
                 if (uc.getSaleId() == sale.SaleId)
                     return false;
             }
-
+            */
             if (!(session.getState() is Guest))
             {
                 UserCartsArchive.getInstance().updateUserCarts(session.getUserName(), sale.SaleId, 1,offer);
             }
             else
             {
-                return false;
+                return -7; // cannot add a raffle sale to cart while on guest mode
             }
             double remainingSum = getRemainingSumForOffers(sale.SaleId);
             if(offer > remainingSum || offer <= 0)
             {
-                return false;
+                return -8; // offer is bigger than remaining sum to pay
             }
 
             //UserCart toAdd = UserCartsArchive.getInstance().getUserCart(session.getUserName(), sale.SaleId);
             UserCart toAdd = new UserCart(session.getUserName(), sale.SaleId, 1);
             toAdd.setOffer(offer);
             session.getShoppingCart().AddLast(toAdd);
-            return true;
+            return 1;
         }
 
         public Boolean editCart(User session, int saleId, int newAmount)
