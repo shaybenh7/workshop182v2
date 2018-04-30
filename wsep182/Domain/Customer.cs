@@ -32,9 +32,9 @@ namespace wsep182.Domain
             return false;
         }
 
-        public override Boolean editProductInStore(User session, ProductInStore p, int quantity, double price)
+        public override int editProductInStore(User session, ProductInStore p, int quantity, double price)
         {
-            return false;
+            return -4;//-4 if don't have premition
         }
 
         public override Boolean removeProductFromStore(User session, Store s, ProductInStore p)
