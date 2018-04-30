@@ -16,19 +16,31 @@ namespace WebService.Controllers
         public string register(String Username, String Password)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
-            bool ans = userServices.getInstance().register(session, Username, Password);
-            if (ans)
-                return "the user has been added succsesfuly";
-            else
-                return "error";
+            int ans = userServices.getInstance().register(session, Username, Password);
+            switch (ans)
+            {
+                case 0:
+                    return "user successfuly added";
+                case -1:
+                    return "error: username is not entered";
+                case -2:
+                    return "error: password is not entered";
+                case -3:
+                    return "error: username contains spaces";
+                case -4:
+                    return "error: username allready exist in the system";
+                case -5:
+                    return "error: you are allready logged in";
+            }
+            return "server error: not suppose to happend";
         }
 
 
         [Route("api/user/viewProductsInStore")]
         [HttpGet]
-        public string viewProductsInStore(int storeId)
+        public IHttpActionResult viewProductsInStore(int storeId)
         {
-            return "not implemented";
+            return Ok(new { results = "sas" });
         }
 
         [Route("api/user/viewProductsInStores")]
@@ -51,10 +63,21 @@ namespace WebService.Controllers
         public string login(String Username, String Password)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
-            bool ans = userServices.getInstance().login(session, Username, Password);
-            if (ans)
-                return "user has been logged in succesfuly";
-            return "not implemented";
+            int ans = userServices.getInstance().login(session, Username, Password);
+            switch (ans)
+            {
+                case 0:
+                    return "user successfuly logged in";
+                case -1:
+                    return "error: username not exist";
+                case -2:
+                    return "error: wrong password";
+                case -3:
+                    return "error: user is removed";
+                case -4:
+                    return "error: you are allready logged in";
+            }
+            return "server error: not suppose to happend";
         }
 
         [Route("api/user/removeUser")]

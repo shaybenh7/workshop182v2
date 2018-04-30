@@ -32,7 +32,16 @@ namespace wsep182.services
         }
 
         // req 1.2
-        public Boolean register(User session, String username, String password)
+        /*
+         * return:
+         *           0 on sucess
+         *          -1 if username is empty
+         *          -2 if password is empty
+         *          -3 if username contains spaces
+         *          -4 if username allready exist in the system
+         *          -5 if you are allready logged in
+         */
+        public int register(User session, String username, String password)
         {
             return session.register(username, password);
         }
@@ -55,8 +64,17 @@ namespace wsep182.services
             return Store.viewStores();
         }
 
+        /*
+         * return:
+         *          0 if login success
+         *          -1 username not exist
+         *          -2 wrong password
+         *          -3 user is removed
+         *          -4 you are allready logged in
+         */
+
         //req 2.1 
-        public Boolean login(User session, String userName, String password)
+        public int login(User session, String userName, String password)
         {
             return session.login(userName, password);
         }

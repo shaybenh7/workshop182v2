@@ -24,14 +24,20 @@ namespace wsep182.Domain
         {
             instance = new UserArchive();
         }
-        public Boolean addUser(User newUser)
+
+        /*
+         * return :
+         *          -4 if username allready exist in the system
+         *          0 on success
+         */
+        public int addUser(User newUser)
         {
             foreach (User u in users)
                 if (u.getUserName().Equals(newUser.getUserName()))
-                    return false;
+                    return -4;
             newUser.setPassword(encrypt(newUser.getUserName() + newUser.getPassword()));
             users.AddLast(newUser);
-            return true;
+            return 0;
         }
 
         private String encrypt(String password)

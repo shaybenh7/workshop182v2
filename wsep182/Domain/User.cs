@@ -54,31 +54,54 @@ namespace wsep182.Domain
         {
             return shoppingCart.getShoppingCartProducts(this);
         }
-        public Boolean login(String username, String password)
+
+        /*
+         * return:
+         *          0 if login success
+         *          -1 username not exist
+         *          -2 password not exist
+         *          -3 user is removed
+         *          -4 you are allready logged in
+         */
+        public int login(String username, String password)
         {
-            User user = state.login(username, password);
-            if (user != null)
+            int user = state.login(username, password);
+            if (user == 0 )
             {
-                if (!user.getIsActive())
-                    return false;
                 if (username == "admin" || username == "admin1")
                     state = new Admin();
                 else
-                    state = user.state;
+                    state = new LogedIn();
                 this.userName = username;
                 this.password = password;
-                return true;
+                return 0;
             }
-            return false;
+            return user;
         }
-
-
-
-        public Boolean register(String username, String password)
+        /*
+         * return:
+         *           0 on sucess
+         *          -1 if username is empty
+         *          -2 if password is empty
+         *          -3 if username contains spaces
+         *          -4 if username allready exist in the system
+         *          -5 if you are allready logged in
+         */
+        public int register(String username, String password)
         {
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password)
                 || username.Equals("") || password.Equals("") || username.Contains(" "))
-                return false;
+            {
+                if (username==null || username.Equals(""))
+                    return -1;
+                if (password == null || password.Equals(""))
+                    return -2;
+                if (username.Contains(" "))
+                    return -3;
+            }
+            if (!(state is Guest))
+                return -5;
+            
             User u = new User(username, password);
             u.setState(state.register(username, password));
             return UserArchive.getInstance().addUser(u);

@@ -19,17 +19,29 @@ namespace wsep182.Domain
                 return null;
             return new LogedIn();
         }
-
-        public override User login(String username, String password)
+        /*
+        * return:
+        *          0 if login success
+        *          -1 user is not exist
+        *          -2 password not exist
+        *          -3 user is removed
+        */
+        public override int login(String username, String password)
         {
             User u = UserArchive.getInstance().getUser(username);
             if (u != null)
             {
                 password = encrypt(username + password);
                 if (u.getPassword() == password)
-                    return u;
+                {
+                    if (!u.getIsActive())
+                        return -3;
+                    return 0;
+                }
+                else
+                    return -2;
             }
-            return null;
+            return -1;
         }
         private String encrypt(String password)
         {

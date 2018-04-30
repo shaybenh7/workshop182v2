@@ -8,9 +8,9 @@ namespace wsep182.Domain
 {
     public abstract class UserState
     {
-        public virtual User login(String username, String password)
+        public virtual int login(String username, String password)
         {
-            return null;
+            return -4;
         }
 
         public virtual LinkedList<Purchase> viewUserHistory(User userToGetHistory)
