@@ -42,7 +42,7 @@ namespace Acceptance_Tests
         {
             userServices us = userServices.getInstance();
             User session = us.startSession();
-            Assert.IsFalse(us.login(session,"zahi", "123456"));
+            Assert.IsFalse(us.login(session,"zahi", "123456") >= 0);
         }
 
         [TestMethod]
@@ -51,13 +51,13 @@ namespace Acceptance_Tests
             userServices us = userServices.getInstance();
             User session = us.startSession();
             us.register(session,"zahi", "123456");
-            Assert.IsFalse(us.login(session, "gabi", "123456"));
-            Assert.IsFalse(us.login(session, "Zahi", "123456"));
-            Assert.IsFalse(us.login(session, "zahi ", "123456"));
-            Assert.IsFalse(us.login(session, "zaHi", "123456"));
-            Assert.IsFalse(us.login(session, "zahi1", "123456"));
-            Assert.IsFalse(us.login(session, "zahI", "123456"));
-            Assert.IsFalse(us.login(session, " zahi", "123456"));
+            Assert.IsFalse(us.login(session, "gabi", "123456") >= 0);
+            Assert.IsFalse(us.login(session, "Zahi", "123456") >= 0);
+            Assert.IsFalse(us.login(session, "zahi ", "123456") >= 0);
+            Assert.IsFalse(us.login(session, "zaHi", "123456") >= 0);
+            Assert.IsFalse(us.login(session, "zahi1", "123456") >= 0);
+            Assert.IsFalse(us.login(session, "zahI", "123456") >= 0);
+            Assert.IsFalse(us.login(session, " zahi", "123456") >= 0);
         }
 
         [TestMethod]
@@ -66,13 +66,13 @@ namespace Acceptance_Tests
             userServices us = userServices.getInstance();
             User session = us.startSession();
             us.register(session, "zahi", "abow");
-            Assert.IsFalse(us.login(session, "zahi", "Abow"));
-            Assert.IsFalse(us.login(session, "zahi", "aboW"));
-            Assert.IsFalse(us.login(session, "zahi", "aBow"));
-            Assert.IsFalse(us.login(session, "zahi", "abow1"));
-            Assert.IsFalse(us.login(session, "zahi", "1abow"));
-            Assert.IsFalse(us.login(session, "zahi", " abow"));
-            Assert.IsFalse(us.login(session, "zahi", "abow "));
+            Assert.IsFalse(us.login(session, "zahi", "Abow") >= 0);
+            Assert.IsFalse(us.login(session, "zahi", "aboW") >= 0);
+            Assert.IsFalse(us.login(session, "zahi", "aBow") >= 0);
+            Assert.IsFalse(us.login(session, "zahi", "abow1") >= 0);
+            Assert.IsFalse(us.login(session, "zahi", "1abow") >= 0);
+            Assert.IsFalse(us.login(session, "zahi", " abow") >= 0);
+            Assert.IsFalse(us.login(session, "zahi", "abow ") >= 0);
         }
 
         [TestMethod]
@@ -80,8 +80,8 @@ namespace Acceptance_Tests
         {
             userServices us = userServices.getInstance();
             User session = us.startSession();
-            Assert.IsFalse(us.login(session,"", "abow"));
-            Assert.IsFalse(us.login(session, "zahi", ""));
+            Assert.IsFalse(us.login(session,"", "abow") >= 0);
+            Assert.IsFalse(us.login(session, "zahi", "") >= 0);
         }
 
         [TestMethod]
@@ -89,7 +89,7 @@ namespace Acceptance_Tests
         {
             userServices us = userServices.getInstance();
             User session = us.startSession();
-            Assert.IsFalse(us.login(session, "zahi", "abow"));
+            Assert.IsFalse(us.login(session, "zahi", "abow") >= 0);
         }
 
         [TestMethod]
@@ -97,8 +97,8 @@ namespace Acceptance_Tests
         {
             userServices us = userServices.getInstance();
             User session = us.startSession();
-            Assert.IsFalse(us.login(session, "zahi abow", "abow"));
-            Assert.IsFalse(us.login(session, "zahi", "zahi abow"));
+            Assert.IsFalse(us.login(session, "zahi abow", "abow") >= 0);
+            Assert.IsFalse(us.login(session, "zahi", "zahi abow") >= 0);
         }
 
         [TestMethod]
@@ -106,7 +106,7 @@ namespace Acceptance_Tests
         {
             userServices us = userServices.getInstance();
             User session = us.startSession();
-            Assert.IsFalse(us.login(session, "zahi", null));
+            Assert.IsFalse(us.login(session, "zahi", null) >= 0);
         }
 
         [TestMethod]
@@ -114,7 +114,7 @@ namespace Acceptance_Tests
         {
             userServices us = userServices.getInstance();
             User session = us.startSession();
-            Assert.IsFalse(us.login(session, null, "abow"));
+            Assert.IsFalse(us.login(session, null, "abow") >= 0);
         }
     }
 }

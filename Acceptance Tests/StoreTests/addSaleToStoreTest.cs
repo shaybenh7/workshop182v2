@@ -44,7 +44,8 @@ namespace Acceptance_Tests.SaleTests
             itamar = us.startSession();
             us.register(itamar, "itamar", "123456");
             us.login(itamar, "itamar", "123456");
-            store = ss.createStore("Maria&Netta Inc.", itamar);
+            int storeid = ss.createStore("Maria&Netta Inc.", itamar);
+            store = storeArchive.getInstance().getStore(storeid);
 
             niv = us.startSession();
             us.register(niv, "niv", "123456");
@@ -52,9 +53,10 @@ namespace Acceptance_Tests.SaleTests
 
             ss.addStoreManager(store, "niv", itamar);
 
-            cola = ss.addProductInStore("cola", 3.2, 10, itamar, store);
-            sprite = ss.addProductInStore("sprite", 5.3, 20, itamar, store);
-
+            int c = ss.addProductInStore("cola", 3.2, 10, itamar, storeid);
+            int s = ss.addProductInStore("sprite", 5.3, 20, itamar, storeid);
+            cola = ProductArchive.getInstance().getProductInStore(c);
+            sprite = ProductArchive.getInstance().getProductInStore(s);
         }
 
         [TestMethod]
@@ -97,22 +99,28 @@ namespace Acceptance_Tests.SaleTests
         [TestMethod]
         public void AddSaleWithProductNotInStore()
         {
-            Store store2 = ss.createStore("admin store", admin);
-            ProductInStore milk = ss.addProductInStore("milk", 3.2, 10, admin, store2);
+            int storeid = ss.createStore("admin store", admin);
+            Store store2 = storeArchive.getInstance().getStore(storeid);
+            int m = ss.addProductInStore("milk", 3.2, 10, admin, storeid);
+            ProductInStore milk = ProductArchive.getInstance().getProductInStore(m);
             Assert.IsFalse(ss.addSaleToStore(itamar, store, milk.getProductInStoreId(), 1, 1, DateTime.Now.AddMonths(1).ToString()) > -1);
         }
         [TestMethod]
         public void AddSaleWithOwnerOfAnotherStore()
         {
-            Store store2 = ss.createStore("admin store", admin);
-            ProductInStore milk = ss.addProductInStore("milk", 3.2, 10, admin, store2);
+            int storeid = ss.createStore("admin store", admin);
+            Store store2 = storeArchive.getInstance().getStore(storeid);
+            int m = ss.addProductInStore("milk", 3.2, 10, admin, storeid);
+            ProductInStore milk = ProductArchive.getInstance().getProductInStore(m);
             Assert.IsFalse(ss.addSaleToStore(admin, store, milk.getProductInStoreId(), 1, 1, DateTime.Now.AddMonths(1).ToString()) > -1);
         }
         [TestMethod]
         public void AddSaleWithNullParameters()
         {
-            Store store2 = ss.createStore("admin store", admin);
-            ProductInStore milk = ss.addProductInStore("milk", 3.2, 10, admin, store2);
+            int storeid = ss.createStore("admin store", admin);
+            Store store2 = storeArchive.getInstance().getStore(storeid);
+            int m = ss.addProductInStore("milk", 3.2, 10, admin, storeid);
+            ProductInStore milk = ProductArchive.getInstance().getProductInStore(m);
             Assert.IsTrue(ss.addSaleToStore(null, store2, milk.getProductInStoreId(), 1, 1, DateTime.Now.AddMonths(1).ToString()) == -1);
             Assert.IsTrue(ss.addSaleToStore(admin, null, milk.getProductInStoreId(), 1, 1, DateTime.Now.AddMonths(1).ToString()) == -1);
             Assert.IsTrue(ss.addSaleToStore(admin, store2, milk.getProductInStoreId(), 1, 1, null) == -1);

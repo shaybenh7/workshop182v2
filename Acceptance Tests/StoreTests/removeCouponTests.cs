@@ -40,7 +40,8 @@ namespace Acceptance_Tests.StoreTests
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
 
-            store = ss.createStore("Abowim", zahi);
+            int storeid = ss.createStore("abowim", zahi);
+            Store store = storeArchive.getInstance().getStore(storeid);
 
             cola = ss.addProductInStore("cola", 10, 100, zahi, store);
 

@@ -33,8 +33,10 @@ namespace Acceptance_Tests.StoreTests
             zahi = us.startSession();
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
-            store = ss.createStore("abowim", zahi);
-            cola = ss.addProductInStore("cola", 3.2, 10, zahi, store);
+            int storeid = ss.createStore("abowim", zahi);
+            Store store = storeArchive.getInstance().getStore(storeid);
+            int c = ss.addProductInStore("cola", 3.2, 10, zahi, storeid);
+            cola = ProductArchive.getInstance().getProductInStore(c);
 
         }
         [TestMethod]

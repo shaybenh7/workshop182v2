@@ -46,7 +46,11 @@ namespace Acceptance_Tests.StoreTests
             itamar = us.startSession();
             us.register(itamar, "itamar", "123456");
             us.login(itamar, "itamar", "123456");
-            store = ss.createStore("Maria&Netta Inc.", itamar);
+
+
+
+            int storeid = ss.createStore("Maria&Netta Inc.", zahi);
+            store = storeArchive.getInstance().getStore(storeid);
 
             niv = us.startSession();
             us.register(niv, "niv", "123456");
@@ -54,8 +58,10 @@ namespace Acceptance_Tests.StoreTests
 
             ss.addStoreManager(store, "niv", itamar);
 
-            cola = ss.addProductInStore("cola", 3.2, 10, itamar, store);
-            sprite = ss.addProductInStore("sprite", 5.3, 20, itamar, store);
+            int c = ss.addProductInStore("cola", 3.2, 10, itamar, storeid);
+            int s = ss.addProductInStore("sprite", 5.3, 20, itamar, storeid);
+            cola = ProductArchive.getInstance().getProductInStore(c);
+            sprite = ProductArchive.getInstance().getProductInStore(s);
             saleId = ss.addSaleToStore(itamar, store, cola.getProductInStoreId(), 1, 1, "20.5.2018");
             raffleSale=ss.addSaleToStore(itamar, store, cola.getProductInStoreId(), 3, 1, "20.5.2018");
 

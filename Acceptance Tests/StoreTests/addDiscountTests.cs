@@ -38,9 +38,11 @@ namespace Acceptance_Tests.StoreTests
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
 
-            store = ss.createStore("Abowim", zahi);
+            int s = ss.createStore("Abowim", zahi);
+            store = storeArchive.getInstance().getStore(s);
 
-            cola = ss.addProductInStore("cola", 10, 100, zahi, store);
+            int c = ss.addProductInStore("cola", 10, 100, zahi, s);
+            cola = ProductArchive.getInstance().getProductInStore(c);
 
             ss.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 2, "20/5/2018");
 
