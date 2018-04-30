@@ -26,7 +26,7 @@ namespace wsep182.services
          *           0 < on sucess
          *          -1 if user Not Login
          *          -2 if Store Name already exist
-         *          -3 if iligale Storename
+         *          -3 if illegal Storename
          *          -4 if 
          */
         public int createStore(String storeName, User session)
@@ -37,13 +37,25 @@ namespace wsep182.services
         }
 
         //req 3.1 a
-        public ProductInStore addProductInStore(String productName, Double price, int amount, User session, Store s)
+        /*
+         * return:
+         *           0 < on sucess
+         *          -1 if user Not Login
+         *          -2 if Store Name already exist
+         *          -3 if illegal product name
+         *          -4 if don't have premition
+         *          -5 if illegal amount
+         *          -6 if illegal store id
+         *          -7 if illegal price
+         */
+        public int addProductInStore(String productName, Double price, int amount, User session, int sId)
         {
             if (session==null || !session.getState().isLogedIn() || productName == null)
-                return null;
+                return -1;//-1 if user Not Login
+            Store s = storeArchive.getInstance().getStore(sId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
-                return null;
+                return -4;//-4 if don't have premition
             return sR.addProductInStore(session, s, productName, price, amount);
         }
 

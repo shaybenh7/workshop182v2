@@ -63,9 +63,9 @@ namespace wsep182.Domain
             return null;
         }
 
-        public override Store createStore(String storeName, User session)
+        public override int createStore(String storeName, User session)
         {
-            return null;
+            return -1;// -1 if user Not Login
         }
     }
 }
