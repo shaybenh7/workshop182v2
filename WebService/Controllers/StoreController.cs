@@ -37,14 +37,57 @@ namespace WebService.Controllers
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
             int ans = storeServices.getInstance().addProductInStore(productName, price, amount, session, storeId);
-            return "not implemented";
+            if (ans > 0)
+                return "product in store " + ans + " successfuly added";
+            switch (ans)
+            {
+                case -1:
+                    return "error: username is not login";
+                case -2:
+                    return "error: store name allready exist";
+                case -3:
+                    return "error: illegal product name";
+                case -4:
+                    return "error: don't have permission";
+                case -5:
+                    return "error: illegal amount";
+                case -6:
+                    return "error: illegal store id";
+                case -7:
+                    return "error: illegal price";
+            }
+            return "server error: not suppose to happend";
         }
-
         [Route("api/store/editProductInStore")]
         [HttpPost]
-        public string editProductInStore(String productName, Double price, int amount, int userId, int storeId)
+        public string editProductInStore(int productInStoreId, Double price, int amount, int userId, int storeId)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().editProductInStore(session, storeId, productInStoreId, amount, price);
+            if (ans > 0)
+                return "product in store " + ans + " successfuly added";
+            switch (ans)
+            {
+                case -1:
+                    return "error: username is not login";
+                case -2:
+                    return "error: store name allready exist";
+                case -3:
+                    return "error: illegal product name";
+                case -4:
+                    return "error: don't have permission";
+                case -5:
+                    return "error: illegal amount";
+                case -6:
+                    return "error: illegal store id";
+                case -7:
+                    return "error: illegal price";
+                case -8:
+                    return "error: illegal product in store Id";
+                case -9:
+                    return "error: database error";
+            }
+            return "server error: not suppose to happend";
         }
 
         [Route("api/store/removeProductFromStore")]

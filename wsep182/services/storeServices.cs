@@ -47,6 +47,7 @@ namespace wsep182.services
          *          -5 if illegal amount
          *          -6 if illegal store id
          *          -7 if illegal price
+         *          
          */
         public int addProductInStore(String productName, Double price, int amount, User session, int sId)
         {
@@ -60,11 +61,26 @@ namespace wsep182.services
         }
 
         //req 3.1 b
-        public virtual Boolean editProductInStore(User session, Store s,ProductInStore p, int quantity, double price)
+        /*
+        * return:
+        *           0 on sucess
+        *          -1 if user Not Login
+        *          -2 if Store Name already exist
+        *          -3 if illegal product name
+        *          -4 if don't have premition
+        *          -5 if illegal amount
+        *          -6 if illegal store id
+        *          -7 if illegal price
+        *          -8 if illegal product in store Id
+        *          -9 database eror
+        */
+        public virtual int editProductInStore(User session, int sId,int pId, int quantity, double price)
         {
+            Store s = storeArchive.getInstance().getStore(sId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
-                return false;
+                return -4;//-4 if don't have premition
+            ProductInStore p = ProductArchive.getInstance().getProductInStore(pId);
             return sR.editProductInStore(session, p, quantity, price);
         }
 

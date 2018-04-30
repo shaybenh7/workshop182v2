@@ -46,16 +46,36 @@ namespace wsep182.Domain
 
             return ProductArchive.getInstance().addProductInStore(p2, s, amount, price).getProductInStoreId();
         }
-
-        public virtual Boolean editProductInStore(User session, ProductInStore p, int quantity, double price)
+        /*
+       * return:
+       *           0 < on sucess
+       *          -1 if user Not Login
+       *          -2 if Store Name already exist
+       *          -3 if illegal product name
+       *          -4 if don't have premition
+       *          -5 if illegal amount
+       *          -6 if illegal store id
+       *          -7 if illegal price
+       *          -8 if illegal product in store Id
+       */
+        public virtual int editProductInStore(User session, ProductInStore p, int quantity, double price)
         {
-            if (session != null && p != null && price >= 0 && quantity >= 0)
-            {
-                p.Price = price;
-                p.Quantity = quantity;
-                return ProductArchive.getInstance().updateProductInStore(p);
-            }
-            return false;
+            if (session == null)
+                return -1;// -1 if user Not Login
+            if (p == null)
+                return -8;// -8 if illegal product in store Id
+            if (price < 0)
+                return -7;// -7 if illegal price
+            if (quantity < 0)
+                return -5;// -7 if illegal price
+
+            p.Price = price;
+            p.Quantity = quantity;
+            if (ProductArchive.getInstance().updateProductInStore(p))
+                return 0;// OK
+            return -9;// -9 database eror
+
+
         }
 
         public virtual Boolean removeProductFromStore(User session, Store s, ProductInStore p)
