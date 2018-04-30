@@ -63,9 +63,9 @@ namespace wsep182.Domain
             return false;
         }
 
-        public override Boolean removeStoreOwner(User session, Store s, String ownerToDelete)
+        public override int removeStoreOwner(User session, Store s, String ownerToDelete)
         {
-            return false;
+            return -4;// -4 if don't have premition
         }
 
         public override int removeProductFromStore(User session, Store s, ProductInStore p)

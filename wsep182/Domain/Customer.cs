@@ -57,9 +57,9 @@ namespace wsep182.Domain
             return false;
         }
 
-        public override Boolean removeStoreOwner(User session, Store s, String ownerToDelete)
+        public override int removeStoreOwner(User session, Store s, String ownerToDelete)
         {
-            return false;
+            return -1;
 
         }
 
