@@ -33,8 +33,10 @@ namespace WebService.Controllers
 
         [Route("api/store/addProductInStore")]
         [HttpPut]
-        public string addProductInStore(String productName, Double price, int amount, int userId, int storeId)
+        public string addProductInStore(String productName, Double price, int amount, int storeId)
         {
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().addProductInStore(productName, price, amount, session, storeId);
             return "not implemented";
         }
 

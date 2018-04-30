@@ -24,24 +24,27 @@ namespace wsep182.Domain
         }
 
 
-        public virtual ProductInStore addProductInStore(User session, Store s, String productName, double price, int amount)
+        public virtual int addProductInStore(User session, Store s, String productName, double price, int amount)
         {
-            if (productName == null || session == null || s == null || amount <= 0 || price <= 0
-                || productName == ""
+            if (productName == null ||  productName == ""
                 || productName[productName.Length - 1] == ' ')
-                return null;
+                return -3;//-3 if illegal product name
+            if (session == null)
+                return -1;// -1 if user Not Login
+            if (s == null)
+                return -6;// -6 if illegal store id
+            if (amount <= 0)
+                return -5;// -5 if illegal amount
+            if (price <= 0)
+                return -7;// -7 if illegal price
             //if(check if session is owner or manager with the right permission)
             Product p2 = ProductArchive.getInstance().getProductByName(productName);
             if (p2 == null)
             {
-
                 p2 = Product.addProduct(productName);
             }
-            if (price >= 0 && amount >= 0)
-            {
-                return ProductArchive.getInstance().addProductInStore(p2, s, amount, price);
-            }
-            return null;
+
+            return ProductArchive.getInstance().addProductInStore(p2, s, amount, price).getProductInStoreId();
         }
 
         public virtual Boolean editProductInStore(User session, ProductInStore p, int quantity, double price)
