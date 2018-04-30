@@ -21,7 +21,7 @@ namespace WebService.Controllers
             if (sales != null)
                 response = Request.CreateResponse(HttpStatusCode.OK, sellServices.getInstance().viewSalesByProductInStoreId(ProductInStoreId));
             else
-                response = Request.CreateResponse(HttpStatusCode.NotFound, "Error: no sales found for the entered product id");
+                response = Request.CreateResponse(HttpStatusCode.OK, "Error: No sales found for the entered product id");
             return response;
         }
 
@@ -150,9 +150,52 @@ namespace WebService.Controllers
 
         [Route("api/store/editCart")]
         [HttpPut]
-        public string editCart(String storeName, int UserId)
+        public HttpResponseMessage editCart(int saleId, int newAmount)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            /* Confimation = 1
+             * Errors:
+             * -1 = user is null (should not ever happen)
+             * -2 = the sale id does not exist
+             * -3 = trying to edit amount of a raffle sale
+             * -4 = new amount is bigger than currently up for sale
+             * -5 = new amount is bigger than currently exist in stock
+             * -6 = new amount can't be zero or lower
+             * -7 = trying to edit amount of product that does not exist in cart
+             */
+            int edited = sellServices.getInstance().editCart(session, saleId, newAmount);
+            HttpResponseMessage response;
+            switch (edited)
+            {
+                case 1:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Product was added successfully!");
+                    break;
+                case -1:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: user is not valid!");
+                    break;
+                case -2:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error:The sale id does not exist!");
+                    break;
+                case -3:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: Trying to edit amount of a raffle sale!");
+                    break;
+                case -4:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: New amount is bigger than currently up for sale!");
+                    break;
+                case -5:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: New amount is bigger than currently exist in stock!");
+                    break;
+                case -6:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: New amount can't be zero or lower!");
+                    break;
+                case -7:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: Trying to edit amount of product that does not exist in cart!");
+                    break;
+                default:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: Unkown error!");
+                    break;
+            }
+            return response;
         }
 
         [Route("api/store/removeFromCart")]

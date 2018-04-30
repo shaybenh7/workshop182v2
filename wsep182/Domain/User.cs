@@ -136,7 +136,7 @@ namespace wsep182.Domain
             return shoppingCart.addToCart(this, saleId, amount);
         }
 
-        public Boolean editCart(int saleId, int amount)
+        public int editCart(int saleId, int amount)
         {
             return shoppingCart.editCart(this, saleId, amount);
         }

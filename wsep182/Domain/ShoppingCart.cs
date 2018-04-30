@@ -106,19 +106,22 @@ namespace wsep182.Domain
             return 1;
         }
 
-        public Boolean editCart(User session, int saleId, int newAmount)
+        public int editCart(User session, int saleId, int newAmount)
         {
             Sale sale = SalesArchive.getInstance().getSale(saleId);
             if (sale == null)
-                return false;
+                return -2;
 
             if (sale.TypeOfSale == 3)
-                return false;
+                return -3; // trying to edit amount of a raffle sale
 
             ProductInStore p = ProductArchive.getInstance().getProductInStore(sale.ProductInStoreId);
-            if (newAmount > p.getAmount() || newAmount > sale.Amount ||newAmount <= 0)
-                return false;
-            
+            if (newAmount > sale.Amount)
+                return -4; // new amount is bigger than currently up for sale
+            if (newAmount > p.getAmount())
+                return -5; // new amount is bigger than currently exist in stock
+            if (newAmount <= 0)
+                return -6; // new amount can't be zero or lower
 
             if (!(session.getState() is Guest))
                 UserCartsArchive.getInstance().editUserCarts(session.getUserName(), saleId, newAmount);
@@ -128,10 +131,10 @@ namespace wsep182.Domain
                 if (product.getUserName().Equals(session.getUserName()) && saleId == product.getSaleId())
                 {
                     product.setAmount(newAmount);
-                    return true;
+                    return 1;
                 }
             }
-            return false;
+            return -7; // trying to edit amount of product that does not exist in cart
         }
 
         public Boolean removeFromCart(User session, Sale sale)
