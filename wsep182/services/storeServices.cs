@@ -19,12 +19,20 @@ namespace wsep182.services
             }
             return instance;
         }
-        
+
         //req 2.2
-        public Store createStore(String storeName, User session)
+        /*
+         * return:
+         *           0 < on sucess
+         *          -1 if user Not Login
+         *          -2 if Store Name already exist
+         *          -3 if iligale Storename
+         *          -4 if 
+         */
+        public int createStore(String storeName, User session)
         {
             if (session == null || !session.getState().isLogedIn())
-                return null;
+                return -1;//-1 if user Not Login
             return session.createStore(storeName);
         }
 

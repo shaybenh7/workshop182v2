@@ -107,10 +107,18 @@ namespace wsep182.Domain
             return UserArchive.getInstance().addUser(u);
         }
 
-        public Store createStore(String storeName)
+        /*
+         * return:
+         *           0 < on sucess
+         *          -1 if user Not Login
+         *          -2 if Store Name already exist
+         *          -3 if iligale Storename
+         *          -4 if 
+         */
+        public int createStore(String storeName)
         {
             if (storeName == null || storeName.Length==0 || String.IsNullOrWhiteSpace(storeName))
-                return null;
+                return -3; //-3 if iligale Storename
             return this.state.createStore(storeName, this);
         }
 

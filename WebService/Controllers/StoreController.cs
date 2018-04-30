@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using wsep182.Domain;
+using wsep182.services;
 
 namespace WebService.Controllers
 {
@@ -13,7 +15,20 @@ namespace WebService.Controllers
         [HttpGet]
         public string createStore(String storeName, int UserId)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().createStore(storeName, session);
+            if(ans>0)
+                    return "store " + ans + " successfuly added";
+            switch (ans)
+            {
+                case -1:
+                    return "error: username is not login";
+                case -2:
+                    return "error: store name allready exist";
+                case -3:
+                    return "error: illegal store name";
+            }
+            return "server error: not suppose to happend";
         }
 
         [Route("api/store/addProductInStore")]

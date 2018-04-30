@@ -27,11 +27,11 @@ namespace wsep182.Domain
             return null;
         }
 
-        public virtual Store createStore(String storeName, User session)
+        public virtual int createStore(String storeName, User session)
         {
             Store newStore = storeArchive.getInstance().addStore(storeName, session);
             storeArchive.getInstance().addStoreRole(new StoreOwner(session, newStore), newStore.getStoreId(), session.getUserName());
-            return newStore;
+            return newStore.getStoreId();
         }
 
 
