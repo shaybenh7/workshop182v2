@@ -168,7 +168,7 @@ namespace WebService.Controllers
             switch (edited)
             {
                 case 1:
-                    response = Request.CreateResponse(HttpStatusCode.OK, "Product was added successfully!");
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Product was edited successfully!");
                     break;
                 case -1:
                     response = Request.CreateResponse(HttpStatusCode.OK, "Error: user is not valid!");
@@ -200,9 +200,36 @@ namespace WebService.Controllers
 
         [Route("api/store/removeFromCart")]
         [HttpDelete]
-        public string removeFromCart(String storeName, int UserId)
+        public HttpResponseMessage removeFromCart(int saleId)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            /* Confimation = 1
+             * Errors:
+             * -1 = user is null (should not ever happen)
+             * -2 = the sale id does not exist
+             * -3 = trying to remove a product that does not exist in the cart
+             */
+            int removed = sellServices.getInstance().removeFromCart(session, saleId);
+            HttpResponseMessage response;
+            switch (removed)
+            {
+                case 1:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Product was Removed successfully!");
+                    break;
+                case -1:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: user is not valid!");
+                    break;
+                case -2:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error:The sale id does not exist!");
+                    break;
+                case -3:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: Trying to remove a product that does not exist in the cart!");
+                    break;
+                default:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: Unkown error!");
+                    break;
+            }
+            return response;
         }
 
         [Route("api/store/buyProducts")]

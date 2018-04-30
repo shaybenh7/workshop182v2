@@ -137,28 +137,28 @@ namespace wsep182.Domain
             return -7; // trying to edit amount of product that does not exist in cart
         }
 
-        public Boolean removeFromCart(User session, Sale sale)
+        public int removeFromCart(User session, int saleId)
         {
-            Sale isExist = SalesArchive.getInstance().getSale(sale.SaleId);
+            Sale isExist = SalesArchive.getInstance().getSale(saleId);
             if (isExist == null)
             {
-                return false;
+                return -2; // -2 = the sale id does not exist
             }
             if (!(session.getState() is Guest))
             {
-                if (!UserCartsArchive.getInstance().removeUserCart(session.getUserName(), sale.SaleId))
-                    return false;
+                if (!UserCartsArchive.getInstance().removeUserCart(session.getUserName(), saleId))
+                    return -3; // trying to remove a product that does not exist in the cart
             }
 
             foreach(UserCart c in products)
             {
-                if (c.getUserName().Equals(session.getUserName()) && c.getSaleId() == sale.SaleId)
+                if (c.getUserName().Equals(session.getUserName()) && c.getSaleId() == saleId)
                 {
                     products.Remove(c);
-                    return true;
+                    return 1;
                 }
             }
-            return false;
+            return -3;
         }
 
         public Boolean buyProducts(User session, String creditCard, String couponId)

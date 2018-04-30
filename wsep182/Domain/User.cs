@@ -191,9 +191,9 @@ namespace wsep182.Domain
         {
             password = newPassword;
         }
-        public Boolean removeFromCart(Sale sale)
+        public int removeFromCart(int saleId)
         {
-            return shoppingCart.removeFromCart(this, sale);
+            return shoppingCart.removeFromCart(this, saleId);
         }
     }
 }
