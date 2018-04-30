@@ -28,27 +28,13 @@ namespace WebService
         {
             HttpCookie authCookie = Context.Request.Cookies["Session"];
 
-            if (authCookie == null)
+            if (authCookie == null || hashServices.getUserByHash(authCookie.Value) == null)
             {
                 User u = userServices.getInstance().startSession();
                 String hash = hashServices.generateID();
                 hashServices.configureUser(hash,u);
                 Response.Cookies[""]["Session"] = hash;
-                return;
             }
-            else
-            {
-                User u = hashServices.getUserByHash(authCookie.Value);
-                if (u == null)
-                {
-                    u = userServices.getInstance().startSession();
-                    String hash = hashServices.generateID();
-                    hashServices.configureUser(hash,u);
-                    Response.Cookies[""]["Session"] = hash;
-                    return;
-                }
-            }
-
         }
     }
 }

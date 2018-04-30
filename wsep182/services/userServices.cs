@@ -26,7 +26,8 @@ namespace wsep182.services
         // req 1.1
         public User startSession()
         {
-            User user = new User("guest", "guest");
+            String s = hashServices.generateID();
+            User user = new User(s, s);
             return user;
         }
 
