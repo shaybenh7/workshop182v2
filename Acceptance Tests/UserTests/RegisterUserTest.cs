@@ -42,8 +42,8 @@ namespace Acceptance_Tests
             User session = us.startSession();
             session.register("zahi", "123456");
             Assert.IsTrue(session.getState() is Guest);
-            Assert.IsFalse(us.register(session, "zahi", "123456"));
-            Assert.IsFalse(us.register(session, "zahi", "12345678"));
+            Assert.IsFalse(us.register(session, "zahi", "123456") >= 0);
+            Assert.IsFalse(us.register(session, "zahi", "12345678") >= 0);
 
         }
 
@@ -52,7 +52,7 @@ namespace Acceptance_Tests
         {
             userServices us = userServices.getInstance();
             User session = us.startSession();
-            Assert.IsFalse(session.register("", "12345678"));
+            Assert.IsFalse(session.register("", "12345678") >= 0);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace Acceptance_Tests
         {
             userServices us = userServices.getInstance();
             User session = us.startSession();
-            Assert.IsFalse(session.register("zahi", ""));
+            Assert.IsFalse(session.register("zahi", "") >= 0);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace Acceptance_Tests
         {
             userServices us = userServices.getInstance();
             User session = us.startSession();
-            Assert.IsFalse(session.register("zahi abow", "123456"));
+            Assert.IsFalse(session.register("zahi abow", "123456") >= 0);
         }
 
 
@@ -77,7 +77,7 @@ namespace Acceptance_Tests
         {
             userServices us = userServices.getInstance();
             User session = us.startSession();
-            Assert.IsFalse(session.register("zahi", null));
+            Assert.IsFalse(session.register("zahi", null) >= 0);
         }
 
         [TestMethod]
@@ -85,7 +85,7 @@ namespace Acceptance_Tests
         {
             userServices us = userServices.getInstance();
             User session = us.startSession();
-            Assert.IsFalse(session.register(null, "abow"));
+            Assert.IsFalse(session.register(null, "abow") >= 0);
         }
     }
 }

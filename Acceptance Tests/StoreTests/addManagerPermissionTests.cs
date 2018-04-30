@@ -57,7 +57,8 @@ namespace Acceptance_Tests.StoreTests
             niv = us.startSession();
             us.register(niv, "niv", "123456");
             ss = storeServices.getInstance();
-            store = ss.createStore("abowim", zahi);
+            int s = ss.createStore("abowim", zahi);
+            store = storeArchive.getInstance().getStore(s);
             ss.addStoreManager(store, "aviad", zahi);
             niv.logOut();
         }
@@ -66,17 +67,18 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void addProductInStore()
         {
-            ss.addProductInStore("cola", 10, 4, aviad, store);
+            ss.addProductInStore("cola", 10, 4, aviad, store.getStoreId());
             Assert.AreEqual(0, store.getProductsInStore().Count);
             ss.addManagerPermission("addProductInStore", store, "aviad", zahi);
-            ss.addProductInStore("cola", 10, 4, aviad, store);
+            ss.addProductInStore("cola", 10, 4, aviad, store.getStoreId());
             Assert.AreEqual(1, store.getProductsInStore().Count);
         }
 
         [TestMethod]
         public void editProductInStoreWithManagerPermission()
         {
-            ProductInStore pis=ss.addProductInStore("cola", 10, 4, zahi, store);
+            int p=ss.addProductInStore("cola", 10, 4, zahi, store.getStoreId());
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(p);
             Assert.AreEqual(1, store.getProductsInStore().Count);
             ss.editProductInStore(aviad, store, pis, 13, 4.5);
             Assert.AreEqual(10, pis.getPrice());
@@ -89,7 +91,8 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void removeProductFromStoreWithManagerPermission()
         {
-            ProductInStore pis = ss.addProductInStore("cola", 10, 4, zahi, store);
+            int p = ss.addProductInStore("cola", 10, 4, zahi, store.getStoreId());
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(p);
             ss.removeProductFromStore(store, pis, aviad);
             Assert.AreEqual(1, store.getProductsInStore().Count);
             ss.addManagerPermission("removeProductFromStore", store, "aviad", zahi);
@@ -159,10 +162,10 @@ namespace Acceptance_Tests.StoreTests
             us.login(newManager, "newManager", "123456");
             ss.addManagerPermission("addManagerPermission", store, aviad.getUserName(), zahi);
             ss.addStoreManager(store, newManager.getUserName(), zahi);
-            ss.addProductInStore("cola", 10, 4, newManager, store);
+            ss.addProductInStore("cola", 10, 4, newManager, store.getStoreId());
             Assert.AreEqual(0, store.getProductsInStore().Count);
             ss.addManagerPermission("addProductInStore", store, newManager.getUserName(), aviad);
-            ss.addProductInStore("cola", 10, 4, newManager, store);
+            ss.addProductInStore("cola", 10, 4, newManager, store.getStoreId());
             Assert.AreEqual(1, store.getProductsInStore().Count);
         }
         [TestMethod]
@@ -176,17 +179,18 @@ namespace Acceptance_Tests.StoreTests
             ss.addManagerPermission("removeManagerPermission", store, aviad.getUserName(), zahi);
             ss.addStoreManager(store, newManager.getUserName(), zahi);
             ss.addManagerPermission("addProductInStore", store, newManager.getUserName(), aviad);
-            ss.addProductInStore("cola", 10, 4, newManager, store);
+            ss.addProductInStore("cola", 10, 4, newManager, store.getStoreId());
             Assert.AreEqual(1, store.getProductsInStore().Count);
             ss.removeManagerPermission("addProductInStore", store, newManager.getUserName(), aviad);
-            ss.addProductInStore("cola2", 10, 4, newManager, store);
+            ss.addProductInStore("cola2", 10, 4, newManager, store.getStoreId());
             Assert.AreEqual(1, store.getProductsInStore().Count);
         }
 
         [TestMethod]
         public void addSaleToStoreWithManagerPermission()
         {
-            ProductInStore pis = ss.addProductInStore("cola", 10, 4, zahi, store);
+            int p = ss.addProductInStore("cola", 10, 4, zahi, store.getStoreId());
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(p);
             int saleId = ss.addSaleToStore(aviad, store, pis.getProductInStoreId(), 1, 100, DateTime.Now.AddYears(1).ToString());
             Assert.AreEqual(-1,saleId);
             ss.addManagerPermission("addSaleToStore", store, aviad.getUserName(), zahi);
@@ -198,7 +202,8 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void removeSaleFromStoreWithManagerPermission()
         {
-            ProductInStore pis = ss.addProductInStore("cola", 10, 4, zahi, store);
+            int p = ss.addProductInStore("cola", 10, 4, zahi, store.getStoreId());
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(p);
             ss.addManagerPermission("addSaleToStore", store, aviad.getUserName(), zahi);
             int saleId = ss.addSaleToStore(aviad, store, pis.getProductInStoreId(), 1, 3, DateTime.Now.AddYears(1).ToString());
             Assert.AreEqual(saleId, SalesArchive.getInstance().getSalesByProductInStoreId(pis.getProductInStoreId()).First.Value.SaleId);
@@ -213,7 +218,8 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void editSaleWithManagerPermission()
         {
-            ProductInStore pis = ss.addProductInStore("cola", 100, 100, zahi, store);
+            int p = ss.addProductInStore("cola", 100, 100, zahi, store.getStoreId());
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(p);
             int saleId = ss.addSaleToStore(zahi, store, pis.getProductInStoreId(), 1, 40, DateTime.Now.AddYears(1).ToString());
             Assert.AreEqual(saleId, SalesArchive.getInstance().getSalesByProductInStoreId(pis.getProductInStoreId()).First.Value.SaleId);
             Boolean edited = ss.editSale(aviad, store, saleId,30, DateTime.Now.AddYears(1).ToString());
@@ -228,7 +234,8 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void addDiscountWithManagerPermission()
         {
-            ProductInStore pis = ss.addProductInStore("cola", 150, 100, zahi, store);
+            int p = ss.addProductInStore("cola", 150, 100, zahi, store.getStoreId());
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(p);
             int saleId = ss.addSaleToStore(zahi, store, pis.getProductInStoreId(), 1, 40, "10.1.2019");
             Boolean added=ss.addDiscount(pis, 11, "20.1.2019", aviad, store);
             Assert.AreEqual(false, added);
@@ -243,7 +250,9 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void removeDiscountWithManagerPermission()
         {
-            ProductInStore pis = ss.addProductInStore("cola", 150, 100, zahi, store);
+            int p = ss.addProductInStore("cola", 150, 100, zahi, store.getStoreId());
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(p);
+
             int saleId = ss.addSaleToStore(zahi, store, pis.getProductInStoreId(), 1, 40, "10.1.2019");
             ss.addManagerPermission("addDiscount", store, aviad.getUserName(), zahi);
             Boolean added = ss.addDiscount(pis, 11, "20.1.2019", aviad, store);
@@ -259,7 +268,8 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void addCouponWithManagerPermission()
         {
-            ProductInStore pis = ss.addProductInStore("cola", 150, 100, zahi, store);
+            int p = ss.addProductInStore("cola", 150, 100, zahi, store.getStoreId());
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(p);
             Boolean added = ss.addCouponDiscount(aviad, store,"coupon" ,pis, 10, "10.1.2019");
             Assert.AreEqual(false, added);
             ss.addManagerPermission("addNewCoupon", store, aviad.getUserName(), zahi);
@@ -270,7 +280,9 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void removeCouponWithManagerPermission()
         {
-            ProductInStore pis = ss.addProductInStore("cola", 150, 100, zahi, store);
+            int p = ss.addProductInStore("cola", 150, 100, zahi, store.getStoreId());
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(p);
+
             ss.addManagerPermission("addNewCoupon", store, aviad.getUserName(), zahi);
             Boolean added = ss.addCouponDiscount(aviad, store, "coupon", pis, 10, "10.1.2019");
             Assert.AreEqual(true, added);

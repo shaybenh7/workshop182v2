@@ -39,7 +39,7 @@ namespace wsep182.services
         //req 3.1 a
         /*
          * return:
-         *           0 < on sucess
+         *           0 > on sucess return productInStoreId
          *          -1 if user Not Login
          *          -2 if Store Name already exist
          *          -3 if illegal product name
