@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "Integra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebService", "WebService\WebService.csproj", "{D8F144CF-F5FA-4045-B97C-BB7A6A2E301A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEnd", "FrontEnd\FrontEnd.csproj", "{062A99F7-58C4-4BC4-8D53-2CC77AF7B204}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D8F144CF-F5FA-4045-B97C-BB7A6A2E301A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8F144CF-F5FA-4045-B97C-BB7A6A2E301A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8F144CF-F5FA-4045-B97C-BB7A6A2E301A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{062A99F7-58C4-4BC4-8D53-2CC77AF7B204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{062A99F7-58C4-4BC4-8D53-2CC77AF7B204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{062A99F7-58C4-4BC4-8D53-2CC77AF7B204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{062A99F7-58C4-4BC4-8D53-2CC77AF7B204}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
