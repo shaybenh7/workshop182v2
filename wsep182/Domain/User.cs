@@ -121,11 +121,12 @@ namespace wsep182.Domain
             return shoppingCart.addToCartRaffle(this, sale, offer);
         }
 
-        public static LinkedList<Sale> viewSalesByProductInStoreId(ProductInStore product)
+        public static LinkedList<Sale> viewSalesByProductInStoreId(int product)
         {
-            if (product == null)
+            LinkedList<Sale> ans = SalesArchive.getInstance().getSalesByProductInStoreId(product);
+            if (ans.Count == 0)
                 return null;
-            return SalesArchive.getInstance().getSalesByProductInStoreId(product.getProductInStoreId());
+            return ans;
         }
 
         public LinkedList<Purchase> viewStoreHistory(Store store)
