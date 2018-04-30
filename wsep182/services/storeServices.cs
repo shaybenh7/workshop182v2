@@ -125,12 +125,28 @@ namespace wsep182.services
         }
 
         //req 3.3 b
-        public Boolean removeStoreOwner(Store s, String oldOwner, User session)
+        /*
+        * return:
+        *           0 on sucess
+        *          -1 if user Not Login
+        *          -2 if Store Name already exist
+        *          -3 if illegal product name
+        *          -4 if don't have premition
+        *          -5 if illegal amount
+        *          -6 if illegal store id
+        *          -7 if illegal price
+        *          -8 if illegal product in store Id
+        *          -9 database eror
+        *          -10 can't remove himself
+        *          -11 not a owner
+        *          -12 if dealet creator
+        */
+        public int removeStoreOwner(int sId, String oldOwner, User session)
         {
-
+            Store s = storeArchive.getInstance().getStore(sId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
-                return false;
+                return -4;
             return sR.removeStoreOwner(session, s, oldOwner);
         }
 

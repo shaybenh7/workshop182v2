@@ -64,10 +64,10 @@ namespace WebService.Controllers
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
             int ans = storeServices.getInstance().editProductInStore(session, storeId, productInStoreId, amount, price);
-            if (ans > 0)
-                return "product in store " + ans + " successfuly added";
             switch (ans)
             {
+                case 0:
+                    return "product edited successfuly";
                 case -1:
                     return "error: username is not login";
                 case -2:
@@ -95,11 +95,11 @@ namespace WebService.Controllers
         public string removeProductFromStore(int storeId, int ProductInStoreId)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
-            int ans = storeServices.getInstance().removeProductFromStore(storeId, ProductInStoreId, session);
-            if (ans > 0)
-                return "product in store " + ans + " successfuly added";
+            int ans = storeServices.getInstance().removeProductFromStore(storeId, ProductInStoreId, session);  
             switch (ans)
             {
+                case 0:
+                    return "product removed successfuly";
                 case -1:
                     return "error: username is not login";
                 case -2:
@@ -124,10 +124,42 @@ namespace WebService.Controllers
 
         [Route("api/store/removeStoreOwner")]
         [HttpDelete]
-        public string removeStoreOwner(int storeId, String oldOwner, String session)
+        public string removeStoreOwner(int storeId, String oldOwner)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().removeStoreOwner(storeId, oldOwner, session);
+            switch (ans)
+            {
+                case 0:
+                    return "owner removed successfuly";
+                case -1:
+                    return "error: username is not login";
+                case -2:
+                    return "error: store name allready exist";
+                case -3:
+                    return "error: illegal product name";
+                case -4:
+                    return "error: don't have permission";
+                case -5:
+                    return "error: illegal amount";
+                case -6:
+                    return "error: illegal store id";
+                case -7:
+                    return "error: illegal price";
+                case -8:
+                    return "error: illegal product in store Id";
+                case -9:
+                    return "error: database error";
+                case -10:
+                    return "error: try to remove himself";
+                case -11:
+                    return "error: not a owner";
+                case -12:
+                    return "error: can't dealet creator";
+            }
+            return "server error: not suppose to happend";
         }
+
 
         [Route("api/store/addStoreManager")]
         [HttpPut]

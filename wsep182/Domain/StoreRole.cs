@@ -127,17 +127,20 @@ namespace wsep182.Domain
             StoreRole owner = new StoreOwner(newOwner, s);
             return storeArchive.getInstance().addStoreRole(owner, s.getStoreId(), newOwner.getUserName());
         }
-        public virtual Boolean removeStoreOwner(User session, Store s, String ownerToDelete)
+
+        public virtual int removeStoreOwner(User session, Store s, String ownerToDelete)
         {
             User oldOwner = UserArchive.getInstance().getUser(ownerToDelete);
             StoreRole sR2 = StoreRole.getStoreRole(s, oldOwner);
             if (ownerToDelete == user.getUserName())
-                return false;//owner cannot remove himself
+                return -10;//-10 can't remove himself
             if (!(sR2 is StoreOwner))
-                return false;
+                return -11;//-11 not a owner
             if (s.getStoreCreator().getUserName().Equals(ownerToDelete))
-                return false;
-            return storeArchive.getInstance().removeStoreRole(s.getStoreId(), ownerToDelete);
+                return -12;//-12 if dealet creator
+             if(storeArchive.getInstance().removeStoreRole(s.getStoreId(), ownerToDelete))
+                return 0;
+            return -9;//-9 database eror
         }
         public virtual Boolean addManagerPermission(User session, String permission, Store s, String managerUserName)
         {
