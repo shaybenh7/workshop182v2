@@ -132,9 +132,20 @@ namespace WebService.Controllers
 
         [Route("api/store/viewCart")]
         [HttpGet]
-        public string viewCart()
+        public HttpResponseMessage viewCart()
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            Object cart = sellServices.getInstance().viewCart(session);
+            HttpResponseMessage response;
+            if (cart == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: user is not valid!");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, cart);
+            }
+            return response;
         }
 
         [Route("api/store/editCart")]
