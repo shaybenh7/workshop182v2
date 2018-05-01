@@ -1,6 +1,0 @@
-C:\Programing\c#\workshop182v2\FrontEnd\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Programing\c#\workshop182v2\FrontEnd\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Programing\c#\workshop182v2\FrontEnd\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Programing\c#\workshop182v2\FrontEnd\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Programing\c#\workshop182v2\FrontEnd\bin\roslyn\System.IO.Compression.dll
-C:\Programing\c#\workshop182v2\FrontEnd\bin\roslyn\VBCSCompiler.exe

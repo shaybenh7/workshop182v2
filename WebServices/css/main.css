@@ -270,7 +270,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 [ Menu ]*/
 
 .wrap-menu-desktop {
-  position: fixed;
+  position: static;
   z-index: 1100;
   background-color: transparent;
   width: 100%;

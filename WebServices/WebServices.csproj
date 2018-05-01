@@ -177,12 +177,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\SellController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,6 +191,27 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\AllProducts.aspx.cs">
+      <DependentUpon>AllProducts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Pages\AllProducts.aspx.designer.cs">
+      <DependentUpon>AllProducts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\AllStores.aspx.cs">
+      <DependentUpon>AllStores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Pages\AllStores.aspx.designer.cs">
+      <DependentUpon>AllStores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Pages\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
@@ -206,6 +225,9 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\customised.css" />
+    <Content Include="css\main.css" />
+    <Content Include="css\util.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -291,6 +313,11 @@
     <Content Include="images\thumb-01.jpg" />
     <Content Include="images\thumb-02.jpg" />
     <Content Include="images\thumb-03.jpg" />
+    <Content Include="js\custom.js" />
+    <Content Include="js\main.js" />
+    <Content Include="js\map-custom.js" />
+    <Content Include="js\slick-custom.js" />
+    <Content Include="js\validators.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -363,6 +390,7 @@
     <Content Include="vendor\jqueryui\jquery-ui.theme.css" />
     <Content Include="vendor\jqueryui\jquery-ui.theme.min.css" />
     <Content Include="vendor\jquery\jquery-3.2.1.min.js" />
+    <Content Include="vendor\JS\temp.js" />
     <Content Include="vendor\lightbox2\css\lightbox.css" />
     <Content Include="vendor\lightbox2\css\lightbox.min.css" />
     <Content Include="vendor\lightbox2\images\close.png" />
@@ -390,6 +418,9 @@
     <Content Include="vendor\slick\slick.js" />
     <Content Include="vendor\slick\slick.min.js" />
     <Content Include="vendor\sweetalert\sweetalert.min.js" />
+    <Content Include="Views\Pages\AllProducts.aspx" />
+    <Content Include="Views\Pages\AllStores.aspx" />
+    <Content Include="Views\Pages\index.aspx" />
     <Content Include="Views\Pages\login.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

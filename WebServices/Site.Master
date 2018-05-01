@@ -51,19 +51,17 @@
                 <div class="top-bar">
                     <div class="content-topbar flex-sb-m h-full container">
                         <div class="left-top-bar">
-                            Welcome to the best market online!
+                            
                         </div>
 
                         <div class="right-top-bar flex-w h-full">
 
-                            <a href="#" class="flex-c-m trans-04 p-lr-25">Login
+                            <a href="/login" class="flex-c-m trans-04 p-lr-25">Login
                             </a>
 
                             <a href="#" class="flex-c-m trans-04 p-lr-25">Register
                             </a>
 
-                            <a href="#" class="flex-c-m trans-04 p-lr-25">Rus
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -80,14 +78,12 @@
                         <div class="menu-desktop">
                             <ul class="main-menu">
                                 <li class="active-menu">
-                                    <a href="index.html">Home</a>
+                                    <a href="/">Home</a>
                                 </li>
 
                                 <li>
                                     <a href="product.html">All Stores</a>
                                 </li>
-
-                                <li class="label1" data-label1="hot">
                                     <a href="shoping-cart.html">All Products</a>
                                 </li>
 
