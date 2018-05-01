@@ -227,8 +227,9 @@ namespace wsep182.services
         }
 
         //req 3.7 and 5.4 a
-        public LinkedList<Purchase> viewStoreHistory(User session, Store store)
+        public LinkedList<Purchase> viewStoreHistory(User session, int storeId)
         {
+            Store store = storeArchive.getInstance().getStore(storeId);
             if (session == null | store == null)
                 return null;
             return session.viewStoreHistory(store);

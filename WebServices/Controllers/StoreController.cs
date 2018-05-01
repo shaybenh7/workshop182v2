@@ -267,16 +267,38 @@ namespace WebService.Controllers
 
         [Route("api/store/viewStoreHistory")]
         [HttpGet]
-        public string viewStoreHistory(int storeId, String oldManageruserName, String session)
+        public HttpResponseMessage viewStoreHistory(int storeId)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            Object history = storeServices.getInstance().viewStoreHistory(session,storeId);
+            HttpResponseMessage response;
+            if (history == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: permissions or store not valid!");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, history);
+            }
+            return response;
         }
 
         [Route("api/store/viewUserHistory")]
         [HttpGet]
-        public string viewUserHistory(int storeId, String oldManageruserName, String session)
+        public HttpResponseMessage viewUserHistory(int storeId, String userToGet)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            Object history = storeServices.getInstance().viewUserHistory(session, userToGet);
+            HttpResponseMessage response;
+            if (history == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: permissions or user not valid!");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, history);
+            }
+            return response;
         }
 
         [Route("api/store/addSaleToStore")]
