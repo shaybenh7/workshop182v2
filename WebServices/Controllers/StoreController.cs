@@ -163,16 +163,66 @@ namespace WebService.Controllers
 
         [Route("api/store/addStoreManager")]
         [HttpPut]
-        public string addStoreManager(int storeId, String newManager, string session)
+        public string addStoreManager(int storeId, String newManager)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().addStoreManager(storeId, newManager, session);
+            switch (ans)
+            {
+                case 0:
+                    return "manager added successfuly";
+                case -1:
+                    return "error: username is not login";
+                case -2:
+                    return "error: the manager doesn't exist";
+                case -3:
+                    return "error: illegal store id";
+                case -4:
+                    return "error: don't have permission";
+                case -5:
+                    return "error: database error";
+                case -6:
+                    return "error: the user is already owner or manneger";
+            }
+            return "server error: not suppose to happend";
         }
 
         [Route("api/store/removeStoreManager")]
         [HttpDelete]
-        public string removeStoreManager(int storeId, String oldManageruserName, String session)
+        public string removeStoreManager(int storeId, String oldManageruserName)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().removeStoreManager(storeId, oldManageruserName, session);
+            switch (ans)
+            {
+                case 0:
+                    return "owner removed successfuly";
+                case -1:
+                    return "error: username is not login";
+                case -2:
+                    return "error: store name allready exist";
+                case -3:
+                    return "error: illegal product name";
+                case -4:
+                    return "error: don't have permission";
+                case -5:
+                    return "error: illegal amount";
+                case -6:
+                    return "error: illegal store id";
+                case -7:
+                    return "error: illegal price";
+                case -8:
+                    return "error: illegal product in store Id";
+                case -9:
+                    return "error: database error";
+                case -10:
+                    return "error: try to remove himself";
+                case -11:
+                    return "error: not a owner";
+                case -12:
+                    return "error: can't dealet creator";
+            }
+            return "server error: not suppose to happend";
         }
 
         [Route("api/store/addManagerPermission")]

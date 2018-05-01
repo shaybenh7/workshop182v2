@@ -75,18 +75,18 @@ namespace wsep182.Domain
             return -4;// -4 if don't have premition
         }
 
-        public override Boolean addStoreManager(User session, Store s, String newManager)
+        public override int addStoreManager(User session, Store s, String newManager)
         {
             if (premissions.checkPrivilege(s.getStoreId(), session.getUserName(), "addStoreManager"))
                 return base.addStoreManager(session, s, newManager);
-            return false;
+            return -4;// -4 if don't have premition
         }
-        public override Boolean removeStoreManager(User session, Store s, String oldManager)
+        public override int removeStoreManager(User session, Store s, String oldManager)
         {
             if (premissions.checkPrivilege(s.getStoreId(), session.getUserName(), "removeStoreManager"))
                 return base.removeStoreManager(session, s, oldManager);
-            return false;
-            
+            return -4;// -4 if don't have premition
+
         }
 
         public override Premissions getPremissions(User manager, Store s)

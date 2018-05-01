@@ -90,24 +90,39 @@ namespace wsep182.Domain
             return -9;
 
         }
-        public virtual Boolean addStoreManager(User session, Store s, String newManagerUserName)
+     
+        public virtual int addStoreManager(User session, Store s, String newManagerUserName)
         {
             User newManager = UserArchive.getInstance().getUser(newManagerUserName);
-            if (session == null || s == null || newManager == null)
-                return false;
+            if (session == null)
+                return -1;//-1 if user Not Login
+            if (s == null)
+                return -3;//-3 if illegal store id
+            if (newManager == null)
+                return -2;//-2 if new manager name not exist
+
             StoreRole sr = storeArchive.getInstance().getStoreRole(s, newManager);
             if (sr != null && (sr is StoreOwner || sr is StoreManager))
-                return false;
+                return -6;//-6 already owner or manneger
             if (sr != null && (sr is Customer))
                 storeArchive.getInstance().removeStoreRole(s.getStoreId(), newManager.getUserName());
             StoreRole m = new StoreManager(newManager, s);
-            return storeArchive.getInstance().addStoreRole(m, s.getStoreId(), newManager.getUserName());
+            if (storeArchive.getInstance().addStoreRole(m, s.getStoreId(), newManager.getUserName()))
+                return 0;
+            return -5;//-5 database error
         }
-        public virtual Boolean removeStoreManager(User session, Store s, String oldManager)
+
+        public virtual int removeStoreManager(User session, Store s, String oldManager)
         {
-            if (session == null || s == null || oldManager == null)
-                return false;
-            return storeArchive.getInstance().removeStoreRole(s.getStoreId(), oldManager);
+            if (session == null  )
+                return -1;//-1 if user Not Login
+            if (s == null)
+                return -3;//-3 if illegal store id
+            if (oldManager == null)
+                return -6;// -6 old manager name doesn't exsist
+            if( storeArchive.getInstance().removeStoreRole(s.getStoreId(), oldManager))
+                return 0;//OK
+            return -5;//-5 database eror
         }
 
         public virtual Boolean addStoreOwner(User session, Store s, String newOwnerUserName)

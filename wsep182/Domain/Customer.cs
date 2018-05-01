@@ -42,14 +42,14 @@ namespace wsep182.Domain
             return -4;//-4 if don't have premition
         }
 
-        public override Boolean addStoreManager(User session, Store s, String newManager)
+        public override int addStoreManager(User session, Store s, String newManager)
         {
-            return false;
+            return -4;//-4 if don't have premition
         }
 
-        public override Boolean removeStoreManager(User session, Store s, String oldManager)
+        public override int removeStoreManager(User session, Store s, String oldManager)
         {
-            return false;
+            return -4;//-4 if don't have premition
         }
 
         public override Boolean addStoreOwner(User session, Store s, String newOwner)

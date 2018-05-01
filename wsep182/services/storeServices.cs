@@ -151,22 +151,45 @@ namespace wsep182.services
         }
 
         //req 3.4 a
-        public Boolean addStoreManager(Store s, String newManager, User session)
+        /*
+        * return:
+        *           0 on sucess
+        *          -1 if user Not Login
+        *          -2 if new manager name not exist
+        *          -3 if illegal store id
+        *          -4 if don't have premition
+        *          -5 database eror
+        *          -6 already owner or manneger
+        */
+        public int addStoreManager(int sId, String newManager, User session)
         {
+            Store s = storeArchive.getInstance().getStore(sId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
-                return false;
+                return -4;//-4 if don't have premition
             return sR.addStoreManager(session, s, newManager);
         }
 
         //req 3.4 b
-        public Boolean removeStoreManager(Store s, String oldManageruserName, User session)
+        /*
+      * return:
+      *           0 on sucess
+      *          -1 if user Not Login
+      *          -2 if Store Name already exist
+      *          -3 if illegal store id
+      *          -4 if don't have premition
+      *          -5 database eror
+      *          -6 old manager name doesn't exsist
+      *          -10 can't remove himself
+      */
+        public int removeStoreManager(int sId, String oldManageruserName, User session)
         {
+            Store s = storeArchive.getInstance().getStore(sId);
             if (oldManageruserName == session.getUserName())
-                return false;
+                return -10;// -10 can't remove himself
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
-                return false;
+                return -4;//-4 if don't have premition
             return sR.removeStoreManager(session, s, oldManageruserName);
         }
 
