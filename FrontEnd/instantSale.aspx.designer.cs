@@ -10,6 +10,6 @@
 namespace FrontEnd {
     
     
-    public partial class products {
+    public partial class instantSale {
     }
 }

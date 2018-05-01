@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Login Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="FrontEnd.login" %>
+﻿<%@ Page Title="Register Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="register.aspx.cs" Inherits="FrontEnd.register" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
@@ -12,18 +12,23 @@
                     </h4>
 
                         <div class="wrap-input1 w-full p-b-4">
-                            <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="username" placeholder="username">
+                            <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="username" placeholder="Enter username">
                             <div class="focus-input1 trans-04"></div>
                         </div>
 
                         <div class="wrap-input1 w-full p-b-4">
-                            <input class="input1 bg-none plh1 stext-107 cl7" type="password" name="password" placeholder="123456">
+                            <input class="input1 bg-none plh1 stext-107 cl7" type="password" name="password1" placeholder="Enter your password">
+                            <div class="focus-input1 trans-04"></div>
+                        </div>
+
+                        <div class="wrap-input1 w-full p-b-4">
+                            <input class="input1 bg-none plh1 stext-107 cl7" type="password" name="password2" placeholder="Confirm password">
                             <div class="focus-input1 trans-04"></div>
                         </div>
 
                         <div class="p-t-18">
                             <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-                                Login
+                                Register
                             </button>
                         </div>
                 </div>
