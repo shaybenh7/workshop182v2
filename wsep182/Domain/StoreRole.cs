@@ -194,21 +194,37 @@ namespace wsep182.Domain
                 return 0;
             return -7; //No permissions
         }
+      
         public virtual int addSaleToStore(User session, Store s, int productInStoreId, int typeOfSale, int amount, String dueDate)
         {
             ProductInStore pis = ProductArchive.getInstance().getProductInStore(productInStoreId);
-            if (session == null || s == null || dueDate == null ||pis == null || typeOfSale > 3 || typeOfSale < 1 || pis.getAmount() < amount || amount < 0 || dueDate == null)
-                return -1;
+            if (session == null )
+                return -1;// -1 if user Not Login
+            if (s == null)
+                return -6; //-6 if illegal store id
+            if (dueDate == null)
+                return -10;//-10 due date not good
+            if (pis == null)
+                return -8;//-8 if illegal product in store Id
+            if (typeOfSale > 3 || typeOfSale < 1)
+                return -11;// -11 illegal type of sale not 
+            if (pis.getAmount() < amount)
+                return -5;//-5 if illegal amount
+            if (amount < 0)
+                return -12;// -12 if illegal amount
+            if (dueDate == null)
+                return -10;//-10 due date not good
+
             if (pis.getStore().getStoreId() != s.getStoreId())
-                return -1;
+                return -13;//-13 product not in this store
             if (typeOfSale == 2)
             {
                 //will be implemented next version
-                return -1;
+                return -11;// -11 illegal type of sale not 
             }
             Sale sale = SalesArchive.getInstance().addSale(productInStoreId, typeOfSale, amount, dueDate);
             
-            return (sale == null) ? -1 : sale.SaleId;
+            return (sale == null) ? -9 : sale.SaleId;
         }
 
         public virtual Boolean removeSaleFromStore(User session, Store s, int saleId)

@@ -243,13 +243,31 @@ namespace wsep182.services
             return session.viewUserHistory(userToGetHistory);
         }
 
-        public int addSaleToStore(User session, Store s, int productInStoreId, int typeOfSale, int amount, String dueDate)
+        /*
+     * return:
+     *           0 > on sucess the SaleID
+     *          -1 if user Not Login
+     *          -2 if Store Name already exist
+     *          -3 if illegal product name
+     *          -4 if don't have premition
+     *          -5 if illegal amount bigger then amount in stock
+     *          -6 if illegal store id
+     *          -7 if illegal price
+     *          -8 if illegal product in store Id
+     *          -9 database eror
+     *          -10 due date not good
+     *          -11 illegal type of sale not 
+     *          -12 if illegal amount
+     *          -13 product not in this store
+     */
+        public int addSaleToStore(User session, int storeId, int productInStoreId, int typeOfSale, int amount, String dueDate)
         {
+            Store s = storeArchive.getInstance().getStore(storeId);
             if (session==null||!session.getState().isLogedIn())
-                return -1;
+                return -1;//-1 if user Not Login
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
-                return -1;
+                return -1;//-4 if don't have premition
             return sR.addSaleToStore(session, s, productInStoreId, typeOfSale, amount, dueDate);
         }
 

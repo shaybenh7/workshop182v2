@@ -196,7 +196,7 @@ namespace WebService.Controllers
             switch (ans)
             {
                 case 0:
-                    return "owner removed successfuly";
+                    return "Manager removed successfuly";
                 case -1:
                     return "error: username is not login";
                 case -3:
@@ -285,7 +285,7 @@ namespace WebService.Controllers
 
         [Route("api/store/viewUserHistory")]
         [HttpGet]
-        public HttpResponseMessage viewUserHistory(int storeId, String userToGet)
+        public HttpResponseMessage viewUserHistory(String userToGet)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
             Object history = storeServices.getInstance().viewUserHistory(session, userToGet);
@@ -303,9 +303,41 @@ namespace WebService.Controllers
 
         [Route("api/store/addSaleToStore")]
         [HttpPut]
-        public string addSaleToStore(int storeId, String oldManageruserName, String session)
+        public string addSaleToStore(int storeId, String oldManageruserName, int pisId, int typeOfSale, int amount, String dueDtae)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().addSaleToStore(session, storeId, pisId, typeOfSale, amount, dueDtae);
+            if (ans > 0)
+                return "sale " + ans + " successfuly added";
+            switch (ans)
+            { 
+                case -1:
+                    return "Error: username is not login";
+                case -3:
+                    return "Error: illegal product name";
+                case -4:
+                    return "Error: don't have permission";
+                case -5:
+                    return "Error: illegal amount bigger then amount in stock";
+                case -6:
+                    return "Error: illegal store id";
+                case -7:
+                    return "Error: illegal price";
+                case -8:
+                    return "Error: illegal product name";
+                case -9:
+                    return "Error: database error";
+                case -10:
+                    return "Error: illegal due date";
+                case -11:
+                    return "Error: illegal type of sale";
+                case -12:
+                    return "Error: illegal amount";
+                case -13:
+                    return "Error: product not in this store";
+
+            }
+            return "Server error: not suppose to happen";
         }
 
         [Route("api/store/removeSaleFromStore")]

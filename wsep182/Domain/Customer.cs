@@ -71,7 +71,7 @@ namespace wsep182.Domain
 
         public override int addSaleToStore(User session, Store s, int productInStoreId, int typeOfSale, int amount, String dueDate)
         {
-            return -1;
+            return -4;
         }
 
         public override int removeManagerPermission(User session, String permission, Store s, String manager)

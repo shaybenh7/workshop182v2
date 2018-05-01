@@ -112,7 +112,7 @@ namespace wsep182.Domain
         {
             if (premissions.checkPrivilege(s.getStoreId(), session.getUserName(), "addSaleToStore"))
                 return base.addSaleToStore(session, s, productInStoreId, typeOfSale, amount, dueDate);
-            return -1;
+            return -4;
         }
 
         public override Boolean removeSaleFromStore(User session, Store s, int saleId)
