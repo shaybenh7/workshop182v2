@@ -74,9 +74,9 @@ namespace wsep182.Domain
             return -1;
         }
 
-        public override Boolean removeManagerPermission(User session, String permission, Store s, String manager)
+        public override int removeManagerPermission(User session, String permission, Store s, String manager)
         {
-            return false;
+            return -4;
         }
 
         public override Boolean removeSaleFromStore(User session, Store s, int saleId)

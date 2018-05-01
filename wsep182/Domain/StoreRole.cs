@@ -175,6 +175,25 @@ namespace wsep182.Domain
             return -7;//-7 no such premition
 
         }
+        public virtual int removeManagerPermission(User session, String permission, Store s, String managerUsername)
+        {
+            if (managerUsername == null)
+                return -6; //manager name doesn't exists
+            User manager = UserArchive.getInstance().getUser(managerUsername);
+
+            if (permission == null)
+                return -7; //No permissions
+            if (manager == null)
+                return -6; //manager name doesnt exists
+            if (session == null)
+                return -1; //user not logged in
+            if (s == null)
+                return -3; //Illegal store id
+            StoreRole sR = storeArchive.getInstance().getStoreRole(s, manager);
+            if (correlate(manager, s, permission, sR, false))
+                return 0;
+            return -7; //No permissions
+        }
         public virtual int addSaleToStore(User session, Store s, int productInStoreId, int typeOfSale, int amount, String dueDate)
         {
             ProductInStore pis = ProductArchive.getInstance().getProductInStore(productInStoreId);
@@ -236,17 +255,7 @@ namespace wsep182.Domain
             return CouponsArchive.getInstance().removeCoupon(couponId);
         }
 
-        public virtual Boolean removeManagerPermission(User session, String permission, Store s, String managerUsername)
-        {
-            if (managerUsername == null)
-                return false;
-            User manager = UserArchive.getInstance().getUser(managerUsername);
 
-            if (permission == null || manager == null || session == null || s == null)
-                return false;
-            StoreRole sR = storeArchive.getInstance().getStoreRole(s, manager);
-            return correlate(manager, s, permission, sR, false);
-        }
         public virtual LinkedList<Purchase> viewPurchasesHistory(User session,Store s)
         {
             return BuyHistoryArchive.getInstance().viewHistoryByStoreId(s.getStoreId());

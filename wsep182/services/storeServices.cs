@@ -206,9 +206,9 @@ namespace wsep182.services
 *          -7 no such premition
 *          -10 can't remove himself
 */
-        public int addManagerPermission(String permission, int sId, String managerToAdd, User session)
+        public int addManagerPermission(String permission, int storeId, String managerToAdd, User session)
         {
-            Store s = storeArchive.getInstance().getStore(sId);
+            Store s = storeArchive.getInstance().getStore(storeId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
                 return -4; //-4 if don't have premition
@@ -217,11 +217,12 @@ namespace wsep182.services
         }
 
         //req 3.4 d
-        public Boolean removeManagerPermission(String permission, Store s, String manager, User session)
+        public int removeManagerPermission(String permission, int storeId, String manager, User session)
         {
+            Store s = storeArchive.getInstance().getStore(storeId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
-                return false;
+                return -4; //-4 if you do not have permissions
             return sR.removeManagerPermission(session, permission, s, manager);
         }
 

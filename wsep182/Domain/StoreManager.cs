@@ -101,11 +101,11 @@ namespace wsep182.Domain
             return -4;//-4 if don't have premition
         }
 
-        public override Boolean removeManagerPermission(User session, String permission, Store s, String manager)
+        public override int removeManagerPermission(User session, String permission, Store s, String manager)
         {
             if (premissions.checkPrivilege(s.getStoreId(), session.getUserName(), "removeManagerPermission"))
                 return base.removeManagerPermission(session, permission, s, manager);
-            return false;
+            return -4;
         }
 
         public override int addSaleToStore(User session, Store s, int productInStoreId, int typeOfSale, int amount, String dueDate)
