@@ -145,6 +145,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BrowserJsonFormatter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -205,6 +206,13 @@
     </Compile>
     <Compile Include="Views\Pages\AllStores.aspx.designer.cs">
       <DependentUpon>AllStores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\error.aspx.cs">
+      <DependentUpon>error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Pages\error.aspx.designer.cs">
+      <DependentUpon>error.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\register.aspx.cs">
       <DependentUpon>register.aspx</DependentUpon>
@@ -441,6 +449,7 @@
     <Content Include="vendor\sweetalert\sweetalert.min.js" />
     <Content Include="Views\Pages\AllProducts.aspx" />
     <Content Include="Views\Pages\AllStores.aspx" />
+    <Content Include="Views\Pages\error.aspx" />
     <Content Include="Views\Pages\register.aspx" />
     <Content Include="Views\Pages\MyStores.aspx" />
     <Content Include="Views\Pages\admin.aspx" />
@@ -477,6 +486,7 @@
     <Content Include="vendor\slick\slick.less" />
     <Content Include="vendor\slick\slick.scss" />
     <Content Include="Site.Master" />
+    <Content Include="Views\Pages\test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

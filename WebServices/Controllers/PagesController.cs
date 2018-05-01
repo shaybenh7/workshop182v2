@@ -3,11 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using wsep182.services;
+using wsep182.Domain;
 
 namespace WebServices.Controllers
 {
+    public class CheckLoggedIn : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var MySession = HttpContext.Current.Session;
+
+            String hash = (string)MySession["hash"];
+           if (hash == null || hashServices.getUserByHash(hash) == null || !hashServices.getUserByHash(hash).getState().isLogedIn())
+            {
+                filterContext.Result = new RedirectResult(string.Format("/error/"));
+            }
+        }
+    }
+
+    public class CheckAdmin : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var MySession = HttpContext.Current.Session;
+
+            String hash = (string)MySession["hash"];
+            if (hash == null || hashServices.getUserByHash(hash) == null || (hashServices.getUserByHash(hash).getState() is Admin))
+            {
+                filterContext.Result = new RedirectResult(string.Format("/error/"));
+            }
+        }
+    }
     public class PagesController : Controller
     {
+
         // GET: Pages
         public ActionResult Index()
         {
@@ -19,6 +49,7 @@ namespace WebServices.Controllers
             return View();
         }
 
+
         public ActionResult AllProducts()
         {
             return View();
@@ -29,17 +60,30 @@ namespace WebServices.Controllers
             return View();
         }
 
+        [CheckLoggedIn]
         public ActionResult MyStores()
         {
             return View();
         }
 
-        public ActionResult admin()
+        [CheckAdmin]
+        public ActionResult Admin()
         {
+            
             return View();
         }
 
         public ActionResult register()
+        {
+            return View();
+        }
+
+        public ActionResult error()
+        {
+            return View();
+        }
+
+        public ActionResult test()
         {
             return View();
         }

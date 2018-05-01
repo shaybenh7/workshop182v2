@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Security;
 using wsep182.Domain;
 using wsep182.services;
 
@@ -72,14 +73,19 @@ namespace WebService.Controllers
 
         [Route("api/user/login")]
         [HttpGet]
-        public string login(String Username, String Password)
+        public Object login(String Username, String Password)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = userServices.getInstance().startSession();
             int ans = userServices.getInstance().login(session, Username, Password);
             switch (ans)
             {
                 case 0:
-                    return "user successfuly logged in";
+                    
+                    String hash = hashServices.generateID();
+                    hashServices.configureUser(hash, session);
+                    System.Web.HttpContext.Current.Session["hash"] = hash;
+                    String[] answer = { "user successfuly logged in", hash };
+                    return answer;
                 case -1:
                     return "error: username not exist";
                 case -2:
