@@ -19,7 +19,27 @@ namespace WebServices.Controllers
             return View();
         }
 
-        public ActionResult temp()
+        public ActionResult AllProducts()
+        {
+            return View();
+        }
+
+        public ActionResult AllStores()
+        {
+            return View();
+        }
+
+        public ActionResult MyStores()
+        {
+            return View();
+        }
+
+        public ActionResult admin()
+        {
+            return View();
+        }
+
+        public ActionResult register()
         {
             return View();
         }

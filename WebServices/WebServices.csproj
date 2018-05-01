@@ -206,6 +206,27 @@
     <Compile Include="Views\Pages\AllStores.aspx.designer.cs">
       <DependentUpon>AllStores.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\register.aspx.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Pages\register.aspx.designer.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\MyStores.aspx.cs">
+      <DependentUpon>MyStores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Pages\MyStores.aspx.designer.cs">
+      <DependentUpon>MyStores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\admin.aspx.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Pages\admin.aspx.designer.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -420,6 +441,9 @@
     <Content Include="vendor\sweetalert\sweetalert.min.js" />
     <Content Include="Views\Pages\AllProducts.aspx" />
     <Content Include="Views\Pages\AllStores.aspx" />
+    <Content Include="Views\Pages\register.aspx" />
+    <Content Include="Views\Pages\MyStores.aspx" />
+    <Content Include="Views\Pages\admin.aspx" />
     <Content Include="Views\Pages\index.aspx" />
     <Content Include="Views\Pages\login.aspx" />
     <Content Include="Web.config" />
