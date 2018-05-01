@@ -94,11 +94,11 @@ namespace wsep182.Domain
             return premissions.getAllPremissions(s.getStoreId(), manager.getUserName());
         }
 
-        public override Boolean addManagerPermission(User session, String permission, Store s, String manager)
+        public override int addManagerPermission(User session, String permission, Store s, String manager)
         {
             if (premissions.checkPrivilege(s.getStoreId(), session.getUserName(), "addManagerPermission"))
                 return base.addManagerPermission(session, permission, s, manager);
-            return false;
+            return -4;//-4 if don't have premition
         }
 
         public override Boolean removeManagerPermission(User session, String permission, Store s, String manager)

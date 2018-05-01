@@ -194,11 +194,24 @@ namespace wsep182.services
         }
 
         //req 3.4 c
-        public Boolean addManagerPermission(String permission, Store s, String managerToAdd, User session)
+        /*
+*       return:
+*           0 on sucess
+*          -1 if user Not Login
+*          -2 if Store Name already exist
+*          -3 if illegal store id
+*          -4 if don't have premition
+*          -5 database eror
+*          -6 manager name doesn't exsist
+*          -7 no such premition
+*          -10 can't remove himself
+*/
+        public int addManagerPermission(String permission, int sId, String managerToAdd, User session)
         {
+            Store s = storeArchive.getInstance().getStore(sId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
-                return false;
+                return -4; //-4 if don't have premition
             return sR.addManagerPermission(session, permission, s, managerToAdd);
 
         }

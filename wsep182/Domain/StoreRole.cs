@@ -157,13 +157,22 @@ namespace wsep182.Domain
                 return 0;
             return -9;//-9 database eror
         }
-        public virtual Boolean addManagerPermission(User session, String permission, Store s, String managerUserName)
+        public virtual int addManagerPermission(User session, String permission, Store s, String managerUserName)
         {
+    
             User manager = UserArchive.getInstance().getUser(managerUserName);
-            if (session == null || permission == null || manager == null || s == null)
-                return false;
+            if (session == null)
+                return -1;//-1 if user Not Login
+            if (permission == null)
+                return -7;//-7 no such premition
+            if (manager == null)
+                return -6;//-6 manager name doesn't exsist
+            if (s == null)
+                return -3;// -3 if illegal store id
             StoreRole sR = storeArchive.getInstance().getStoreRole(s, manager);
-            return correlate(manager, s, permission, sR, true);
+            if( correlate(manager, s, permission, sR, true))
+                return 0;
+            return -7;//-7 no such premition
 
         }
         public virtual int addSaleToStore(User session, Store s, int productInStoreId, int typeOfSale, int amount, String dueDate)

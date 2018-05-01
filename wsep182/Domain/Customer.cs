@@ -63,9 +63,9 @@ namespace wsep182.Domain
 
         }
 
-        public override Boolean addManagerPermission(User session, String permission, Store s, String manager)
+        public override int addManagerPermission(User session, String permission, Store s, String manager)
         {
-            return false;
+            return -4;//-4 if don't have premition
 
         }
 
