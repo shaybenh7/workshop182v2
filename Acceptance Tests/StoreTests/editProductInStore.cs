@@ -39,10 +39,11 @@ namespace Acceptance_Tests.StoreTests
             cola = ProductArchive.getInstance().getProductInStore(c);
 
         }
+  
         [TestMethod]
         public void simpleEditProductInStore()
         {
-            Assert.IsTrue(ss.editProductInStore(zahi, store, cola, 100, 5.2));
+            Assert.AreEqual(ss.editProductInStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 100, 5.2),0);
             Assert.AreEqual(cola.getAmount(),100);
             Assert.AreEqual(cola.getPrice(), 5.2);
         }
@@ -50,7 +51,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditProductInStoreWithNullSession()
         {
-            Assert.IsFalse(ss.editProductInStore(null, store, cola, 100, 5.2));
+            Assert.AreEqual(ss.editProductInStore(null, store.getStoreId(), cola.getProductInStoreId(), 100, 5.2),-1);//-1 not log in can be -4 no premition
             Assert.AreEqual(cola.getAmount(), 10);
             Assert.AreEqual(cola.getPrice(), 3.2);
         }
@@ -58,7 +59,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditProductInStoreWithNullStore()
         {
-            Assert.IsFalse(ss.editProductInStore(zahi, null, cola, 100, 5.2));
+            Assert.AreEqual(ss.editProductInStore(zahi, -7, cola.getProductInStoreId(), 100, 5.2),-6);//-6 if illegal store id
             Assert.AreEqual(cola.getAmount(), 10);
             Assert.AreEqual(cola.getPrice(), 3.2);
         }
@@ -66,7 +67,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditProductInStoreWithNullProductInStore()
         {
-            Assert.IsFalse(ss.editProductInStore(zahi, store, null, 100, 5.2));
+            Assert.AreEqual(ss.editProductInStore(zahi, store.getStoreId(), -7, 100, 5.2),-8);// -8 if illegal product in store Id
             Assert.AreEqual(cola.getAmount(), 10);
             Assert.AreEqual(cola.getPrice(), 3.2);
         }
@@ -74,15 +75,14 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditProductInStoreWithNegativeAmount()
         {
-            Assert.IsFalse(ss.editProductInStore(zahi, store, cola, -1, 5.2));
+            Assert.AreEqual(ss.editProductInStore(zahi, store.getStoreId(), cola.getProductInStoreId(), -1, 5.2),-5);//-5 if illegal amount
             Assert.AreEqual(cola.getAmount(), 10);
             Assert.AreEqual(cola.getPrice(), 3.2);
         }
-
         [TestMethod]
         public void EditProductInStoreWithZeroAmount()
         {
-            Assert.IsTrue(ss.editProductInStore(zahi, store, cola, 0, 5.2));
+            Assert.AreEqual(ss.editProductInStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 0, 5.2),0);
             Assert.AreEqual(cola.getAmount(), 0);
             Assert.AreEqual(cola.getPrice(), 5.2);
         }
@@ -90,7 +90,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditProductInStoreWithNegativePrice()
         {
-            Assert.IsFalse(ss.editProductInStore(zahi, store, cola, 100, -4));
+            Assert.AreEqual(ss.editProductInStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 100, -4),-7);//-7 if illegal price
             Assert.AreEqual(cola.getAmount(), 10);
             Assert.AreEqual(cola.getPrice(), 3.2);
         }
