@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Login Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="WebServices.Views.Pages.login" %>
 
 
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ContentPlaceHolderID="MainContent" runat="server">
     <div class="bg0 p-t-75 p-b-32" style="margin-left: auto; margin-right: auto; max-width: 100%;">
 
         <div class="container" style="max-width: 100%;">
@@ -22,13 +22,7 @@
                         </div>
 
                         <div class="p-t-18">
-                                <asp:Panel id="Form1" runat="server">
-
-                            <asp:Button runat="server" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04" name="btnLogin" id="btnLogin" Text="Login" OnClick="Button2_Click">
-                                
-                            </asp:button>
-                                    </asp:Panel>
-                        </div>
+                            <input type="button" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04" name="btnLogin" id="btnLogin" value="login"/>                        </div>
                 </div>
             </div>
 
@@ -37,7 +31,7 @@
     </div>
 
     <script type="text/javascript">
-/*
+
         $(document).ready(function () {
 	$("#btnLogin").click(function(){
 		
@@ -76,7 +70,7 @@
 		});
 	});
 });
-*/
+
 </script>
 
 </asp:Content>

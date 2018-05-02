@@ -14,9 +14,5 @@ namespace WebServices.Views.Pages
 
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
