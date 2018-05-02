@@ -110,19 +110,6 @@ namespace Acceptance_Tests.StoreTests
             Assert.AreEqual(ss.editSale(itamar, -7, saleId, 1, "20/5/2018"),-6);//-6 if illegal store id
             Assert.AreEqual(ss.editSale(itamar, store.getStoreId(), saleId, 1, null),-10);//-10 due date not good
         }
-        /*
-                 * return:
-                 *           0  on sucess the SaleID
-                 *          -1 if user Not Login
-                 *          -4 if don't have premition
-                 *          -5 if illegal amount bigger then amount in stock
-                 *          -6 if illegal store id
-                 *          -7 if illegal price
-                 *          -8 if illegal sale id
-                 *          -9 database eror
-                 *          -10 due date not good
-                 *          -12 if illegal amount
-              */
         [TestMethod]
         public void EditSaleWithDoesExistsSaleId()
         {

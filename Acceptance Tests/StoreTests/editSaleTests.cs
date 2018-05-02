@@ -42,9 +42,9 @@ namespace Acceptance_Tests.StoreTests
 
             int c = ss.addProductInStore("cola", 3.2, 10, zahi, storeid);
             cola = ProductArchive.getInstance().getProductInStore(c);
-            ss.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 2, "20/5/2018");
+            ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 2, "20/5/2018");
 
-            LinkedList<Sale> SL = ss.viewSalesByStore(store);
+            LinkedList<Sale> SL = ss.viewSalesByStore(store.getStoreId());
             foreach(Sale sale in SL)
             {
                 if(sale.ProductInStoreId == cola.getProductInStoreId())
@@ -57,7 +57,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void simpleEditSale()
         {
-            Assert.IsTrue(ss.editSale(zahi, store, colaSale.SaleId, 5, "20/6/2018"));
+            Assert.AreEqual(ss.editSale(zahi, store.getStoreId(), colaSale.SaleId, 5, "20/6/2018"),0);
             Assert.AreEqual(colaSale.Amount, 5);
             Assert.AreEqual(colaSale.DueDate, "20/6/2018");
         }
@@ -65,7 +65,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditSaleToNegAmount()
         {
-            Assert.IsFalse(ss.editSale(zahi, store, colaSale.SaleId,-1, "20/6/2018"));
+            Assert.AreEqual(ss.editSale(zahi, store.getStoreId(), colaSale.SaleId,-1, "20/6/2018"),-12);//-12 if illegal amount
             Assert.AreEqual(colaSale.Amount, 2);
             Assert.AreEqual(colaSale.DueDate, "20/5/2018");
         }
@@ -73,15 +73,16 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditSaleToAmountBiggerThanTheAmountOfProduct()
         {
-            Assert.IsFalse(ss.editSale(zahi, store, colaSale.SaleId, 11, "20/6/2018"));
+            Assert.AreEqual(ss.editSale(zahi, store.getStoreId(), colaSale.SaleId, 11, "20/6/2018"),-5);//-5 if illegal amount bigger then amount in stock
             Assert.AreEqual(colaSale.Amount, 2);
             Assert.AreEqual(colaSale.DueDate, "20/5/2018");
         }
+  
 
         [TestMethod]
         public void EditSaleToDueDateInThePastInYears()
         {
-            Assert.IsFalse(ss.editSale(zahi, store, colaSale.SaleId, 11, "20/6/2017"));
+            Assert.AreEqual(ss.editSale(zahi, store.getStoreId(), colaSale.SaleId, 11, "20/6/2017"),-10);//-10 due date not good
             Assert.AreEqual(colaSale.Amount, 2);
             Assert.AreEqual(colaSale.DueDate, "20/5/2018");
         }
@@ -89,15 +90,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditSaleToDueDateInThePastInMonth()
         {
-            Assert.IsFalse(ss.editSale(zahi, store, colaSale.SaleId, 11, "20/3/2018"));
-            Assert.AreEqual(colaSale.Amount, 2);
-            Assert.AreEqual(colaSale.DueDate, "20/5/2018");
-        }
-
-        [TestMethod]
-        public void EditSaleToDueDateInThePastInDays()
-        {
-            Assert.IsFalse(ss.editSale(zahi, store, colaSale.SaleId, 11, "20/4/2018"));
+            Assert.AreEqual(ss.editSale(zahi, store.getStoreId(), colaSale.SaleId, 11, "20/3/2018"),-10);//-10 due date not good
             Assert.AreEqual(colaSale.Amount, 2);
             Assert.AreEqual(colaSale.DueDate, "20/5/2018");
         }
@@ -105,7 +98,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditSaleToDueDateNull()
         {
-            Assert.IsFalse(ss.editSale(zahi, store, colaSale.SaleId, 11, null));
+            Assert.AreEqual(ss.editSale(zahi, store.getStoreId(), colaSale.SaleId, 11, null),-10);////-10 due date not good
             Assert.AreEqual(colaSale.Amount, 2);
             Assert.AreEqual(colaSale.DueDate, "20/5/2018");
         }
