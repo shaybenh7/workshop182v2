@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace WebServices.Views.Pages
 {
-    public partial class error : System.Web.UI.Page
+    public partial class error : System.Web.Mvc.ViewPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
