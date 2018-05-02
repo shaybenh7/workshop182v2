@@ -272,7 +272,7 @@ namespace wsep182.services
         }
         /*
    *        return:
-   *           0 > on sucess the SaleID
+   *           0  on sucess the SaleID
    *          -1 if user Not Login
    *          -4 if don't have premition
    *          -6 if illegal store id
@@ -290,7 +290,7 @@ namespace wsep182.services
 
         /*
                    * return:
-                   *           0 > on sucess the SaleID
+                   *           0  on sucess the SaleID
                    *          -1 if user Not Login
                    *          -4 if don't have premition
                    *          -5 if illegal amount bigger then amount in stock

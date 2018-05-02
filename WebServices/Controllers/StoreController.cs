@@ -433,7 +433,7 @@ namespace WebService.Controllers
 
         [Route("api/store/getOwners")]
         [HttpGet]
-        public string getOwners(int storeId)//why string
+        public HttpResponseMessage getOwners(int storeId)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
             Object owners = storeServices.getInstance().getOwners(storeId);
@@ -446,12 +446,12 @@ namespace WebService.Controllers
             {
                 response = Request.CreateResponse(HttpStatusCode.OK, owners);
             }
-            return response.ToString();//zahi check
+            return response;
         }
 
         [Route("api/store/getManagers")]
         [HttpGet]
-        public string getManagers(int storeId, String oldManageruserName)
+        public HttpResponseMessage getManagers(int storeId, String oldManageruserName)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
             Object Managers = storeServices.getInstance().getManagers(storeId);
@@ -464,12 +464,12 @@ namespace WebService.Controllers
             {
                 response = Request.CreateResponse(HttpStatusCode.OK, Managers);
             }
-            return response.ToString();//zahi check
+            return response;
         }
 
         [Route("api/store/viewSalesByStore")]
         [HttpGet]
-        public string viewSalesByStore(int storeId)
+        public HttpResponseMessage viewSalesByStore(int storeId)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
             Object sales = storeServices.getInstance().viewSalesByStore(storeId);
@@ -482,7 +482,7 @@ namespace WebService.Controllers
             {
                 response = Request.CreateResponse(HttpStatusCode.OK, sales);
             }
-            return response.ToString();//zahi check
+            return response;
         }
     }
 }
