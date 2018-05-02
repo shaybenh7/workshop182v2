@@ -324,7 +324,7 @@ namespace WebService.Controllers
                 case -7:
                     return "Error: illegal price";
                 case -8:
-                    return "Error: illegal product name";
+                    return "Error: illegal product id";
                 case -9:
                     return "Error: database error";
                 case -10:
@@ -342,16 +342,64 @@ namespace WebService.Controllers
 
         [Route("api/store/removeSaleFromStore")]
         [HttpDelete]
-        public string removeSaleFromStore(int storeId, String oldManageruserName, String session)
+        public string removeSaleFromStore(int storeId, int saleId)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().removeSaleFromStore(session, storeId, saleId);
+            
+            switch (ans)
+            {
+                case 0:
+                    return "sale successfully Removed";
+                case -1:
+                    return "Error: username is not login";
+                case -4:
+                    return "Error: don't have permission";
+                case -5:
+                    return "Error: illegal amount bigger then amount in stock";
+                case -6:
+                    return "Error: illegal store id";
+                case -8:
+                    return "Error: illegal sale id";
+                case -9:
+                    return "Error: database error";
+
+            }
+            return "Server error: not suppose to happen";
         }
 
         [Route("api/store/editSale")]
         [HttpPost]
-        public string editSale(int storeId, String oldManageruserName, String session)
+        public string editSale(int storeId, int saleId, int amount, String dueDate)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().editSale(session, storeId, saleId, amount, dueDate);
+            switch (ans)
+            {
+                case 0:
+                    return "sale successfully edited";
+                case -1:
+                    return "Error: username is not login";
+                case -4:
+                    return "Error: don't have permission";
+                case -5:
+                    return "Error: illegal amount bigger then amount in stock";
+                case -6:
+                    return "Error: illegal store id";
+                case -7:
+                    return "Error: illegal price";
+                case -8:
+                    return "Error: illegal sale id";
+                case -9:
+                    return "Error: database error";
+                case -10:
+                    return "Error: illegal due date";
+
+                case -12:
+                    return "Error: illegal amount";
+                 
+            }
+            return "Server error: not suppose to happen";
         }
 
 
@@ -385,23 +433,56 @@ namespace WebService.Controllers
 
         [Route("api/store/getOwners")]
         [HttpGet]
-        public string getOwners(int storeId, String oldManageruserName, String session)
+        public string getOwners(int storeId)//why string
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            Object owners = storeServices.getInstance().getOwners(storeId);
+            HttpResponseMessage response;
+            if (owners == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: permissions or store not valid!");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, owners);
+            }
+            return response.ToString();//zahi check
         }
 
         [Route("api/store/getManagers")]
         [HttpGet]
-        public string getManagers(int storeId, String oldManageruserName, String session)
+        public string getManagers(int storeId, String oldManageruserName)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            Object Managers = storeServices.getInstance().getManagers(storeId);
+            HttpResponseMessage response;
+            if (Managers == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: permissions or store not valid!");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, Managers);
+            }
+            return response.ToString();//zahi check
         }
 
         [Route("api/store/viewSalesByStore")]
         [HttpGet]
-        public string viewSalesByStore(int storeId, String oldManageruserName, String session)
+        public string viewSalesByStore(int storeId)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            Object sales = storeServices.getInstance().viewSalesByStore(storeId);
+            HttpResponseMessage response;
+            if (sales == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: permissions or store not valid!");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, sales);
+            }
+            return response.ToString();//zahi check
         }
     }
 }

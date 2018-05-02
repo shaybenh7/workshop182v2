@@ -59,7 +59,7 @@ namespace wsep182.Domain
 
         public override int removeStoreOwner(User session, Store s, String ownerToDelete)
         {
-            return -1;
+            return -4;//-4 if don't have premition
 
         }
 
@@ -71,22 +71,22 @@ namespace wsep182.Domain
 
         public override int addSaleToStore(User session, Store s, int productInStoreId, int typeOfSale, int amount, String dueDate)
         {
-            return -4;
+            return -4;//-4 if don't have premition
         }
 
         public override int removeManagerPermission(User session, String permission, Store s, String manager)
         {
-            return -4;
+            return -4;//-4 if don't have premition
         }
 
-        public override Boolean removeSaleFromStore(User session, Store s, int saleId)
+        public override int removeSaleFromStore(User session, Store s, int saleId)
         {
-            return false;
+            return -4;//-4 if don't have premition
         }
 
-        public override Boolean editSale(User session, Store s, int saleId, int amount, String dueDate)
+        public override int editSale(User session, Store s, int saleId, int amount, String dueDate)
         {
-            return false;
+            return -4;//-4 if don't have premition
         }
 
         public override LinkedList<Purchase> viewPurchasesHistory(User session, Store s)
