@@ -57,7 +57,9 @@ ServiceProxy.prototype =
 
 
     };
-jQuery(document).ready(function () {
+$(document).ready(function () {
+    jQuery(document).ready(function () {
     //register web service handler
-    proxy = new ServiceProxy()
+        proxy = new ServiceProxy()
+    });
 });

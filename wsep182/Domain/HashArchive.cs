@@ -26,6 +26,8 @@ namespace wsep182.Domain
         }
         public Boolean configureUser(string hash, User user)
         {
+            if (hash == null || user == null)
+                return false;
             if (!hashes.ContainsKey(hash))
             {
                 hashes.Add(hash, user);
@@ -42,6 +44,8 @@ namespace wsep182.Domain
 
         public User getUserByHash(string hash)
         {
+            if (hash == null)
+                return null;
             if (hashes.ContainsKey(hash))
             {
                 return hashes[hash];
