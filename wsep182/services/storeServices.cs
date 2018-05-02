@@ -270,19 +270,43 @@ namespace wsep182.services
                 return -1;//-4 if don't have premition
             return sR.addSaleToStore(session, s, productInStoreId, typeOfSale, amount, dueDate);
         }
-
-        public Boolean removeSaleFromStore(User session, Store s, int saleId)
+        /*
+   *        return:
+   *           0 > on sucess the SaleID
+   *          -1 if user Not Login
+   *          -4 if don't have premition
+   *          -6 if illegal store id
+   *          -8 if illegal sale id
+   *          -9 database eror
+   */
+        public int removeSaleFromStore(User session, int storeId, int saleId)
         {
+            Store s = storeArchive.getInstance().getStore(storeId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
-                return false;
+                return -4;
             return sR.removeSaleFromStore(session, s, saleId);
         }
-        public Boolean editSale(User session, Store s, int saleId, int amount, String dueDate)
+
+        /*
+                   * return:
+                   *           0 > on sucess the SaleID
+                   *          -1 if user Not Login
+                   *          -4 if don't have premition
+                   *          -5 if illegal amount bigger then amount in stock
+                   *          -6 if illegal store id
+                   *          -7 if illegal price
+                   *          -8 if illegal sale id
+                   *          -9 database eror
+                   *          -10 due date not good
+                   *          -12 if illegal amount
+                */
+        public int editSale(User session, int storeId, int saleId, int amount, String dueDate)
         {
+            Store s = storeArchive.getInstance().getStore(storeId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
-                return false;
+                return -4;//-4 if don't have premition
             return sR.editSale(session, s, saleId,amount,dueDate);
         }
 
@@ -335,25 +359,28 @@ namespace wsep182.services
 
 
 
-        public LinkedList<StoreOwner> getOwners(Store s)
+        public LinkedList<StoreOwner> getOwners(int storeId)
         {
+            Store s = storeArchive.getInstance().getStore(storeId);
             if (s == null)
                 return null;
             return s.getOwners();
         }
 
-        public LinkedList<StoreManager> getManagers(Store s)
+        public LinkedList<StoreManager> getManagers(int storeId)
         {
+            Store s = storeArchive.getInstance().getStore(storeId);
             if (s == null)
                 return null;
             return s.getManagers();
         }
 
-        public LinkedList<Sale> viewSalesByStore(Store store)
+        public LinkedList<Sale> viewSalesByStore(int storeId)
         {
-            if (store == null)
+            Store s = storeArchive.getInstance().getStore(storeId);
+            if (s == null)
                 return null;
-            return store.getAllSales();
+            return s.getAllSales();
         }
 
     }

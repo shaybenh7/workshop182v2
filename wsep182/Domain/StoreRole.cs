@@ -202,8 +202,6 @@ namespace wsep182.Domain
                 return -1;// -1 if user Not Login
             if (s == null)
                 return -6; //-6 if illegal store id
-            if (dueDate == null)
-                return -10;//-10 due date not good
             if (pis == null)
                 return -8;//-8 if illegal product in store Id
             if (typeOfSale > 3 || typeOfSale < 1)
@@ -227,20 +225,36 @@ namespace wsep182.Domain
             return (sale == null) ? -9 : sale.SaleId;
         }
 
-        public virtual Boolean removeSaleFromStore(User session, Store s, int saleId)
+        public virtual int removeSaleFromStore(User session, Store s, int saleId)
         {
-            if (session == null || s == null || SalesArchive.getInstance().getSale(saleId) == null)
-                return false;
-            return SalesArchive.getInstance().removeSale(saleId);
+            if (session == null  )
+                return -1;// -1 if user Not Login
+            if (s == null)
+                return -6; //-6 if illegal store id
+            if (SalesArchive.getInstance().getSale(saleId) == null)
+                return -8;// -8 if illegal sale id
+            if(SalesArchive.getInstance().removeSale(saleId))
+                return 0;
+            return -9; //database error
         }
 
-        public virtual Boolean editSale(User session, Store s, int saleId, int amount, String dueDate)
+        public virtual int editSale(User session, Store s, int saleId, int amount, String dueDate)
         {
-            if (session == null || s == null || SalesArchive.getInstance().getSale(saleId) == null
-                || amount < 0 || dueDate == null ||
-                ProductArchive.getInstance().getProductInStore(SalesArchive.getInstance().getSale(saleId).ProductInStoreId).getAmount() < amount)
-                return false;
-            return SalesArchive.getInstance().editSale(saleId, amount, dueDate);
+            if ( SalesArchive.getInstance().getSale(saleId) == null)
+                return -8;// -8 if illegal sale id
+            if (session == null)
+                return -1;// -1 if user Not Login
+            if (s == null)
+                return -6; //-6 if illegal store id
+            if (ProductArchive.getInstance().getProductInStore(SalesArchive.getInstance().getSale(saleId).ProductInStoreId).getAmount() < amount)
+                return -5;// -5 if illegal amount bigger then amount in stock
+            if (amount < 0)
+                return -12;// -12 if illegal amount
+            if (dueDate == null)
+                return -10;//-10 due date not good
+            if(SalesArchive.getInstance().editSale(saleId, amount, dueDate))
+                return 0;
+            return -9;//-9 database eror
         }
 
         public virtual Boolean addDiscount(User session, ProductInStore p, int percentage, String dueDate)
