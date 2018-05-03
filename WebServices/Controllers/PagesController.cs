@@ -77,6 +77,11 @@ namespace WebServices.Controllers
             return View();
         }
 
+        public ActionResult viewStore()
+        {
+            return View();
+        }
+
         [CheckLoggedIn]
         public ActionResult MyStores()
         {

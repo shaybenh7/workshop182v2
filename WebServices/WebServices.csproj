@@ -270,6 +270,13 @@
     <Compile Include="Views\Pages\viewRaffleSale.aspx.designer.cs">
       <DependentUpon>viewRaffleSale.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\viewStore.aspx.cs">
+      <DependentUpon>viewStore.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Pages\viewStore.aspx.designer.cs">
+      <DependentUpon>viewStore.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -479,6 +486,7 @@
     <Content Include="Views\Pages\shoppingCart.aspx" />
     <Content Include="Views\Pages\viewInstantSale.aspx" />
     <Content Include="Views\Pages\viewRaffleSale.aspx" />
+    <Content Include="Views\Pages\viewStore.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
