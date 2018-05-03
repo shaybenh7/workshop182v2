@@ -80,10 +80,9 @@ namespace WebService.Controllers
             switch (ans)
             {
                 case 0:
-                    
                     String hash = hashServices.generateID();
                     hashServices.configureUser(hash, session);
-                    System.Web.HttpContext.Current.Session["hash"] = hash;
+                    //System.Web.HttpContext.Current.Session["hash"] = hash;
                     String[] answer = { "user successfuly logged in", hash };
                     return answer;
                 case -1:
@@ -102,7 +101,11 @@ namespace WebService.Controllers
         [HttpDelete]
         public string removeUser(String userDeleted)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = userServices.getInstance().removeUser(session, userDeleted);
             switch(ans)
             {

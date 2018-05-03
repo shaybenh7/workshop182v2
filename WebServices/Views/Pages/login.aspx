@@ -39,15 +39,18 @@
 		
 		username=$("#username").val();
 		pass=$("#password").val();
+
         jQuery.ajax({
                 type: "GET",
                 url: "http://localhost:53416/api/user/login?username=" + username + "&password="+pass,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                console.log(response);
+                    console.log(response[0]);
+                    console.log(response[1]);
 				    if (response[0] == "user successfuly logged in")
                     {
+                        document.cookie = "HashCode="+response[1]; //saves the hash code as a cookie
 					    window.location.href = "http://localhost:53416/";
 				    }
 				    else
@@ -56,8 +59,8 @@
 				    }
 			    },
                 error: function (response) {
-                  console.log(response);
-				    //window.location.href = "http://localhost:53416/error";
+                    console.log(response);
+				    window.location.href = "http://localhost:53416/error";
 			    }
             });
 	});

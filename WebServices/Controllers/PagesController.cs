@@ -12,13 +12,15 @@ namespace WebServices.Controllers
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var MySession = HttpContext.Current.Session;
-
-            String hash = (string)MySession["hash"];
-           if (hash == null || hashServices.getUserByHash(hash) == null || !hashServices.getUserByHash(hash).getState().isLogedIn())
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] != null)
             {
-                filterContext.Result = new RedirectResult(string.Format("/error/"));
+                String hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
+                if (hash == null || hashServices.getUserByHash(hash) == null || !hashServices.getUserByHash(hash).getState().isLogedIn())
+                {
+                    filterContext.Result = new RedirectResult(string.Format("/error/"));
+                }
             }
+            else filterContext.Result = new RedirectResult(string.Format("/error/"));
         }
     }
 

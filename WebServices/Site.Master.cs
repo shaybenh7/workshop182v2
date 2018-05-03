@@ -13,19 +13,21 @@ namespace WebServices
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //TODO:: tzachi recieve hash Code from cookie 
-            User u = hashServices.getUserByHash((string)Session["hash"]);
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] != null)
+            {
+                User u = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
 
-            if (u!=null && u.getState() is Admin)
-            {
-                adminPanelLink.Visible = true;
-                MyStoresLink.Visible = true;
-                LoginRegisterLinks.Visible = false;
-            }
-            else if (u != null && u.getState() is LogedIn)
-            {
-                MyStoresLink.Visible = true;
-                LoginRegisterLinks.Visible = false;
+                if (u != null && u.getState() is Admin)
+                {
+                    adminPanelLink.Visible = true;
+                    MyStoresLink.Visible = true;
+                    LoginRegisterLinks.Visible = false;
+                }
+                else if (u != null && u.getState() is LogedIn)
+                {
+                    MyStoresLink.Visible = true;
+                    LoginRegisterLinks.Visible = false;
+                }
             }
         }
     }
