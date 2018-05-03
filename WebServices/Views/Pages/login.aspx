@@ -12,17 +12,19 @@
                     </h4>
 
                         <div class="wrap-input1 w-full p-b-4">
-                            <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="username" placeholder="Anatoly">
+                            <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="username" id="username" placeholder="Anatoly">
                             <div class="focus-input1 trans-04"></div>
                         </div>
 
                         <div class="wrap-input1 w-full p-b-4">
-                            <input class="input1 bg-none plh1 stext-107 cl7" type="password" name="password" placeholder="123456">
+                            <input class="input1 bg-none plh1 stext-107 cl7" type="password" name="password" id="password" placeholder="123456">
                             <div class="focus-input1 trans-04"></div>
                         </div>
                         <small id="loginAlert" class="form-text text-muted text-Alert"></small>
                         <div class="p-t-18">
-                            <input type="button" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04" name="btnLogin" id="btnLogin" value="login"/>                        </div>
+                            <input type="button" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04" name="btnLogin" id="btnLogin" value="login"/>                        
+
+                        </div>
                 </div>
             </div>
 
@@ -42,8 +44,9 @@
                 url: "http://localhost:53416/api/user/login?username=" + username + "&password="+pass,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function(response){ 
-				    if (response.message == "success")
+                success: function (response) {
+                console.log(response);
+				    if (response[0] == "user successfuly logged in")
                     {
 					    window.location.href = "http://localhost:53416/";
 				    }
@@ -52,8 +55,9 @@
 					    $("#loginAlert").html('Failure - ' + response);
 				    }
 			    },
-			    error: function(response){
-				    window.location.href = "http://localhost:53416/error";
+                error: function (response) {
+                  console.log(response);
+				    //window.location.href = "http://localhost:53416/error";
 			    }
             });
 	});
