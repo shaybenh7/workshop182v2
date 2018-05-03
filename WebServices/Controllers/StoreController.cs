@@ -484,5 +484,24 @@ namespace WebService.Controllers
             }
             return response;
         }
+
+        [Route("api/store/getProductInStoreById")]
+        [HttpGet]
+        public HttpResponseMessage getProductInStoreById(int id)
+        {
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            Object productInStore = ProductArchive.getInstance().getProductInStore(id);
+            HttpResponseMessage response;
+            if (productInStore == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: permissions or store not valid!");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, productInStore);
+            }
+            return response;
+             
+        }
     }
 }

@@ -59,6 +59,10 @@ namespace wsep182.Domain
                 return getPriceBeforeDiscount(amount);
             }
         }
+        public static LinkedList<Sale> getAllSales()
+        {
+            return SalesArchive.getInstance().getAllSales();
+        }
 
     }
 }

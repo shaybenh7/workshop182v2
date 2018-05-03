@@ -382,6 +382,10 @@ namespace wsep182.services
                 return null;
             return s.getAllSales();
         }
+        public ProductInStore getProductInStoreById(int id)
+        {
+            return ProductArchive.getInstance().getProductInStore(id);
+        }
 
     }
 }
