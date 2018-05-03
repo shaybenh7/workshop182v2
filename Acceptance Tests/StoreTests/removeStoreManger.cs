@@ -44,70 +44,70 @@ namespace Acceptance_Tests.StoreTests
             itamar = us.startSession();
             us.register(itamar, "itamar", "123456");
             us.login(itamar,"itamar", "123456");
-            store = ss.createStore("Maria&Netta Inc.", itamar);
+            store = storeArchive.getInstance().getStore(ss.createStore("Maria&Netta Inc.", itamar));
 
             niv = us.startSession();
             us.register(niv, "niv", "123456");
             us.login(niv, "niv", "123456");
 
-            ss.addStoreManager(store, "niv", itamar);
+            ss.addStoreManager(store.getStoreId(), "niv", itamar);
 
         }
 
         [TestMethod]
         public void simpleRemoveManger()
         {
-           Assert.IsTrue(ss.removeStoreManager(store, "niv", itamar));
+           Assert.AreEqual(ss.removeStoreManager(store.getStoreId(), "niv", itamar),0);
             Assert.AreEqual(store.getManagers().Count , 0);
         }
         [TestMethod]
         public void RemoveMangerByAdmin()
         {
-            Assert.IsFalse(ss.removeStoreManager(store, "niv", admin));
+            Assert.AreEqual(ss.removeStoreManager(store.getStoreId(), "niv", admin),-4);//-4 if don't have premition
             Assert.AreEqual(store.getManagers().Count, 1);
         }
         [TestMethod]
         public void RemoveMangerByUser()
         {
             zahi.login("zahi", "123456");
-            Assert.IsFalse(ss.removeStoreManager(store, "niv", zahi));
+            Assert.AreEqual(ss.removeStoreManager(store.getStoreId(), "niv", zahi),-4);//-4 if don't have premition
             Assert.AreEqual(store.getManagers().Count, 1);
         }
         [TestMethod]
         public void RemoveMangerByNotExistUser()
         {
-            Assert.IsFalse(ss.removeStoreManager(store, "niv", zahi));
+            Assert.AreEqual(ss.removeStoreManager(store.getStoreId(), "niv", zahi),-1);//-1 if user Not Login could be -4
             Assert.AreEqual(store.getManagers().Count, 1);
         }
         [TestMethod]
         public void RemoveMangerByManegerWithPremition()
         {
-            Assert.IsTrue(ss.addManagerPermission("removeStoreManager", store, "niv", itamar));
+            Assert.AreEqual(ss.addManagerPermission("removeStoreManager", store.getStoreId(), "niv", itamar),0);
             us.login(zahi, "zahi", "123456");
-            ss.addStoreManager(store, "zahi", itamar);
-            Assert.IsTrue(ss.removeStoreManager(store, "zahi", niv));
+            ss.addStoreManager(store.getStoreId(), "zahi", itamar);
+            Assert.AreEqual(ss.removeStoreManager(store.getStoreId(), "zahi", niv),0);
             Assert.AreEqual(store.getManagers().Count, 1);
         }
 
         [TestMethod]
         public void RemoveMangerByHimselfWithPremition()
         {
-            ss.addManagerPermission("removeStoreManager", store, "niv", itamar);
-            Assert.IsFalse(ss.removeStoreManager(store, "niv", niv));
+            ss.addManagerPermission("removeStoreManager", store.getStoreId(), "niv", itamar);
+            Assert.AreEqual(ss.removeStoreManager(store.getStoreId(), "niv", niv),-10);//-10 can't remove himself
             Assert.AreEqual(store.getManagers().Count, 1);
         }
         [TestMethod]
         public void RemoveMangerByManegerThatRemoved()
         {
-            ss.addManagerPermission("removeStoreManager", store, "niv", itamar);
+            ss.addManagerPermission("removeStoreManager", store.getStoreId(), "niv", itamar);
             us.login(zahi, "zahi", "123456");
-            ss.addStoreManager(store, "zahi", itamar);
-            ss.addStoreManager(store, "admin", itamar);
-            ss.addManagerPermission("removeStoreManager", store, "zahi", itamar);
-            ss.addManagerPermission("removeStoreManager", store, "admin", itamar);
-            Assert.IsTrue(ss.removeStoreManager(store, "zahi", niv));
-            Assert.IsFalse(ss.removeStoreManager(store, "niv", zahi));
-            Assert.IsTrue(ss.removeStoreManager(store, "admin", niv));
+            ss.addStoreManager(store.getStoreId(), "zahi", itamar);
+            ss.addStoreManager(store.getStoreId(), "admin", itamar);
+            ss.addManagerPermission("removeStoreManager", store.getStoreId(), "zahi", itamar);
+            ss.addManagerPermission("removeStoreManager", store.getStoreId(), "admin", itamar);
+            Assert.AreEqual(ss.removeStoreManager(store.getStoreId(), "zahi", niv),0);
+            Assert.AreEqual(ss.removeStoreManager(store.getStoreId(), "niv", zahi),-4);//-4 if don't have premition
+            Assert.AreEqual(ss.removeStoreManager(store.getStoreId(), "admin", niv),0);
             Assert.AreEqual(store.getManagers().Count, 1);
         }
     }

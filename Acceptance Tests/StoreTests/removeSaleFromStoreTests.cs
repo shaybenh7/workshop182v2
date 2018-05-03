@@ -38,13 +38,13 @@ namespace Acceptance_Tests.StoreTests
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
 
-            store = ss.createStore("Abowim", zahi);
+            store = storeArchive.getInstance().getStore(ss.createStore("Abowim", zahi));
 
-            cola = ss.addProductInStore("cola", 10, 100, zahi, store);
+            cola = ProductArchive.getInstance().getProductInStore(ss.addProductInStore("cola", 10, 100, zahi, store.getStoreId()));
 
-            ss.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 2, "20/5/2018");
+            ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 2, "20/5/2018");
 
-            LinkedList<Sale> SL = ss.viewSalesByStore(store);
+            LinkedList<Sale> SL = ss.viewSalesByStore(store.getStoreId());
             foreach (Sale sale in SL)
             {
                 if (sale.ProductInStoreId == cola.getProductInStoreId())
@@ -57,29 +57,28 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void simpleRemoveSale()
         {
-            Assert.IsTrue(ss.removeSaleFromStore(zahi, store, colaSale.SaleId));
-            Assert.AreEqual(ss.viewSalesByStore(store).Count,0);
+            Assert.AreEqual(ss.removeSaleFromStore(zahi, store.getStoreId(), colaSale.SaleId),0);
+            Assert.AreEqual(ss.viewSalesByStore(store.getStoreId()).Count,0);
         }
 
         [TestMethod]
         public void RemoveSaleWithNullSession()
         {
-            Assert.IsFalse(ss.removeSaleFromStore(null, store, colaSale.SaleId));
-            Assert.AreEqual(ss.viewSalesByStore(store).Count, 1);
+            Assert.AreEqual(ss.removeSaleFromStore(null, store.getStoreId(), colaSale.SaleId),-1);//-1 not login || -4 could be 
+            Assert.AreEqual(ss.viewSalesByStore(store.getStoreId()).Count, 1);
         }
-
         [TestMethod]
         public void RemoveSaleWithNullStore()
         {
-            Assert.IsFalse(ss.removeSaleFromStore(zahi, null, colaSale.SaleId));
-            Assert.AreEqual(ss.viewSalesByStore(store).Count, 1);
+            Assert.AreEqual(ss.removeSaleFromStore(zahi, -7, colaSale.SaleId),-6);//-6 if illegal store id
+            Assert.AreEqual(ss.viewSalesByStore(store.getStoreId()).Count, 1);
         }
 
         [TestMethod]
         public void RemoveSaleWithNoneExistingSaleId()
         {
-            Assert.IsFalse(ss.removeSaleFromStore(zahi, store, 1000));
-            Assert.AreEqual(ss.viewSalesByStore(store).Count, 1);
+            Assert.AreEqual(ss.removeSaleFromStore(zahi, store.getStoreId(), 1000),-8);//-8 if illegal sale id
+            Assert.AreEqual(ss.viewSalesByStore(store.getStoreId()).Count, 1);
         }
     }
 }
