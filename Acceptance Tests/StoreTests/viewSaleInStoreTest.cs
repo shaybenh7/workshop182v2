@@ -45,50 +45,51 @@ namespace Acceptance_Tests.StoreTests
             itamar = us.startSession();
             us.register(itamar, "itamar", "123456");
             us.login(itamar, "itamar", "123456");
-            store = ss.createStore("Maria&Netta Inc.", itamar);
+            store = storeArchive.getInstance().getStore(ss.createStore("Maria&Netta Inc.", itamar));
 
             niv = us.startSession();
             us.register(niv, "niv", "123456");
             us.login(niv, "niv", "123456");
 
-            ss.addStoreManager(store, "niv", itamar);
+            ss.addStoreManager(store.getStoreId(), "niv", itamar);
 
-            cola = ss.addProductInStore("cola", 3.2, 10, itamar, store);
-            sprite = ss.addProductInStore("sprite", 5.3, 20, itamar, store);
+            cola = ProductArchive.getInstance().getProductInStore(ss.addProductInStore("cola", 3.2, 10, itamar, store.getStoreId()));
+            sprite = ProductArchive.getInstance().getProductInStore(ss.addProductInStore("sprite", 5.3, 20, itamar, store.getStoreId()));
 
         }
 
         [TestMethod]
         public void simpleViewSlaeInStore()
         {
-            int saleId=ss.addSaleToStore(itamar, store, cola.getProductInStoreId(), 1, 1, "20/5/2018");
-            LinkedList <Sale>saleList=ss.viewSalesByStore(store);
+            int saleId=ss.addSaleToStore(itamar, store.getStoreId(), cola.getProductInStoreId(), 1, 1, "20/5/2018");
+            LinkedList <Sale>saleList=ss.viewSalesByStore(store.getStoreId());
             Assert.AreEqual(saleList.Count, 1);
             Assert.AreEqual(saleId, saleList.First.Value.SaleId);
         }
         [TestMethod]
         public void ViewSlaeInStoreEmptySale()
         {
-            LinkedList<Sale> saleList = ss.viewSalesByStore(store);
+            LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
             Assert.AreEqual(saleList.Count, 0);
 
         }
         [TestMethod]
         public void ViewSlaeInStoreNull()
         {
-            LinkedList<Sale> saleList = ss.viewSalesByStore(null);
+            LinkedList<Sale> saleList = ss.viewSalesByStore(-7);
             Assert.IsNull(saleList);
         }
         [TestMethod]
         public void ViewSlaeInStoreFewStors()
         {
-            int saleId1 = ss.addSaleToStore(itamar, store, cola.getProductInStoreId(), 1, 1, "20/5/2018");
-            LinkedList<Sale> saleList1 = ss.viewSalesByStore(store);
-
-            Store store2 = ss.createStore("admin store", admin);
-            ProductInStore milk = ss.addProductInStore("milk", 3.2, 10, admin, store2);
-            int saleId2 = ss.addSaleToStore(admin, store2, milk.getProductInStoreId(), 1, 1, "20/5/2018");
-            LinkedList<Sale> saleList2 = ss.viewSalesByStore(store2);
+            int saleId1 = ss.addSaleToStore(itamar, store.getStoreId(), cola.getProductInStoreId(), 1, 1, "20/5/2018");
+            LinkedList<Sale> saleList1 = ss.viewSalesByStore(store.getStoreId());
+            int storeId = ss.createStore("admin store", admin);
+            Store store2 = storeArchive.getInstance().getStore(storeId);
+            int milkId = ss.addProductInStore("milk", 3.2, 10, admin, store2.getStoreId());
+            ProductInStore milk = ProductArchive.getInstance().getProductInStore(milkId);
+            int saleId2 = ss.addSaleToStore(admin, store2.getStoreId(), milk.getProductInStoreId(), 1, 1, "20/5/2018");
+            LinkedList<Sale> saleList2 = ss.viewSalesByStore(store2.getStoreId());
 
             Assert.AreEqual(saleList1.Count, 1);
             Assert.AreEqual(saleId1, saleList1.First.Value.SaleId);
@@ -98,10 +99,10 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void ViewSlaeInStoreFewProducts()
         {
-            int saleId = ss.addSaleToStore(itamar, store, cola.getProductInStoreId(), 1, 1, "20/5/2018");
+            int saleId = ss.addSaleToStore(itamar, store.getStoreId(), cola.getProductInStoreId(), 1, 1, "20/5/2018");
             
-            int saleId2 = ss.addSaleToStore(itamar, store, sprite.getProductInStoreId(), 1, 1, "20/5/2018");
-            LinkedList<Sale> saleList = ss.viewSalesByStore(store);
+            int saleId2 = ss.addSaleToStore(itamar, store.getStoreId(), sprite.getProductInStoreId(), 1, 1, "20/5/2018");
+            LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
 
             Assert.AreEqual(saleList.Count, 2);
             foreach(Sale s in saleList)

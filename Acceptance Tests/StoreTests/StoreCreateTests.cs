@@ -34,7 +34,8 @@ namespace Acceptance_Tests.StoreTests
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
             storeServices ss = storeServices.getInstance();
-            Store store = ss.createStore("abowim", zahi);
+            int storeId=ss.createStore("abowim", zahi);
+            Store store = storeArchive.getInstance().getStore(storeId);
             Assert.AreEqual(store.getStoreName(), "abowim");
             LinkedList<StoreOwner> owners = store.getOwners();
             Assert.AreEqual(owners.Count, 1);
@@ -49,8 +50,8 @@ namespace Acceptance_Tests.StoreTests
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
             storeServices ss = storeServices.getInstance();
-            Store store = ss.createStore("", zahi);
-            Assert.IsNull(store);
+            int storeId = ss.createStore("", zahi);
+            Assert.AreEqual(storeId,-3);
         }
 
         [TestMethod]
@@ -58,10 +59,9 @@ namespace Acceptance_Tests.StoreTests
         {
             User zahi = new User("zahi","123456");
             storeServices ss = storeServices.getInstance();
-            Store store = ss.createStore("abowim", zahi);
-            Assert.IsNull(store);
+            int store = ss.createStore("abowim", zahi);
+            Assert.AreEqual(store,-1);
         }
-
         [TestMethod]
         public void StoreCreateWithNotLoggedInUser()
         {
@@ -69,8 +69,8 @@ namespace Acceptance_Tests.StoreTests
             User zahi = us.startSession();
             us.register(zahi, "zahi", "123456");
             storeServices ss = storeServices.getInstance();
-            Store store = ss.createStore("aboim", zahi);
-            Assert.IsNull(store);
+            int store = ss.createStore("aboim", zahi);
+            Assert.AreEqual(store,-1);
         }
 
         [TestMethod]
@@ -81,11 +81,9 @@ namespace Acceptance_Tests.StoreTests
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
             storeServices ss = storeServices.getInstance();
-            Store store = ss.createStore("          ", zahi);
-            Assert.IsNull(store);
+            int store = ss.createStore("          ", zahi);
+            Assert.AreEqual(store,-3);
         }
-
-
         [TestMethod]
         public void StoreCreateWithWhiteSpaces()
         {
@@ -94,7 +92,8 @@ namespace Acceptance_Tests.StoreTests
             User zahi = us.startSession();
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
-            Store store = ss.createStore("abowim bro", zahi);
+            int storeId = ss.createStore("abowim bro", zahi);
+            Store store = storeArchive.getInstance().getStore(storeId);
             Assert.AreEqual(store.getStoreName(), "abowim bro");
             LinkedList<StoreOwner> owners = store.getOwners();
             Assert.AreEqual(owners.Count, 1);
@@ -105,10 +104,9 @@ namespace Acceptance_Tests.StoreTests
         public void StoreCreateWithNullUser()
         {
             storeServices ss = storeServices.getInstance();
-            Store store = ss.createStore("aboim", null);
-            Assert.IsNull(store);
+            int store = ss.createStore("aboim", null);
+            Assert.AreEqual(store,-1);
         }
-
         [TestMethod]
         public void StoreCreateWithNullStoreName()
         {
@@ -117,11 +115,9 @@ namespace Acceptance_Tests.StoreTests
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
             storeServices ss = storeServices.getInstance();
-            Store store = ss.createStore(null, zahi);
-            Assert.IsNull(store);
+            int store = ss.createStore(null, zahi);
+            Assert.AreEqual(store,-3);
         }
-
-
         [TestMethod]
         public void StoreCreateWithNameOfExistingStore()
         {
@@ -130,8 +126,10 @@ namespace Acceptance_Tests.StoreTests
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
             storeServices ss = storeServices.getInstance();
-            Store store = ss.createStore("abowim", zahi);
-            Store store2 = ss.createStore("abowim", zahi);
+            int storeId = ss.createStore("abowim", zahi);
+            Store store = storeArchive.getInstance().getStore(storeId);
+            int storeId2 = ss.createStore("abowim", zahi);
+            Store store2 = storeArchive.getInstance().getStore(storeId2);
             Assert.AreEqual(store2.getStoreName(), "abowim");
             LinkedList<StoreOwner> owners = store2.getOwners();
             Assert.AreEqual(owners.Count, 1);

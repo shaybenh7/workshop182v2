@@ -119,23 +119,6 @@ namespace Acceptance_Tests.StoreTests
             Store store2 = new Store(2, "abow", zahi);
             Assert.AreEqual(ss.removeStoreOwner(store2.getStoreId(), "niv", zahi),-6);// -6 if illegal store id
         }
-
-        /*
-* return:
-*           0 on sucess
-*          -1 if user Not Login
-*          -2 if Store Name already exist
-*          -3 if illegal product name
-*          -4 if don't have premition
-*          -5 if illegal amount
-*          -6 if illegal store id
-*          -7 if illegal price
-*          -8 if illegal product in store Id
-*          -9 database eror
-*          -10 can't remove himself
-*          -11 not a owner
-*          -12 if dealet creator
-*/
         [TestMethod]
         public void RemoveOwnerByAdmin()
         {
