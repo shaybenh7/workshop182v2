@@ -10,7 +10,6 @@
 namespace WebServices.Views.Pages {
     
     
-    public partial class AllProducts
-    {
+    public partial class AllProducts {
     }
 }

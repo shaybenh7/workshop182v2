@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" style="{overflow-y: scroll; overflow-x:hidden;}">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -93,6 +93,10 @@
                                 <li>
                                     <a href="/AllProducts">All Products</a>
                                 </li>
+                                <li>
+                                    <a href="/api/user/fillDB">FILL DB</a>
+                                </li>
+
                                 
                                 <asp:PlaceHolder id="MyStoresLink" Visible="false" runat="server">
                                     <li>

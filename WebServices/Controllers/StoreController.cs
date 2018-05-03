@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using wsep182.Domain;
 using wsep182.services;
+
 
 namespace WebService.Controllers
 {
@@ -483,6 +482,43 @@ namespace WebService.Controllers
                 response = Request.CreateResponse(HttpStatusCode.OK, sales);
             }
             return response;
+        }
+
+        [Route("api/store/getProductInStoreById")]
+        [HttpGet]
+        public HttpResponseMessage getProductInStoreById(int id)
+        {
+            ProductInStore productInStore = ProductArchive.getInstance().getProductInStore(id);
+            HttpResponseMessage response;
+            if (productInStore == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: permissions or store not valid!");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, productInStore);
+            }
+            return response;
+             
+        }
+
+
+        [Route("api/store/checkPriceOfAProduct")]
+        [HttpGet]
+        public HttpResponseMessage checkPriceOfAProduct(int saleId)
+        {
+            Sale sale = SalesArchive.getInstance().getSale(saleId);
+            HttpResponseMessage response;
+            if (sale == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: permissions or store not valid!");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, sale.getPriceAfterDiscount(1));
+            }
+            return response;
+
         }
     }
 }

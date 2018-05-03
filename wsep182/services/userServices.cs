@@ -60,6 +60,11 @@ namespace wsep182.services
         {
             return ProductInStore.getAllProductsInAllStores();
         }
+        //req 1.3 b
+        public LinkedList<Sale> viewAllSales()
+        {
+            return Sale.getAllSales();
+        }
 
         //req 1.3 c
         public LinkedList<Store> viewStores()

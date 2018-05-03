@@ -148,6 +148,7 @@ namespace wsep182.Domain
                     return p;
             return null;
         }
+
         public LinkedList<ProductInStore> getProductsInStore(int storeId)
         {
             LinkedList<ProductInStore> ret = new LinkedList<ProductInStore>();

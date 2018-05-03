@@ -8,8 +8,8 @@ namespace wsep182.Domain
 {
     public abstract class StoreRole
     {
-        private User user;
-        private Store store;
+        public User user;
+        public Store store;
 
         public StoreRole(User u, Store s) {
             user = u;
