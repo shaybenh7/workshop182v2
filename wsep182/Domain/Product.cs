@@ -8,8 +8,8 @@ namespace wsep182.Domain
 {
     public class Product
     {
-        private int productId;
-        private String name;
+        public int productId;
+        public String name;
         public Product(String name)
         {
             this.name = name;

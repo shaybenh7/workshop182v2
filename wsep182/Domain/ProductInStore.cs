@@ -8,13 +8,12 @@ namespace wsep182.Domain
 {
     public class ProductInStore
     {
-
-        Product product;
-        Store store;
-        int quantity; //will be removed in the future
-        double price;
-        int isActive;
-        int productInStoreId;
+        public Product product;
+        public Store store;
+        public int quantity; //will be removed in the future
+        public double price;
+        public int isActive;
+        public int productInStoreId;
 
         public int Quantity { set => quantity = value; }
         public double Price { set => price = value; }

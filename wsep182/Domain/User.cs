@@ -9,7 +9,7 @@ namespace wsep182.Domain
     public class User
     {
         private UserState state;
-        private String userName;
+        public String userName;
         private String password;
         private ShoppingCart shoppingCart;
         private Boolean isActive;

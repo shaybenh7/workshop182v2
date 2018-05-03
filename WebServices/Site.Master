@@ -93,6 +93,10 @@
                                 <li>
                                     <a href="/AllProducts">All Products</a>
                                 </li>
+                                <li>
+                                    <a href="/api/user/fillDB">FILL DB</a>
+                                </li>
+
                                 
                                 <asp:PlaceHolder id="MyStoresLink" Visible="false" runat="server">
                                     <li>

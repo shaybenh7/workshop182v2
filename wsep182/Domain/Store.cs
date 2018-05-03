@@ -8,10 +8,10 @@ namespace wsep182.Domain
 {
     public class Store
     {
-        private int storeId;
-        private int isActive; //delete next version
-        String name;
-        User storeCreator;
+        public int storeId;
+        public int isActive; //delete next version
+        public String name;
+        public User storeCreator;
         public Store(int id, String name, User storeCreator)
         {
             storeId = id;
