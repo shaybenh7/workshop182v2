@@ -49,8 +49,8 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    var i;
-                    for ()
+                    console.log(response);
+                    
 			    },
                 error: function (response) {
                     console.log(response);

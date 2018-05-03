@@ -62,6 +62,21 @@ namespace WebServices.Controllers
             return View();
         }
 
+        public ActionResult viewInstantSale()
+        {
+            return View();
+        }
+
+        public ActionResult viewRaffleSale()
+        {
+            return View();
+        }
+
+        public ActionResult shoppingCart()
+        {
+            return View();
+        }
+
         [CheckLoggedIn]
         public ActionResult MyStores()
         {
