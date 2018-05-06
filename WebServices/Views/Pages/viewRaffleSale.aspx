@@ -162,5 +162,12 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
+    <script type ="text/javascript">
+        $(document).ready(function () {
+            var saleId = <%=ViewData["saleId"]%>;
+
+        });
+    </script>
 </asp:Content>
 

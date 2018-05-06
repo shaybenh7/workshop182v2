@@ -160,7 +160,10 @@ namespace WebService.Controllers
         [HttpGet]
         public Object generateHash()
         {
-            return hashServices.generateID();
+            User session = userServices.getInstance().startSession();
+            String hash = hashServices.generateID();
+            hashServices.configureUser(hash, session);
+            return hash;
         }
 
         [Route("api/user/removeUser")]

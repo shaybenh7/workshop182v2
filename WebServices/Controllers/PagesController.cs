@@ -70,8 +70,8 @@ namespace WebServices.Controllers
 
         public ActionResult viewRaffleSale(int saleId)
         {
-            var saleIdVar = saleId;
-            return View(saleIdVar);
+            ViewData["saleId"] = saleId;
+            return View();
         }
 
         public ActionResult shoppingCart()
