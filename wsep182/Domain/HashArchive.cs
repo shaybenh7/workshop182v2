@@ -33,7 +33,11 @@ namespace wsep182.Domain
                 hashes.Add(hash, user);
                 return true;
             }
-            return false;
+            else
+            {
+                hashes[hash] = user;
+                return true;
+            }
         }
         
         public string generateID()
