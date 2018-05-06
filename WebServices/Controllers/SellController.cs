@@ -134,7 +134,7 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage viewCart()
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             Object cart = sellServices.getInstance().viewCart(session);
             HttpResponseMessage response;
             if (cart == null)

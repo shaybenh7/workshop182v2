@@ -66,7 +66,3 @@ C:\Programing\c#\workshop182v2\UnitTests\obj\Debug\UnitTests.csproj.CoreCompileI
 C:\Programing\c#\workshop182v2\UnitTests\obj\Debug\UnitTests.csproj.CopyComplete
 C:\Programing\c#\workshop182v2\UnitTests\obj\Debug\UnitTests.dll
 C:\Programing\c#\workshop182v2\UnitTests\obj\Debug\UnitTests.pdb
-C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
-C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\UnitTests\obj\Debug\UnitTests.csproj.CoreCompileInputs.cache
-C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\UnitTests\obj\Debug\UnitTests.dll
-C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\UnitTests\obj\Debug\UnitTests.pdb

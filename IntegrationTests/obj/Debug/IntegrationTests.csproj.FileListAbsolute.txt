@@ -49,7 +49,3 @@ C:\Programing\c#\workshop182v2\IntegrationTests\obj\Debug\IntegrationTests.cspro
 C:\Programing\c#\workshop182v2\IntegrationTests\obj\Debug\IntegrationTests.csproj.CopyComplete
 C:\Programing\c#\workshop182v2\IntegrationTests\obj\Debug\IntegrationTests.dll
 C:\Programing\c#\workshop182v2\IntegrationTests\obj\Debug\IntegrationTests.pdb
-C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\IntegrationTests\obj\Debug\IntegrationTests.csprojResolveAssemblyReference.cache
-C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\IntegrationTests\obj\Debug\IntegrationTests.csproj.CoreCompileInputs.cache
-C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\IntegrationTests\obj\Debug\IntegrationTests.dll
-C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\IntegrationTests\obj\Debug\IntegrationTests.pdb

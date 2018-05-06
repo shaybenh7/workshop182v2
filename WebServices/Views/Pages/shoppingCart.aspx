@@ -11,7 +11,7 @@
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
-						<div class="wrap-table-shopping-cart">
+						<div id="shoppingCart" class="wrap-table-shopping-cart">
 							<table class="table-shopping-cart">
 								<tr class="table_head">
 									<th class="column-1"></th>
@@ -178,6 +178,29 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+            var mainDiv = document.getElementById('shoppingCart');
+            jQuery.ajax({
+                type: "GET",
+                url: "http://localhost:53416/api/store/viewCart",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var i;
+                    console.log(response);
+                },
+                error: function (response) {
+                    console.log(response);
+                    window.location.href = "http://localhost:53416/error";
+                }
+            });
+        });
+        
+        
+    </script>
 
 </asp:Content>
 

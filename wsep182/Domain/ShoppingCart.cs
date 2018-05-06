@@ -16,9 +16,6 @@ namespace wsep182.Domain
 
         public LinkedList<UserCart> getShoppingCartProducts(User session)
         {
-            if (session.getState() is Guest)
-                return products;
-            else
                 return UserCartsArchive.getInstance().getUserShoppingCart(session.getUserName());
         }
 

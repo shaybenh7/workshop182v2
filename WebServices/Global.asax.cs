@@ -25,6 +25,7 @@ namespace WebServices
 
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
+            /*
             HttpCookie authCookie = Context.Request.Cookies["Session"];
 
             if (authCookie == null || hashServices.getUserByHash(authCookie.Value) == null)
@@ -34,6 +35,7 @@ namespace WebServices
                 hashServices.configureUser(hash,u);
                 Response.Cookies[""]["Session"] = hash;
             }
+            */
         }
     }
 }

@@ -142,7 +142,7 @@
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (response) {
-                            document.cookie = "HashCode=" + response[0]; //saves the hash code as a cookie
+                            document.cookie = "HashCode=" + response; //saves the hash code as a cookie
                         },
                         error: function (response) {
                             console.log(response);

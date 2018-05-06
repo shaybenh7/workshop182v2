@@ -16,7 +16,7 @@ namespace WebService.Controllers
         [HttpGet]
         public string register(String Username, String Password)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = userServices.getInstance().register(session, Username, Password);
             switch (ans)
             {
@@ -81,10 +81,12 @@ namespace WebService.Controllers
             User zahi, itamar, niv, admin, admin1; //admin,itamar logedin
             Store store;//itamar owner , niv manneger
             ProductInStore cola, sprite;
+            sellServices sells;
             int saleId;
             int raffleSale;
             us = userServices.getInstance();
             ss = storeServices.getInstance();
+            sells = sellServices.getInstance();
             admin = us.startSession();
             us.register(admin, "admin", "123456");
             us.login(admin, "admin", "123456");
@@ -115,8 +117,14 @@ namespace WebService.Controllers
             int s = ss.addProductInStore("sprite", 5.3, 20, zahi, storeid);
             cola = ProductArchive.getInstance().getProductInStore(c);
             sprite = ProductArchive.getInstance().getProductInStore(s);
-            saleId = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 1, "20.5.2018");
+            saleId = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 5, "20.5.2018");
             raffleSale = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 3, 1, "20.5.2018");
+            
+            String hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
+            User session = hashServices.getUserByHash(hash);
+            
+            sells.addProductToCart(session, saleId, 3);
+
         }
 
         [Route("api/user/viewStores")]
@@ -160,9 +168,9 @@ namespace WebService.Controllers
         [HttpGet]
         public Object generateHash()
         {
-            User session = userServices.getInstance().startSession();
             String hash = hashServices.generateID();
-            hashServices.configureUser(hash, session);
+            User user = new User(hash,hash);
+            hashServices.configureUser(hash, user);
             return hash;
         }
 
