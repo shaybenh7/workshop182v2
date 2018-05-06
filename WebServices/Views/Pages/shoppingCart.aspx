@@ -178,7 +178,7 @@
                         string += "<tr class=\"table_row\">";
                         string += "<td class=\"column-1\" >";
                         string += "<div class=\"how-itemcart1\">";
-                        string += "<img src=\"images/remove.png\" alt=\"IMG\">";
+                        string += "<img type=\"image\" src=\"images/remove.png\" alt=\"IMG\" id=\"remove" + i + "\">";
                         string += "</div>";
                         string += "</td>";
                         string += "<td class=\"column-2\" id=\"productName" + i + "\"></td>";
@@ -189,6 +189,21 @@
                         mainDiv.innerHTML += string;
 
                         (function (i, saleId) {
+                            $('#remove'+i).click(function () {
+                                jQuery.ajax({
+                                    type: "PUT",
+                                    url: "http://localhost:53416/api/sell/removeFromCart?saleId=" + saleId,
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (response) {
+                                        console.log("response");
+                                        console.log(response);
+                                    },
+                                    error: function (response) {
+                                        console.log("response");
+                                    }
+                                });
+                            });
                             jQuery.ajax({
                                 type: "GET",
                                 url: "http://localhost:53416/api/user/viewSaleById?saleId=" + saleId,

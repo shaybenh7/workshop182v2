@@ -8,57 +8,12 @@
 
 
                 <div class="col-md-6 col-lg-5 p-b-30">
-                    <div class="p-r-50 p-t-5 p-lr-0-lg">
-                        <h4 class="mtext-105 cl2 js-name-detail p-b-14"> *Product Name*
-                        </h4>
-                        <span class="mtext-106 cl2">*Store Name*
-                        </span>
-                        <br />
-                        <br />
-                        <span class="mtext-106 cl2">*Total Price*
-                        </span>
-                        <br />
-                        <span class="mtext-106 cl2">*Already Offered*
-                        </span>
-                        <br />
-                        <span class="mtext-106 cl2">*Deadline*
-                        </span>
-                        <br />
-                        <span class="mtext-106 cl2">*Quantity*
-                        </span>
-                        <br />
-                        <span class="mtext-106 cl2">*Type of sale- raffle*
-                        </span>
-                        <br />
-                        <p class="stext-102 cl3 p-t-23">
-                            *POLICY*
-                        </p>
-                        <br />
-                        <div class="size-204 flex-w flex-m respon6-next">
-                                <div class="wrap-input1 w-full p-b-4">
-                                <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="username" placeholder="Enter your offer">
-                                <div class="focus-input1 trans-04"></div>
-                                </div>      
-                                </div>
-                        <!--  -->
-                        <div class="p-t-33">
-
-                            <div class="flex-w flex-r-m p-b-10">
-								<div class="size-204 flex-w flex-m respon6-next">
-
-									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-										Add to cart
-									</button>
-								</div>
-                                </div>
-							</div>      
-                        </div>
-
-
-                    </div>
+                <div id="viewRaffleSaleComponent" class="p-r-50 p-t-5 p-lr-0-lg">
+                    
+                </div>
                 </div>
             </div>
-
+            </div>
 
     </section>
     <!--===============================================================================================-->	
@@ -166,7 +121,108 @@
     <script type ="text/javascript">
         $(document).ready(function () {
             var saleId = <%=ViewData["saleId"]%>;
+            var mainDiv = document.getElementById('viewRaffleSaleComponent');
+            jQuery.ajax({
+                type: "GET",
+                url: "http://localhost:53416/api/user/viewSaleById?saleId=" + saleId,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    var i;
+                    var pis = response["ProductInStoreId"];
+                    var dueDate = response["DueDate"];
+                    var quan = response["Amount"];
+                    var string = "";
+                    string += "<h4 id=\"productName\" class=\"mtext-105 cl2 js-name-detail p-b-14\"> Product Name: </h4>";
+                    string += "<span id=\"storeName\"  class=\"mtext-106 cl2\">Store Name: ";
+                    string += "</span>";
+                    string += " <br /> <br />";
+                    string += "<span id=\"salePrice\" class=\"mtext-106 cl2\">Price: "
+                    string += "</span><br />";
+                    string += "<span id=\"saleOffers\" class=\"mtext-106 cl2\">Already offered: *TODO* "
+                    string += "</span><br />";
+                    string += "<span class=\"mtext-106 cl2\">Due Date: " + dueDate;
+                    string += "</span><br />";
+                    string += "<span class=\"mtext-106 cl2\">Quantity: " + quan;
+                    string += "</span><br />";
+                    string += "<span class=\"mtext-106 cl2\">Type of sale: Raffle";
+                    string += "</span><br />";
+                    string += "<p class=\"stext-102 cl3 p-t-23\">*POLICY: TODO*</p><br />";
+                    string += "<div class=\"size-204 flex-w flex-m respon6-next\">";
+                    string += "<div class=\"wrap-input1 w-full p-b-4\">";
+                    string += "<input class=\"input1 bg-none plh1 stext-107 cl7\" type=\"text\" name=\"myOffer\" id=\"myOffer\" placeholder=\"Enter your offer\">";
+                    string += "<div class=\"focus-input1 trans-04\"></div>"
+                    string += "</div> </div>";
+                    string += "<!--  -->";
+                    string += "<div class=\"p-t-33\">";
+                    string += "<div class=\"flex-w flex-r-m p-b-10\">";
+                    string += "<div id = \"tryOffer\" class=\"size-204 flex-w flex-m respon6-next\">";
+                    string += "<button id = \"submit\" class=\"flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail\"> Add to cart";
+                    string += "</button>";
 
+                    string += "</div> </div> </div>";
+
+
+                    
+
+
+                    mainDiv.innerHTML += string;
+                    (function () {
+                        
+                            $('#submit').click(function () {
+                                jQuery.ajax({
+                                    type: "PUT",
+                                    url: "http://localhost:53416/api/store/addRaffleProductToCart?saleId=" + saleId + "&offer=" + document.getElementById("myOffer").value,
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (response) {
+                                        console.log("response");
+                                        console.log(response);
+                                    },
+                                    error: function (response) {
+                                        console.log("response");
+                                    }
+                                });
+                            });
+                        
+                            jQuery.ajax({
+                                type: "GET",
+                                url: "http://localhost:53416/api/store/getProductInStoreById?id=" + pis,
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    console.log("fuck");
+                                    var productNameElement = document.getElementById("productName");
+                                    productNameElement.innerHTML += response["product"]["name"];
+
+                                    var storeNameElement = document.getElementById("storeName");
+                                    storeNameElement.innerHTML += response["store"]["name"];
+                                },
+                                error: function (response) {
+                                    console.log(response);
+                                }
+                            });
+                            jQuery.ajax({
+                                type: "GET",
+                                url: "http://localhost:53416/api/store/checkPriceOfAProduct?saleId=" + saleId, //add call to get price
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    var salePriceElement = document.getElementById("salePrice");
+                                    salePriceElement.innerHTML += response;
+                                },
+                                error: function (response) {
+                                    console.log(response);
+                                }
+                            });
+                        })();
+                },
+                error: function (response) {
+                    console.log("fuck");
+                    window.location.href = "http://localhost:53416/error";
+                }
+            });
         });
     </script>
 </asp:Content>

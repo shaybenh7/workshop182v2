@@ -121,17 +121,17 @@ namespace WebService.Controllers
 
             ss.addStoreManager(store.getStoreId(), "niv", itamar);
 
-            int c = ss.addProductInStore("cola", 3.2, 10, zahi, storeid);
+            int c = ss.addProductInStore("cola", 3.2, 100, zahi, storeid);
             int s = ss.addProductInStore("sprite", 5.3, 20, zahi, storeid);
             cola = ProductArchive.getInstance().getProductInStore(c);
             sprite = ProductArchive.getInstance().getProductInStore(s);
-            saleId = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 5, "20.5.2018");
-            raffleSale = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 3, 1, "20.5.2018");
+            saleId = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 50, "20.5.2018");
+            raffleSale = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 3, 3, "20.5.2018");
             
             String hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
             User session = hashServices.getUserByHash(hash);
             
-            sells.addProductToCart(session, saleId, 3);
+            //sells.addProductToCart(session, saleId, 3);
             int i = 5;
         }
 

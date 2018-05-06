@@ -361,6 +361,7 @@
     <Content Include="images\product-min-01.jpg" />
     <Content Include="images\product-min-02.jpg" />
     <Content Include="images\product-min-03.jpg" />
+    <Content Include="images\remove.png" />
     <Content Include="images\slide-01.jpg" />
     <Content Include="images\slide-02.jpg" />
     <Content Include="images\slide-03.jpg" />
