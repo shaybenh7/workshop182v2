@@ -387,5 +387,10 @@ namespace wsep182.services
             return ProductArchive.getInstance().getProductInStore(id);
         }
 
+        public LinkedList<Store> getAllStores()
+        {
+            return storeArchive.getInstance().getAllStore();
+        }
+
     }
 }

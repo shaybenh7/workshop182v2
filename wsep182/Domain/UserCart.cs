@@ -8,11 +8,11 @@ namespace wsep182.Domain
 {
     public class UserCart
     {
-        private String userName;
-        private int saleId;
-        private int amount;
-        private double offer;
-        private Boolean couponActivated;
+        public String userName;
+        public int saleId;
+        public int amount;
+        public double offer;
+        public Boolean couponActivated;
 
         public UserCart(String userName, int saleId, int amount)
         {

@@ -160,6 +160,11 @@ namespace wsep182.Domain
             return ans;
         }
 
+        public static Sale viewSalesBySaleId(int saleId)
+        {
+            return SalesArchive.getInstance().getSale(saleId);
+        }
+
         public LinkedList<Purchase> viewStoreHistory(Store store)
         {
             return state.viewStoreHistory(store,this);
@@ -195,5 +200,7 @@ namespace wsep182.Domain
         {
             return shoppingCart.removeFromCart(this, saleId);
         }
+
+
     }
 }

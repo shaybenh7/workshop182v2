@@ -70,6 +70,14 @@ namespace WebService.Controllers
             return response;
         }
 
+        [Route("api/user/viewSaleById")]
+        [HttpGet]
+        public HttpResponseMessage viewSaleById(int saleId)
+        {
+            Sale sale = userServices.getInstance().viewSalesBySaleId(saleId);
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, sale);
+            return response;
+        }
 
 
         [Route("api/user/fillDB")]
@@ -124,7 +132,7 @@ namespace WebService.Controllers
             User session = hashServices.getUserByHash(hash);
             
             sells.addProductToCart(session, saleId, 3);
-
+            int i = 5;
         }
 
         [Route("api/user/viewStores")]
@@ -203,6 +211,20 @@ namespace WebService.Controllers
             }
             return "not implemented";
         }
+
+        [Route("api/user/getAllStoresUnderUser")]
+        [HttpGet]
+        public LinkedList<Store> getAllStoreRolesOfAUser(String username)
+        {
+            LinkedList<StoreRole> lst = userServices.getInstance().getAllStoreRolesOfAUser(username);
+            LinkedList<Store> ans = new LinkedList<Store>();
+            foreach (StoreRole sr in lst)
+            {
+                ans.AddLast(sr.getStore());
+            }
+            return ans;
+        }
+
 
     }
 }

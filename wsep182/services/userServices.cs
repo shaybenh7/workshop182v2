@@ -66,8 +66,13 @@ namespace wsep182.services
             return Sale.getAllSales();
         }
 
-        //req 1.3 c
-        public LinkedList<Store> viewStores()
+        public Sale viewSalesBySaleId(int saleId)
+        {
+            return User.viewSalesBySaleId(saleId);
+        }
+
+            //req 1.3 c
+            public LinkedList<Store> viewStores()
         {
             return Store.viewStores();
         }
@@ -101,6 +106,11 @@ namespace wsep182.services
         public int removeUser(User userMakingDeletion, String userDeleted)
         {
             return userMakingDeletion.removeUser(userDeleted);
+        }
+
+        public LinkedList<StoreRole> getAllStoreRolesOfAUser(String username)
+        {
+            return storeArchive.getInstance().getAllStoreRolesOfAUser(username);
         }
 
 

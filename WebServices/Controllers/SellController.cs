@@ -130,7 +130,7 @@ namespace WebService.Controllers
             return response;
         }
 
-        [Route("api/store/viewCart")]
+        [Route("api/sell/viewCart")]
         [HttpGet]
         public HttpResponseMessage viewCart()
         {
@@ -148,7 +148,7 @@ namespace WebService.Controllers
             return response;
         }
 
-        [Route("api/store/editCart")]
+        [Route("api/sell/editCart")]
         [HttpPut]
         public HttpResponseMessage editCart(int saleId, int newAmount)
         {
@@ -199,7 +199,7 @@ namespace WebService.Controllers
             return response;
         }
 
-        [Route("api/store/removeFromCart")]
+        [Route("api/sell/removeFromCart")]
         [HttpDelete]
         public HttpResponseMessage removeFromCart(int saleId)
         {
@@ -233,7 +233,7 @@ namespace WebService.Controllers
             return response;
         }
 
-        [Route("api/store/buyProducts")]
+        [Route("api/sell/buyProducts")]
         [HttpPost]
         public string buyProducts(String storeName, int UserId)
         {

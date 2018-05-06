@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -28,6 +29,16 @@ namespace WebService.Controllers
                     return "error: illegal store name";
             }
             return "server error: not suppose to happend";
+        }
+
+
+        [Route("api/store/getAllStores")]
+        [HttpGet]
+        public HttpResponseMessage getAllStores()
+        {
+            LinkedList<Store> stores = storeServices.getInstance().getAllStores();
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, stores);
+            return response;
         }
 
         [Route("api/store/addProductInStore")]

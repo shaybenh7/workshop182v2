@@ -40,8 +40,7 @@ namespace wsep182.Domain
             if (amount > amountForSale || amount <= 0)
                 return -7; //amount is bigger than the amount currently up for sale
 
-            if (!(session.getState() is Guest))
-                UserCartsArchive.getInstance().updateUserCarts(session.getUserName(), saleId, amount);
+            UserCartsArchive.getInstance().updateUserCarts(session.getUserName(), saleId, amount);
 
             UserCart toAdd = new UserCart(session.getUserName(), saleId, amount);
             foreach (UserCart c in products)
