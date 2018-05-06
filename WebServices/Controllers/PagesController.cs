@@ -62,14 +62,16 @@ namespace WebServices.Controllers
             return View();
         }
 
-        public ActionResult viewInstantSale()
+        public ActionResult viewInstantSale(int saleId)
         {
+            ViewData["saleId"] = saleId;
             return View();
         }
 
-        public ActionResult viewRaffleSale()
+        public ActionResult viewRaffleSale(int saleId)
         {
-            return View();
+            var saleIdVar = saleId;
+            return View(saleIdVar);
         }
 
         public ActionResult shoppingCart()

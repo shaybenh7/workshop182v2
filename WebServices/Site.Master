@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en" style="{overflow-y: scroll; overflow-x:hidden;}">
+<html lang="en" style="{overflow-y: scroll; overflow-x: hidden; }">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -55,9 +55,8 @@
                 <div class="top-bar">
                     <div class="content-topbar flex-sb-m h-full container">
                         <div class="left-top-bar">
-                            
                         </div>
-                        <asp:PlaceHolder id="LoginRegisterLinks" Visible="true" runat="server">
+                        <asp:PlaceHolder ID="LoginRegisterLinks" Visible="true" runat="server">
                             <div class="right-top-bar flex-w h-full">
 
                                 <a href="/login" class="flex-c-m trans-04 p-lr-25">Login
@@ -68,7 +67,7 @@
 
                                 <a href="/viewInstantSale" class="flex-c-m trans-04 p-lr-25">View instant sale
                                 </a>
-                               <a href="/viewRaffleSale" class="flex-c-m trans-04 p-lr-25">View raffle sale
+                                <a href="/viewRaffleSale" class="flex-c-m trans-04 p-lr-25">View raffle sale
                                 </a>
                             </div>
                         </asp:PlaceHolder>
@@ -101,14 +100,14 @@
                                     <a href="/api/user/fillDB">FILL DB</a>
                                 </li>
 
-                                
-                                <asp:PlaceHolder id="MyStoresLink" Visible="false" runat="server">
+
+                                <asp:PlaceHolder ID="MyStoresLink" Visible="false" runat="server">
                                     <li>
                                         <a href="/MyStores">My Stores</a>
                                     </li>
                                 </asp:PlaceHolder>
 
-                                <asp:PlaceHolder id="adminPanelLink" Visible="false" runat="server">
+                                <asp:PlaceHolder ID="adminPanelLink" Visible="false" runat="server">
                                     <li>
                                         <a href="/admin">Admin Panel</a>
                                     </li>
@@ -132,11 +131,53 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
 
-        
+            $(document).ready(function () {
+                var myCookie = getCookie("HashCode");
+                if (myCookie == null) {
+                    jQuery.ajax({
+                        type: "GET",
+                        url: "http://localhost:53416/api/user/generateHash",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+                            document.cookie = "HashCode=" + response[0]; //saves the hash code as a cookie
+                        },
+                        error: function (response) {
+                            console.log(response);
+                            window.location.href = "http://localhost:53416/error";
+                        }
+                    });
+                }
 
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
+
+            });
+
+            function getCookie(name) {
+                var dc = document.cookie;
+                var prefix = name + "=";
+                var begin = dc.indexOf("; " + prefix);
+                if (begin == -1) {
+                    begin = dc.indexOf(prefix);
+                    if (begin != 0) return null;
+                }
+                else {
+                    begin += 2;
+                    var end = document.cookie.indexOf(";", begin);
+                    if (end == -1) {
+                        end = dc.length;
+                    }
+                }
+                // because unescape has been deprecated, replaced with decodeURI
+                //return unescape(dc.substring(begin + prefix.length, end));
+                return decodeURI(dc.substring(begin + prefix.length, end));
+            }
+        </script>
+
+
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
     </form>
 </body>
 </html>

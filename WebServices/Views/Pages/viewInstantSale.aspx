@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="View Sale Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="viewInstantSale.aspx.cs" Inherits="WebServices.Views.Pages.viewInstantSale" %>
 
-
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section class="sec-product-detail bg0 p-t-65 p-b-60">
         <div class="container">
@@ -171,5 +170,12 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
+    <script type ="text/javascript">
+        $(document).ready(function () {
+            var saleId = <%=ViewData["saleId"]%>;
+
+        });
+    </script>
 </asp:Content>
 
