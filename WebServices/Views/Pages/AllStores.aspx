@@ -21,7 +21,8 @@
                 success: function (response) {
                     var i;
                     for (i = 0; i < response.length; i++) {
-                            store = response[i];
+                        store = response[i];
+                        var storeId = store["storeId"];
                             var storeName = store["name"];
                             var ownerName = store["storeCreator"]["userName"];
                         var string = "";
@@ -29,7 +30,7 @@
                         string += "<div class=\"block2\">";
                         string += "<div class=\"block2-pic hov-img0\">";
                         string += "<img src=\"images/itamar.jpg\" alt=\"IMG-PRODUCT\">";
-                        string += "<a href=\"#\" class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">Quick Buy</a>";
+                        string += "<a href=\"http://localhost:53416/viewStore?storeId="+storeId+"\" class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">View Store</a>";
                         string += "</div>";
                         string += "<div class=\"block2-txt flex-w flex-t p-t-14\">";
                             string += "<div class=\"block2-txt-child1 flex-col-l \">";

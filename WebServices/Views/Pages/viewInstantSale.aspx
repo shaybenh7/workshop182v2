@@ -3,35 +3,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <section class="sec-product-detail bg0 p-t-65 p-b-60">
         <div class="container">
-            <div class="row">
 
 
+                    <div id="viewRaffleSaleComponent" class="p-r-50 p-t-5 p-lr-0-lg">
+                        
+
+
+                    </div>
                 <div class="col-md-6 col-lg-5 p-b-30">
                     <div class="p-r-50 p-t-5 p-lr-0-lg">
-                        <h4 class="mtext-105 cl2 js-name-detail p-b-14"> *Product Name*
+                        <h4 class="mtext-105 cl2 js-name-detail p-b-14"> 
                         </h4>
-                        <span class="mtext-106 cl2">*Store Name*
-                        </span>
-                        <br />
-                        <br />
-                        <span class="mtext-106 cl2">*Price*
-                        </span>
-                        <br />
-                        <span class="mtext-106 cl2">*Discount*
-                        </span>
-                        <br />
-                        <span class="mtext-106 cl2">*Price after discount*
-                        </span>
-                        <br />
-                        <span class="mtext-106 cl2">*Quantity available*
-                        </span>
-                        <br />
-                        <span class="mtext-106 cl2">*Type of sale- Instant*
-                        </span>
-                        <br />
-                        <p class="stext-102 cl3 p-t-23">
-                            *POLICY*
-                        </p>
+                        
 
                         <!--  -->
                         <div class="p-t-33">
@@ -45,14 +28,14 @@
 											<i class="fs-16 zmdi zmdi-minus"></i>
 										</div>
 
-										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+										<input class="mtext-104 cl3 txt-center num-product" type="number" id="num-product" name="num-product" value="1">
 
 										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-plus"></i>
 										</div>
 									</div>
 
-									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+									<button id = "submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 										Add to cart
 									</button>
 								</div>
@@ -62,7 +45,7 @@
 
                     </div>
                 </div>
-            </div>
+            
 
             
         </div>
@@ -174,8 +157,99 @@
     <script type ="text/javascript">
         $(document).ready(function () {
             var saleId = <%=ViewData["saleId"]%>;
+            var mainDiv = document.getElementById('viewRaffleSaleComponent');
+            jQuery.ajax({
+                type: "GET",
+                url: "http://localhost:53416/api/user/viewSaleById?saleId=" + saleId,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    var i;
+                    var pis = response["ProductInStoreId"];
+                    var dueDate = response["DueDate"];
+                    var quan = response["Amount"];
+                    var string = "";
+                    string += "<h4 id=\"productName\" class=\"mtext-105 cl2 js-name-detail p-b-14\"> Product Name: </h4>";
+                    string += "<span id=\"storeName\"  class=\"mtext-106 cl2\">Store Name: ";
+                    string += "</span>";
+                    string += " <br /> <br />";
+                    string += "<span id=\"salePrice\" class=\"mtext-106 cl2\">Price: "
+                    string += "</span><br />";
+                    string += "<span id=\"saleOffers\" class=\"mtext-106 cl2\">Discount: *TODO* "
+                    string += "</span><br />";
+                    string += "<span id=\"saleOffers\" class=\"mtext-106 cl2\">Price after discount: *TODO* "
+                    string += "</span><br />";
+                    string += "<span class=\"mtext-106 cl2\">Quantity: " + quan;
+                    string += "</span><br />";
+                    string += "<span class=\"mtext-106 cl2\">Type of sale: Instant";
+                    string += "</span><br />";
+                    string += "<p class=\"stext-102 cl3 p-t-23\">*POLICY: TODO*</p><br />";
 
+                   
+
+
+                    
+
+
+                    mainDiv.innerHTML += string;
+                    (function () {
+                        
+                            $('#submit').click(function () {
+                                jQuery.ajax({
+                                    type: "PUT",
+                                    url: "http://localhost:53416/api/store/addProductToCart?saleId=" + saleId + "&amount=" + document.getElementById("num-product").value,
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (response) {
+                                        console.log(response);
+                                    },
+                                    error: function (response) {
+                                        console.log("response");
+                                    }
+                                });
+                            });
+                        
+                            jQuery.ajax({
+                                type: "GET",
+                                url: "http://localhost:53416/api/store/getProductInStoreById?id=" + pis,
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    console.log("fuck");
+                                    var productNameElement = document.getElementById("productName");
+                                    productNameElement.innerHTML += response["product"]["name"];
+
+                                    var storeNameElement = document.getElementById("storeName");
+                                    storeNameElement.innerHTML += response["store"]["name"];
+                                },
+                                error: function (response) {
+                                    console.log(response);
+                                }
+                            });
+                            jQuery.ajax({
+                                type: "GET",
+                                url: "http://localhost:53416/api/store/checkPriceOfAProduct?saleId=" + saleId, //add call to get price
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    var salePriceElement = document.getElementById("salePrice");
+                                    salePriceElement.innerHTML += response;
+                                },
+                                error: function (response) {
+                                    console.log(response);
+                                }
+                            });
+                        })();
+                },
+                error: function (response) {
+                    console.log("fuck");
+                    window.location.href = "http://localhost:53416/error";
+                }
+            });
         });
     </script>
+
+
 </asp:Content>
 

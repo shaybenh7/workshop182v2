@@ -177,9 +177,9 @@
                         var string = "";
                         string += "<tr class=\"table_row\">";
                         string += "<td class=\"column-1\" >";
-                        string += "<div class=\"how-itemcart1\">";
-                        string += "<img src=\"images/remove.png\" alt=\"IMG\">";
-                        string += "</div>";
+                        //string += "<div class=\"how-itemcart1\">";
+                        string += "<input type=\"image\" src=\"images/removee.png\" id=\"remove" + i + "\" width=\"40\" height=\"40\">";
+                        //string += "</div>";
                         string += "</td>";
                         string += "<td class=\"column-2\" id=\"productName" + i + "\"></td>";
                         string += "<td class=\"column-3\" id=\"price" + i + "\"></td>";
@@ -189,6 +189,21 @@
                         mainDiv.innerHTML += string;
 
                         (function (i, saleId) {
+                            $('#remove'+i).click(function () {
+                                jQuery.ajax({
+                                    type: "Delete",
+                                    url: "http://localhost:53416/api/sell/removeFromCart?saleId=" + saleId,
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (response) {
+                                        console.log("response");
+                                        console.log(response);
+                                    },
+                                    error: function (response) {
+                                        console.log("responseeee");
+                                    }
+                                });
+                            });
                             jQuery.ajax({
                                 type: "GET",
                                 url: "http://localhost:53416/api/user/viewSaleById?saleId=" + saleId,

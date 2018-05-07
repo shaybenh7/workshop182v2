@@ -16,6 +16,9 @@ namespace wsep182.Domain
 
         public LinkedList<UserCart> getShoppingCartProducts(User session)
         {
+            if (session.getState() is Guest)
+                return products;
+            else
                 return UserCartsArchive.getInstance().getUserShoppingCart(session.getUserName());
         }
 
@@ -39,8 +42,8 @@ namespace wsep182.Domain
             int amountForSale = SalesArchive.getInstance().getSale(saleId).Amount;
             if (amount > amountForSale || amount <= 0)
                 return -7; //amount is bigger than the amount currently up for sale
-
-            UserCartsArchive.getInstance().updateUserCarts(session.getUserName(), saleId, amount);
+            if(!(session.getState() is Guest))
+                UserCartsArchive.getInstance().updateUserCarts(session.getUserName(), saleId, amount);
 
             UserCart toAdd = new UserCart(session.getUserName(), saleId, amount);
             foreach (UserCart c in products)
