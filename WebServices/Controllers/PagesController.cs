@@ -79,8 +79,9 @@ namespace WebServices.Controllers
             return View();
         }
 
-        public ActionResult viewStore()
+        public ActionResult viewStore(int storeId)
         {
+            ViewData["storeId"] = storeId;
             return View();
         }
 
