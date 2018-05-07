@@ -83,7 +83,7 @@ namespace WebService.Controllers
         [HttpPut]
         public HttpResponseMessage addRaffleProductToCart(int saleId, double offer)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             /* Confimation = 1
              * Errors:
              * -1 = user is null (should not ever happen)

@@ -10,7 +10,7 @@
 
                 <div class="col-md-6 col-lg-5 p-b-30">
                     <div class="p-r-50 p-t-5 p-lr-0-lg">
-                        <h4 class="mtext-105 cl2 js-name-detail p-b-14"> *Store Name*
+                        <h4 id="store-name" class="mtext-105 cl2 js-name-detail p-b-14"> Store Name:
                         </h4>
                         <span class="mtext-106 cl2">*owners*
                         </span>
@@ -103,6 +103,10 @@
 
                                     var storeNameElement = document.getElementById("storeName" + i);
                                     storeNameElement.innerHTML += response["store"]["name"];
+                                    if (i == 0) {
+                                        var storeNameHeader = document.getElementById("store-name");
+                                        storeNameHeader.innerHTML += response["store"]["name"];
+                                    }
                                 },
                                 error: function (response) {
                                     console.log(response);
