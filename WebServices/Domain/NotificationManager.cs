@@ -22,9 +22,9 @@ namespace wsep182.Domain
             return instance;
         }
 
-        public Boolean notifyUser(User u, String message)
+        public Boolean notifyUser(String userName, String message)
         {
-            String hash = HashArchive.getInstance().getHashByUserName(u.getUserName());
+            String hash = HashArchive.getInstance().getHashByUserName(userName);
             if (hash != null)
             {
                 WebSocketController.sendMessageToClient(hash, message);

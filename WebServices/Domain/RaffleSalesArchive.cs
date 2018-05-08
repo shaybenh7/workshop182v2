@@ -24,15 +24,21 @@ namespace wsep182.Domain
 
         private void CheckFinishedRaffelSales(object source, ElapsedEventArgs e)
         {
-
+            LinkedList<RaffleSale> raffleSalesToRemove = new LinkedList<RaffleSale>();
             foreach (RaffleSale rs in raffleSales)
             {
-                if (DateTime.Now.CompareTo(DateTime.Parse(rs.DueDate)) > 0 )
+                if (DateTime.Now.CompareTo(DateTime.Parse(rs.DueDate)) > 0)
                 {
-
+                    NotificationManager.getInstance().notifyUser(rs.UserName, "the Raffle sale " + rs.SaleId + " has been canceled");
+                    raffleSalesToRemove.AddLast(rs);
                 }
             }
+            foreach (RaffleSale rs in raffleSalesToRemove)
+            {
+                raffleSales.Remove(rs);
+            }
         }
+
 
         public static RaffleSalesArchive getInstance()
         {
