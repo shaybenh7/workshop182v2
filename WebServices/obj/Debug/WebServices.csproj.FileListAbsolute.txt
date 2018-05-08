@@ -74,6 +74,9 @@ C:\Programing\c#\workshop182v2\WebServices\bin\System.Web.WebPages.Deployment.dl
 C:\Programing\c#\workshop182v2\WebServices\bin\System.Web.WebPages.dll
 C:\Programing\c#\workshop182v2\WebServices\bin\System.Web.WebPages.Razor.dll
 C:\Programing\c#\workshop182v2\WebServices\bin\WebGrease.dll
+C:\Programing\c#\workshop182v2\WebServices\bin\wsep182.exe
+C:\Programing\c#\workshop182v2\WebServices\bin\wsep182.pdb
+C:\Programing\c#\workshop182v2\WebServices\bin\wsep182.exe.config
 C:\Programing\c#\workshop182v2\WebServices\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Programing\c#\workshop182v2\WebServices\bin\Newtonsoft.Json.xml
 C:\Programing\c#\workshop182v2\WebServices\bin\System.Net.Http.Formatting.xml
@@ -296,4 +299,4 @@ C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\
 C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\obj\Debug\WebServices.dll
 C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\obj\Debug\WebServices.pdb
 C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\System.Net.WebSockets.dll
-C:\Programing\c#\workshop182v2\WebServices\bin\System.Net.WebSockets.dll
+C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\System.Net.WebSockets.dll
