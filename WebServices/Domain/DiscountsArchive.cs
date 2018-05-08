@@ -26,7 +26,31 @@ namespace wsep182.Domain
             instance = new DiscountsArchive();
         }
 
-        public Boolean addNewDiscount(int productInStoreId, int percentage, String dueDate)
+        public int addNewDiscounts(int type, List<int> pisId,List<string> catOrProductsNames
+           , int percentage, string dueDate, string restrictions)
+        {
+            if(type == 1)
+            {
+                foreach (int pid in pisId)
+                {
+                    Discount toAdd = new Discount(pid, 1, "", percentage, dueDate, restrictions);
+                    discounts.AddLast(toAdd);
+                }
+            }
+            else
+            {
+                foreach (string name in catOrProductsNames)
+                {
+                    Discount toAdd = new Discount(-1, type, name, percentage, dueDate, restrictions);
+                    discounts.AddLast(toAdd);
+                }
+            }
+            return 0;
+        }
+
+        // type: 1-productInStore, 2 - category, 3- Product
+        public Boolean addNewDiscount(int productInStoreId,int type, string categoryOrProductName ,
+            int percentage, String dueDate,string restrictions)
         {
             DateTime dueDateTime;
             try
@@ -41,12 +65,27 @@ namespace wsep182.Domain
                 return false;
             foreach (Discount d in discounts)
             {
-                if (d.ProductInStoreId == productInStoreId)
+                if(d.Type == type)
                 {
-                    return false;
+                    switch (type)
+                    {
+                        case 1:
+                            if (productInStoreId == d.ProductInStoreId && dueDate.Equals(d.DueDate))
+                                return false;
+                            break;
+                        case 2:
+                            if (d.Category.Equals(categoryOrProductName) && dueDate.Equals(d.DueDate))
+                                return false;
+                            break;
+                        case 3:
+                            if (d.ProductName.Equals(categoryOrProductName) && dueDate.Equals(d.DueDate))
+                                return false;
+                            break;
+                    }
                 }
             }
-            Discount toAdd = new Discount(productInStoreId, percentage, dueDate);
+
+            Discount toAdd = new Discount(productInStoreId,type, categoryOrProductName, percentage, dueDate, restrictions);
             discounts.AddLast(toAdd);
             return true;
         }
@@ -61,6 +100,37 @@ namespace wsep182.Domain
                 }
             }
             return false;
+        }
+
+        /*
+         * enter empty string if no date is needed
+         */
+        public Boolean removeDiscountByCategory(string category,string dueDate)
+        {
+            Boolean flag = false;
+            if (dueDate != "")
+            {
+                foreach (Discount discount in discounts)
+                {
+                    if (discount.Category.Equals(category) && dueDate.Equals(discount.DueDate))
+                    {
+                        discounts.Remove(discount);
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                foreach (Discount discount in discounts)
+                {
+                    if (discount.Category.Equals(category))
+                    {
+                        discounts.Remove(discount);
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
         }
         public Boolean editDiscount(int productInStoreId, int newPercentage, String newDueDate)
         {
@@ -92,5 +162,53 @@ namespace wsep182.Domain
             }
             return null;
         }
+
+        public LinkedList<Discount> getAllDiscountsById(int productInStoreId)
+        {
+            LinkedList<Discount> ans = new LinkedList<Discount>();
+            foreach(Discount d in discounts)
+            {
+                ProductInStore p = ProductArchive.getInstance().getProductInStore(productInStoreId);
+                string category = p.category;
+                string productName = p.product.name;
+
+                switch (d.Type)
+                {
+                    case 1: // discount on a product in store
+                        if(d.ProductInStoreId == productInStoreId)
+                        {
+                            ans.AddLast(d);
+                        }
+                        break;
+                    case 2: // discount on a category
+                        if (d.Category.Equals(category))
+                        {
+                            ans.AddLast(d);
+                        }
+                        break;
+                    case 3: // discount on a PRODUCT (not in store)
+                        if (d.ProductName.Equals(productName))
+                        {
+                            ans.AddLast(d);
+                        }
+                        break;
+                }
+            }
+            return ans;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

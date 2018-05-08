@@ -14,13 +14,26 @@ namespace wsep182.Domain
         public double price;
         public int isActive;
         public int productInStoreId;
+        public string category;
 
         public int Quantity { set => quantity = value; }
         public double Price { set => price = value; }
         public int IsActive { set => isActive = value; }
+        public string Category { get => category; set => category = value; }
 
         public ProductInStore(int id, Product p,double price, int amount,Store s)
         {
+            this.productInStoreId = id;
+            this.product = p;
+            this.price = price;
+            this.quantity = amount;
+            this.store = s;
+            this.isActive = 1;
+        }
+
+        public ProductInStore(int id,string category ,Product p, double price, int amount, Store s)
+        {
+            this.category = category;
             this.productInStoreId = id;
             this.product = p;
             this.price = price;

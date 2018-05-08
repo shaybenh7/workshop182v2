@@ -16,11 +16,134 @@ namespace wsep182.Domain
 
         public LinkedList<UserCart> getShoppingCartProducts(User session)
         {
+            /*
             if (session.getState() is Guest)
                 return products;
             else
                 return UserCartsArchive.getInstance().getUserShoppingCart(session.getUserName());
+                */
+            if (!(session.getState() is Guest))
+                 products = UserCartsArchive.getInstance().getUserShoppingCart(session.getUserName());
+            updateRegularPricesForCart();
+            return products;
         }
+
+        private void updateRegularPricesForCart()
+        {
+            foreach (UserCart uc in products)
+            {
+                Sale s = SalesArchive.getInstance().getSale(uc.getSaleId());
+                double pricePerUnit = ProductArchive.getInstance().getProductInStore(s.ProductInStoreId).getPrice();
+                uc.Price = pricePerUnit * uc.getAmount();
+            }
+        }
+
+        public LinkedList<UserCart> getShoppingCartBeforeCheckout(User session)
+        {
+            if (!(session.getState() is Guest))
+                products = UserCartsArchive.getInstance().getUserShoppingCart(session.getUserName());
+
+            updateRegularPricesForCart(); // set all the regular prices for the cart - before discount
+            foreach(UserCart uc in products)
+            {
+                Sale sale = SalesArchive.getInstance().getSale(uc.getSaleId());
+                LinkedList<Discount> discounts = DiscountsArchive.getInstance().getAllDiscountsById(sale.ProductInStoreId);
+                uc.PriceAfterDiscount = uc.Price;
+                foreach(Discount d in discounts)
+                {
+                    if (fulfillTypeOfSaleRestriction(sale.TypeOfSale, d))
+                    {
+                        uc.PriceAfterDiscount -= uc.PriceAfterDiscount * (d.Percentage / 100);
+                    }
+                }
+            }
+            return products;
+        }
+
+        private Boolean fulfillTypeOfSaleRestriction(int typeOfSale, Discount d)
+        {
+            string restrictions = d.Restrictions;
+            if (!restrictions.Contains("TOS"))
+                return true;
+            /* STRING SHOULD LOOK LIKE : COUNTRY=ISRAEL,ENGLAND/TOS=1,3
+             * or: TOS=1
+            */
+            string[] afterSplit = restrictions.Split('/');
+            for(int i = 0; i < afterSplit.Length; i++)
+            {
+                string temp = afterSplit[i];
+                if (temp.Contains("TOS") && temp.Contains(typeOfSale.ToString()))
+                    return true;
+            }
+            return false;
+        }
+
+
+        public Tuple<int,LinkedList<UserCart>> checkout(User session, string country, string address)
+        {
+            if (!(session.getState() is Guest))
+                products = UserCartsArchive.getInstance().getUserShoppingCart(session.getUserName());
+
+            /*
+             *  first we check all the products in the cart fulfill their terms of amount
+             * */
+            int checkAmountFulfillmentAns = checkAmountFulfillment(country);
+            if (checkAmountFulfillmentAns!=-1)
+                return Tuple.Create(checkAmountFulfillmentAns,products);
+
+
+
+            return Tuple.Create(-1,products);
+        }
+        
+        public int checkAmountFulfillment(string country)
+        {
+            foreach (UserCart uc in products)
+            {
+                Sale s = SalesArchive.getInstance().getSale(uc.getSaleId());
+                ProductInStore theProduct = ProductArchive.getInstance().getProductInStore(s.ProductInStoreId);
+                LinkedList<PurchasePolicy> countrysPolicys = PurchasePolicyArchive.getInstance().getAllCountryPolicys(country);
+                LinkedList<PurchasePolicy> categorysPolicys = PurchasePolicyArchive.getInstance().getAllCategoryPolicys(theProduct.Category);
+                LinkedList<PurchasePolicy> productPolicys = PurchasePolicyArchive.getInstance().getAllProductPolicys(theProduct.getProduct().name);
+                LinkedList<PurchasePolicy> productInStorePolicys = PurchasePolicyArchive.getInstance().getAllProductInStorePolicys(theProduct.getProductInStoreId());
+
+                int currAmount = uc.getAmount();
+                foreach(PurchasePolicy p in countrysPolicys)
+                {
+                    if (!p.NoLimit)
+                    {
+                        if (currAmount < p.MinAmount || currAmount > p.MaxAmount)
+                            return uc.getSaleId();
+                    }
+                }
+                foreach (PurchasePolicy p in categorysPolicys)
+                {
+                    if (!p.NoLimit)
+                    {
+                        if (currAmount < p.MinAmount || currAmount > p.MaxAmount)
+                            return uc.getSaleId();
+                    }
+                }
+                foreach (PurchasePolicy p in productPolicys)
+                {
+                    if (!p.NoLimit)
+                    {
+                        if (currAmount < p.MinAmount || currAmount > p.MaxAmount)
+                            return uc.getSaleId();
+                    }
+                }
+                foreach (PurchasePolicy p in productInStorePolicys)
+                {
+                    if (!p.NoLimit)
+                    {
+                        if (currAmount < p.MinAmount || currAmount > p.MaxAmount)
+                            return uc.getSaleId();
+                    }
+                }
+            }
+            return -1;
+        }
+        
 
         public int addToCart(User session, int saleId, int amount)
         {
@@ -42,7 +165,8 @@ namespace wsep182.Domain
             int amountForSale = SalesArchive.getInstance().getSale(saleId).Amount;
             if (amount > amountForSale || amount <= 0)
                 return -7; //amount is bigger than the amount currently up for sale
-            if(!(session.getState() is Guest))
+
+            if (!(session.getState() is Guest))
                 UserCartsArchive.getInstance().updateUserCarts(session.getUserName(), saleId, amount);
 
             UserCart toAdd = new UserCart(session.getUserName(), saleId, amount);
@@ -259,7 +383,7 @@ namespace wsep182.Domain
             {
                 return false;
             }
-            if (DateTime.Compare(dueDateTime, DateTime.Now) < 0)
+            if (DateTime.Compare(dueDateTime, DateTime.Now) > 0)
                 return false;
             return true;
         }

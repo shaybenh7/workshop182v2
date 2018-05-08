@@ -120,5 +120,116 @@ namespace wsep182.Domain
             return coupons;
         }
 
+
+        public Boolean addNewCoupon(String couponId, int productInStoreId, int type, string categoryOrProductName,
+         int percentage, String dueDate, string restrictions)
+        {
+            DateTime dueDateTime;
+            try
+            {
+                dueDateTime = DateTime.Parse(dueDate);
+            }
+            catch (System.FormatException e)
+            {
+                return false;
+            }
+            if (DateTime.Compare(dueDateTime, DateTime.Now) < 0)
+                return false;
+            foreach (Coupon c in coupons)
+            {
+                if (c.CouponId.Equals(couponId))
+                {
+                    return false;
+                }
+                if (c.Type == type)
+                {
+                    switch (type)
+                    {
+                        case 1:
+                            if (productInStoreId == c.ProductInStoreId && dueDate.Equals(c.DueDate))
+                                return false;
+                            break;
+                        case 2:
+                            if (c.Category.Equals(categoryOrProductName) && dueDate.Equals(c.DueDate))
+                                return false;
+                            break;
+                        case 3:
+                            if (c.ProductName.Equals(categoryOrProductName) && dueDate.Equals(c.DueDate))
+                                return false;
+                            break;
+                    }
+                }
+            }
+
+            Coupon toAdd = new Coupon(couponId,productInStoreId, type, categoryOrProductName, percentage, dueDate, restrictions);
+            coupons.AddLast(toAdd);
+            return true;
+        }
+
+        public int addNewCoupons(String couponId, int type, List<int> pisId, List<string> catOrProductsNames
+            , int percentage, string dueDate, string restrictions)
+        {
+            if (type == 1)
+            {
+                foreach (int pid in pisId)
+                {
+                    Coupon toAdd = new Coupon(couponId, pid, 1, "", percentage, dueDate, restrictions);
+                    coupons.AddLast(toAdd);
+                }
+            }
+            else
+            {
+                foreach (string name in catOrProductsNames)
+                {
+                    Coupon toAdd = new Coupon(couponId , -1, type, name, percentage, dueDate, restrictions);
+                    coupons.AddLast(toAdd);
+                }
+            }
+            return 0;
+        }
+
+
+        public LinkedList<Coupon> getAllCouponsById(int productInStoreId)
+        {
+            LinkedList<Coupon> ans = new LinkedList<Coupon>();
+            foreach (Coupon c in coupons)
+            {
+                ProductInStore p = ProductArchive.getInstance().getProductInStore(productInStoreId);
+                string category = p.category;
+                string productName = p.product.name;
+
+                switch (c.Type)
+                {
+                    case 1: // discount on a product in store
+                        if (c.ProductInStoreId == productInStoreId)
+                        {
+                            ans.AddLast(c);
+                        }
+                        break;
+                    case 2: // discount on a category
+                        if (c.Category.Equals(category))
+                        {
+                            ans.AddLast(c);
+                        }
+                        break;
+                    case 3: // discount on a PRODUCT (not in store)
+                        if (c.ProductName.Equals(productName))
+                        {
+                            ans.AddLast(c);
+                        }
+                        break;
+                }
+            }
+            return ans;
+        }
+
+
+
+
+
+
+
+
+
     }
 }
