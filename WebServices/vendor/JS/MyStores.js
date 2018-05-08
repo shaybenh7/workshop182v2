@@ -250,6 +250,75 @@ var removeStoreProduct = function () {
     });
 };
 
+var addSale = function () {
+    productId = $("#product-id4").val();
+    amount = $("#product-amount-in-sale2").val();
+    kindOfSale = $("#saleOption")[0].selectedIndex
+    date = $("#product-due-date2").val();
+
+    jQuery.ajax({
+        type: "GET",
+        url: "http://localhost:53416/api/store/addSaleToStore?storeId=" + lastClickedStoreId +
+            "&pisId=" + productId + "&typeOfSale=" + kindOfSale + "&amount=" + amount +
+            "&dueDtae=" + date,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            alert(response);
+            window.location.reload(false);
+
+        },
+        error: function (response) {
+            console.log(response);
+            // window.location.reload(false); 
+        }
+    });
+};
+
+var editSale = function () {
+    saleId = $("#Sale-id5").val();
+    amount = $("#product-amount-in-sale").val();
+    date = $("#product-due-date").val();
+
+    jQuery.ajax({
+        type: "GET",
+        url: "http://localhost:53416/api/store/editSale?storeId=" + lastClickedStoreId +
+            "&saleId=" + saleId + "&amount=" + amount + "&dueDate=" + date +
+            "&dueDtae=" + date,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            alert(response);
+            window.location.reload(false);
+
+        },
+        error: function (response) {
+            console.log(response);
+            // window.location.reload(false); 
+        }
+    });
+};
+
+var removeSale = function () {
+    saleId = $("#Sale-id6").val();
+
+    jQuery.ajax({
+        type: "GET",
+        url: "http://localhost:53416/api/store/removeSaleFromStore?storeId=" + lastClickedStoreId +
+            "&saleId=" + saleId ,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            alert(response);
+            window.location.reload(false);
+
+        },
+        error: function (response) {
+            console.log(response);
+            // window.location.reload(false); 
+        }
+    });
+};
 
 
 function modalLinkListener(e) {

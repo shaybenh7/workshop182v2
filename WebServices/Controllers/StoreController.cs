@@ -325,8 +325,8 @@ namespace WebService.Controllers
         }
 
         [Route("api/store/addSaleToStore")]
-        [HttpPut]
-        public string addSaleToStore(int storeId, String oldManageruserName, int pisId, int typeOfSale, int amount, String dueDtae)
+        [HttpGet]
+        public string addSaleToStore(int storeId, int pisId, int typeOfSale, int amount, String dueDtae)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().addSaleToStore(session, storeId, pisId, typeOfSale, amount, dueDtae);
@@ -364,7 +364,7 @@ namespace WebService.Controllers
         }
 
         [Route("api/store/removeSaleFromStore")]
-        [HttpDelete]
+        [HttpGet]
         public string removeSaleFromStore(int storeId, int saleId)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
@@ -392,7 +392,7 @@ namespace WebService.Controllers
         }
 
         [Route("api/store/editSale")]
-        [HttpPost]
+        [HttpGet]
         public string editSale(int storeId, int saleId, int amount, String dueDate)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
