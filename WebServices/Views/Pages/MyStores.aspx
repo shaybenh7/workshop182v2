@@ -55,9 +55,8 @@
                                                     <br />
                                                     <br />
                                                     <br />
-                                                    <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                        Add product
-                                                    </button>
+                                                    <input type="button" value="Add product" id="add_product_btn" onclick="addProductFunct();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+<%--  --%>
                                                 </div>
 
 
@@ -226,9 +225,7 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                    Add manager
-                                                </button>
+                                                <input type="button" value="Add manager" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="addNewManager()"/>
 
 
 
@@ -269,9 +266,7 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                    Remove manager
-                                                </button>
+                                                <input type="button" value="Remove manager" onclick="RemoveStoreManager();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
 
 
 
@@ -312,12 +307,7 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                    Add owner
-                                                </button>
-
-
-
+                                                <input type="button" value="Add Owner" onclick="addStoreOwner();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
                                             </div>
                                         </div>
                                     </div>
@@ -355,9 +345,7 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                    Remove owner
-                                                </button>
+                                                <input type="button" onclick="removeStoreOwner();" value="Remove owner" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
 
                                             </div>
                                         </div>
@@ -964,7 +952,7 @@
             </div>
         </div>
         <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50" style="max-width: 33%; flex: 0 0 33%;">
-            <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+            <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm" style="margin-top:46px; margin-right:91px; margin-left:-27px;">
                 <h4 class="mtext-109 cl2 p-b-30">Create New Store
                 </h4>
 
@@ -1000,119 +988,10 @@
 
 
 
+    <script src="vendor/JS/MyStores.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-        /*
-        $(document).on("click", ".open-AddBookDialog", function () {
-            console.log($(this).data('id'));
-            document.getElementById('addBookDialog').style.display = "block";
-
-            var myBookId = $(this).data('id');
-            $(".modal-body #bookId").val(myBookId);
-        });
-        */
-
-    </script>
-    <script type="text/javascript">
-        var lastClickedStoreId;
-        $(document).ready(function () {
-            $(document).ready(function () {
-                var mainDiv = document.getElementById('allStoresComponent');
-                jQuery.ajax({
-                    type: "GET",
-                    url: "http://localhost:53416/api/user/getAllStoresUnderUser",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        console.log(response);
-                        var i;
-                        for (i = 0; i < response.length; i++) {
-                            storeRole = response[i];
-                            if (storeRole["store"]["isActive"] == 1 && (storeRole["type"] == "Manager" || storeRole["type"] == "Owner")) {
-                                var storeName = storeRole["store"]["name"];
-                                var storeId = storeRole["store"]["storeId"];
-                                var disabledLinksInitial = "disabledLink";
-                                if (storeRole["type"] == "Owner")
-                                    disabledLinksInitial = "";
-                                var string = "";
-
-                                string += "<div class=\"p-t-50\">";
-                                string += "<h4 class=\"mtext-112 cl2 p-b-27\">" + storeName + "</h4>";
-                                string += "<div class=\"flex-w m-r--5\">";
-                                string += "<a href=\"#\" id=\"addProductInStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Product</a>";
-                                string += "<a href=\"#\" id=\"editProductInStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Edit Product</a>";
-                                string += "<a href=\"#\" id=\"removeProductFromStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Product</a>";
-                                string += "<a href=\"#\" id=\"addStoreManager" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Store Manager</a>";
-                                string += "<a href=\"#\" id=\"removeStoreManager" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Store Manager</a>";
-                                string += "<a href=\"#\" id=\"addStoreOwner" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Store Owner</a>";
-                                string += "<a href=\"#\" id=\"removeStoreOwner" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Store Owner</a>";
-                                string += "<a href=\"#\" id=\"addManagerPermission" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Manager Permission</a>";
-                                string += "<a href=\"#\" id=\"removeManagerPermission" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Manager Permission</a>";
-                                string += "<a href=\"#\" id=\"addSaleToStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Sale</a>";
-                                string += "<a href=\"#\" id=\"editSale" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Edit Sale</a>";
-                                string += "<a href=\"#\" id=\"removeSaleFromStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Sale</a>";
-                                string += "<a href=\"#\" id=\"addDiscount" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Discount</a>";
-                                string += "<a href=\"#\" id=\"removeDiscount" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Discount</a>";
-                                string += "<a href=\"#\" id=\"addNewCoupon" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Coupon</a>";
-                                string += "<a href=\"#\" id=\"removeCoupon" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Coupon</a>";
-                                string += "<a href=\"#\" id=\"viewPurchasesHistory" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">View History</a>";
-
-                                string += "</div>";
-                                string += "</div>";
-                                mainDiv.innerHTML += string;
-
-
-                                if (storeRole["type"] == "Manager") {
-                                    (function (i, storeId) {
-                                        jQuery.ajax({
-                                            type: "GET",
-                                            url: "http://localhost:53416/api/user/getPremissionsOfAManager?storeId=" + storeId,
-                                            contentType: "application/json; charset=utf-8",
-                                            dataType: "json",
-                                            success: function (response) { //iterate through premissions and enable links
-                                                response = response["privileges"];
-                                                for (var key in response) {
-                                                    if (response.hasOwnProperty(key) && response[key] == true) {
-                                                        enableLink(key + i);
-                                                        //document.getElementById(key + i).onclick = modalLinkListener;
-                                                    }
-                                                }
-                                            },
-                                            error: function (response) {
-                                                console.log(response);
-                                            }
-                                        });
-
-                                    })(i, storeId);
-                                }
-                            }
-
-                        }
-                    },
-                    error: function (response) {
-                        console.log(response);
-                        window.location.href = "http://localhost:53416/error";
-                    }
-                });
-            });
-
-        });
-        function modalLinkListener(e) {
-            lastClickedStoreId = e["srcElement"]["dataset"]["id"];
-            key = e["srcElement"]["id"];
-            key = key.replace(/[0-9]/g, '');
-            openModal(key + "Modal");
-            return false;
-        }
-        function enableLink(id) {
-            var element = document.getElementById(id);
-            element.classList.remove("disabledLink");
-        }
-
-        function openModal(id) {
-            var element = document.getElementById(id);
-            element.classList.add("show-modal1");
-        }
+        
 
     </script>
 </asp:Content>
