@@ -129,8 +129,8 @@ namespace WebService.Controllers
             int s = ss.addProductInStore("sprite", 5.3, 20, zahi, storeid);
             cola = ProductArchive.getInstance().getProductInStore(c);
             sprite = ProductArchive.getInstance().getProductInStore(s);
-            saleId = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 50, "20.5.2018");
-            raffleSale = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 3, 3, "20.5.2018");
+            saleId = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 50, DateTime.Now.AddDays(10).ToString());
+            raffleSale = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 3, 3, DateTime.Now.AddDays(10).ToString());
             
             User session = hashServices.getUserByHash(hash);
             

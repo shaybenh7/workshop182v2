@@ -169,6 +169,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
+                    console.log(response);
                     var i;
                     for (i = 0; i < response.length; i++) {
                         element = response[i];

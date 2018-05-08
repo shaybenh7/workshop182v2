@@ -383,7 +383,7 @@ namespace wsep182.Domain
             {
                 return false;
             }
-            if (DateTime.Compare(dueDateTime, DateTime.Now) > 0)
+            if (DateTime.Compare(DateTime.Now, dueDateTime) > 0)
                 return false;
             return true;
         }
