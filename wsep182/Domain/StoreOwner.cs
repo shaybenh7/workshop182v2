@@ -10,7 +10,7 @@ namespace wsep182.Domain
     {
         public StoreOwner(User u, Store s) : base(u,s)
         {
-
+            type = "Owner";
         }
     }
 }

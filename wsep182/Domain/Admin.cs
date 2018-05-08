@@ -86,5 +86,10 @@ namespace wsep182.Domain
         {
             return BuyHistoryArchive.getInstance().viewHistoryByUserName(userToGetHistory.getUserName());
         }
+
+        public override Premissions getPremissions(User manager, Store s)
+        {
+            return StorePremissionsArchive.getInstance().getAllPremissions(s.getStoreId(), manager.getUserName());
+        }
     }
 }

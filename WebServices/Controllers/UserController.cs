@@ -102,6 +102,8 @@ namespace WebService.Controllers
             admin1 = us.startSession();
             us.register(admin1, "admin1", "123456");
 
+            String hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
+            //zahi = hashServices.getUserByHash(hash);
             zahi = us.startSession();
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
@@ -114,12 +116,14 @@ namespace WebService.Controllers
 
             int storeid = ss.createStore("Maria&Netta Inc.", zahi);
             store = storeArchive.getInstance().getStore(storeid);
-
             niv = us.startSession();
             us.register(niv, "niv", "123456");
             us.login(niv, "niv", "123456");
 
-            ss.addStoreManager(store.getStoreId(), "niv", itamar);
+            ss.addStoreManager(store.getStoreId(), "niv", zahi);
+            StoreRole sR = StoreRole.getStoreRole(store, zahi);
+            sR.addManagerPermission(zahi, "addProductInStore",store,"niv");
+
 
             int c = ss.addProductInStore("cola", 3.2, 100, zahi, storeid);
             int s = ss.addProductInStore("sprite", 5.3, 20, zahi, storeid);
@@ -128,11 +132,9 @@ namespace WebService.Controllers
             saleId = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 50, "20.5.2018");
             raffleSale = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 3, 3, "20.5.2018");
             
-            String hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
             User session = hashServices.getUserByHash(hash);
             
             //sells.addProductToCart(session, saleId, 3);
-            int i = 5;
         }
 
         [Route("api/user/viewStores")]
@@ -214,16 +216,30 @@ namespace WebService.Controllers
 
         [Route("api/user/getAllStoresUnderUser")]
         [HttpGet]
-        public LinkedList<Store> getAllStoreRolesOfAUser(String username)
+        public LinkedList<StoreRole> getAllStoreRolesOfAUser()
         {
-            LinkedList<StoreRole> lst = userServices.getInstance().getAllStoreRolesOfAUser(username);
-            LinkedList<Store> ans = new LinkedList<Store>();
-            foreach (StoreRole sr in lst)
-            {
-                ans.AddLast(sr.getStore());
-            }
-            return ans;
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            return userServices.getInstance().getAllStoreRolesOfAUser(session, session.getUserName());
         }
+
+        [Route("api/user/getPremissionsOfAManager")]
+        [HttpGet]
+        public Premissions getPremissionsOfAManager(string username, int storeId)
+        {
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            return userServices.getInstance().getPremissions(session, username, storeId);
+        }
+
+        [Route("api/user/getPremissionsOfAManager")]
+        [HttpGet]
+        public Premissions getPremissionsOfAManager(int storeId)
+        {
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            string username = session.getUserName();
+            return userServices.getInstance().getPremissions(session, username, storeId);
+        }
+
+
 
 
     }

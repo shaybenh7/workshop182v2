@@ -8,7 +8,7 @@ namespace wsep182.Domain
 {
     public class Premissions
     {
-        Dictionary<string, Boolean> privileges;
+        public Dictionary<string, Boolean> privileges;
 
         public Dictionary<string, Boolean> getPrivileges()
         {

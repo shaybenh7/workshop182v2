@@ -10,6 +10,7 @@ namespace wsep182.Domain
     {
         public User user;
         public Store store;
+        public string type;
 
         public StoreRole(User u, Store s) {
             user = u;

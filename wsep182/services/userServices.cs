@@ -108,9 +108,15 @@ namespace wsep182.services
             return userMakingDeletion.removeUser(userDeleted);
         }
 
-        public LinkedList<StoreRole> getAllStoreRolesOfAUser(String username)
+        public Premissions getPremissions(User session, string manager, int storeId)
         {
-            return storeArchive.getInstance().getAllStoreRolesOfAUser(username);
+            return session.getPremissions(manager, storeId);
+        }
+
+
+        public LinkedList<StoreRole> getAllStoreRolesOfAUser(User session, String username)
+        {
+            return session.getAllStoreRolesOfAUser(username);
         }
 
 

@@ -8,10 +8,11 @@ namespace wsep182.Domain
 {
     public class StoreManager : StoreRole
     {
-        StorePremissionsArchive premissions;
+        public StorePremissionsArchive premissions;
         public StoreManager(User u, Store s) : base(u, s)
         {
             premissions = StorePremissionsArchive.getInstance();
+            type = "Manager";
         }
 
         public override int addProductInStore(User session, Store s, String productName, double price, int amount)

@@ -107,6 +107,15 @@ namespace wsep182.Domain
             return UserArchive.getInstance().addUser(u);
         }
 
+        internal LinkedList<StoreRole> getAllStoreRolesOfAUser(string username)
+        {
+            if (username == this.userName || state is Admin)
+            {
+                return storeArchive.getInstance().getAllStoreRolesOfAUser(username);
+            }
+            return null;
+        }
+
         /*
          * return:
          *           0 < on sucess
@@ -199,6 +208,12 @@ namespace wsep182.Domain
         public int removeFromCart(int saleId)
         {
             return shoppingCart.removeFromCart(this, saleId);
+        }
+        public Premissions getPremissions(string manager, int storeId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            User managerUser = UserArchive.getInstance().getUser(manager);
+            return state.getPremissions(managerUser, s);
         }
 
 

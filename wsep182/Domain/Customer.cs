@@ -10,7 +10,7 @@ namespace wsep182.Domain
     {
         public Customer(User u, Store s) : base(u, s)
         {
-
+            type = "Customer";
         }
 
         public LinkedList<Purchase> viewStoreHistory(Store store, User session)
@@ -98,5 +98,6 @@ namespace wsep182.Domain
         {
             return null;
         }
+
     }
 }

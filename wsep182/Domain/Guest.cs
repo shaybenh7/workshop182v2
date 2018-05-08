@@ -67,5 +67,10 @@ namespace wsep182.Domain
         {
             return -1;// -1 if user Not Login
         }
+
+        public override Premissions getPremissions(User manager, Store s)
+        {
+            return null;
+        }
     }
 }

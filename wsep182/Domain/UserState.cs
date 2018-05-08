@@ -40,6 +40,12 @@ namespace wsep182.Domain
             return -1;
         }
 
-
+        public virtual Premissions getPremissions(User manager, Store s)
+        {
+            StoreRole sR = StoreRole.getStoreRole(s, manager);
+            if (sR != null)
+                return sR.getPremissions(manager, s);
+            return null;
+        }
     }
 }
