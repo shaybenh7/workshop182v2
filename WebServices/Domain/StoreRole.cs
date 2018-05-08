@@ -44,8 +44,14 @@ namespace wsep182.Domain
             {
                 p2 = Product.addProduct(productName);
             }
-
-            return ProductArchive.getInstance().addProductInStore(p2, s, amount, price).getProductInStoreId();
+            ProductInStore pis = ProductArchive.getInstance().addProductInStore(p2, s, amount, price);
+            if (pis != null)
+            {
+                return pis.getProductInStoreId();
+            }
+            else
+                return -8;
+           
         }
         /*
        * return:

@@ -13,9 +13,9 @@ namespace WebService.Controllers
     {
         [Route("api/store/createStore")]
         [HttpGet]
-        public string createStore(String storeName, int UserId)
+        public string createStore(String storeName)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().createStore(storeName, session);
             if(ans>0)
                     return "store " + ans + " successfuly added";
@@ -42,10 +42,10 @@ namespace WebService.Controllers
         }
 
         [Route("api/store/addProductInStore")]
-        [HttpPut]
+        [HttpGet]
         public string addProductInStore(String productName, Double price, int amount, int storeId)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().addProductInStore(productName, price, amount, session, storeId);
             if (ans > 0)
                 return "product in store " + ans + " successfuly added";
@@ -72,7 +72,7 @@ namespace WebService.Controllers
         [HttpPost]
         public string editProductInStore(int productInStoreId, Double price, int amount, int userId, int storeId)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().editProductInStore(session, storeId, productInStoreId, amount, price);
             switch (ans)
             {
@@ -104,7 +104,7 @@ namespace WebService.Controllers
         [HttpDelete]
         public string removeProductFromStore(int storeId, int ProductInStoreId)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().removeProductFromStore(storeId, ProductInStoreId, session);  
             switch (ans)
             {
@@ -132,11 +132,23 @@ namespace WebService.Controllers
             return "server error: not suppose to happend";
         }
 
+        [Route("api/store/addStoreOwner")]
+        [HttpGet]
+        public string addStoreOwner(int storeId, String newOwner)
+        {
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            Boolean ans = storeServices.getInstance().addStoreOwner(storeId, newOwner, session);
+            if (ans)
+                return "the User "+ newOwner +" has been added as owner sussesfuly";
+            return "server error: could not add this user as owner";
+        }
+
+
         [Route("api/store/removeStoreOwner")]
-        [HttpDelete]
+        [HttpGet]
         public string removeStoreOwner(int storeId, String oldOwner)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().removeStoreOwner(storeId, oldOwner, session);
             switch (ans)
             {
@@ -172,10 +184,10 @@ namespace WebService.Controllers
 
 
         [Route("api/store/addStoreManager")]
-        [HttpPut]
+        [HttpGet]
         public string addStoreManager(int storeId, String newManager)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().addStoreManager(storeId, newManager, session);
             switch (ans)
             {
@@ -198,10 +210,10 @@ namespace WebService.Controllers
         }
 
         [Route("api/store/removeStoreManager")]
-        [HttpDelete]
+        [HttpGet]
         public string removeStoreManager(int storeId, String oldManageruserName)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().removeStoreManager(storeId, oldManageruserName, session);
             switch (ans)
             {
@@ -214,7 +226,7 @@ namespace WebService.Controllers
                 case -4:
                     return "error: don't have permission";
                 case -5:
-                    return "error: illegal amount";
+                    return "error: the user is not a manager";
                 case -6:
                     return "error: database error";
                 case -10:
@@ -227,7 +239,7 @@ namespace WebService.Controllers
         [HttpPut]
         public string addManagerPermission(int storeId, String ManageruserName,string permission)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().addManagerPermission(permission, storeId, ManageruserName, session);
             switch (ans)
             {
@@ -253,7 +265,7 @@ namespace WebService.Controllers
         [HttpDelete]
         public string removeManagerPermission(int storeId, String ManageruserName, string permission)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().removeManagerPermission(permission, storeId, ManageruserName, session);
             switch (ans)
             {
@@ -279,7 +291,7 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage viewStoreHistory(int storeId)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             Object history = storeServices.getInstance().viewStoreHistory(session,storeId);
             HttpResponseMessage response;
             if (history == null)
@@ -297,7 +309,7 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage viewUserHistory(String userToGet)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             Object history = storeServices.getInstance().viewUserHistory(session, userToGet);
             HttpResponseMessage response;
             if (history == null)
@@ -315,7 +327,7 @@ namespace WebService.Controllers
         [HttpPut]
         public string addSaleToStore(int storeId, String oldManageruserName, int pisId, int typeOfSale, int amount, String dueDtae)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().addSaleToStore(session, storeId, pisId, typeOfSale, amount, dueDtae);
             if (ans > 0)
                 return "sale " + ans + " successfuly added";
