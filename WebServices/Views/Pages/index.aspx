@@ -5,7 +5,7 @@
 
         <div class="container" style="max-width: 100%;">
             <div class="row centerElem" style="max-width: 100%;">
-
+                 <img src="images/LOGO.jpg" style="width:1200px;margin-top: -73px;height: 541px; " alt="IMG-LOGO">
                 
             </div>
         </div>

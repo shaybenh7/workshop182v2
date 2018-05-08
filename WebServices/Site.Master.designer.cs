@@ -22,6 +22,15 @@ namespace WebServices {
         protected global::System.Web.UI.WebControls.PlaceHolder LoginRegisterLinks;
         
         /// <summary>
+        /// logout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder logout;
+        
+        /// <summary>
         /// MyStoresLink control.
         /// </summary>
         /// <remarks>

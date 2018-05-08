@@ -1,6 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebServices.SiteMaster" %>
 
-<!DOCTYPE html ng-app="myModule">
+<!DOCTYPE html>
 
 <html lang="en" style="{overflow-y: scroll; overflow-x: hidden; }">
 <head runat="server">
@@ -73,10 +73,18 @@
                             </div>
                         </asp:PlaceHolder>
 
+                        <asp:PlaceHolder ID="logout" Visible="false" runat="server">
+                            <div class="right-top-bar flex-w h-full">
+
+                                <a onclick="logout();" class="flex-c-m trans-04 p-lr-25">Logout
+                                </a>
+                            </div>
+                        </asp:PlaceHolder>
+
                     </div>
                 </div>
 
-                <div class="wrap-menu-desktop">
+                <div class="wrap-menu-desktop" style="height: 60px;">
                     <nav class="limiter-menu-desktop container" style="border-bottom-color: black; border-bottom-width: 1px; border-bottom-style: groove;">
 
                         <!-- Logo desktop -->
@@ -128,6 +136,18 @@
             </div>
         </div>
         <script type="text/javascript">
+            var logout = function () {
+                var cookies = document.cookie.split(";");
+
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i];
+                    var eqPos = cookie.indexOf("=");
+                    var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+                }
+
+                window.location.href = "http://localhost:53416/";
+            }
             $(document).ready(function () {
                 var myCookie = getCookie("HashCode");
                 if (myCookie == null) {

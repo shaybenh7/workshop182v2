@@ -44,7 +44,8 @@ namespace wsep182.Domain
             {
                 p2 = Product.addProduct(productName);
             }
-            ProductInStore pis = ProductArchive.getInstance().addProductInStore(p2, s, amount, price);
+            ProductArchive pa = ProductArchive.getInstance();
+            ProductInStore pis = pa.addProductInStore(p2, s, amount, price);
             if (pis != null)
             {
                 return pis.getProductInStoreId();

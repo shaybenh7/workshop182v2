@@ -24,11 +24,14 @@ namespace WebServices
                     adminPanelLink.Visible = true;
                     MyStoresLink.Visible = true;
                     LoginRegisterLinks.Visible = false;
+                    logout.Visible = true;
                 }
                 else if (u != null && u.getState() is LogedIn)
                 {
                     MyStoresLink.Visible = true;
                     LoginRegisterLinks.Visible = false;
+                    logout.Visible = true;
+
                 }
             }
         }
