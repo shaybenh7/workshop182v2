@@ -331,6 +331,17 @@ namespace wsep182.services
                 return false;
             return sR.addNewCoupon(session, couponId, p, percentage, dueDate);
         }
+
+        public Boolean addCouponDiscount(User session, String couponId, int productInStoreId, int type, string categoryOrProductName,
+         int percentage, String dueDate, string restrictions,int storeId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return false;
+            return sR.addNewCoupon(session, storeId, couponId, productInStoreId, type, categoryOrProductName, percentage, dueDate, restrictions);
+        }
+
         public Boolean addDiscount(ProductInStore p, int percentage ,String dueDate,User session ,Store s)
         {
             StoreRole sR = StoreRole.getStoreRole(s, session);
@@ -339,6 +350,7 @@ namespace wsep182.services
             return sR.addDiscount(session,p, percentage, dueDate);
             
         }
+
         public Boolean removeDiscount(ProductInStore p, Store s, User session)
         {
             StoreRole sR = StoreRole.getStoreRole(s, session);
@@ -402,9 +414,8 @@ namespace wsep182.services
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
                 return -1;
-            return 0;
-            //return sR.addDiscounts(session, storeId, productInStores, type, categorysOrProductsName, percentage
-            //    , dueDate, restrictions);
+            return sR.addDiscounts(session, storeId, productInStores, type, percentage , categorysOrProductsName
+                , dueDate, restrictions);
         }
     }
 }

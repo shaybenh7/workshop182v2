@@ -30,6 +30,13 @@ namespace wsep182.Domain
             return false;
         }
 
+        public override int addDiscounts(User session, int storeId,List<int> productInStores, int type,
+           int percentage, List<string> categorysOrProductsName, string dueDate, string restrictions)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "addDiscount"))
+                return base.addDiscounts(session, storeId,productInStores, type, percentage, categorysOrProductsName, dueDate, restrictions);
+            return -1;
+        }
         public override Boolean removeDiscount(User session, ProductInStore p)
         {
             if (premissions.checkPrivilege(p.getStore().getStoreId(), session.getUserName(), "removeDiscount"))
@@ -44,6 +51,13 @@ namespace wsep182.Domain
             return false;
         }
 
+        public override Boolean addNewCoupon(User session,int storeId, String couponId, int productInStoreId, int type, string categoryOrProductName,
+                                                int percentage, String dueDate, string restrictions)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "addNewCoupon"))
+                return base.addNewCoupon(session, storeId, couponId, productInStoreId, type, categoryOrProductName, percentage, dueDate, restrictions);
+            return false;
+        }
         public override Boolean removeCoupon(User session, Store s, String couponId)
         {
             if (premissions.checkPrivilege(s.getStoreId(), session.getUserName(), "removeCoupon"))

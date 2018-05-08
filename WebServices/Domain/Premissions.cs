@@ -136,6 +136,13 @@ namespace wsep182.Domain
                 addPrivilege("removeCoupon");
             else removePrivilege("removeCoupon");
         }
+        public void changePolicy(Boolean allow)
+        {
+            if (allow)
+                addPrivilege("changePolicy");
+            else removePrivilege("changePolicy");
+        }
+        
 
         public Boolean checkPrivilege(string privilege)
         {

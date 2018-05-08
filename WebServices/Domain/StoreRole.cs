@@ -266,13 +266,28 @@ namespace wsep182.Domain
             return DiscountsArchive.getInstance().addNewDiscount(p.getProductInStoreId(),1,"", percentage, dueDate,"");
         }
 
+        public virtual int addDiscounts(User session,int storeId, List<int> productInStores, int type,
+           int percentage, List<string> categorysOrProductsName, string dueDate, string restrictions)
+        {
+            if (session == null || percentage < 0 || percentage >= 100 || dueDate == null)
+                return -1;
+            return DiscountsArchive.getInstance().addNewDiscounts(type, productInStores, categorysOrProductsName , percentage , dueDate, restrictions);
+        }
+
         public virtual Boolean addNewCoupon(User session, String couponId, ProductInStore p, int percentage, String dueDate)
         {
             if (session == null || couponId == null || p == null || percentage < 0 || dueDate == null || percentage<=0)
                 return false;
             return CouponsArchive.getInstance().addNewCoupon(couponId, p.getProductInStoreId(), percentage, dueDate);
         }
-        
+
+        public virtual Boolean addNewCoupon(User session, int storeId, String couponId, int productInStoreId, int type, string categoryOrProductName,
+         int percentage, String dueDate, string restrictions)
+        {
+            if (session == null || couponId == null || percentage < 0 || dueDate == null || percentage <= 0)
+                return false;
+            return CouponsArchive.getInstance().addNewCoupon(couponId, productInStoreId, type, categoryOrProductName, percentage, dueDate, restrictions);
+        }
 
         public virtual Boolean removeDiscount(User session, ProductInStore p)
         {
@@ -291,8 +306,12 @@ namespace wsep182.Domain
 
         public virtual LinkedList<Purchase> viewPurchasesHistory(User session,Store s)
         {
+            if (session == null || s == null)
+                return null;
             return BuyHistoryArchive.getInstance().viewHistoryByStoreId(s.getStoreId());
         }
+
+
 
         public Boolean correlate(User session, Store s, String permission, StoreRole sR, Boolean allow)
         {
@@ -346,7 +365,10 @@ namespace wsep182.Domain
                 case "removeCoupon":
                     sR.getPremissions(session, s).removeCoupon(allow);
                     return true;
-                    
+                case "changePolicy":
+                    sR.getPremissions(session, s).changePolicy(allow);
+                    return true;
+
 
 
                 case "getPremissions":
