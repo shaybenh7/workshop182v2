@@ -30,7 +30,7 @@ namespace WebServices.Controllers
         {
             var MySession = HttpContext.Current.Session;
 
-            String hash = (string)MySession["hash"];
+            String hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
             if (hash == null || hashServices.getUserByHash(hash) == null || (hashServices.getUserByHash(hash).getState() is Admin))
             {
                 filterContext.Result = new RedirectResult(string.Format("/error/"));
@@ -39,6 +39,11 @@ namespace WebServices.Controllers
     }
     public class PagesController : Controller
     {
+
+        public PagesController()
+        {
+            ViewData["numberOfProductsInCart"] = 10; 
+        }
 
         // GET: Pages
         public ActionResult Index()

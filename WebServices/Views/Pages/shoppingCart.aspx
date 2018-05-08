@@ -187,7 +187,7 @@
                         string += "<td class=\"column-5\" id=\"total" + i + "\"></td>";
                         string += "</tr>";
                         mainDiv.innerHTML += string;
-
+                        
                         (function (i, saleId) {
                             $('#remove' + i).click(function () {
                                 jQuery.ajax({

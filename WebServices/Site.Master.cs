@@ -13,10 +13,12 @@ namespace WebServices
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] != null)
             {
                 User u = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
-
+                int numberOfProductsInCart = sellServices.getInstance().viewCart(u).Count;
+                shoppingCartIcon.Attributes["data-notify"] = ""+numberOfProductsInCart;
                 if (u != null && u.getState() is Admin)
                 {
                     adminPanelLink.Visible = true;
