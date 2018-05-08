@@ -206,7 +206,49 @@ var removeStoreOwner = function () {
     });
 };
 
+var editStoreProduct = function () {
+    productId = $("#product-id2").val();
+    price = $("#product-price2").val();
+    amount = $("#product-amount2").val();
+    
+    jQuery.ajax({
+        type: "GET",
+        url: "http://localhost:53416/api/store/editProductInStore?productInStoreId=" + productId +
+            "&price=" + price + "&amount=" + amount + "&storeId=" + lastClickedStoreId,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            alert(response);
+            window.location.reload(false);
 
+        },
+        error: function (response) {
+            console.log(response);
+            // window.location.reload(false); 
+        }
+    });
+};
+
+var removeStoreProduct = function () {
+    productId = $("#product-id3").val();
+
+    jQuery.ajax({
+        type: "GET",
+        url: "http://localhost:53416/api/store/removeProductFromStore?storeId=" + lastClickedStoreId +
+            "&ProductInStoreId=" + productId, 
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            alert(response);
+            window.location.reload(false);
+
+        },
+        error: function (response) {
+            console.log(response);
+            // window.location.reload(false); 
+        }
+    });
+};
 
 
 

@@ -68,9 +68,10 @@ namespace WebService.Controllers
             }
             return "server error: not suppose to happend";
         }
+
         [Route("api/store/editProductInStore")]
-        [HttpPost]
-        public string editProductInStore(int productInStoreId, Double price, int amount, int userId, int storeId)
+        [HttpGet]
+        public string editProductInStore(int productInStoreId, Double price, int amount, int storeId)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().editProductInStore(session, storeId, productInStoreId, amount, price);
@@ -101,7 +102,7 @@ namespace WebService.Controllers
         }
 
         [Route("api/store/removeProductFromStore")]
-        [HttpDelete]
+        [HttpGet]
         public string removeProductFromStore(int storeId, int ProductInStoreId)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);

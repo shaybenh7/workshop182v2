@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="index Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MyStores.aspx.cs" Inherits="WebServices.Views.Pages.MyStores" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    
     <div class="row">
         <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50" style="max-width: 67%; flex: 0 0 67%;">
             <div id="allStoresComponent">
@@ -56,7 +57,6 @@
                                                     <br />
                                                     <br />
                                                     <input type="button" value="Add product" id="add_product_btn" onclick="addProductFunct();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
-<%--  --%>
                                                 </div>
 
 
@@ -93,15 +93,10 @@
                                                 <span class="mtext-106 cl2">Edit product</span>
                                                 <br />
                                                 <br />
-                                                <div class="size-204 respon6-next">
-                                                    <div>
-                                                        <select name="time">
-                                                            <option>Choose product</option>
-                                                            <option>Milk</option>
-                                                            <option>Shawarma</option>
-                                                        </select>
-                                                        <div class="dropDownSelect2"></div>
-                                                    </div>
+                                                <div class="wrap-input1 w-full p-b-4">
+                                                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="product-id2" placeholder="Enter product id">
+                                                    <div class="focus-input1 trans-04"></div>
+
                                                 </div>
 
                                                 <div class="wrap-input1 w-full p-b-4">
@@ -131,9 +126,7 @@
                                                     <br />
                                                     <br />
                                                     <br />
-                                                    <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                        Edit product
-                                                    </button>
+                                                    <input type="button" value="Edit product" onclick="editStoreProduct();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
                                                 </div>
 
 
@@ -168,23 +161,16 @@
                                                 <span class="mtext-106 cl2">Remove product</span>
                                                 <br />
                                                 <br />
-                                                <div class="size-204 respon6-next">
-                                                    <div>
-                                                        <select name="time">
-                                                            <option>Choose product</option>
-                                                            <option>Milk</option>
-                                                            <option>Shawarma</option>
-                                                        </select>
-                                                        <div class="dropDownSelect2"></div>
-                                                    </div>
+                                                <div class="wrap-input1 w-full p-b-4">
+                                                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="product-id3" placeholder="Enter product id">
+                                                    <div class="focus-input1 trans-04"></div>
+
                                                 </div>
                                                 <br />
                                                 <br />
                                                 <br />
 
-                                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                    Remove product
-                                                </button>
+                                                <input type="button" value="Remove product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="removeStoreProduct();"/>
 
 
 

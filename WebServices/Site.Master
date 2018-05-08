@@ -1,11 +1,12 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebServices.SiteMaster" %>
 
-<!DOCTYPE html>
+<!DOCTYPE html ng-app="myModule">
 
 <html lang="en" style="{overflow-y: scroll; overflow-x: hidden; }">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="vendor/JS/angular.min.js"></script>
     <title>Sanit Market</title>
 
     <meta charset="UTF-8">
@@ -45,7 +46,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
-<body>
+<body >
     <form runat="server">
         <div class="row">
 
