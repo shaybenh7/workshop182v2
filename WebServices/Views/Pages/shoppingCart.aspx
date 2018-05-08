@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                 <div class="m-l-25 m-r--38 m-lr-0-xl">
-                    <div  class="wrap-table-shopping-cart">
+                    <div class="wrap-table-shopping-cart">
                         <table id="shoppingCart" class="table-shopping-cart">
                             <tr class="table_head">
                                 <th class="column-1"></th>
@@ -189,7 +189,7 @@
                         mainDiv.innerHTML += string;
 
                         (function (i, saleId) {
-                            $('#remove'+i).click(function () {
+                            $('#remove' + i).click(function () {
                                 jQuery.ajax({
                                     type: "Delete",
                                     url: "http://localhost:53416/api/sell/removeFromCart?saleId=" + saleId,
