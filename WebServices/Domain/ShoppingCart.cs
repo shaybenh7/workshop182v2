@@ -91,11 +91,19 @@ namespace wsep182.Domain
             if (checkAmountFulfillmentAns!=-1)
                 return Tuple.Create(checkAmountFulfillmentAns,products);
 
-
-
+            checkAndUpdateDiscountsByPolicys(country);
             return Tuple.Create(-1,products);
         }
-        
+
+        public void checkAndUpdateDiscountsByPolicys(string country)
+        {
+            foreach(UserCart uc in products)
+            {
+                
+            }
+        }
+
+
         public int checkAmountFulfillment(string country)
         {
             foreach (UserCart uc in products)
