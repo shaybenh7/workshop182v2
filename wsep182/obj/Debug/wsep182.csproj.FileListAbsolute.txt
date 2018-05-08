@@ -75,3 +75,4 @@ C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\wsep182\bin\
 C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\wsep182\obj\Debug\wsep182.csproj.CoreCompileInputs.cache
 C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\wsep182\obj\Debug\wsep182.exe
 C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\wsep182\obj\Debug\wsep182.pdb
+C:\Programing\c#\workshop182v2\wsep182\obj\Debug\wsep182.csprojResolveAssemblyReference.cache

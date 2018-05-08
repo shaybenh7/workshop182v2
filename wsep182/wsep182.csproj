@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\HashArchive.cs" />
+    <Compile Include="Domain\NotificationManager.cs" />
     <Compile Include="Domain\Premissions.cs" />
     <Compile Include="Domain\Purchase.cs" />
     <Compile Include="Domain\BuyHistoryArchive.cs" />

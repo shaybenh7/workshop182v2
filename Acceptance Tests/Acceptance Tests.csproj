@@ -88,12 +88,6 @@
     <None Include="packages.config" />
     <None Include="StoreTests\editSaleTests.cs.orig" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\wsep182\wsep182.csproj">
-      <Project>{fc9dbcf1-b6e6-4817-987c-56d9da6ba700}</Project>
-      <Name>wsep182</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

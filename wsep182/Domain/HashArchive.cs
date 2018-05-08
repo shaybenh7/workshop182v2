@@ -57,6 +57,15 @@ namespace wsep182.Domain
             return null;
         }
 
+        public String getHashByUserName(String userName)
+        {
+            foreach (KeyValuePair<string, User> entry in hashes)
+            {
+                if (entry.Value.getUserName() == userName)
+                    return entry.Key;
+            }
+            return null;
+        }
 
     }
 }

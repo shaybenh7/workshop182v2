@@ -24,5 +24,12 @@ namespace wsep182.services
         {
             return HashArchive.getInstance().getUserByHash(hash);
         }
+
+        public static String getHashByUserName(String username)
+        {
+            return HashArchive.getInstance().getHashByUserName(username);
+        }
+
+
     }
 }
