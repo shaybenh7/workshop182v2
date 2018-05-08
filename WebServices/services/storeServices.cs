@@ -391,6 +391,8 @@ namespace wsep182.services
         {
             return storeArchive.getInstance().getAllStore();
         }
+
+        //not implemented
         // new Addition for version 2 - need to handle addDiscount function
         // type: 1 for discount on productsInStore, 2 for discount on category, 3 for discount on entire product (in product archive)
         public int addDiscounts(User session, int storeId, List<int> productInStores, int type,
@@ -400,8 +402,9 @@ namespace wsep182.services
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
                 return -1;
-            return sR.addDiscounts(session, storeId, productInStores, type, categorysOrProductsName, percentage
-                , dueDate, restrictions);
+            return 0;
+            //return sR.addDiscounts(session, storeId, productInStores, type, categorysOrProductsName, percentage
+            //    , dueDate, restrictions);
         }
     }
 }

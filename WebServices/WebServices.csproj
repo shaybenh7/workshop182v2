@@ -204,6 +204,8 @@
     <Compile Include="Domain\ProductArchive.cs" />
     <Compile Include="Domain\ProductInStore.cs" />
     <Compile Include="Domain\Purchase.cs" />
+    <Compile Include="Domain\PurchasePolicy.cs" />
+    <Compile Include="Domain\PurchasePolicyArchive.cs" />
     <Compile Include="Domain\RaffleSale.cs" />
     <Compile Include="Domain\RaffleSalesArchive.cs" />
     <Compile Include="Domain\Sale.cs" />
@@ -444,7 +446,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Domain\ann5fmzu.2be~" />
     <Content Include="Domain\StoreArchive.cs~RF1efa3c.TMP" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

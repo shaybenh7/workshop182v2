@@ -258,11 +258,12 @@ namespace wsep182.Domain
             return -9;//-9 database eror
         }
 
+        
         public virtual Boolean addDiscount(User session, ProductInStore p, int percentage, String dueDate)
         {
             if (session == null || p == null || percentage < 0 || percentage >= 100 || dueDate == null)
                 return false;
-            return DiscountsArchive.getInstance().addNewDiscount(p.getProductInStoreId(), percentage, dueDate);
+            return DiscountsArchive.getInstance().addNewDiscount(p.getProductInStoreId(),1,"", percentage, dueDate,"");
         }
 
         public virtual Boolean addNewCoupon(User session, String couponId, ProductInStore p, int percentage, String dueDate)
@@ -271,6 +272,7 @@ namespace wsep182.Domain
                 return false;
             return CouponsArchive.getInstance().addNewCoupon(couponId, p.getProductInStoreId(), percentage, dueDate);
         }
+        
 
         public virtual Boolean removeDiscount(User session, ProductInStore p)
         {
