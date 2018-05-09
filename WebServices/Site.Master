@@ -55,6 +55,9 @@
                 <!-- Topbar -->
                 <div class="top-bar">
                     <div class="content-topbar flex-sb-m h-full container">
+                        <asp:label ID="welcome" Visible="false" runat="server" style="color: #efe1e1;">
+						    
+					    </asp:label>
                         <div class="left-top-bar">
                         </div>
                         <asp:PlaceHolder ID="LoginRegisterLinks" Visible="true" runat="server">
@@ -74,7 +77,7 @@
                         </asp:PlaceHolder>
 
                         <asp:PlaceHolder ID="logout" Visible="false" runat="server">
-                            <div class="right-top-bar flex-w h-full">
+                            <div class="right-top-bar flex-w h-full" style="cursor: pointer; color: #efe1e1;">
 
                                 <a onclick="logout();" class="flex-c-m trans-04 p-lr-25">Logout
                                 </a>

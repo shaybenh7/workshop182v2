@@ -31,7 +31,8 @@ namespace WebServices
                     MyStoresLink.Visible = true;
                     LoginRegisterLinks.Visible = false;
                     logout.Visible = true;
-
+                    welcome.Visible = true;
+                    welcome.Text = "Welcome "+ u.getUserName();
                 }
             }
         }
