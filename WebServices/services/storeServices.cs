@@ -84,6 +84,11 @@ namespace wsep182.services
             return sR.editProductInStore(session, p, quantity, price);
         }
 
+        public LinkedList<ProductInStore> getProductsInStore(int storeId)
+        {
+            return ProductArchive.getInstance().getProductsInStore(storeId);
+        }
+
         //req 3.1 c
         /*
         * return:

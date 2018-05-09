@@ -584,9 +584,12 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <div class="wrap-input1 w-full p-b-4">
-                                                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="product-id4" placeholder="Enter product id">
-                                                    <div class="focus-input1 trans-04"></div>
+                                                <div class="size-204 respon6-next">
+                                                    <div>
+                                                        <select name="time" id="products">
+                                                        </select>
+                                                        <div class="dropDownSelect2"></div>
+                                                    </div>
                                                 </div>
                                                 <br />
                                                 <br />
@@ -917,6 +920,44 @@
             </div>
         </div>
     </div>
+
+    <div class="wrap-modal1 js-modal1 p-t-60 p-b-20" id="viewPurchasesHistoryModal">
+                    <div class="overlay-modal1 js-hide-modal1"></div>
+                    
+                    <div class="container">
+                        <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent" style="padding-top: 25px;">
+
+                            <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+                                <img src="images/icons/icon-close.png" alt="CLOSE">
+                            </button>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-7 p-b-30">
+                                    <div class="p-l-25 p-r-30 p-lr-0-lg">
+                                        <div class="wrap-slick3 flex-sb flex-w">
+
+                                            <div class="size-204 flex-w flex-m respon6-next">
+                                                <span class="mtext-106 cl2">Store History Purchase</span>
+                                                <br />
+                                                <br />
+                                                <div id="viewHistory" class="size-204 respon6-next">
+                                                    
+                                                </div>
+                                                <br />
+                                                <br />
+                                                <br />
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
 
 
 

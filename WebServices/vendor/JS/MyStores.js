@@ -1,4 +1,6 @@
 ﻿var lastClickedStoreId;
+var productsInStore;
+
 
 $(document).ready(function () {
     var mainDiv = document.getElementById('allStoresComponent');
@@ -33,14 +35,14 @@ $(document).ready(function () {
                     string += "<a href=\"#\" id=\"removeStoreOwner" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Store Owner</a>";
                     string += "<a href=\"#\" id=\"addManagerPermission" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Manager Permission</a>";
                     string += "<a href=\"#\" id=\"removeManagerPermission" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Manager Permission</a>";
-                    string += "<a href=\"#\" id=\"addSaleToStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Sale</a>";
+                    string += "<a href=\"#\" id=\"addSaleToStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"addSaleView(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Sale</a>";
                     string += "<a href=\"#\" id=\"editSale" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Edit Sale</a>";
                     string += "<a href=\"#\" id=\"removeSaleFromStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Sale</a>";
                     string += "<a href=\"#\" id=\"addDiscount" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Discount</a>";
                     string += "<a href=\"#\" id=\"removeDiscount" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Discount</a>";
                     string += "<a href=\"#\" id=\"addNewCoupon" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Coupon</a>";
                     string += "<a href=\"#\" id=\"removeCoupon" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Coupon</a>";
-                    string += "<a href=\"#\" id=\"viewPurchasesHistory" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">View History</a>";
+                    string += "<a href=\"#\" id=\"viewPurchasesHistory" + i + "\" data-id=\"" + storeId + "\" onclick=\"viewHistory(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">View History</a>";
 
                     string += "</div>";
                     string += "</div>";
@@ -251,9 +253,13 @@ var removeStoreProduct = function () {
 };
 
 var addSale = function () {
-    productId = $("#product-id4").val();
+    productId = $("#products")[0].selectedIndex;
+    productId = productsInStore[productId].productInStoreId;
     amount = $("#product-amount-in-sale2").val();
-    kindOfSale = $("#saleOption")[0].selectedIndex + 1;
+    kindOfSale = $("#saleOption")[0].selectedIndex+1;
+    if (kindOfSale == 2) {
+        kindOfSale = 3;
+    }
     date = $("#product-due-date2").val();
 
     jQuery.ajax({
@@ -321,6 +327,60 @@ var removeSale = function () {
 };
 
 
+function addSaleView(e) {
+    modalLinkListener(e);
+    jQuery.ajax({
+        type: "GET",
+        url: "http://localhost:53416/api/store/getProductInStore?storeId=" + lastClickedStoreId,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            var viewHistory = document.getElementById("viewHistory");
+            productsInStore = response;
+            var productHtml = document.getElementById("products");
+            productHtml.innerHTML = ""
+            for (i = 0; i < productsInStore.length; i++) {
+                productHtml.innerHTML += "<option>" + productsInStore[i].product.name + "</option>";
+            }
+
+        },
+        error: function (response) {
+            console.log(response);
+
+        }
+    });
+
+}
+
+function viewHistory(e) {
+    modalLinkListener(e);
+    storeid = lastClickedStoreId;
+    jQuery.ajax({
+        type: "GET",
+        url: "http://localhost:53416/api/store/viewStoreHistory?storeId=" + lastClickedStoreId,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            var viewHistory = document.getElementById("viewHistory");
+            if (response.length === 0) {
+                viewHistory.innerHTML = "<div style=\"padding-left: 30px;\"> there were not purcheses from this store  </div>"
+            }
+            else {
+                viewHistory.innerHTML = "<div>  </div>"
+            }
+            
+        },
+        error: function (response) {
+            console.log(response);
+            
+        }
+    });
+    
+}
+
+
 function modalLinkListener(e) {
     lastClickedStoreId = e["srcElement"]["dataset"]["id"];
     key = e["srcElement"]["id"];
@@ -328,6 +388,7 @@ function modalLinkListener(e) {
     openModal(key + "Modal");
     return false;
 }
+
 function enableLink(id) {
     var element = document.getElementById(id);
     element.classList.remove("disabledLink");
