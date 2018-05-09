@@ -139,6 +139,7 @@ namespace wsep182.Domain
 
 
 
+
         public int addToCart(int saleId, int amount)
         {
             if (amount <= 0)

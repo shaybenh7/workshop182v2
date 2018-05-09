@@ -125,7 +125,7 @@ namespace wsep182.Domain
             policys.AddLast(toAdd);
             return 1;
         }
-        public int setAmountPolicyOnCategory(string category, int minAmount, int maxAmount)
+        public int setAmountPolicyOnCategory(int storeId,string category, int minAmount, int maxAmount)
         {
             // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
             PurchasePolicy toAdd = new PurchasePolicy();
@@ -149,7 +149,7 @@ namespace wsep182.Domain
             policys.AddLast(toAdd);
             return 1;
         }
-        public int setAmountPolicyOnCountry(string country, int minAmount, int maxAmount)
+        public int setAmountPolicyOnCountry(int storeId, string country, int minAmount, int maxAmount)
         {
             // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
             PurchasePolicy toAdd = new PurchasePolicy();
@@ -181,7 +181,7 @@ namespace wsep182.Domain
             toAdd.NoDiscount = true;
             return 1;
         }
-        public int setNoDiscountPolicyOnCategoty(String category)
+        public int setNoDiscountPolicyOnCategoty(int storeId, String category)
         {
             // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
             PurchasePolicy toAdd = new PurchasePolicy();
@@ -199,7 +199,7 @@ namespace wsep182.Domain
             toAdd.NoDiscount = true;
             return 1;
         }
-        public int setNoDiscountPolicyOnCountry(string country)
+        public int setNoDiscountPolicyOnCountry(int storeId, string country)
         {
             // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
             PurchasePolicy toAdd = new PurchasePolicy();
@@ -228,7 +228,7 @@ namespace wsep182.Domain
             toAdd.NoCoupons = true;
             return 1;
         }
-        public int setNoCouponPolicyOnCategoty(String category)
+        public int setNoCouponPolicyOnCategoty(int storeId, String category)
         {
             // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
             PurchasePolicy toAdd = new PurchasePolicy();
@@ -246,7 +246,7 @@ namespace wsep182.Domain
             toAdd.NoCoupons = true;
             return 1;
         }
-        public int setNoCouponPolicyOnCountry(string country)
+        public int setNoCouponPolicyOnCountry(int storeId, string country)
         {
             // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
             PurchasePolicy toAdd = new PurchasePolicy();

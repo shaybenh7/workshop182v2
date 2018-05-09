@@ -214,6 +214,55 @@ namespace WebService.Controllers
             return "not implemented";
         }
 
+        [Route("api/user/setAmountPolicyOnProduct")]
+        [HttpGet]
+        public String setAmountPolicyOnProduct(string productName, int minAmount, int maxAmount)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = userServices.getInstance().setAmountPolicyOnProduct(session,productName,minAmount,maxAmount);
+            if(ans>0)
+                return "Policy added successfully";
+            return "Policy failed";
+        }
+
+        [Route("api/user/setNoCouponsPolicyOnProduct")]
+        [HttpGet]
+        public String setNoCouponsPolicyOnProduct(string productName)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = userServices.getInstance().setNoCouponsPolicyOnProduct(session, productName);
+            if (ans > 0)
+                return "Policy added successfully";
+            return "Policy failed";
+        }
+
+
+
+        [Route("api/user/setAmountPolicyOnProduct")]
+        [HttpGet]
+        public String setNoDiscountPolicyOnProduct(string productName)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = userServices.getInstance().setNoDiscountPolicyOnProduct(session, productName);
+            if (ans > 0)
+                return "Policy added successfully";
+            return "Policy failed";
+        }
+
+
+
         [Route("api/user/getAllStoresUnderUser")]
         [HttpGet]
         public LinkedList<StoreRole> getAllStoreRolesOfAUser()
