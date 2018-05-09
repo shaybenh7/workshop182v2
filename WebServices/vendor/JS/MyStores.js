@@ -253,7 +253,7 @@ var removeStoreProduct = function () {
 var addSale = function () {
     productId = $("#product-id4").val();
     amount = $("#product-amount-in-sale2").val();
-    kindOfSale = $("#saleOption")[0].selectedIndex
+    kindOfSale = $("#saleOption")[0].selectedIndex + 1;
     date = $("#product-due-date2").val();
 
     jQuery.ajax({

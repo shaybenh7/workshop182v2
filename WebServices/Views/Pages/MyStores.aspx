@@ -584,15 +584,9 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <div class="size-204 respon6-next">
-                                                    <div>
-                                                        <select name="time">
-                                                            <option>Choose product</option>
-                                                            <option>Milk</option>
-                                                            <option>Shawarma</option>
-                                                        </select>
-                                                        <div class="dropDownSelect2"></div>
-                                                    </div>
+                                                <div class="wrap-input1 w-full p-b-4">
+                                                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="product-id4" placeholder="Enter product id">
+                                                    <div class="focus-input1 trans-04"></div>
                                                 </div>
                                                 <br />
                                                 <br />
@@ -604,8 +598,7 @@
 
                                                 <div class="size-204 respon6-next">
                                                     <div>
-                                                        <select name="time">
-                                                            <option>Kind of sale:</option>
+                                                        <select name="time" id="saleOption">
                                                             <option>Instant sale</option>
                                                             <option>Raffle Sale</option>
                                                         </select>
@@ -624,13 +617,8 @@
                                                     <br />
                                                     <br />
                                                     <br />
-                                                    <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                        Edit sale
-                                                    </button>
+                                                    <input type="button" value="Add sale" onclick="addSale();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
                                                 </div>
-
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -662,49 +650,27 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <div class="size-204 respon6-next">
-                                                    <div>
-                                                        <select name="time">
-                                                            <option>Choose sale</option>
-                                                            <option>Milk</option>
-                                                            <option>Shawarma</option>
-                                                        </select>
-                                                        <div class="dropDownSelect2"></div>
-                                                    </div>
+                                                  <div class="wrap-input1 w-full p-b-4">
+                                                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="Sale-id5" placeholder="Enter sale id">
+                                                    <div class="focus-input1 trans-04"></div>
                                                 </div>
-                                                <br />
-                                                <br />
                                                 <br />
                                                 <div class="wrap-input1 w-full p-b-4">
                                                     <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="product-amount-in-sale" placeholder="Enter amount">
                                                     <div class="focus-input1 trans-04"></div>
                                                 </div>
-
-                                                <div class="size-204 respon6-next">
-                                                    <div>
-                                                        <select name="time">
-                                                            <option>Kind of sale:</option>
-                                                            <option>when choosing the sale</option>
-                                                            <option>this will put the correct sale</option>
-                                                        </select>
-                                                        <div class="dropDownSelect2"></div>
-                                                    </div>
-                                                </div>
-
                                                 <br />
-                                                <br />
-                                                <div class="flex-w flex-r-m p-b-10">
-                                                    <div></div>
-                                                    <div class="wrap-input1 w-full p-b-4">
+                                                <div class="wrap-input1 w-full p-b-4">
                                                         <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="product-due-date" placeholder="Enter due date">
                                                         <div class="focus-input1 trans-04"></div>
-                                                    </div>
+                                                 </div>
+                                                <div class="flex-w flex-r-m p-b-10">
+                                                    <div></div>
+                                                    
                                                     <br />
                                                     <br />
                                                     <br />
-                                                    <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                        Edit sale
-                                                    </button>
+                                                    <input type="button" value="Edit sale" onclick="editSale();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
                                                 </div>
 
 
@@ -736,36 +702,16 @@
                                         <div class="wrap-slick3 flex-sb flex-w">
 
                                             <div class="size-204 flex-w flex-m respon6-next">
-                                                <span class="mtext-106 cl2">Remove product</span>
+                                                <span class="mtext-106 cl2">Remove sale</span>
                                                 <br />
                                                 <br />
-                                                <div class="size-204 respon6-next">
-                                                    <div>
-                                                        <select name="time">
-                                                            <option>Choose sale</option>
-                                                            <option>Milk</option>
-                                                            <option>Shawarma</option>
-                                                        </select>
-                                                        <div class="dropDownSelect2"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="size-204 respon6-next">
-                                                    <div>
-                                                        <select name="time">
-                                                            <option>Kind of sale:</option>
-                                                            <option>when choosing the sale</option>
-                                                            <option>this will put the correct sale</option>
-                                                        </select>
-                                                        <div class="dropDownSelect2"></div>
-                                                    </div>
-                                                </div>
-                                                <br />
-                                                <br />
-                                                <br />
+                                                <div class="wrap-input1 w-full p-b-4">
+                                                        <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="Sale-id6" placeholder="Enter sale id">
+                                                        <div class="focus-input1 trans-04"></div>
+                                                 </div>
+                                               
 
-                                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                    Remove Sale
-                                                </button>
+                                                <input type="button" value="Remove Sale" onclick="removeSale();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
 
 
 
