@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="bg0 m-t-23 p-b-140" style="margin-left: auto; margin-right: auto; margin-top: 100px; max-width: 100%;">
+    <div class="bg0 m-t-23 p-b-140" style="margin-left: auto; margin-right: auto; margin-top: 45px; max-width: 100%;">
         <div class="container">
             <div id="allSalesComponent" class="row isotope-grid" style="position: relative;">
             </div>
