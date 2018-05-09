@@ -100,7 +100,16 @@ namespace WebService.Controllers
             }
             return "server error: not suppose to happend";
         }
-
+        
+        [Route("api/store/getProductInStore")]
+        [HttpGet]
+        public HttpResponseMessage getProductInStore(int storeId)
+        {
+            LinkedList<ProductInStore> pis = storeServices.getInstance().getProductsInStore(storeId);
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, pis);
+            return response;
+        }
+        
         [Route("api/store/removeProductFromStore")]
         [HttpGet]
         public string removeProductFromStore(int storeId, int ProductInStoreId)
