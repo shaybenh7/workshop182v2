@@ -964,9 +964,11 @@
 
     <script src="vendor/JS/MyStores.js" type="text/javascript"></script>
 
+    <script type="text/javascript"></script>
     <script type="text/javascript">
-        
-
+        $(document).ready(function () {
+            $("#MyStoresMenuButton").addClass("active-menu")
+        });
     </script>
 </asp:Content>
 

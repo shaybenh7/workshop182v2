@@ -8,7 +8,11 @@
             </div>
         </div>
     </div>
-
+     <script type="text/javascript">
+        $(document).ready(function () {
+            $("#AllStoresMenuButton").addClass("active-menu")
+        });
+    </script>
     <script type="text/javascript">
         
         $(document).ready(function () {

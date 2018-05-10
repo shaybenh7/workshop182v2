@@ -93,14 +93,14 @@
                         <!-- Menu desktop -->
                         <div class="menu-desktop">
                             <ul class="main-menu">
-                                <li class="active-menu">
+                                <li id="homeMenuButton">
                                     <a href="/">Home</a>
                                 </li>
 
-                                <li>
+                                <li id="AllStoresMenuButton">
                                     <a href="/AllStores">All Stores</a>
                                 </li>
-                                <li>
+                                <li id="AllProductsMenuButton">
                                     <a href="/AllProducts">All Products</a>
                                 </li>
                                 <li>
@@ -109,13 +109,13 @@
 
 
                                 <asp:PlaceHolder ID="MyStoresLink" Visible="false" runat="server">
-                                    <li>
+                                    <li id="MyStoresMenuButton">
                                         <a href="/MyStores">My Stores</a>
                                     </li>
                                 </asp:PlaceHolder>
 
                                 <asp:PlaceHolder ID="adminPanelLink" Visible="false" runat="server">
-                                    <li>
+                                    <li id="AdminMenuButton">
                                         <a href="/admin">Admin Panel</a>
                                     </li>
                                 </asp:PlaceHolder>

@@ -10,5 +10,10 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#homeMenuButton").addClass("active-menu")
+        });
+    </script>
 </asp:Content>
 

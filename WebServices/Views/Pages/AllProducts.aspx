@@ -9,6 +9,13 @@
         </div>
 
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#AllProductsMenuButton").addClass("active-menu")
+        });
+    </script>
+
     <script type="text/javascript">
         function loadModal(saleId) {
             document.getElementById("modalContent").innerHTML = '<object type="text/html" data="http://localhost:53416/viewInstantSale?saleId=' + saleId + ' ></object>';
