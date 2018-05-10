@@ -101,5 +101,44 @@ namespace wsep182.Domain
             return price;
         }
 
+        public void sendMessageTORaffleWinner(int saleId)
+        {
+            Sale s = SalesArchive.getInstance().getSale(saleId);
+            ProductInStore p = ProductArchive.getInstance().getProductInStore(s.ProductInStoreId);
+            LinkedList<RaffleSale> relevant = new LinkedList<RaffleSale>();
+            double realPrice = p.price;
+            double acc = 0;
+            foreach(RaffleSale rs in raffleSales)
+            {
+                if (rs.SaleId == saleId)
+                {
+                    acc += rs.Offer;
+                    relevant.AddLast(rs);
+                }
+            }
+            if(acc == realPrice)
+            {
+                int index = 1;
+                Random rand = new Random();
+                int winner = rand.Next(1, (int)realPrice);
+                foreach(RaffleSale r in relevant)
+                {
+                    if (winner <= r.Offer+index && winner >= index)
+                    {
+                        NotificationManager.getInstance().notifyUser(r.UserName, "YOU WON THE RAFFLE SALE: " + r.SaleId.ToString());
+                        break;
+                    } 
+                    else
+                    {
+                        index += (int)r.Offer;
+                    }
+                }
+                foreach (RaffleSale r in relevant)
+                    raffleSales.Remove(r);
+            }
+        }
+
+
+
     }
 }
