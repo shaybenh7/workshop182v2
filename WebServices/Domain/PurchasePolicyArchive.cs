@@ -290,8 +290,88 @@ namespace wsep182.Domain
         }
 
 
+        //==================== REMOVE POLICYS !!!!! =============================
 
+        // ========================= AMOUNT CONSTRAINTS !!!! ================================================
+        public int removeAmountPolicyOnProduct(string productName)
+        {
+            // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeAmountPolicyOnStore(int storeId)
+        {
+            // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeAmountPolicyOnCategory(int storeId, string category)
+        {
+            // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeAmountPolicyOnProductInStore(int productInStoreId)
+        {
+            // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeAmountPolicyOnCountry(int storeId, string country)
+        {
+            // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
 
+        // ========================= DISCOUNT CONSTRAINTS !!!! ================================================
+        public int removeNoDiscountPolicyOnProduct(string productName)
+        {
+            // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeNoDiscountPolicyOnStore(int storeId)
+        {
+            // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeNoDiscountPolicyOnCategoty(int storeId, String category)
+        {
+            // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeNoDiscountPolicyOnProductInStore(int productInStoreId)
+        {
+            // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeNoDiscountPolicyOnCountry(int storeId, string country)
+        {
+            // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+
+        // ========================= COUPONS CONSTRAINTS !!!! ================================================
+        public int removeNoCouponsPolicyOnProduct(string productName)
+        {
+            // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeNoCouponsPolicyOnStore(int storeId)
+        {
+            // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeNoCouponPolicyOnCategoty(int storeId, String category)
+        {
+            // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeNoCouponPolicyOnProductInStore(int productInStoreId)
+        {
+            // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
+        public int removeNoCouponPolicyOnCountry(int storeId, string country)
+        {
+            // 1-Product (system level) , 2- Store, 3-category, 4- product in store, 5-country
+            return 1;
+        }
 
 
 
