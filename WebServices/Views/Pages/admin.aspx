@@ -188,5 +188,10 @@
         });
 
     </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#AdminMenuButton").addClass("active-menu")
+        });
+    </script>
 </asp:Content>
 
