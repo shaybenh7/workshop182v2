@@ -630,19 +630,40 @@ namespace WebService.Controllers
             return "Server error: not suppose to happen";
         }
 
-
         [Route("api/store/addCouponDiscount")]
-        [HttpPost]
-        public string addCouponDiscount(int storeId, String couponId, int type, int[] pisId, string[]catOrProductsNames
+        [HttpGet]
+        public string addCouponDiscount(int storeId, String couponId, int type, string towaht
             , int percentage, string dueDate, string restrictions)
         {
-            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
-            {
-                return "Not logged in";
-            }
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
-            int ans = storeServices.getInstance().addNewCoupons(session, storeId, couponId, type, pisId.OfType<int>().ToList(), catOrProductsNames.OfType<String>().ToList(),percentage
-                , dueDate, restrictions);
+            int ans;
+            if (type == 1)
+            {
+                List<int> pisId = new List<int>();
+                string[] words = towaht.Split(',');
+                for(int i=0;i< words.Length;i++){
+                    try
+                    {
+                        pisId.Add(Int32.Parse(words[i]));
+                    }
+                    catch (FormatException /*e*/)
+                    {
+                        return "product id cannot be string";
+                    }
+                }
+                ans = storeServices.getInstance().addNewCoupons(session, storeId, couponId, type, pisId, null, percentage, dueDate, restrictions);
+            }
+            else
+            {
+                List<String> catOrPname = new List<String>();
+                string[] words = towaht.Split(',');
+                for (int i = 0; i < words.Length; i++)
+                {
+                    catOrPname.Add(words[i]);
+                }
+                ans = storeServices.getInstance().addNewCoupons(session, storeId, couponId, type, null, catOrPname, percentage, dueDate, restrictions);
+
+            }
             if (ans > 0)
                 return "Coupons added successfully";
             if (ans == -4)

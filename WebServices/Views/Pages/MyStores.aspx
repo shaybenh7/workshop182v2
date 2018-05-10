@@ -860,7 +860,7 @@
                                                 <div class="size-204 respon6-next">
                                                     <div>
 
-                                                        <select name="time">
+                                                        <select name="time" id="typeOfCopun">
                                                             <option>product in store</option>
                                                             <option>category</option>
                                                             <asp:PlaceHolder ID="productOptionForAddCopun" Visible="false" runat="server">
@@ -874,7 +874,16 @@
                                                  <br />
                                                 <br />
                                                 <div class="wrap-input1 w-full p-b-4">
-                                                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="to-what" placeholder="enter the item you want the copun to act on">
+                                                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="DiscountPrecentage" placeholder="enter the discount precentage">
+                                                    <div class="focus-input1 trans-04"></div>
+                                                </div>
+                                                <div class="wrap-input1 w-full p-b-4">
+                                                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="CopunDueDate" placeholder="enter due date">
+                                                    <div class="focus-input1 trans-04"></div>
+                                                </div>
+
+                                                <div class="wrap-input1 w-full p-b-4">
+                                                    <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="to-what" placeholder="enter the products ids you want the copun to act on divide by ','">
                                                     <div class="focus-input1 trans-04"></div>
                                                 </div>
                                         
@@ -886,18 +895,18 @@
                                                 <br />
 
                                                 <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="male" style="margin-top: 5px; margin-right: 10px;">
+                                                        <input type="checkbox" name="gender" id="copunRaffle" value="male" style="margin-top: 5px; margin-right: 10px;">
                                                         Raffle sale
                                                 </div>
                                                 <br />
                                                 <br />
                                                 <div style="display: flex; margin-bottom: 10px; margin-left: 60px;">
-                                                        <input type="checkbox" name="gender" value="male" style="margin-top: 5px; margin-right: 10px;">
+                                                        <input type="checkbox" name="gender" id="copunInstant" value="male" style="margin-top: 5px; margin-right: 10px;">
                                                          instant sale
                                                 </div>
 
                                                 <div style="margin-top:40px;margin-left:700px;">
-                                                    <input type="button" value="Add coupon" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+                                                    <input type="button" value="Add coupon" onclick="addCopun()" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
                                                 </div>
 
 
@@ -992,7 +1001,8 @@
 
     <script src="vendor/JS/MyStores.js" type="text/javascript"></script>
 
-    <script type="text/javascript"></script>
+
+    <script type="text/javascript" ></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#MyStoresMenuButton").addClass("active-menu")

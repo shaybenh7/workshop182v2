@@ -15,11 +15,11 @@ $(document).ready(function () {
             var i;
             for (i = 0; i < response.length; i++) {
                 storeRole = response[i];
-                if (storeRole["store"]["isActive"] == 1 && (storeRole["type"] == "Manager" || storeRole["type"] == "Owner")) {
+                if (storeRole["store"]["isActive"] === 1 && (storeRole["type"] === "Manager" || storeRole["type"] === "Owner")) {
                     var storeName = storeRole["store"]["name"];
                     var storeId = storeRole["store"]["storeId"];
                     var disabledLinksInitial = "disabledLink";
-                    if (storeRole["type"] == "Owner")
+                    if (storeRole["type"] === "Owner")
                         disabledLinksInitial = "";
                     var string = "";
 
@@ -40,7 +40,7 @@ $(document).ready(function () {
                     string += "<a href=\"#\" id=\"removeSaleFromStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Sale</a>";
                     string += "<a href=\"#\" id=\"addDiscount" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Discount</a>";
                     string += "<a href=\"#\" id=\"removeDiscount" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Discount</a>";
-                    string += "<a href=\"#\" id=\"addNewCoupon" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Coupon</a>";
+                    string += "<a href=\"#\" id=\"addNewCoupon" + i + "\" data-id=\"" + storeId + "\" onclick=\"viewCopun(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Coupon</a>";
                     string += "<a href=\"#\" id=\"removeCoupon" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Coupon</a>";
                     string += "<a href=\"#\" id=\"viewPurchasesHistory" + i + "\" data-id=\"" + storeId + "\" onclick=\"viewHistory(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">View History</a>";
 
@@ -49,7 +49,7 @@ $(document).ready(function () {
                     mainDiv.innerHTML += string;
 
 
-                    if (storeRole["type"] == "Manager") {
+                    if (storeRole["type"] === "Manager") {
                         (function (i, storeId) {
                             jQuery.ajax({
                                 type: "GET",
@@ -59,7 +59,7 @@ $(document).ready(function () {
                                 success: function (response) { //iterate through premissions and enable links
                                     response = response["privileges"];
                                     for (var key in response) {
-                                        if (response.hasOwnProperty(key) && response[key] == true) {
+                                        if (response.hasOwnProperty(key) && response[key] === true) {
                                             enableLink(key + i);
                                             //document.getElementById(key + i).onclick = modalLinkListener;
                                         }
@@ -257,7 +257,7 @@ var addSale = function () {
     productId = productsInStore[productId].productInStoreId;
     amount = $("#product-amount-in-sale2").val();
     kindOfSale = $("#saleOption")[0].selectedIndex+1;
-    if (kindOfSale == 2) {
+    if (kindOfSale === 2) {
         kindOfSale = 3;
     }
     date = $("#product-due-date2").val();
@@ -378,6 +378,79 @@ function viewHistory(e) {
         }
     });
     
+}
+
+var viewCopun = function (e) {
+    modalLinkListener(e);
+    $("#typeOfCopun").on('change', function () {
+        typeOfCopun = $("#typeOfCopun")[0].selectedIndex;
+        changeTypeOfCopun(typeOfCopun);
+    });
+
+}
+
+var changeTypeOfCopun = function (typeOfCopun) {
+    switch (typeOfCopun) {
+        case 0:
+            $("#to-what").attr("placeholder", "enter the products in store ids you want the copun to act on divide by ','");
+            break;
+        case 1:
+            $("#to-what").attr("placeholder", "enter the categoris names you want the copun to act on divide by ','");
+            break;
+
+        case 2:
+            $("#to-what").attr("placeholder", "enter the product names you want the copun to act on divide by ','");
+            break;
+    }
+}
+
+var addCopun = function () {
+    copunId = $("#copun-id").val();
+    typeOfCopun = $("#typeOfCopun")[0].selectedIndex+1;
+    to_what = $("#to-what").val();
+    Restriction = fixRestricion();
+    DiscountPrecentage = $("#DiscountPrecentage").val();
+    CopunDueDate = $("#CopunDueDate").val();
+
+    jQuery.ajax({
+        type: "GET",
+        url: "http://localhost:53416/api/store/addCouponDiscount?storeId=" + lastClickedStoreId +
+            "&couponId=" + copunId + "&type=" + typeOfCopun + "&towaht=" + to_what +
+            "&percentage=" + DiscountPrecentage + "&dueDate=" + CopunDueDate +
+            "&restrictions=" + Restriction ,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            alert(response);
+            window.location.reload(false);
+        },
+        error: function (response) {
+            console.log(response);
+
+        }
+    });
+}
+
+var fixRestricion = function () {
+    Restriction = $("#Restriction").val();
+    if (Restriction !== null && Restriction !== "") {
+        Restriction = "COUNTRY=" + Restriction;
+    }
+    RaffleCheck = $("#copunRaffle")[0].checked;
+    InstantCheck = $("#copunInstant")[0].checked
+    if (RaffleCheck || InstantCheck) {
+        Restriction += "/TOS=";
+    }
+    if (RaffleCheck & !InstantCheck) {
+        Restriction += "3";
+    }
+    else if (!RaffleCheck & InstantCheck) {
+        Restriction += "1";
+    }
+    else {
+        Restriction += "1,3";
+    }
+    return Restriction;
 }
 
 
