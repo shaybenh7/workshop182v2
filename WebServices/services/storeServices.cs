@@ -498,6 +498,12 @@ namespace wsep182.services
                 return null;
             return s.getAllSales();
         }
+
+        public Sale getSaleById(int saleId)
+        {
+            return SalesArchive.getInstance().getSale(saleId);
+        }
+
         public ProductInStore getProductInStoreById(int id)
         {
             return ProductArchive.getInstance().getProductInStore(id);
@@ -508,6 +514,10 @@ namespace wsep182.services
             return storeArchive.getInstance().getAllStore();
         }
 
+        public double checkRaffleBids(int saleId)
+        {
+            return 0;
+        }
 
 
         //not implemented

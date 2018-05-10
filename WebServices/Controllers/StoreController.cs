@@ -741,7 +741,7 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage getProductInStoreById(int id)
         {
-            ProductInStore productInStore = ProductArchive.getInstance().getProductInStore(id);
+            ProductInStore productInStore = storeServices.getInstance().getProductInStoreById(id);
             HttpResponseMessage response;
             if (productInStore == null)
             {
@@ -760,7 +760,7 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage checkPriceOfAProduct(int saleId)
         {
-            Sale sale = SalesArchive.getInstance().getSale(saleId);
+            Sale sale = storeServices.getInstance().getSaleById(saleId);
             HttpResponseMessage response;
             if (sale == null)
             {
@@ -778,7 +778,7 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage checkPriceOfAProductBeforeDiscount(int saleId)
         {
-            Sale sale = SalesArchive.getInstance().getSale(saleId);
+            Sale sale = storeServices.getInstance().getSaleById(saleId);
             HttpResponseMessage response;
             if (sale == null)
             {
@@ -787,6 +787,24 @@ namespace WebService.Controllers
             else
             {
                 response = Request.CreateResponse(HttpStatusCode.OK, sale.getPriceBeforeDiscount(1));
+            }
+            return response;
+
+        }
+
+        [Route("api/store/checkRaffleBids")]
+        [HttpGet]
+        public HttpResponseMessage checkRaffleBids(int saleId)
+        {
+            Double ans = storeServices.getInstance().checkRaffleBids(saleId);
+            HttpResponseMessage response;
+            if (ans == -1)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: No such sale!");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, ans);
             }
             return response;
 

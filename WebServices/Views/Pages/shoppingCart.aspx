@@ -95,7 +95,7 @@
                         </div>
 
                         <div class="size-209 p-t-1">
-                            <span class="mtext-110 cl2">*TOTAL PRICE*
+                            <span class="mtext-110 cl2" id="total-price">TOTAL PRICE : 
                             </span>
                         </div>
                     </div>
