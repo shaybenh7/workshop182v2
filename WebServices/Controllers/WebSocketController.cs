@@ -19,7 +19,7 @@ namespace WebServices.Controllers
 {
     public class WebSocketController : ApiController
     {
-        static readonly ConcurrentDictionary<string, WebSocket> _users = new ConcurrentDictionary<string, WebSocket>();
+        static readonly Dictionary<string, WebSocket> _users = new Dictionary<string, WebSocket>();
         public static Dictionary<string, LinkedList<String>> PendingMessages = new Dictionary<string, LinkedList<String>>(); 
 
 
@@ -36,8 +36,37 @@ namespace WebServices.Controllers
         {
             WebSocket socket = context.WebSocket;
             ArraySegment<byte> buffer = new ArraySegment<byte>(new byte[4096]);
-            string hash = context.CookieCollection[0].Value;
-            _users.AddOrUpdate(hash, socket, (p, w) => socket);
+            string hash = "";
+            if(context.CookieCollection[0].Name == "HashCode")
+            {
+                hash = context.CookieCollection[0].Value;
+            }
+            else if(context.CookieCollection.Count > 1 && context.CookieCollection[1].Name == "HashCode")
+            {
+                hash = context.CookieCollection[1].Value;
+            }
+            else
+            {
+                return;
+            }
+
+            updateSocket(hash, socket);
+
+            if (socket.State == WebSocketState.Open)
+            {
+                User newConnectedUser = hashServices.getUserByHash(hash);
+                LinkedList<String> CurrentPendingMessages;
+                PendingMessages.TryGetValue(newConnectedUser.getUserName(), out CurrentPendingMessages);
+                if (CurrentPendingMessages != null)
+                {
+                    foreach (String message in CurrentPendingMessages)
+                    { 
+                        sendMessageToClient(hash, message);
+                    }
+                    CurrentPendingMessages.Clear();
+                }
+            }
+
 
             while (socket.State == WebSocketState.Open)
             {
@@ -50,60 +79,64 @@ namespace WebServices.Controllers
                 var sendbuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(userMessage));
 
 
-                User newConnectedUser = hashServices.getUserByHash(hash);
-                LinkedList<String> CurrentPendingMessages;
-                PendingMessages.TryGetValue(newConnectedUser.getUserName(), out CurrentPendingMessages);
-                if (CurrentPendingMessages != null)
-                {
-                    foreach (String message in CurrentPendingMessages)
-                    {
-                        sendMessageToClient(hash, message);
-                    }
-                    CurrentPendingMessages.Clear();
-                }
-
-
                 await socket.SendAsync(sendbuffer, WebSocketMessageType.Text, true, CancellationToken.None)
                             .ConfigureAwait(false);
             }
         }
 
-        public static async void sendMessageToClient(string hash, String message)
+        public static void sendMessageToClient(string hash, String message)
         {
             WebSocket socket=null;
             _users.TryGetValue(hash, out socket);
             if (socket == null)
+            {
+                addMessage(hash, message);
                 return; //no such socket exists
+            }
 
             if (socket.State == WebSocketState.Open)
             {
 
                 var sendbuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(message));
-
-                await socket.SendAsync(sendbuffer, WebSocketMessageType.Text, true, CancellationToken.None)
+                
+                socket.SendAsync(sendbuffer, WebSocketMessageType.Text, true, CancellationToken.None)
                             .ConfigureAwait(false);
             }
             else
             {
                 lock (_users) //make sure the socket wasn't reconnected so we won't lose the socket
                 {
-                    _users.TryRemove(hash, out socket);
-                    User newConnectedUser = hashServices.getUserByHash(hash);
-                    LinkedList<String> CurrentPendingMessages;
-                    PendingMessages.TryGetValue(newConnectedUser.getUserName(), out CurrentPendingMessages);
-                    if (CurrentPendingMessages == null)
-                    {
-                        CurrentPendingMessages = new LinkedList<String>();
-                        CurrentPendingMessages.AddLast(message);
-                        PendingMessages.Add(newConnectedUser.getUserName(), CurrentPendingMessages);
-                    }
-                    else
-                    {
-                        CurrentPendingMessages.AddLast(message);
-                    }       
+                    _users.Remove(hash);
+                    addMessage(hash, message);
                 }
                 
             }
+        }
+
+        public static void addMessage(string hash, String message)
+        {
+            User newConnectedUser = hashServices.getUserByHash(hash);
+            LinkedList<String> CurrentPendingMessages;
+            PendingMessages.TryGetValue(newConnectedUser.getUserName(), out CurrentPendingMessages);
+            if (CurrentPendingMessages == null)
+            {
+                CurrentPendingMessages = new LinkedList<String>();
+                CurrentPendingMessages.AddLast(message);
+                PendingMessages.Add(newConnectedUser.getUserName(), CurrentPendingMessages);
+            }
+            else
+            {
+                CurrentPendingMessages.AddLast(message);
+            }
+        }
+
+        private static void updateSocket(String hash, WebSocket socket)
+        {
+            WebSocket soc;
+            _users.TryGetValue(hash, out soc);
+            if (soc != null)
+                _users.Remove(hash);
+            _users.Add(hash, socket);
         }
 
     }
