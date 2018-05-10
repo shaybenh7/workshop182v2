@@ -296,6 +296,14 @@ namespace wsep182.Domain
             return CouponsArchive.getInstance().addNewCoupon(couponId, productInStoreId, type, categoryOrProductName, percentage, dueDate, restrictions);
         }
 
+        public virtual int addNewCoupons(User session, int storeId, String couponId, int type, List<int> pisId, List<string> catOrProductsNames
+            , int percentage, string dueDate, string restrictions)
+        {
+            if (session == null || couponId == null || percentage < 0 || dueDate == null || percentage <= 0)
+                return -1;
+            return CouponsArchive.getInstance().addNewCoupons(couponId, type, pisId, catOrProductsNames, percentage, dueDate, restrictions);
+        }
+
         public virtual Boolean removeDiscount(User session, ProductInStore p)
         {
             if (p == null || session == null)

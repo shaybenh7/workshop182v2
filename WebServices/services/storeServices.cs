@@ -523,5 +523,16 @@ namespace wsep182.services
             return sR.addDiscounts(session, storeId, productInStores, type, percentage , categorysOrProductsName
                 , dueDate, restrictions);
         }
+
+        public int addNewCoupons(User session, int storeId, String couponId, int type, List<int> pisId, List<string> catOrProductsNames
+            , int percentage, string dueDate, string restrictions)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.addNewCoupons(session, storeId, couponId, type, pisId, catOrProductsNames, percentage
+                , dueDate, restrictions);
+        }
     }
 }
