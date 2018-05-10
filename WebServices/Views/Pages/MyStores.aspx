@@ -1027,6 +1027,86 @@
                     </div>
                 </div>
 
+        <div class="wrap-modal1 js-modal1 p-t-60 p-b-20" id="viewAddPolicyModal">
+                    <div class="overlay-modal1 js-hide-modal1"></div>
+                    
+                    <div class="container">
+                        <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent" style="padding-top: 25px;">
+
+                            <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+                                <img src="images/icons/icon-close.png" alt="CLOSE">
+                            </button>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-7 p-b-30">
+                                    <div class="p-l-25 p-r-30 p-lr-0-lg">
+                                        <div class="wrap-slick3 flex-sb flex-w">
+
+                                            <div class="size-204 flex-w flex-m respon6-next">
+                                                <div>
+                                                <span class="mtext-106 cl2" style="margin-right:50px">Add policy</span>
+                                                    </div>
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <div class="size-204 respon6-next">
+                                                    <div>
+                                                        <select name="time" id="PolicyType">
+                                                                        <option>product in store</option>
+                                                                        <option>category</option>
+                                                                        <option>store</option>
+                                                                        <option>country</option>
+                                                                        <asp:PlaceHolder ID="PlaceHolder1" Visible="false" runat="server">
+                                                                            <option>product</option>
+                                                                        </asp:PlaceHolder>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <br />
+                                                <div class="wrap-input1 w-full p-b-4">
+                                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="minPolicy" name="storeName" placeholder="minmum amount">
+                                                </div>
+                                                <br />
+                                                <br />
+                                                <div class="wrap-input1 w-full p-b-4">
+                                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="maxPolicy" name="storeName" placeholder="max amount">
+                                                </div>
+                                                <br />
+                                                <br />
+                                                <div style="display: flex; margin-bottom: 10px; margin-left:20px">
+                                                        <input type="checkbox" id="NoDiscount" name="gender" value="male" style="margin-top: 5px; margin-right: 10px;">
+                                                        without discount
+                                                </div>
+                                                <br />
+                                                <br />
+                                                <div style="display: flex; margin-bottom: 10px;margin-left:40px">
+                                                        <input type="checkbox" id="NoCopuns" name="gender" value="male" style="margin-top: 5px; margin-right: 10px;">
+                                                        without coupons
+                                                </div>
+                                                <br />
+                                                <br />
+                                                <div class="wrap-input1 w-full p-b-4">
+                                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="PolicyChange"  name="storeName" placeholder="enter product in store id">
+                                                </div>
+                                                <br />
+                                                <br />
+                                                <br />
+                                                <input type="button" value="Add product" onclick="" style="margin-left: 700px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                
+                        </div>
+
+
+
+                    </div>
+                </div>
+
 
 
     <script src="vendor/JS/MyStores.js" type="text/javascript"></script>
