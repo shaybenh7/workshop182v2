@@ -38,7 +38,7 @@ $(document).ready(function () {
                     string += "<a href=\"#\" id=\"addSaleToStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"addSaleView(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Sale</a>";
                     string += "<a href=\"#\" id=\"editSale" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Edit Sale</a>";
                     string += "<a href=\"#\" id=\"removeSaleFromStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Sale</a>";
-                    string += "<a href=\"#\" id=\"addDiscount" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Discount</a>";
+                    string += "<a href=\"#\" id=\"addDiscount" + i + "\" data-id=\"" + storeId + "\" onclick=\"viewAddDiscount(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Discount</a>";
                     string += "<a href=\"#\" id=\"removeDiscount" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Discount</a>";
                     string += "<a href=\"#\" id=\"addNewCoupon" + i + "\" data-id=\"" + storeId + "\" onclick=\"viewCopun(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Coupon</a>";
                     string += "<a href=\"#\" id=\"removeCoupon" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Coupon</a>";
@@ -384,22 +384,33 @@ var viewCopun = function (e) {
     modalLinkListener(e);
     $("#typeOfCopun").on('change', function () {
         typeOfCopun = $("#typeOfCopun")[0].selectedIndex;
-        changeTypeOfCopun(typeOfCopun);
+        changeTypeOfCopun(typeOfCopun, "#to-what");
     });
 
 }
 
-var changeTypeOfCopun = function (typeOfCopun) {
+var viewAddDiscount = function (e) {
+    modalLinkListener(e);
+    $("#typeOfDiscount").on('change', function () {
+        typeOfCopun = $("#typeOfDiscount")[0].selectedIndex;
+        changeTypeOfCopun(typeOfCopun,"#discountto-what");
+    });
+
+}
+
+
+
+var changeTypeOfCopun = function (typeOfCopun, towhat) {
     switch (typeOfCopun) {
         case 0:
-            $("#to-what").attr("placeholder", "enter the products in store ids you want the copun to act on divide by ','");
+            $(towhat).attr("placeholder", "enter the products in store ids you want the copun to act on divide by ','");
             break;
         case 1:
-            $("#to-what").attr("placeholder", "enter the categoris names you want the copun to act on divide by ','");
+            $(towhat).attr("placeholder", "enter the categoris names you want the copun to act on divide by ','");
             break;
 
         case 2:
-            $("#to-what").attr("placeholder", "enter the product names you want the copun to act on divide by ','");
+            $(towhat).attr("placeholder", "enter the product names you want the copun to act on divide by ','");
             break;
     }
 }
@@ -408,7 +419,7 @@ var addCopun = function () {
     copunId = $("#copun-id").val();
     typeOfCopun = $("#typeOfCopun")[0].selectedIndex+1;
     to_what = $("#to-what").val();
-    Restriction = fixRestricion();
+    Restriction = fixRestricion("#Restriction", "#copunRaffle", "#copunInstant");
     DiscountPrecentage = $("#DiscountPrecentage").val();
     CopunDueDate = $("#CopunDueDate").val();
 
@@ -431,13 +442,39 @@ var addCopun = function () {
     });
 }
 
-var fixRestricion = function () {
-    Restriction = $("#Restriction").val();
+var addDiscount = function () {
+    type = $("#typeOfDiscount")[0].selectedIndex + 1;
+    DiscountPrecentage = $("#DiscountPrecentage2").val();
+    DueDate = $("#discountDueDate").val();
+    to_what = $("#discountto-what").val();
+    Restriction = fixRestricion("#Restriction2", "#discountRaffle", "#discountInstant");
+
+    jQuery.ajax({
+        type: "GET",
+        url: "http://localhost:53416/api/store/addDiscount?storeId=" + lastClickedStoreId +
+            "&type=" + type + "&percentage=" + DiscountPrecentage +
+            "&toWhat=" + to_what + "&dueDate=" + DueDate +
+            "&restrictions=" + Restriction,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            alert(response);
+            window.location.reload(false);
+        },
+        error: function (response) {
+            console.log(response);
+
+        }
+    });
+}
+
+var fixRestricion = function (restriction, copunRaffle, copunInstant) {
+    Restriction = $(restriction).val();
     if (Restriction !== null && Restriction !== "") {
         Restriction = "COUNTRY=" + Restriction;
     }
-    RaffleCheck = $("#copunRaffle")[0].checked;
-    InstantCheck = $("#copunInstant")[0].checked
+    RaffleCheck = $(copunRaffle)[0].checked;
+    InstantCheck = $(copunInstant)[0].checked
     if (RaffleCheck || InstantCheck) {
         Restriction += "/TOS=";
     }

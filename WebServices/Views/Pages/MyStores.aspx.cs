@@ -20,6 +20,7 @@ namespace WebServices.Views.Pages
                 if (u != null && u.getState() is Admin)
                 {
                     productOptionForAddCopun.Visible = true;
+                    PlaceHolder2.Visible = true;
                 }
             }
 
