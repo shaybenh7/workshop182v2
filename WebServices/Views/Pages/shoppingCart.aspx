@@ -205,9 +205,6 @@
         function checkoutFunc() {
             var country = $("#country").val();
             var address = $("#address").val();;
-            //show the modal:
-            var element = document.getElementById("afterCheckoutModal");
-            element.classList.add("show-modal1");
 
             //now need to add stuff to the modal
             var mainDivModal = document.getElementById('shoppingCartModal');
@@ -217,66 +214,72 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    console.log("inModal");
-                    console.log(response);
-                    var i;
-                    for (i = 0; i < response.length; i++) {
-                        element = response[i];
-                        var amount = element["Amount"];
-                        var saleId = element["SaleId"];
-                        var totalBeforeDiscount = element["Price"];
-                        var totalAfterDiscount = element["PriceAfterDiscount"];
-                        var price = totalAfterDiscount / amount;
-                        var priceBeforeDiscount = totalBeforeDiscount / amount;
-                        if (element["Offer"] != 0) {
-                            price = element["Offer"];
+                    if (response instanceof String)
+                        alert(response);
+                    else {
+                        console.log(response);
+                        var i;
+                        for (i = 0; i < response.length; i++) {
+                            element = response[i];
+                            var amount = element["Amount"];
+                            var saleId = element["SaleId"];
+                            var totalBeforeDiscount = element["Price"];
+                            var totalAfterDiscount = element["PriceAfterDiscount"];
+                            var price = totalAfterDiscount / amount;
+                            var priceBeforeDiscount = totalBeforeDiscount / amount;
+                            if (element["Offer"] != 0) {
+                                price = element["Offer"];
+                            }
+                            if (element["Offer"] != 0) {
+                                totalAfterDiscount = element["Offer"] * amount;
+                            }
+                            var string = "";
+                            string += "<tr class=\"table_row\">";
+                            string += "<td class=\"column-1\" >";
+                            //string += "<div class=\"how-itemcart1\">";
+                            string += "<input type=\"image\" onclick=\"RemoveProductFromCart(" + saleId + ")\" src=\"images/removee.png\" id=\"remove" + i + "\" width=\"40\" height=\"40\">";
+                            //string += "</div>";
+                            string += "</td>";
+                            string += "<td class=\"column-2\" id=\"InitialpriceModal" + i + "\">" + priceBeforeDiscount.toFixed(2) + "</td>";
+                            string += "<td class=\"column-3\" id=\"FinalpriceModal" + i + "\">" + price.toFixed(2) + "</td>";
+                            string += "<td class=\"column-4\" id=\"quantityModal" + i + "\">" + amount + "</td>";
+                            string += "<td class=\"column-5\" id=\"totalModal" + i + "\">" + totalAfterDiscount.toFixed(2) + "</td>";
+                            string += "</tr>";
+                            mainDivModal.innerHTML += string;
+
+                            (function (i, saleId) {
+                                jQuery.ajax({
+                                    type: "GET",
+                                    url: "http://localhost:53416/api/user/viewSaleById?saleId=" + saleId,
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (response) {
+
+                                        jQuery.ajax({
+                                            type: "GET",
+                                            url: "http://localhost:53416/api/store/getProductInStoreById?id=" + response["ProductInStoreId"],
+                                            contentType: "application/json; charset=utf-8",
+                                            dataType: "json",
+                                            success: function (response) {
+                                                var productNameElement = document.getElementById("productName" + i);
+                                                productNameElement.innerHTML += response["product"]["name"];
+                                            },
+                                            error: function (response) {
+                                                console.log(response);
+                                            }
+                                        });
+
+                                    },
+                                    error: function (response) {
+                                        console.log(response);
+                                    }
+                                });
+
+                            })(i, saleId);
+
                         }
-                        if (element["Offer"] != 0) {
-                            totalAfterDiscount = element["Offer"] * amount;
-                        }
-                        var string = "";
-                        string += "<tr class=\"table_row\">";
-                        string += "<td class=\"column-1\" >";
-                        //string += "<div class=\"how-itemcart1\">";
-                        string += "<input type=\"image\" onclick=\"RemoveProductFromCart(" + saleId + ")\" src=\"images/removee.png\" id=\"remove" + i + "\" width=\"40\" height=\"40\">";
-                        //string += "</div>";
-                        string += "</td>";
-                        string += "<td class=\"column-2\" id=\"InitialpriceModal" + i + "\">" + priceBeforeDiscount.toFixed(2) + "</td>";
-                        string += "<td class=\"column-3\" id=\"FinalpriceModal" + i + "\">" + price.toFixed(2) + "</td>";
-                        string += "<td class=\"column-4\" id=\"quantityModal" + i + "\">" + amount + "</td>";
-                        string += "<td class=\"column-5\" id=\"totalModal" + i + "\">" + totalAfterDiscount.toFixed(2) + "</td>";
-                        string += "</tr>";
-                        mainDivModal.innerHTML += string;
-
-                        (function (i, saleId) {
-                            jQuery.ajax({
-                                type: "GET",
-                                url: "http://localhost:53416/api/user/viewSaleById?saleId=" + saleId,
-                                contentType: "application/json; charset=utf-8",
-                                dataType: "json",
-                                success: function (response) {
-
-                                    jQuery.ajax({
-                                        type: "GET",
-                                        url: "http://localhost:53416/api/store/getProductInStoreById?id=" + response["ProductInStoreId"],
-                                        contentType: "application/json; charset=utf-8",
-                                        dataType: "json",
-                                        success: function (response) {
-                                            var productNameElement = document.getElementById("productName" + i);
-                                            productNameElement.innerHTML += response["product"]["name"];
-                                        },
-                                        error: function (response) {
-                                            console.log(response);
-                                        }
-                                    });
-
-                                },
-                                error: function (response) {
-                                    console.log(response);
-                                }
-                            });
-
-                        })(i, saleId);
+                        var element = document.getElementById("afterCheckoutModal");
+                        element.classList.add("show-modal1");
                     }
                 },
                 error: function (response) {
