@@ -749,5 +749,23 @@ namespace WebService.Controllers
             return response;
 
         }
+
+        [Route("api/store/checkPriceOfAProductBeforeDiscount")]
+        [HttpGet]
+        public HttpResponseMessage checkPriceOfAProductBeforeDiscount(int saleId)
+        {
+            Sale sale = SalesArchive.getInstance().getSale(saleId);
+            HttpResponseMessage response;
+            if (sale == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: permissions or store not valid!");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, sale.getPriceBeforeDiscount(1));
+            }
+            return response;
+
+        }
     }
 }

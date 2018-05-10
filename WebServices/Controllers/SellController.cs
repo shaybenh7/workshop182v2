@@ -203,7 +203,7 @@ namespace WebService.Controllers
         }
 
         [Route("api/sell/removeFromCart")]
-        [HttpDelete]
+        [HttpGet]
         public HttpResponseMessage removeFromCart(int saleId)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);

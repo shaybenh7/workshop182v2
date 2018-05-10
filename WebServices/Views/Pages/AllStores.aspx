@@ -33,7 +33,7 @@
                         string += "</div>";
                         string += "<div class=\"block2-txt flex-w flex-t p-t-14\" style=\"width: 270px;padding: 17px;border-color: black;border-width: 1px;border-style: groove;margin-left:20px; margin-bottom: 20px;\">";
                         string += "<div class=\"block2-txt-child1 flex-col-l \">";
-                        string += "<a href=\"product-detail.html\" class=\"stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6\">";
+                        string += "<a href=\"http://localhost:53416/viewStore?storeId="+storeId+"\" class=\"stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6\">";
                         string += "<div id=\"storeName" + i + "\">Store Name: " + storeName + "</div>"; // add sale name here to saleName1
                             string += "</a>";
                         string += "<span class=\"stext-105 cl3\">";
