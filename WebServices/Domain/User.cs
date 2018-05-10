@@ -74,7 +74,7 @@ namespace wsep182.Domain
                     state = new LogedIn();
                 this.userName = username;
                 this.password = password;
-
+                UserArchive.getInstance().updateUser(this);
                 return 0;
             }
             return user;

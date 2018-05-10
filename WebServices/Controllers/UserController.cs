@@ -155,11 +155,6 @@ namespace WebService.Controllers
             switch (ans)
             {
                 case 0:
-                    String hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
-                    hashServices.configureUser(hash, session);
-                    //System.Web.HttpContext.Current.Session["hash"] = hash;
-                    //String[] answer = { "user successfuly logged in", hash };
-                    
                     return "user successfuly logged in";
                 case -1:
                     return "error: username not exist";

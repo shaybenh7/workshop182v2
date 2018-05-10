@@ -20,6 +20,8 @@ namespace WebServices.Controllers
     public class WebSocketController : ApiController
     {
         static readonly ConcurrentDictionary<string, WebSocket> _users = new ConcurrentDictionary<string, WebSocket>();
+        public static Dictionary<string, LinkedList<String>> PendingMessages = new Dictionary<string, LinkedList<String>>(); 
+
 
         public HttpResponseMessage Get()
         {
@@ -47,6 +49,20 @@ namespace WebServices.Controllers
                     DateTime.Now.ToLongTimeString() + " from ip " + context.UserHostAddress.ToString();
                 var sendbuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(userMessage));
 
+
+                User newConnectedUser = hashServices.getUserByHash(hash);
+                LinkedList<String> CurrentPendingMessages;
+                PendingMessages.TryGetValue(newConnectedUser.getUserName(), out CurrentPendingMessages);
+                if (CurrentPendingMessages != null)
+                {
+                    foreach (String message in CurrentPendingMessages)
+                    {
+                        sendMessageToClient(hash, message);
+                    }
+                    CurrentPendingMessages.Clear();
+                }
+
+
                 await socket.SendAsync(sendbuffer, WebSocketMessageType.Text, true, CancellationToken.None)
                             .ConfigureAwait(false);
             }
@@ -55,7 +71,6 @@ namespace WebServices.Controllers
         public static async void sendMessageToClient(string hash, String message)
         {
             WebSocket socket=null;
-
             _users.TryGetValue(hash, out socket);
             if (socket == null)
                 return; //no such socket exists
@@ -72,9 +87,20 @@ namespace WebServices.Controllers
             {
                 lock (_users) //make sure the socket wasn't reconnected so we won't lose the socket
                 {
-                    _users.TryGetValue(hash, out socket);
-                    if (socket.State == WebSocketState.Closed)
-                        _users.TryRemove(hash, out socket);
+                    _users.TryRemove(hash, out socket);
+                    User newConnectedUser = hashServices.getUserByHash(hash);
+                    LinkedList<String> CurrentPendingMessages;
+                    PendingMessages.TryGetValue(newConnectedUser.getUserName(), out CurrentPendingMessages);
+                    if (CurrentPendingMessages == null)
+                    {
+                        CurrentPendingMessages = new LinkedList<String>();
+                        CurrentPendingMessages.AddLast(message);
+                        PendingMessages.Add(newConnectedUser.getUserName(), CurrentPendingMessages);
+                    }
+                    else
+                    {
+                        CurrentPendingMessages.AddLast(message);
+                    }       
                 }
                 
             }

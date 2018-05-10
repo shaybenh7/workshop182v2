@@ -37,6 +37,14 @@ namespace wsep182.Domain
                     return -4;
             newUser.setPassword(encrypt(newUser.getUserName() + newUser.getPassword()));
             users.AddLast(newUser);
+            foreach(User u in users)
+            {
+                if(u.getState() is Admin)
+                {
+                    NotificationManager NM = NotificationManager.getInstance();
+                    NM.notifyUser(u.getUserName(), "a new user has been register to the system with username = " + newUser.getUserName());
+                }
+            }
             return 0;
         }
 
