@@ -337,6 +337,17 @@ namespace wsep182.services
                 return false;
             return sR.addNewCoupon(session, couponId, p, percentage, dueDate);
         }
+
+        public Boolean addCouponDiscount(User session, String couponId, int productInStoreId, int type, string categoryOrProductName,
+         int percentage, String dueDate, string restrictions,int storeId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return false;
+            return sR.addNewCoupon(session, storeId, couponId, productInStoreId, type, categoryOrProductName, percentage, dueDate, restrictions);
+        }
+
         public Boolean addDiscount(ProductInStore p, int percentage ,String dueDate,User session ,Store s)
         {
             StoreRole sR = StoreRole.getStoreRole(s, session);
@@ -345,6 +356,7 @@ namespace wsep182.services
             return sR.addDiscount(session,p, percentage, dueDate);
             
         }
+
         public Boolean removeDiscount(ProductInStore p, Store s, User session)
         {
             StoreRole sR = StoreRole.getStoreRole(s, session);
@@ -361,9 +373,107 @@ namespace wsep182.services
             return sR.removeCoupon(session, s, couponId);
         }
 
- 
+        public int setAmountPolicyOnStore(User session, int storeId, int minAmount, int maxAmount)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.setAmountPolicyOnStore(session, storeId, minAmount,maxAmount);
+            
+        }
 
+        public int setAmountPolicyOnCategory(User session, int storeId, String category, int minAmount, int maxAmount)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.setAmountPolicyOnCategory(session, storeId, category, minAmount, maxAmount);
 
+        }
+
+        public int setAmountPolicyOnProductInStore(User session, int storeId, int productInStoreId, int minAmount, int maxAmount)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.setAmountPolicyOnProductInStore(session, storeId, productInStoreId, minAmount, maxAmount);
+        }
+
+        public int setAmountPolicyOnCountry(User session, int storeId, string country, int minAmount, int maxAmount)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.setAmountPolicyOnCountry(session, storeId, country, minAmount, maxAmount);
+        }
+
+        public int setNoDiscountPolicyOnStore(User session, int storeId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.setNoDiscountPolicyOnStore(session, storeId);
+        }
+
+        public int setNoDiscountPolicyOnCategoty(User session, int storeId, String category)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.setNoDiscountPolicyOnCategoty(session, storeId, category);
+        }
+
+        public int setNoDiscountPolicyOnCountry(User session, int storeId, String country)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.setNoDiscountPolicyOnCategoty(session, storeId, country);
+        }
+
+        public int setNoCouponsPolicyOnStore(User session, int storeId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.setNoCouponsPolicyOnStore(session, storeId);
+        }
+
+        public int setNoCouponPolicyOnProductInStore(User session, int storeId, int productInStoreId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.setNoCouponPolicyOnProductInStore(session, storeId, productInStoreId);
+        }
+
+        public int setNoDiscountPolicyOnProductInStore(User session, int storeId, int productInStoreId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.setNoDiscountPolicyOnProductInStore(session, storeId, productInStoreId);
+        }
+
+        public int setNoCouponPolicyOnCountry(User session, int storeId, string country)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.setNoCouponPolicyOnCountry(session, storeId, country);
+        }
+        
 
         public LinkedList<StoreOwner> getOwners(int storeId)
         {
@@ -398,6 +508,8 @@ namespace wsep182.services
             return storeArchive.getInstance().getAllStore();
         }
 
+
+
         //not implemented
         // new Addition for version 2 - need to handle addDiscount function
         // type: 1 for discount on productsInStore, 2 for discount on category, 3 for discount on entire product (in product archive)
@@ -408,9 +520,8 @@ namespace wsep182.services
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
                 return -1;
-            return 0;
-            //return sR.addDiscounts(session, storeId, productInStores, type, categorysOrProductsName, percentage
-            //    , dueDate, restrictions);
+            return sR.addDiscounts(session, storeId, productInStores, type, percentage , categorysOrProductsName
+                , dueDate, restrictions);
         }
     }
 }

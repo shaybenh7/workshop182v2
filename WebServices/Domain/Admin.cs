@@ -37,6 +37,27 @@ namespace wsep182.Domain
             return UserArchive.getInstance().removeUser(userDeleted);
         }
 
+        public override int setAmountPolicyOnProduct(string productName, int minAmount, int maxAmount)
+        {
+            if (productName == null || minAmount<0 || maxAmount<0)
+                return -1;
+            return PurchasePolicyArchive.getInstance().setAmountPolicyOnProduct(productName, minAmount, maxAmount);
+        }
+
+        public override int setNoDiscountPolicyOnProduct(string productName)
+        {
+            if (productName == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().setNoDiscountPolicyOnProduct(productName);
+        }
+
+        public override int setNoCouponsPolicyOnProduct(string productName)
+        {
+            if (productName == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().setNoCouponsPolicyOnProduct(productName);
+        }
+
         private Boolean checkLoneOwnerOrCreator(LinkedList<StoreRole> roles)
         {
             foreach (StoreRole sr in roles)

@@ -16,12 +16,6 @@ namespace wsep182.Domain
 
         public LinkedList<UserCart> getShoppingCartProducts(User session)
         {
-            /*
-            if (session.getState() is Guest)
-                return products;
-            else
-                return UserCartsArchive.getInstance().getUserShoppingCart(session.getUserName());
-                */
             if (!(session.getState() is Guest))
                  products = UserCartsArchive.getInstance().getUserShoppingCart(session.getUserName());
             updateRegularPricesForCart();
@@ -78,7 +72,6 @@ namespace wsep182.Domain
             return false;
         }
 
-
         public Tuple<int,LinkedList<UserCart>> checkout(User session, string country, string address)
         {
             if (!(session.getState() is Guest))
@@ -91,19 +84,58 @@ namespace wsep182.Domain
             if (checkAmountFulfillmentAns!=-1)
                 return Tuple.Create(checkAmountFulfillmentAns,products);
 
-
-
+            checkAndUpdateDiscountsByPolicys(country);
             return Tuple.Create(-1,products);
         }
-        
-        public int checkAmountFulfillment(string country)
+
+        private void checkAndUpdateDiscountsByPolicys(string country)
+        {
+            foreach (UserCart uc in products)
+            {
+                Sale s = SalesArchive.getInstance().getSale(uc.getSaleId());
+                LinkedList<Discount> relevantDiscounts = DiscountsArchive.getInstance().getAllDiscountsById(s.ProductInStoreId);
+                uc.PriceAfterDiscount = uc.Price;
+                foreach (Discount d in relevantDiscounts)
+                {
+                    checkPolicysAndUpdatePrice(uc, d, country, s.TypeOfSale);
+                }
+            }
+        }
+
+        private void checkPolicysAndUpdatePrice(UserCart uc, Discount d, string country,int typeOfSale)
+        {
+            string restrictions = d.Restrictions;
+            if(restrictions.Equals(""))
+                uc.PriceAfterDiscount -= uc.PriceAfterDiscount * (d.Percentage / 100);
+            else
+            {
+                if(restrictions.Contains("TOS") && restrictions.Contains("COUNTRY"))
+                {
+                    if(restrictions.Contains(typeOfSale.ToString()) && restrictions.Contains(country))
+                        uc.PriceAfterDiscount -= uc.PriceAfterDiscount * (d.Percentage / 100);
+                }
+                else if (restrictions.Contains("TOS"))
+                {
+                    if(restrictions.Contains(typeOfSale.ToString()))
+                        uc.PriceAfterDiscount -= uc.PriceAfterDiscount * (d.Percentage / 100);
+                }
+                else if (restrictions.Contains("COUNTRY"))
+                {
+                    if(restrictions.Contains(country))
+                        uc.PriceAfterDiscount -= uc.PriceAfterDiscount * (d.Percentage / 100);
+                }
+            }
+        }
+
+
+        private int checkAmountFulfillment(string country)
         {
             foreach (UserCart uc in products)
             {
                 Sale s = SalesArchive.getInstance().getSale(uc.getSaleId());
                 ProductInStore theProduct = ProductArchive.getInstance().getProductInStore(s.ProductInStoreId);
-                LinkedList<PurchasePolicy> countrysPolicys = PurchasePolicyArchive.getInstance().getAllCountryPolicys(country);
-                LinkedList<PurchasePolicy> categorysPolicys = PurchasePolicyArchive.getInstance().getAllCategoryPolicys(theProduct.Category);
+                LinkedList<PurchasePolicy> countrysPolicys = PurchasePolicyArchive.getInstance().getAllCountryPolicys(country,theProduct.store.storeId);
+                LinkedList<PurchasePolicy> categorysPolicys = PurchasePolicyArchive.getInstance().getAllCategoryPolicys(theProduct.Category,, theProduct.store.storeId);
                 LinkedList<PurchasePolicy> productPolicys = PurchasePolicyArchive.getInstance().getAllProductPolicys(theProduct.getProduct().name);
                 LinkedList<PurchasePolicy> productInStorePolicys = PurchasePolicyArchive.getInstance().getAllProductInStorePolicys(theProduct.getProductInStoreId());
 
@@ -143,6 +175,9 @@ namespace wsep182.Domain
             }
             return -1;
         }
+
+
+
         
 
         public int addToCart(User session, int saleId, int amount)
@@ -364,6 +399,83 @@ namespace wsep182.Domain
             return allBought;
         }
 
+
+        public int buyProductsInCart(User session, string country, string adress, string creditCard)
+        {
+            int allBought = 1;
+            LinkedList<UserCart> toDelete = new LinkedList<UserCart>();
+            if (creditCard == null || creditCard.Equals(""))
+                return -2;
+            foreach (UserCart product in products)
+            {
+                Sale sale = SalesArchive.getInstance().getSale(product.getSaleId());
+                if (sale.TypeOfSale == 1 && checkValidAmount(sale, product) && checkValidDate(sale)) //regular buy
+                {
+                    if (PaymentSystem.getInstance().payForProduct(creditCard, session, product))
+                    {
+                        ShippingSystem.getInstance().sendShippingRequest();
+                        ProductInStore p = ProductArchive.getInstance().getProductInStore(sale.ProductInStoreId);
+                        int productId = p.getProduct().getProductId();
+                        int storeId = p.getStore().getStoreId();
+                        String userName = session.getUserName();
+                        DateTime currentDate = DateTime.Today;
+                        String date = currentDate.ToString();
+                        int amount = product.getAmount();
+                        int typeOfSale = sale.TypeOfSale;
+                        BuyHistoryArchive.getInstance().addBuyHistory(productId, storeId, userName, product.PriceAfterDiscount, date, amount,
+                            typeOfSale);
+                        toDelete.AddLast(product);
+                        SalesArchive.getInstance().setNewAmountForSale(product.getSaleId(), sale.Amount - product.getAmount());
+                    }
+                    else
+                    {
+                        allBought = -4;
+                    }
+                }
+                else if (sale.TypeOfSale == 2) // auction buy
+                { }
+                else if (sale.TypeOfSale == 3 && checkValidDate(sale)) // raffle buy
+                {
+                    double offer = product.getOffer();
+                    double remainingSum = getRemainingSumForOffers(sale.SaleId);
+                    if (offer > remainingSum)
+                    {
+                        allBought = -4;
+                    }
+                    else
+                    {
+                        if (RaffleSalesArchive.getInstance().addRaffleSale(sale.SaleId, session.getUserName(), offer, sale.DueDate))
+                        {
+                            PaymentSystem.getInstance().payForProduct(creditCard, session, product);
+                            ProductInStore p = ProductArchive.getInstance().getProductInStore(sale.ProductInStoreId);
+                            int productId = p.getProduct().getProductId();
+                            int storeId = p.getStore().getStoreId();
+                            String userName = session.getUserName();
+                            DateTime currentDate = DateTime.Today;
+                            String date = currentDate.ToString();
+                            int amount = product.getAmount();
+                            int typeOfSale = sale.TypeOfSale;
+                            BuyHistoryArchive.getInstance().addBuyHistory(productId, storeId, userName, offer, date, amount,
+                                typeOfSale);
+                            toDelete.AddLast(product);
+                        }
+                        else
+                        {
+                            allBought = -4;
+                        }
+                    }
+                }
+                else
+                {
+                    return -5; // unknown error - should not happen
+                }
+            }
+            foreach (UserCart uc in toDelete)
+            {
+                products.Remove(uc);
+            }
+            return allBought;
+        }
         private Boolean checkValidAmount(Sale sale, UserCart cart)
         {
             if (cart.getAmount() <= sale.Amount)

@@ -122,6 +122,13 @@ namespace wsep182.Domain
             privileges[username].removeCoupon(allow);
         }
 
+        public void changePolicy(string username, Boolean allow)
+        {
+            if (!privileges.ContainsKey(username))
+                privileges.Add(username, new Premissions());
+            privileges[username].changePolicy(allow);
+        }
+
         public Boolean checkPrivilege(string username, string privilege)
         {
             if (!privileges.ContainsKey(username))
