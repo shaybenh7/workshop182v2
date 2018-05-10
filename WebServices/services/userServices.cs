@@ -129,6 +129,27 @@ namespace wsep182.services
             return session.getState().setNoCouponsPolicyOnProduct(productName);
         }
 
+        public int removeAmountPolicyOnProduct(User session, string productName)
+        {
+            if (session == null)
+                return -1;
+            return session.getState().removeAmountPolicyOnProduct(productName);
+        }
+
+        public int removeNoDiscountPolicyOnProduct(User session, string productName)
+        {
+            if (session == null)
+                return -1;
+            return session.getState().removeNoDiscountPolicyOnProduct(productName);
+        }
+
+        public int removeNoCouponsPolicyOnProduct(User session, string productName)
+        {
+            if (session == null)
+                return -1;
+            return session.getState().removeNoCouponsPolicyOnProduct(productName);
+        }
+
         public Premissions getPremissions(User session, string manager, int storeId)
         {
             return session.getPremissions(manager, storeId);

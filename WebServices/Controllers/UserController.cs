@@ -263,6 +263,52 @@ namespace WebService.Controllers
         }
 
 
+        [Route("api/user/removeAmountPolicyOnProduct")]
+        [HttpGet]
+        public String removeAmountPolicyOnProduct(string productName)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = userServices.getInstance().removeAmountPolicyOnProduct(session, productName);
+            if (ans > 0)
+                return "Policy removed successfully";
+            return "Policy failed";
+        }
+
+        [Route("api/user/removeNoDiscountPolicyOnProduct")]
+        [HttpGet]
+        public String removeNoDiscountPolicyOnProduct(string productName)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = userServices.getInstance().removeNoDiscountPolicyOnProduct(session, productName);
+            if (ans > 0)
+                return "Policy removed successfully";
+            return "Policy failed";
+        }
+
+        [Route("api/user/removeNoCouponsPolicyOnProduct")]
+        [HttpGet]
+        public String removeNoCouponsPolicyOnProduct(string productName)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = userServices.getInstance().removeNoCouponsPolicyOnProduct(session, productName);
+            if (ans > 0)
+                return "Policy removed successfully";
+            return "Policy failed";
+        }
+
+
 
         [Route("api/user/getAllStoresUnderUser")]
         [HttpGet]

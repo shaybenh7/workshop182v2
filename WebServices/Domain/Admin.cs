@@ -58,6 +58,27 @@ namespace wsep182.Domain
             return PurchasePolicyArchive.getInstance().setNoCouponsPolicyOnProduct(productName);
         }
 
+        public override int removeAmountPolicyOnProduct(string productName)
+        {
+            if (productName == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeAmountPolicyOnProduct(productName);
+        }
+
+        public override int removeNoDiscountPolicyOnProduct(string productName)
+        {
+            if (productName == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeNoDiscountPolicyOnProduct(productName);
+        }
+
+        public override int removeNoCouponsPolicyOnProduct(string productName)
+        {
+            if (productName == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeNoCouponsPolicyOnProduct(productName);
+        }
+
         private Boolean checkLoneOwnerOrCreator(LinkedList<StoreRole> roles)
         {
             foreach (StoreRole sr in roles)

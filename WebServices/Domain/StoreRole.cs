@@ -409,7 +409,90 @@ namespace wsep182.Domain
                 return -1;
             return PurchasePolicyArchive.getInstance().setNoCouponPolicyOnCountry(storeId,country);
         }
-        
+
+        public virtual int removeAmountPolicyOnStore(User session, int storeId)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeAmountPolicyOnStore(storeId);
+        }
+
+        public virtual int removeAmountPolicyOnCategory(User session, int storeId, string category)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeAmountPolicyOnCategory(storeId,category);
+        }
+
+        public virtual int removeAmountPolicyOnProductInStore(User session, int storeId, int productInStoreId)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeAmountPolicyOnProductInStore(productInStoreId);
+        }
+
+        public virtual int removeAmountPolicyOnCountry(User session, int storeId, string country)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeAmountPolicyOnCountry(storeId,country);
+        }
+
+        public virtual int removeNoDiscountPolicyOnStore(User session, int storeId)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeNoDiscountPolicyOnStore(storeId);
+        }
+
+        public virtual int removeNoDiscountPolicyOnCategoty(User session, int storeId, String category)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeNoDiscountPolicyOnCategoty(storeId, category);
+        }
+
+        public virtual int removeNoDiscountPolicyOnProductInStore(User session, int storeId, int productInStoreId)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeNoDiscountPolicyOnProductInStore(productInStoreId);
+        }
+
+        public virtual int removeNoDiscountPolicyOnCountry(User session, int storeId, string country)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeNoDiscountPolicyOnCountry(storeId,country);
+        }
+
+        public virtual int removeNoCouponsPolicyOnStore(User session, int storeId)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeNoCouponsPolicyOnStore(storeId);
+        }
+
+        public virtual int removeNoCouponPolicyOnCategoty(User session, int storeId, String category)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeNoCouponPolicyOnCategoty(storeId,category);
+        }
+
+        public virtual int removeNoCouponPolicyOnProductInStore(User session,int storeId, int productInStoreId)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeNoCouponPolicyOnProductInStore(productInStoreId);
+        }
+
+        public virtual int removeNoCouponPolicyOnCountry(User session, int storeId, string country)
+        {
+            if (storeArchive.getInstance().getStore(storeId) == null)
+                return -1;
+            return PurchasePolicyArchive.getInstance().removeNoCouponPolicyOnCountry(storeId, country);
+        }
 
         public Boolean correlate(User session, Store s, String permission, StoreRole sR, Boolean allow)
         {

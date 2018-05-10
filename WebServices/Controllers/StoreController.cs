@@ -219,6 +219,212 @@ namespace WebService.Controllers
             return "Policy failed";
         }
 
+        [Route("api/store/removeAmountPolicyOnStore")]
+        [HttpGet]
+        public String removeAmountPolicyOnStore(int storeId)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeAmountPolicyOnStore(session, storeId);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+        [Route("api/store/removeAmountPolicyOnCategory")]
+        [HttpGet]
+        public String removeAmountPolicyOnCategory(int storeId, string category)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeAmountPolicyOnCategory(session, storeId, category);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+        [Route("api/store/removeAmountPolicyOnProductInStore")]
+        [HttpGet]
+        public String removeAmountPolicyOnProductInStore(int storeId, int productInStoreId)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeAmountPolicyOnProductInStore(session, storeId, productInStoreId);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+
+        [Route("api/store/removeAmountPolicyOnCountry")]
+        [HttpGet]
+        public String removeAmountPolicyOnCountry(int storeId, string country)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeAmountPolicyOnCountry(session, storeId, country);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+        [Route("api/store/removeNoDiscountPolicyOnStore")]
+        [HttpGet]
+        public String removeNoDiscountPolicyOnStore(int storeId)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeNoDiscountPolicyOnStore(session, storeId);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+        [Route("api/store/removeNoDiscountPolicyOnCategoty")]
+        [HttpGet]
+        public String removeNoDiscountPolicyOnCategoty(int storeId,string category)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeNoDiscountPolicyOnCategoty(session, storeId,category);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+        [Route("api/store/removeNoDiscountPolicyOnProductInStore")]
+        [HttpGet]
+        public String removeNoDiscountPolicyOnProductInStore(int storeId, int productInStoreId)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeNoDiscountPolicyOnProductInStore(session, storeId, productInStoreId);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+        [Route("api/store/removeNoDiscountPolicyOnCountry")]
+        [HttpGet]
+        public String removeNoDiscountPolicyOnCountry(int storeId, string country)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeNoDiscountPolicyOnCountry(session, storeId, country);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+        [Route("api/store/removeNoCouponsPolicyOnStore")]
+        [HttpGet]
+        public String removeNoCouponsPolicyOnStore(int storeId)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeNoCouponsPolicyOnStore(session, storeId);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+        [Route("api/store/removeNoCouponPolicyOnCategoty")]
+        [HttpGet]
+        public String removeNoCouponPolicyOnCategoty(int storeId)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeNoCouponPolicyOnCategoty(session, storeId,category);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+        [Route("api/store/removeNoCouponPolicyOnProductInStore")]
+        [HttpGet]
+        public String removeNoCouponPolicyOnProductInStore(int storeId, int productInStoreId)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeNoCouponPolicyOnProductInStore(session, storeId, productInStoreId);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+        [Route("api/store/removeNoCouponPolicyOnCountry")]
+        [HttpGet]
+        public String removeNoCouponPolicyOnCountry(int storeId, string country)
+        {
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
+            {
+                return "Not logged in";
+            }
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
+            int ans = storeServices.getInstance().removeNoCouponPolicyOnCountry(session, storeId, country);
+            if (ans > 0)
+                return "Policy removed successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Policy failed";
+        }
+
+
         [Route("api/store/setAmountPolicyOnCountry")]
         [HttpGet]
         public String setAmountPolicyOnCountry(int storeId, string country, int minAmount, int maxAmount)
@@ -813,6 +1019,8 @@ namespace WebService.Controllers
             return response;
 
         }
+
+
 
         [Route("api/store/checkRaffleBids")]
         [HttpGet]

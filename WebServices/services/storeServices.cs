@@ -473,7 +473,114 @@ namespace wsep182.services
                 return -1;
             return sR.setNoCouponPolicyOnCountry(session, storeId, country);
         }
-        
+
+        public int removeAmountPolicyOnStore(User session, int storeId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeAmountPolicyOnStore(session, storeId);
+        }
+
+        public int removeAmountPolicyOnCategory(User session, int storeId, string category)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeAmountPolicyOnCategory(session, storeId,category);
+        }
+
+        public int removeAmountPolicyOnProductInStore(User session, int storeId, int productInStoreId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeAmountPolicyOnProductInStore(session, storeId, productInStoreId);
+        }
+
+        public int removeAmountPolicyOnCountry(User session, int storeId, string country)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeAmountPolicyOnCountry(session, storeId, country);
+        }
+
+        public int removeNoDiscountPolicyOnStore(User session, int storeId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeNoDiscountPolicyOnStore(session, storeId);
+        }
+
+        public int removeNoDiscountPolicyOnCategoty(User session, int storeId,string category)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeNoDiscountPolicyOnCategoty(session, storeId,category);
+        }
+
+        public int removeNoDiscountPolicyOnProductInStore(User session, int storeId, int productInStoreId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeNoDiscountPolicyOnProductInStore(session, storeId, productInStoreId);
+        }
+
+        public int removeNoDiscountPolicyOnCountry(User session, int storeId, string country)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeNoDiscountPolicyOnCountry(session, storeId, country);
+        }
+
+        public int removeNoCouponsPolicyOnStore(User session, int storeId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeNoCouponsPolicyOnStore(session, storeId);
+        }
+
+        public int removeNoCouponPolicyOnCategoty(User session, int storeId,string category)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeNoCouponPolicyOnCategoty(session, storeId, category);
+        }
+
+        public int removeNoCouponPolicyOnProductInStore(User session, int storeId, int productInStoreId)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeNoCouponPolicyOnProductInStore(session, storeId, productInStoreId);
+        }
+
+        public int removeNoCouponPolicyOnCountry(User session, int storeId, string country)
+        {
+            Store s = storeArchive.getInstance().getStore(storeId);
+            StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (sR == null)
+                return -1;
+            return sR.removeNoCouponPolicyOnCountry(session, storeId, country);
+        }
 
         public LinkedList<StoreOwner> getOwners(int storeId)
         {
@@ -544,5 +651,7 @@ namespace wsep182.services
             return sR.addNewCoupons(session, storeId, couponId, type, pisId, catOrProductsNames, percentage
                 , dueDate, restrictions);
         }
+
+
     }
 }
