@@ -192,7 +192,6 @@
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
                                 success: function (response) {
-                                    console.log("fuck");
                                     var productNameElement = document.getElementById("productName");
                                     productNameElement.innerHTML += response["product"]["name"];
 

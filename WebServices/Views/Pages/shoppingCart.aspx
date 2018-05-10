@@ -170,11 +170,20 @@
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
+                    console.log("here");
                     var i;
                     for (i = 0; i < response.length; i++) {
                         element = response[i];
-                        var amount = element["amount"];
-                        var saleId = element["saleId"];
+                        var amount = element["Amount"];
+                        var saleId = element["SaleId"];
+                        var totalAfterDiscount = element["PriceAfterDiscount"];
+                        var price = totalAfterDiscount / amount;
+                        if (element["Offer"] != 0) {
+                            price = element["Offer"];
+                        }
+                        if (element["Offer"] != 0) {
+                            totalAfterDiscount = element["Offer"]*amount;
+                        }
                         var string = "";
                         string += "<tr class=\"table_row\">";
                         string += "<td class=\"column-1\" >";
@@ -183,9 +192,9 @@
                         //string += "</div>";
                         string += "</td>";
                         string += "<td class=\"column-2\" id=\"productName" + i + "\"></td>";
-                        string += "<td class=\"column-3\" id=\"price" + i + "\"></td>";
+                        string += "<td class=\"column-3\" id=\"price" + i + "\">"+price+"</td>";
                         string += "<td class=\"column-4\" id=\"quantity" + i + "\">" + amount + "</td>";
-                        string += "<td class=\"column-5\" id=\"total" + i + "\"></td>";
+                        string += "<td class=\"column-5\" id=\"total" + i + "\">"+totalAfterDiscount+"</td>";
                         string += "</tr>";
                         mainDiv.innerHTML += string;
                         
@@ -232,7 +241,7 @@
                                 }
                             });
 
-                            jQuery.ajax({
+                            /*jQuery.ajax({
                                 type: "GET",
                                 url: "http://localhost:53416/api/store/checkPriceOfAProduct?saleId=" + saleId, //add call to get price
                                 contentType: "application/json; charset=utf-8",
@@ -244,7 +253,7 @@
                                 error: function (response) {
                                     console.log(response);
                                 }
-                            });
+                            });*/
                         })(i, saleId);
                     }
                 },
