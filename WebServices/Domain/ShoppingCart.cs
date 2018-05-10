@@ -468,9 +468,9 @@ namespace wsep182.Domain
                     }
                     else
                     {
-                        if (RaffleSalesArchive.getInstance().addRaffleSale(sale.SaleId, session.getUserName(), offer, sale.DueDate))
+                        if (PaymentSystem.getInstance().payForProduct(creditCard, session, product))
                         {
-                            PaymentSystem.getInstance().payForProduct(creditCard, session, product);
+                            RaffleSalesArchive.getInstance().addRaffleSale(sale.SaleId, session.getUserName(), offer, sale.DueDate);
                             ProductInStore p = ProductArchive.getInstance().getProductInStore(sale.ProductInStoreId);
                             int productId = p.getProduct().getProductId();
                             int storeId = p.getStore().getStoreId();
@@ -481,6 +481,7 @@ namespace wsep182.Domain
                             int typeOfSale = sale.TypeOfSale;
                             BuyHistoryArchive.getInstance().addBuyHistory(productId, storeId, userName, offer, date, amount,
                                 typeOfSale);
+                            RaffleSalesArchive.getInstance().sendMessageTORaffleWinner(sale.SaleId);
                             toDelete.AddLast(product);
                         }
                         else
