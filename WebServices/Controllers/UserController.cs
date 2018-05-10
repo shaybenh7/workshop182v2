@@ -129,8 +129,8 @@ namespace WebService.Controllers
             sR.addManagerPermission(zahi, "addProductInStore",store,"niv");
 
 
-            int c = ss.addProductInStore("cola", 3.2, 100, zahi, storeid);
-            int s = ss.addProductInStore("sprite", 5.3, 20, zahi, storeid);
+            int c = ss.addProductInStore("cola", 3.2, 100, zahi, storeid, "drinks");
+            int s = ss.addProductInStore("sprite", 5.3, 20, zahi, storeid, "drinks");
             cola = ProductArchive.getInstance().getProductInStore(c);
             sprite = ProductArchive.getInstance().getProductInStore(s);
             saleId = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 50, DateTime.Now.AddDays(10).ToString());

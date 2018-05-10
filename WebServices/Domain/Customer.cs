@@ -18,7 +18,7 @@ namespace wsep182.Domain
             return null;
         }
 
-        public override int addProductInStore(User session, Store s, String productName, double price, int amount)
+        public int addProductInStore(User session, Store s, String productName, double price, int amount)
         {
             return -4;//-4 if don't have premition
         }

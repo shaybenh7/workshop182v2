@@ -15,10 +15,10 @@ namespace wsep182.Domain
             type = "Manager";
         }
 
-        public override int addProductInStore(User session, Store s, String productName, double price, int amount)
+        public override int addProductInStore(User session, Store s, String productName, double price, int amount, string category)
         {
             if (premissions.checkPrivilege(s.getStoreId(), session.getUserName(),"addProductInStore"))
-                return base.addProductInStore(session, s, productName, price, amount);
+                return base.addProductInStore(session, s, productName, price, amount, category);
             return -4; //-4 if don't have permission
         }
 		
