@@ -237,7 +237,7 @@ namespace WebService.Controllers
         }
 
         [Route("api/sell/buyProductsInCart")]
-        [HttpPost]
+        [HttpGet]
         public HttpResponseMessage buyProductsInCart(string country, string address,string creditcard)
         {
             string hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
@@ -308,8 +308,8 @@ namespace WebService.Controllers
             return response;
         }
         [Route("api/sell/getShoppingCartBeforeCheckout")]
-        [HttpPost]
-        public HttpResponseMessage getShoppingCartBeforeCheckout(String storeName, int UserId)
+        [HttpGet]
+        public HttpResponseMessage getShoppingCartBeforeCheckout()
         {
             string hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
             User session = hashServices.getUserByHash(hash);           

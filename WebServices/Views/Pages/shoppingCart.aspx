@@ -42,10 +42,8 @@
                                                     Apply coupon
                                                 </div>
                                             </div>
+                                            <input type="button" value="Purchase" id="purchase_btn" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10" />
 
-                                            <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-                                                Update Cart
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +123,7 @@
                             <div class="p-t-15">
 
                                 <div class="bor8 bg0 m-b-12">
-                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="cardNum" placeholder="XXXX-XXXX-XXXX-XXXX">
+                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" id="creditCard" type="text" name="cardNum" placeholder="XXXX-XXXX-XXXX-XXXX">
                                 </div>
 
 
@@ -290,6 +288,34 @@
             });
 
         }
+
+
+        $("#purchase_btn").click(function () {
+            console.log("in purchase_btn func");
+            var country = $("#country").val();
+            var address = $("#address").val();
+            var creditcard = $("#creditCard").val();
+
+
+            jQuery.ajax({
+                type: "GET",
+                url: "http://localhost:53416/api/sell/buyProductsInCart?country=" + country + "&address=" + address + "&creditcard=" + creditcard,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                                        console.log(response);
+
+                    //alert(response);
+                    //window.location.reload(false);
+
+                },
+                error: function (response) {
+                    console.log(response);
+                    //window.location.reload(false);
+                }
+            });
+        });
+
     </script>
     <script src="vendor/JS/shoppingCart.js" type="text/javascript"></script>
 

@@ -2,7 +2,7 @@
     var mainDiv = document.getElementById('shoppingCart');
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/sell/viewCart",
+        url: "http://localhost:53416/api/sell/getShoppingCartBeforeCheckout",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
