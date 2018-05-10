@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     
     <div class="row">
+
         <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50" style="max-width: 67%; flex: 0 0 67%;">
             <div id="allStoresComponent">
                 <div class="wrap-modal1 js-modal1 p-t-60 p-b-20" id="addProductInStoreModal">

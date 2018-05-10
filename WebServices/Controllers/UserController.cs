@@ -86,7 +86,7 @@ namespace WebService.Controllers
         {
             userServices us;
             storeServices ss;
-            User zahi, itamar, niv, admin, admin1; //admin,itamar logedin
+            User zahi, itamar, niv, admin, admin1, vova; //admin,itamar logedin
             Store store;//itamar owner , niv manneger
             ProductInStore cola, sprite;
             sellServices sells;
@@ -107,6 +107,10 @@ namespace WebService.Controllers
             zahi = us.startSession();
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
+
+            vova = us.startSession();
+            us.register(vova, "vova", "123456");
+            us.login(vova, "vova", "123456");
 
             itamar = us.startSession();
             us.register(itamar, "itamar", "123456");
@@ -182,7 +186,7 @@ namespace WebService.Controllers
         }
 
         [Route("api/user/removeUser")]
-        [HttpDelete]
+        [HttpGet]
         public string removeUser(String userDeleted)
         {
             if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
