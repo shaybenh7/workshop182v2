@@ -15,7 +15,7 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage viewSalesByProductInStoreId(int ProductInStoreId)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             Object sales = sellServices.getInstance().viewSalesByProductInStoreId(ProductInStoreId);
             HttpResponseMessage response;
             if (sales != null)
@@ -155,7 +155,7 @@ namespace WebService.Controllers
         [HttpPut]
         public HttpResponseMessage editCart(int saleId, int newAmount)
         {
-            string hash = System.Web.HttpContext.Current.Request.Cookies["Session"].Value;
+            string hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
             User session = hashServices.getUserByHash(hash);
             /* Confimation = 1
              * Errors:
@@ -240,7 +240,7 @@ namespace WebService.Controllers
         [HttpPost]
         public HttpResponseMessage buyProductsInCart(string country, string address,string creditcard)
         {
-            string hash = System.Web.HttpContext.Current.Request.Cookies["Session"].Value;
+            string hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
             User session = hashServices.getUserByHash(hash);
             HttpResponseMessage response;
             int bought = sellServices.getInstance().buyProductsInCart(session, country, address, creditcard);
@@ -275,10 +275,10 @@ namespace WebService.Controllers
             return response;
         }
         [Route("api/sell/checkout")]
-        [HttpPost]
+        [HttpGet]
         public HttpResponseMessage checkout(string country, string address)
         {
-            string hash = System.Web.HttpContext.Current.Request.Cookies["Session"].Value;
+            string hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
             User session = hashServices.getUserByHash(hash);
             HttpResponseMessage response;
             Tuple<int, LinkedList<UserCart>> ans = sellServices.getInstance().checkout(session, country, address);
@@ -311,7 +311,7 @@ namespace WebService.Controllers
         [HttpPost]
         public HttpResponseMessage getShoppingCartBeforeCheckout(String storeName, int UserId)
         {
-            string hash = System.Web.HttpContext.Current.Request.Cookies["Session"].Value;
+            string hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
             User session = hashServices.getUserByHash(hash);           
             HttpResponseMessage response;
             response = Request.CreateResponse(HttpStatusCode.OK, session.getShoppingCartBeforeCheckout());

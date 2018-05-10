@@ -13,8 +13,10 @@
                 element = response[i];
                 var amount = element["Amount"];
                 var saleId = element["SaleId"];
+                var totalBeforeDiscount = element["Price"];
                 var totalAfterDiscount = element["PriceAfterDiscount"];
                 var price = totalAfterDiscount / amount;
+                var priceBeforeDiscount = totalBeforeDiscount / amount;
                 if (element["Offer"] != 0) {
                     price = element["Offer"];
                 }
@@ -28,8 +30,9 @@
                 string += "<input type=\"image\" onclick=\"RemoveProductFromCart(" + saleId +")\" src=\"images/removee.png\" id=\"remove" + i + "\" width=\"40\" height=\"40\">";
                 //string += "</div>";
                 string += "</td>";
-                string += "<td class=\"column-2\" id=\"productName" + i + "\"></td>";
-                string += "<td class=\"column-3\" id=\"price" + i + "\">" + price.toFixed(2) + "</td>";
+                string += "<td class=\"column-1\" id=\"productName" + i + "\"></td>";
+                string += "<td class=\"column-2\" id=\"InitialpriceModal" + i + "\">" + priceBeforeDiscount.toFixed(2) + "</td>";
+                string += "<td class=\"column-3\" id=\"FinalpriceModal" + i + "\">" + price.toFixed(2) + "</td>";
                 string += "<td class=\"column-4\" id=\"quantity" + i + "\">" + amount + "</td>";
                 string += "<td class=\"column-5\" id=\"total" + i + "\">" + totalAfterDiscount.toFixed(2) + "</td>";
                 string += "</tr>";
