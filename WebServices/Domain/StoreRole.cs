@@ -25,7 +25,7 @@ namespace wsep182.Domain
         }
 
 
-        public virtual int addProductInStore(User session, Store s, String productName, double price, int amount)
+        public virtual int addProductInStore(User session, Store s, String productName, double price, int amount,string category)
         {
             if (productName == null ||  productName == ""
                 || productName[productName.Length - 1] == ' ')
@@ -45,7 +45,7 @@ namespace wsep182.Domain
                 p2 = Product.addProduct(productName);
             }
             ProductArchive pa = ProductArchive.getInstance();
-            ProductInStore pis = pa.addProductInStore(p2, s, amount, price);
+            ProductInStore pis = pa.addProductInStore(p2, s, amount, price,category);
             if (pis != null)
             {
                 return pis.getProductInStoreId();

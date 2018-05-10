@@ -240,10 +240,10 @@ namespace WebService.Controllers
 
         [Route("api/store/addProductInStore")]
         [HttpGet]
-        public string addProductInStore(String productName, Double price, int amount, int storeId)
+        public string addProductInStore(String productName, Double price, int amount, int storeId,string category)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
-            int ans = storeServices.getInstance().addProductInStore(productName, price, amount, session, storeId);
+            int ans = storeServices.getInstance().addProductInStore(productName, price, amount, session, storeId,category);
             if (ans > 0)
                 return "product in store " + ans + " successfuly added";
             switch (ans)
