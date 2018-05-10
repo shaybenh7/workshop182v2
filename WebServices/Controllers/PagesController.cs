@@ -28,12 +28,14 @@ namespace WebServices.Controllers
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var MySession = HttpContext.Current.Session;
-
-            String hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
-            if (hash == null || hashServices.getUserByHash(hash) == null || (hashServices.getUserByHash(hash).getState() is Admin))
+            if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] != null)
             {
-                filterContext.Result = new RedirectResult(string.Format("/error/"));
+
+                String hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
+                if (hash == null || hashServices.getUserByHash(hash) == null || !(hashServices.getUserByHash(hash).getState() is Admin))
+                {
+                    filterContext.Result = new RedirectResult(string.Format("/error/"));
+                }
             }
         }
     }
