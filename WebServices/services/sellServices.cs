@@ -109,5 +109,12 @@ namespace wsep182.services
             return session.getShoppingCartBeforeCheckout();
         }
 
+        public double getRemainingSumToPayInRaffleSale(User session, int saleId)
+        {
+            if (session == null)
+                return -1;
+            return RaffleSalesArchive.getInstance().getRemainingSumToPayInRaffleSale(saleId);
+        }
+
     }
 }

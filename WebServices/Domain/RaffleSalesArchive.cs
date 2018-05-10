@@ -83,5 +83,23 @@ namespace wsep182.Domain
             return ans;
         }
 
+        public double getRemainingSumToPayInRaffleSale(int saleId)
+        {
+            Sale s = SalesArchive.getInstance().getSale(saleId);
+            if (s == null)
+                return -2;
+            ProductInStore p = ProductArchive.getInstance().getProductInStore(s.ProductInStoreId);
+            if (p == null)
+                return -3;
+            double price = p.getPrice();
+
+            foreach(RaffleSale rs in raffleSales)
+            {
+                if (rs.SaleId == saleId)
+                    price -= rs.Offer;
+            }
+            return price;
+        }
+
     }
 }

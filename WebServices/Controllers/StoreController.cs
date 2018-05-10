@@ -847,18 +847,26 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage checkRaffleBids(int saleId)
         {
-            Double ans = storeServices.getInstance().checkRaffleBids(saleId);
+            string hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
+            User session = hashServices.getUserByHash(hash);
             HttpResponseMessage response;
-            if (ans == -1)
+            double ans = sellServices.getInstance().getRemainingSumToPayInRaffleSale(session, saleId);
+            switch (ans)
             {
-                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: No such sale!");
-            }
-            else
-            {
-                response = Request.CreateResponse(HttpStatusCode.OK, ans);
+                case -1:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: User error!");
+                    break;
+                case -2:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: The sale id does not exist!");
+                    break;
+                case -3:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: the product does not exist in the store!");
+                    break;
+                default:
+                    response = Request.CreateResponse(HttpStatusCode.OK, ans);
+                    break;
             }
             return response;
-
         }
     }
 }
