@@ -475,6 +475,303 @@ var addCopun = function () {
     });
 }
 
+var addPolicy = function () {
+    typeOfPolicy = $("#PolicyType")[0].selectedIndex ;
+    minAmpunt = $("#minPolicy").val();
+    maxAmount = $("#maxPolicy").val();
+    noDiscount = $("#NoDiscount")[0].checked;
+    NoCopuns = $("#NoCopuns")[0].checked
+    PolicyChange = $("#PolicyChange").val();
+    switch (typeOfPolicy) {
+        case 0:
+            addProductInStorePolicy(minAmpunt, maxAmount, noDiscount, NoCopuns, PolicyChange);
+            break;
+        case 1:
+            addCategoryPolicy(minAmpunt, maxAmount, noDiscount, NoCopuns, PolicyChange);
+            break;
+        case 2:
+            addStorePolicy(minAmpunt, maxAmount, noDiscount, NoCopuns);
+            break;
+        case 3:
+            addCountryPolicy(minAmpunt, maxAmount, noDiscount, NoCopuns, PolicyChange);
+            break;
+        case 4:
+            addProductPolicy(minAmpunt, maxAmount, noDiscount, NoCopuns, PolicyChange);
+            break;
+    }
+
+}
+
+var addProductPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, pId) {
+    if (minAmount !== undefined && minAmount !== "" && maxAmount !== undefined && maxAmount !== "") {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/user/setAmountPolicyOnProduct?productName=" + pId +
+                "&minAmount=" + minAmount + "&maxAmount=" + maxAmount,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+    if (noDiscount) {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/user/setAmountPolicyOnProduct?productName=" + pId ,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+
+    if (NoCopuns) {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/user/setNoCouponsPolicyOnProduct?productName=" + pId ,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+}
+
+var addCountryPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, country) {
+    if (minAmount !== undefined && minAmount !== "" && maxAmount !== undefined && maxAmount !== "") {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setAmountPolicyOnCountry?storeId=" + lastClickedStoreId +
+                "&country=" + country + "&minAmount=" + minAmount + "&maxAmount=" + maxAmount,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+    if (noDiscount) {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setNoDiscountPolicyOnCountry?storeId=" + lastClickedStoreId +
+                "&country=" + country,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+    if (NoCopuns) {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setNoCouponPolicyOnCountry?storeId=" + lastClickedStoreId +
+                "&country=" + country,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+}
+
+var addStorePolicy = function (minAmount, maxAmount, noDiscount, NoCopuns) {
+    if (minAmount !== undefined && minAmount !== "" && maxAmount !== undefined && maxAmount !== "") {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setAmountPolicyOnStore?storeId=" + lastClickedStoreId +
+                "&minAmount=" + minAmount + "&maxAmount=" + maxAmount,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+    if (noDiscount) {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setNoDiscountPolicyOnStore?storeId=" + lastClickedStoreId ,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+    if (NoCopuns) {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setNoCouponsPolicyOnStore?storeId=" + lastClickedStoreId,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+}
+
+var addCategoryPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, catName) {
+    if (minAmount !== undefined && minAmount !== "" && maxAmount !== undefined && maxAmount !== "") {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setAmountPolicyOnCategory?storeId=" + lastClickedStoreId +
+                "&category=" + catName + "&minAmount=" + minAmount + "&maxAmount=" + maxAmount,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+    if (noDiscount) {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setNoDiscountPolicyOnCategoty?storeId=" + lastClickedStoreId +
+                "&category=" + catName,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+    if (NoCopuns) {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setNoDiscountPolicyOnCategoty?storeId=" + lastClickedStoreId +
+                "&category=" + catName,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+}
+
+var addProductInStorePolicy = function (minAmount, maxAmount, noDiscount, NoCopuns, pisId) {
+    if (minAmount !== undefined && minAmount !== "" && maxAmount !== undefined && maxAmount !== "")
+    {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setAmountPolicyOnProductInStore?storeId=" + lastClickedStoreId +
+                "&productInStoreId=" + pisId + "&minAmount=" + minAmount + "&maxAmount=" + maxAmount,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+    if (noDiscount)
+    {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setNoDiscountPolicyOnProductInStore?storeId=" + lastClickedStoreId +
+                "&productInStoreId=" + pisId,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+    if (NoCopuns)
+    {
+        jQuery.ajax({
+            type: "GET",
+            url: "http://localhost:53416/api/store/setNoCouponPolicyOnProductInStore?storeId=" + lastClickedStoreId +
+                "&productInStoreId=" + pisId,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert(response);
+                window.location.reload(false);
+            },
+            error: function (response) {
+                console.log(response);
+
+            }
+        });
+    }
+}
+
 var addDiscount = function () {
     type = $("#typeOfDiscount")[0].selectedIndex + 1;
     DiscountPrecentage = $("#DiscountPrecentage2").val();
