@@ -18,6 +18,11 @@ namespace wsep182.Domain
 
         public double Price { get => price; set => price = value; }
         public double PriceAfterDiscount { get => priceAfterDiscount; set => priceAfterDiscount = value; }
+        public string UserName { get => userName; set => userName = value; }
+        public int SaleId { get => saleId; set => saleId = value; }
+        public int Amount { get => amount; set => amount = value; }
+        public double Offer { get => offer; set => offer = value; }
+        public bool CouponActivated { get => couponActivated; set => couponActivated = value; }
 
         public UserCart(String userName, int saleId, int amount)
         {
