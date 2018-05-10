@@ -110,7 +110,7 @@ namespace wsep182.Domain
             ProductInStore newProduct;
             lock (this)
             {
-                newProduct = new ProductInStore(getNextProductInStoreId(), product, price, quantity, store);
+                newProduct = new ProductInStore(getNextProductInStoreId(),"", product, price, quantity, store);
             }
             
             foreach (ProductInStore p in productsInStores)
@@ -119,7 +119,20 @@ namespace wsep182.Domain
             productsInStores.AddLast(newProduct);
             return newProduct;
         }
+        public ProductInStore addProductInStore(Product product, Store store, int quantity, double price,string category)
+        {
+            ProductInStore newProduct;
+            lock (this)
+            {
+                newProduct = new ProductInStore(getNextProductInStoreId(), category, product, price, quantity, store);
+            }
 
+            foreach (ProductInStore p in productsInStores)
+                if (p.getProduct().getProductId() == newProduct.getProduct().getProductId() && p.getStore().getStoreId() == newProduct.getStore().getStoreId())
+                    return null;
+            productsInStores.AddLast(newProduct);
+            return newProduct;
+        }
 
 
         public Boolean updateProductInStore(ProductInStore newProduct)

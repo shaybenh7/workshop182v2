@@ -9,7 +9,7 @@ namespace wsep182.Domain
     public class Discount
     {
         private int productInStoreId;
-        private int percentage;
+        private double percentage;
         private int type;  // type: 1-productInStore, 2 - category, 3- Product
         private string category;
         private string productName;
@@ -24,7 +24,7 @@ namespace wsep182.Domain
             this.dueDate = dueDate;
         }
 
-        public Discount(int productInStoreId, int type,string productNameOrCategory,int percentage, String dueDate,string restrictions)
+        public Discount(int productInStoreId, int type,string productNameOrCategory, double percentage, String dueDate,string restrictions)
         {
             this.percentage = percentage;
             this.dueDate = dueDate;
@@ -39,7 +39,7 @@ namespace wsep182.Domain
         }
 
         public int ProductInStoreId { get => productInStoreId; set => productInStoreId = value; }
-        public int Percentage { get => percentage; set => percentage = value; }
+        public double Percentage { get => percentage; set => percentage = value; }
         public string DueDate { get => dueDate; set => dueDate = value; }
         public int Type { get => type; set => type = value; }
         public string Restrictions { get => restrictions; set => restrictions = value; }

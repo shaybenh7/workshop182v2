@@ -39,7 +39,7 @@ namespace UnitTests
         public void getSalePriceWithDiscount()
         {
             int percentage = 50;
-            discountsArchive.addNewDiscount(milkInStore.getProductInStoreId(), percentage, "20/6/2020");
+            discountsArchive.addNewDiscount(milkInStore.getProductInStoreId(),1,"", percentage, "20/6/2020","");
             double price = 200;
             int amount = 5;
             sale = new Sale(1, milkInStore.getProductInStoreId(), 1, 50, "20/5/2020");
@@ -51,7 +51,7 @@ namespace UnitTests
         public void getSalePriceWithInvalidDiscount()
         {
             int percentage = 50;
-            discountsArchive.addNewDiscount(milkInStore.getProductInStoreId(), percentage, "20/6/1990");
+            discountsArchive.addNewDiscount(milkInStore.getProductInStoreId(),1,"", percentage, "20/6/1990","");
             double price = 200;
             int amount = 5;
             sale = new Sale(1, milkInStore.getProductInStoreId(), 1, 50, "20/5/2020");

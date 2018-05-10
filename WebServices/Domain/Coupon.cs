@@ -10,14 +10,14 @@ namespace wsep182.Domain
     {
         private String couponId;
         private int productInStoreId;
-        private int percentage;
+        private double percentage;
         private int type;
         private string category;
         private string productName;
         private string dueDate;
         private string restrictions;
 
-        public Coupon(String couponId, int productInStoreId, int percentage, String dueDate)
+        public Coupon(String couponId, int productInStoreId, double percentage, String dueDate)
         {
             this.couponId = couponId;
             this.productInStoreId = productInStoreId;
@@ -25,7 +25,7 @@ namespace wsep182.Domain
             this.dueDate = dueDate;
         }
 
-        public Coupon(String couponId, int productInStoreId, int type, string productNameOrCategory, int percentage, String dueDate, string restrictions)
+        public Coupon(String couponId, int productInStoreId, int type, string productNameOrCategory, double percentage, String dueDate, string restrictions)
         {
             this.couponId = couponId;
             this.percentage = percentage;
@@ -42,7 +42,7 @@ namespace wsep182.Domain
 
         public string CouponId { get => couponId; set => couponId = value; }
         public int ProductInStoreId { get => productInStoreId; set => productInStoreId = value; }
-        public int Percentage { get => percentage; set => percentage = value; }
+        public double Percentage { get => percentage; set => percentage = value; }
         public int Type { get => type; set => type = value; }
         public string Category { get => category; set => category = value; }
         public string ProductName { get => productName; set => productName = value; }

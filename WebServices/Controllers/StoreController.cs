@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -79,7 +80,7 @@ namespace WebService.Controllers
 
         [Route("api/store/setNoDiscountPolicyOnCategoty")]
         [HttpGet]
-        public String setNoDiscountPolicyOnCategoty(int storeId, String category)
+        public String setNoDiscountPolicyOnCategory(int storeId, String category)
         {
             if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
             {

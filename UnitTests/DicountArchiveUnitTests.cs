@@ -14,8 +14,8 @@ namespace UnitTests
         {
             DiscountsArchive.restartInstance();
             discountsArchive = DiscountsArchive.getInstance();
-            discountsArchive.addNewDiscount(1, 10, DateTime.Now.AddDays(10).ToString());
-            discountsArchive.addNewDiscount(2, 20, DateTime.Now.AddDays(15).ToString());
+            discountsArchive.addNewDiscount(1,1,"", 10, DateTime.Now.AddDays(10).ToString(),"");
+            discountsArchive.addNewDiscount(2,1,"", 20, DateTime.Now.AddDays(15).ToString(),"");
         }
 
         [TestMethod]
@@ -23,7 +23,7 @@ namespace UnitTests
         {
             
             int beforeInsertion = discountsArchive.getAllDiscounts().Count;
-            Boolean check = discountsArchive.addNewDiscount(3, 30, DateTime.Now.AddDays(10).ToString());
+            Boolean check = discountsArchive.addNewDiscount(3,1,"", 30, DateTime.Now.AddDays(10).ToString(),"");
             int afterInsertion = discountsArchive.getAllDiscounts().Count;
             Assert.IsTrue(check);
             Assert.AreEqual(beforeInsertion + 1, afterInsertion);
@@ -33,7 +33,7 @@ namespace UnitTests
         {
 
             int beforeInsertion = discountsArchive.getAllDiscounts().Count;
-            Boolean check = discountsArchive.addNewDiscount(1, 30, DateTime.Now.AddDays(10).ToString());
+            Boolean check = discountsArchive.addNewDiscount(1,1,"", 30, DateTime.Now.AddDays(10).ToString(),"");
             int afterInsertion = discountsArchive.getAllDiscounts().Count;
             Assert.IsFalse(check);
             Assert.AreEqual(beforeInsertion , afterInsertion);
