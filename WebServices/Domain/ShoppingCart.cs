@@ -47,7 +47,9 @@ namespace wsep182.Domain
                 {
                     if (fulfillTypeOfSaleRestriction(sale.TypeOfSale, d))
                     {
-                        uc.PriceAfterDiscount -= uc.PriceAfterDiscount * (d.Percentage / 100);
+                        double dis = uc.PriceAfterDiscount * (d.Percentage / 100);
+                        double updatedPrice = uc.PriceAfterDiscount - dis;
+                        uc.PriceAfterDiscount = updatedPrice;
                     }
                 }
             }
@@ -90,11 +92,24 @@ namespace wsep182.Domain
 
         private void checkAndUpdateDiscountsByPolicys(string country)
         {
+            Boolean skip = false;
             foreach (UserCart uc in products)
             {
                 Sale s = SalesArchive.getInstance().getSale(uc.getSaleId());
                 LinkedList<Discount> relevantDiscounts = DiscountsArchive.getInstance().getAllDiscountsById(s.ProductInStoreId);
                 uc.PriceAfterDiscount = uc.Price;
+                LinkedList<PurchasePolicy> policys = PurchasePolicyArchive.getInstance().getAllRelevantPolicysForProductInStore(s.ProductInStoreId, country);
+                foreach (PurchasePolicy p in policys)
+                {
+                    if (p.NoDiscount)
+                        skip = true;
+                }
+                if (skip)
+                {
+                    skip = false;
+                    continue;
+                }
+                    
                 foreach (Discount d in relevantDiscounts)
                 {
                     checkPolicysAndUpdatePrice(uc, d, country, s.TypeOfSale);
@@ -134,13 +149,22 @@ namespace wsep182.Domain
             {
                 Sale s = SalesArchive.getInstance().getSale(uc.getSaleId());
                 ProductInStore theProduct = ProductArchive.getInstance().getProductInStore(s.ProductInStoreId);
+                LinkedList<PurchasePolicy> storePolicys = PurchasePolicyArchive.getInstance().getAllStorePolicys(theProduct.store.storeId);
                 LinkedList<PurchasePolicy> countrysPolicys = PurchasePolicyArchive.getInstance().getAllCountryPolicys(country,theProduct.store.storeId);
-                LinkedList<PurchasePolicy> categorysPolicys = PurchasePolicyArchive.getInstance().getAllCategoryPolicys(theProduct.Category,, theProduct.store.storeId);
+                LinkedList<PurchasePolicy> categorysPolicys = PurchasePolicyArchive.getInstance().getAllCategoryPolicys(theProduct.Category, theProduct.store.storeId);
                 LinkedList<PurchasePolicy> productPolicys = PurchasePolicyArchive.getInstance().getAllProductPolicys(theProduct.getProduct().name);
                 LinkedList<PurchasePolicy> productInStorePolicys = PurchasePolicyArchive.getInstance().getAllProductInStorePolicys(theProduct.getProductInStoreId());
 
                 int currAmount = uc.getAmount();
-                foreach(PurchasePolicy p in countrysPolicys)
+                foreach (PurchasePolicy p in storePolicys)
+                {
+                    if (!p.NoLimit)
+                    {
+                        if (currAmount < p.MinAmount || currAmount > p.MaxAmount)
+                            return uc.getSaleId();
+                    }
+                }
+                foreach (PurchasePolicy p in countrysPolicys)
                 {
                     if (!p.NoLimit)
                     {

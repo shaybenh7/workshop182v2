@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace wsep182.Domain
 {
-    class PurchasePolicyArchive
+    public class PurchasePolicyArchive
     {
         // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
         private int productNUM = 1;
-        private int storeNUM = 1;
-        private int categoryNUM = 1;
-        private int productInStoreNUM = 1;
-        private int countryNUM = 1;
+        private int storeNUM = 2;
+        private int categoryNUM = 3;
+        private int productInStoreNUM = 4;
+        private int countryNUM = 5;
 
         private LinkedList<PurchasePolicy> policys;
         private static PurchasePolicyArchive instance;
@@ -33,6 +33,23 @@ namespace wsep182.Domain
             instance = new PurchasePolicyArchive();
         }
 
+        private void appendLists(LinkedList<PurchasePolicy> first, LinkedList<PurchasePolicy> second)
+        {
+            foreach (PurchasePolicy p in second)
+                first.AddLast(p);
+        }
+        public LinkedList<PurchasePolicy> getAllRelevantPolicysForProductInStore(int productInStoreId,string country)
+        {
+            // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
+            LinkedList<PurchasePolicy> ans = new LinkedList<PurchasePolicy>();
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(productInStoreId);
+            appendLists(ans, getAllStorePolicys(pis.store.storeId));
+            appendLists(ans, getAllCategoryPolicys(pis.category, pis.store.storeId));
+            appendLists(ans, getAllCountryPolicys(country, pis.store.storeId));
+            appendLists(ans, getAllProductInStorePolicys(productInStoreId));
+            appendLists(ans, getAllProductPolicys(pis.product.name));
+            return ans;
+        }
 
         public LinkedList<PurchasePolicy> getAllProductPolicys(string productName)
         {
@@ -172,6 +189,7 @@ namespace wsep182.Domain
             toAdd.TypeOfPolicy = 1;
             toAdd.ProductName = productName;
             toAdd.NoDiscount = true;
+            policys.AddLast(toAdd);
             return 1;
         }
         public int setNoDiscountPolicyOnStore(int storeId)
@@ -181,6 +199,7 @@ namespace wsep182.Domain
             toAdd.TypeOfPolicy = 2;
             toAdd.StoreId = storeId;
             toAdd.NoDiscount = true;
+            policys.AddLast(toAdd);
             return 1;
         }
         public int setNoDiscountPolicyOnCategoty(int storeId, String category)
@@ -191,6 +210,7 @@ namespace wsep182.Domain
             toAdd.StoreId = storeId;
             toAdd.Category = category;
             toAdd.NoDiscount = true;
+            policys.AddLast(toAdd);
             return 1;
         }
         public int setNoDiscountPolicyOnProductInStore(int productInStoreId)
@@ -200,6 +220,7 @@ namespace wsep182.Domain
             toAdd.TypeOfPolicy = 4;
             toAdd.ProductInStoreId = productInStoreId;
             toAdd.NoDiscount = true;
+            policys.AddLast(toAdd);
             return 1;
         }
         public int setNoDiscountPolicyOnCountry(int storeId, string country)
@@ -210,6 +231,7 @@ namespace wsep182.Domain
             toAdd.StoreId = storeId;
             toAdd.Country = country;
             toAdd.NoDiscount = true;
+            policys.AddLast(toAdd);
             return 1;
         }
 
@@ -221,6 +243,7 @@ namespace wsep182.Domain
             toAdd.TypeOfPolicy = 1;
             toAdd.ProductName = productName;
             toAdd.NoCoupons = true;
+            policys.AddLast(toAdd);
             return 1;
         }
         public int setNoCouponsPolicyOnStore(int storeId)
@@ -230,6 +253,7 @@ namespace wsep182.Domain
             toAdd.TypeOfPolicy = 2;
             toAdd.StoreId = storeId;
             toAdd.NoCoupons = true;
+            policys.AddLast(toAdd);
             return 1;
         }
         public int setNoCouponPolicyOnCategoty(int storeId, String category)
@@ -240,6 +264,7 @@ namespace wsep182.Domain
             toAdd.StoreId = storeId;
             toAdd.Category = category;
             toAdd.NoCoupons = true;
+            policys.AddLast(toAdd);
             return 1;
         }
         public int setNoCouponPolicyOnProductInStore(int productInStoreId)
@@ -249,6 +274,7 @@ namespace wsep182.Domain
             toAdd.TypeOfPolicy = 4;
             toAdd.ProductInStoreId = productInStoreId;
             toAdd.NoCoupons = true;
+            policys.AddLast(toAdd);
             return 1;
         }
         public int setNoCouponPolicyOnCountry(int storeId, string country)
@@ -259,6 +285,7 @@ namespace wsep182.Domain
             toAdd.StoreId = storeId;
             toAdd.Country = country;
             toAdd.NoCoupons = true;
+            policys.AddLast(toAdd);
             return 1;
         }
 

@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace wsep182.Domain
 {
-    class PurchasePolicy
+    public class PurchasePolicy
     {
         // 1-Product(system level) , 2- Store, 3-category, 4- product in store, 5-country
         private int typeOfPolicy;
-        string productName;
+        string productName = "";
         int storeId;
-        string category;
+        string category = "";
         int productInStoreId;
-        string country;
+        string country = "";
 
         private int minAmount;
         private int maxAmount;
