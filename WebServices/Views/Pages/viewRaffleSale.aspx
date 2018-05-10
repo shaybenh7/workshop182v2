@@ -140,7 +140,7 @@
                     string += " <br /> <br />";
                     string += "<span id=\"salePrice\" class=\"mtext-106 cl2\">Price: "
                     string += "</span><br />";
-                    string += "<span id=\"saleOffers\" class=\"mtext-106 cl2\">Already offered: *TODO* "
+                    string += "<span id=\"maxOffer\" class=\"mtext-106 cl2\">Max offer: "
                     string += "</span><br />";
                     string += "<span class=\"mtext-106 cl2\">Due Date: " + dueDate;
                     string += "</span><br />";
@@ -197,6 +197,20 @@
 
                                     var storeNameElement = document.getElementById("storeName");
                                     storeNameElement.innerHTML += response["store"]["name"];
+                                },
+                                error: function (response) {
+                                    console.log(response);
+                                }
+                            });
+                            jQuery.ajax({
+                                type: "GET",
+                                url: "http://localhost:53416/api/store/checkRaffleBids?saleId=" + saleId,
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    
+                                    var productNameElement = document.getElementById("maxOffer");
+                                    productNameElement.innerHTML += response;
                                 },
                                 error: function (response) {
                                     console.log(response);

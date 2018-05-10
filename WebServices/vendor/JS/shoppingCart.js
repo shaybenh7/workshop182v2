@@ -9,6 +9,7 @@
             console.log(response);
             console.log("here");
             var i;
+            var totalPrice=0;
             for (i = 0; i < response.length; i++) {
                 element = response[i];
                 var amount = element["Amount"];
@@ -23,6 +24,8 @@
                 if (element["Offer"] != 0) {
                     totalAfterDiscount = element["Offer"] * amount;
                 }
+                
+                totalPrice += totalAfterDiscount;
                 var string = "";
                 string += "<tr class=\"table_row\">";
                 string += "<td class=\"column-1\" >";
@@ -68,6 +71,11 @@
 
                 })(i, saleId);
             }
+
+            var totalPriceDive = document.getElementById("total-price");
+            totalPriceDive.innerHTML += totalPrice.toFixed(2);
+            
+
         },
         error: function (response) {
             console.log(response);
