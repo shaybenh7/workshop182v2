@@ -217,6 +217,20 @@ namespace wsep182.Domain
             return state.getPremissions(managerUser, s);
         }
 
+        public Tuple<int, LinkedList<UserCart>> checkout(string country, string address)
+        {
+            return shoppingCart.checkout(this, country, address);
+        }
+        public int buyProductsInCart(string country, string address, string creditCard)
+        {
+            return shoppingCart.buyProductsInCart(this, country, address, creditCard);
+        }
+        public LinkedList<UserCart> getShoppingCartBeforeCheckout()
+        {
+            return shoppingCart.getShoppingCartBeforeCheckout(this);
+        }
+
+
 
     }
 }

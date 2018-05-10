@@ -80,5 +80,34 @@ namespace wsep182.services
             return session.buyProducts(creditCard, couponId);
         }
 
+        public int buyProductsInCart(User session,string country, string address, string creditCard)
+        {
+            if (session == null)
+                return -1;
+            if (country.Equals("") || address.Equals(""))
+                return -2;
+            if (creditCard.Equals(""))
+                return -3;
+            return session.buyProductsInCart(country, address, creditCard);
+        }
+
+        //VERSION 2 ADDITIONS
+        public Tuple<int, LinkedList<UserCart>> checkout(User session, string country, string address)
+        {
+            LinkedList<UserCart> ans = null;
+            if (session == null)
+                return Tuple.Create(-2, ans); // -2 user error
+            if(country.Equals("") || address.Equals(""))
+                return Tuple.Create(-3, ans); // -3 country or address cannot be empty error
+            return session.checkout(country, address);
+        }
+
+        public LinkedList<UserCart> getShoppingCartBeforeCheckout(User session)
+        {
+            if (session == null)
+                return null;
+            return session.getShoppingCartBeforeCheckout();
+        }
+
     }
 }

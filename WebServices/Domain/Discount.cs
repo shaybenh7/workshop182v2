@@ -45,7 +45,6 @@ namespace wsep182.Domain
         public string Restrictions { get => restrictions; set => restrictions = value; }
         public string Category { get => category; set => category = value; }
         public string ProductName { get => productName; set => productName = value; }
-        public string Restrictions1 { get => restrictions; set => restrictions = value; }
 
         public Double getPriceAfterDiscount(double pricePerUnit, int amount)
         {

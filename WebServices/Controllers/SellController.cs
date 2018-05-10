@@ -236,11 +236,87 @@ namespace WebService.Controllers
             return response;
         }
 
-        [Route("api/sell/buyProducts")]
+        [Route("api/sell/buyProductsInCart")]
         [HttpPost]
-        public string buyProducts(String storeName, int UserId)
+        public HttpResponseMessage buyProductsInCart(string country, string address,string creditcard)
         {
-            return "not implemented";
+            string hash = System.Web.HttpContext.Current.Request.Cookies["Session"].Value;
+            User session = hashServices.getUserByHash(hash);
+            HttpResponseMessage response;
+            int bought = sellServices.getInstance().buyProductsInCart(session, country, address, creditcard);
+            /* Confimation = 1
+             * Errors:
+             * -1 = user is null (should not ever happen)
+             * -2 = address or country is empty
+             * -3 = the credit card field is empty 
+             * -4 = 
+             */
+            switch (bought)
+            {
+                case -1:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: user is not valid!");
+                    break;
+                case -2:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: country and address fields cannot be empty!");
+                    break;
+                case -3:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: creditcard field is empty!");
+                    break;
+                case -4:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Warning: some of the products had not been purchased! check your shopping cart");
+                    break;
+                case 1:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "All the items in your cart were purchased!");
+                    break;
+                default:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: unknown!");
+                    break;
+            }
+            return response;
         }
+        [Route("api/sell/checkout")]
+        [HttpPost]
+        public HttpResponseMessage checkout(string country, string address)
+        {
+            string hash = System.Web.HttpContext.Current.Request.Cookies["Session"].Value;
+            User session = hashServices.getUserByHash(hash);
+            HttpResponseMessage response;
+            Tuple<int, LinkedList<UserCart>> ans = sellServices.getInstance().checkout(session, country, address);
+            int confimation = ans.Item1;
+            /* Confimation = -1 = everything is o.k
+             * Errors:
+             * -2 = user is null
+             * -3 = country or address is empty error
+             * * ANY POSITIVE NUMBER IS AN ERROR SPECIFYING THE SALEID THAT FAILED THE CHECKOUT
+             */
+            switch (confimation)
+            {
+                case -1:
+                    response = Request.CreateResponse(HttpStatusCode.OK, ans.Item2);
+                    break;
+                case -2:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: user error!");
+                    break;
+                case -3:
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: country and address fields cannot be empty!");
+                    break;
+                default: 
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Error: item with sale Id "+confimation.ToString()+" does not fulfill its buying policy!");
+                    break;
+            }
+
+            return response;
+        }
+        [Route("api/sell/getShoppingCartBeforeCheckout")]
+        [HttpPost]
+        public HttpResponseMessage getShoppingCartBeforeCheckout(String storeName, int UserId)
+        {
+            string hash = System.Web.HttpContext.Current.Request.Cookies["Session"].Value;
+            User session = hashServices.getUserByHash(hash);           
+            HttpResponseMessage response;
+            response = Request.CreateResponse(HttpStatusCode.OK, session.getShoppingCartBeforeCheckout());
+            return response;
+        }
+
     }
 }
