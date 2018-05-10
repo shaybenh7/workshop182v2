@@ -58,6 +58,15 @@ namespace wsep182.Domain
                 return base.addNewCoupon(session, storeId, couponId, productInStoreId, type, categoryOrProductName, percentage, dueDate, restrictions);
             return false;
         }
+
+        public override int addNewCoupons(User session,int storeId, String couponId, int type, List<int> pisId, List<string> catOrProductsNames
+                                            , int percentage, string dueDate, string restrictions)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "addNewCoupon"))
+                return base.addNewCoupons(session, storeId, couponId, type, pisId, catOrProductsNames, percentage, dueDate, restrictions);
+            return -1;
+        }
+
         public override Boolean removeCoupon(User session, Store s, String couponId)
         {
             if (premissions.checkPrivilege(s.getStoreId(), session.getUserName(), "removeCoupon"))

@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using wsep182.Domain;
 using wsep182.services;
-
+using System.Linq;
 
 namespace WebService.Controllers
 {
@@ -632,17 +632,33 @@ namespace WebService.Controllers
 
 
         [Route("api/store/addCouponDiscount")]
-        [HttpPut]
-        public string addCouponDiscount(int storeId, String oldManageruserName, String session)
+        [HttpPost]
+        public string addCouponDiscount(int storeId, String couponId, int type, int[] pisId, string[]catOrProductsNames
+            , int percentage, string dueDate, string restrictions)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().addNewCoupons(session, storeId, couponId, type, pisId.OfType<int>().ToList(), catOrProductsNames.OfType<String>().ToList(),percentage
+                , dueDate, restrictions);
+            if (ans > 0)
+                return "Coupons added successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Coupons failed";
         }
 
         [Route("api/store/addDiscount")]
         [HttpPut]
-        public string addDiscount(int storeId, String oldManageruserName, String session)
+        public string addDiscounts(int storeId, List<int> productInStores, int type,
+           int percentage, List<string> categorysOrProductsName, string dueDate, string restrictions)
         {
-            return "not implemented";
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            int ans = storeServices.getInstance().addDiscounts(session, storeId, productInStores.OfType<int>().ToList(), type, percentage,categorysOrProductsName.OfType<String>().ToList()
+                , dueDate, restrictions);
+            if (ans > 0)
+                return "Coupons added successfully";
+            if (ans == -4)
+                return "You dont have permissions";
+            return "Coupons failed";
         }
 
         [Route("api/store/removeDiscount")]
