@@ -673,17 +673,46 @@ namespace WebService.Controllers
         }
 
         [Route("api/store/addDiscount")]
-        [HttpPut]
-        public string addDiscount(int storeId, List<int> productInStores, int type,
-           int percentage, List<string> categorysOrProductsName, string dueDate, string restrictions)
+        [HttpGet]
+        public string addDiscount(int storeId, int type,
+           int percentage, string toWhat, string dueDate, string restrictions)
         {
+            int ans;
             if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
             {
                 return "Not logged in";
             }
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
-            int ans = storeServices.getInstance().addDiscounts(session, storeId, productInStores.OfType<int>().ToList(), type, percentage,categorysOrProductsName.OfType<String>().ToList()
-                , dueDate, restrictions);
+
+            if (type == 1)
+            {
+                List<int> pisId = new List<int>();
+                string[] words = toWhat.Split(',');
+                for (int i = 0; i < words.Length; i++)
+                {
+                    try
+                    {
+                        pisId.Add(Int32.Parse(words[i]));
+                    }
+                    catch (FormatException /*e*/)
+                    {
+                        return "product id cannot be string";
+                    }
+                }
+                ans = storeServices.getInstance().addDiscounts(session, storeId, pisId, type,
+                    percentage, null, dueDate, restrictions);
+            }
+            else
+            {
+                List<String> catOrPname = new List<String>();
+                string[] words = toWhat.Split(',');
+                for (int i = 0; i < words.Length; i++)
+                {
+                    catOrPname.Add(words[i]);
+                }
+                ans = storeServices.getInstance().addDiscounts(session, storeId, null, type,
+                    percentage, catOrPname, dueDate, restrictions);
+            }
             if (ans > 0)
                 return "Discounts added successfully";
             if (ans == -4)
