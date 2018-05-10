@@ -18,10 +18,10 @@
                 var totalAfterDiscount = element["PriceAfterDiscount"];
                 var price = totalAfterDiscount / amount;
                 var priceBeforeDiscount = totalBeforeDiscount / amount;
-                if (element["Offer"] != 0) {
+                if (element["Offer"] !== 0) {
                     price = element["Offer"];
                 }
-                if (element["Offer"] != 0) {
+                if (element["Offer"] !== 0) {
                     totalAfterDiscount = element["Offer"] * amount;
                 }
                 
