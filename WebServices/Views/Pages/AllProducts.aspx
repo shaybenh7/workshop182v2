@@ -44,7 +44,6 @@
                         string += "<div class=\"col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women\" style=\"width: 300px;padding: 17px;border-color: black;border-width: 1px;border-style: groove;margin-left:20px; margin-bottom: 20px;\"  >";
                         string += "<div class=\"block2\">";
                         string += "<div class=\"block2-pic hov-img0\">";
-                        string += "<img src=\"images/itamar.jpg\" alt=\"IMG-PRODUCT\">";
                         if (typeOfSale==1)
                             string += "<a href=\"http://localhost:53416/viewInstantSale?saleId="+saleId+"\" class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">Quick Buy</a>";
                         else
