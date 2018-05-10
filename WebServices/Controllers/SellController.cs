@@ -80,7 +80,7 @@ namespace WebService.Controllers
         }
 
         [Route("api/store/addRaffleProductToCart")]
-        [HttpPut]
+        [HttpGet]
         public HttpResponseMessage addRaffleProductToCart(int saleId, double offer)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);

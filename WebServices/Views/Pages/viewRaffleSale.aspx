@@ -172,12 +172,12 @@
                         
                             $('#submit').click(function () {
                                 jQuery.ajax({
-                                    type: "PUT",
+                                    type: "GET",
                                     url: "http://localhost:53416/api/store/addRaffleProductToCart?saleId=" + saleId + "&offer=" + document.getElementById("myOffer").value,
                                     contentType: "application/json; charset=utf-8",
                                     dataType: "json",
                                     success: function (response) {
-                                        console.log("response");
+                                        alert(response);
                                         console.log(response);
                                     },
                                     error: function (response) {

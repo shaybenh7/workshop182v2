@@ -615,7 +615,7 @@
                                                 <div class="flex-w flex-r-m p-b-10">
                                                     <div></div>
                                                     <div class="wrap-input1 w-full p-b-4">
-                                                        <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="product-due-date2" placeholder="Enter due date">
+                                                        <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="product-due-date2" placeholder="Enter due date - XX/XX/XXXX">
                                                         <div class="focus-input1 trans-04"></div>
                                                     </div>
                                                     <br />
@@ -665,7 +665,7 @@
                                                 </div>
                                                 <br />
                                                 <div class="wrap-input1 w-full p-b-4">
-                                                        <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="product-due-date" placeholder="Enter due date">
+                                                        <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="product-due-date" placeholder="Enter due date - XX/XX/XXXX">
                                                         <div class="focus-input1 trans-04"></div>
                                                  </div>
                                                 <div class="flex-w flex-r-m p-b-10">

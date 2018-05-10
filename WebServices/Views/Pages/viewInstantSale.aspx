@@ -36,7 +36,7 @@
                         <div class="p-t-33">
                             
                                 
-                                    <button id="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                    <button id="submit" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                         Add to cart
                                     </button>
                         </div>
@@ -169,6 +169,7 @@
                     var pis = response["ProductInStoreId"];
                     var dueDate = response["DueDate"];
                     var quan = response["Amount"];
+                    var dueDate = response["DueDate"];
                     var string = "";
                     string += "<h4 id=\"productName\" class=\"mtext-105 cl2 js-name-detail p-b-14\"> Product Name: </h4>";
                     string += "<span id=\"storeName\"  class=\"mtext-106 cl2\">Store Name: ";
@@ -179,6 +180,8 @@
                     string += "<span id=\"saleOffers\" class=\"mtext-106 cl2\">Discount: *TODO*"
                     string += "</span><br />";
                     string += "<span id=\"salePriceAfterDiscount\" class=\"mtext-106 cl2\">Price after discount:  "
+                    string += "</span><br />";
+                    string += "<span class=\"mtext-106 cl2\">Due Date: " + dueDate;
                     string += "</span><br />";
                     string += "<span class=\"mtext-106 cl2\">Quantity: " + quan;
                     string += "</span><br />";
@@ -196,7 +199,7 @@
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
                                 success: function (response) {
-                                    console.log(response);
+                                     alert(response);
                                 },
                                 error: function (response) {
                                     console.log("response");
