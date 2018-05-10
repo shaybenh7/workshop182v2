@@ -49,15 +49,15 @@ namespace wsep182.services
          *          -7 if illegal price
          *          
          */
-        public int addProductInStore(String productName, Double price, int amount, User session, int sId)
+        public int addProductInStore(String productName, Double price, int amount, User session, int sId,string category)
         {
-            if (session==null || !session.getState().isLogedIn() || productName == null)
+            if (session==null || !session.getState().isLogedIn() || productName == null || category == null)
                 return -1;//-1 if user Not Login
             Store s = storeArchive.getInstance().getStore(sId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
                 return -4;//-4 if don't have premition
-            return sR.addProductInStore(session, s, productName, price, amount);
+            return sR.addProductInStore(session, s, productName, price, amount, category);
         }
 
         //req 3.1 b
