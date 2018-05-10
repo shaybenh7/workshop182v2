@@ -169,9 +169,6 @@ C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\System.Web.WebPages.D
 C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\System.Web.WebPages.dll
 C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\System.Web.WebPages.Razor.dll
 C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\WebGrease.dll
-C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\wsep182.exe
-C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\wsep182.pdb
-C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\wsep182.exe.config
 C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\Newtonsoft.Json.xml
 C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\System.Net.Http.Formatting.xml
