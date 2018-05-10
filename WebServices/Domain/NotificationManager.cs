@@ -30,6 +30,18 @@ namespace wsep182.Domain
                 WebSocketController.sendMessageToClient(hash, message);
                 return true;
             }
+            LinkedList<String> CurrentPendingMessages;
+            WebSocketController.PendingMessages.TryGetValue(userName, out CurrentPendingMessages);
+            if(CurrentPendingMessages != null)
+            {
+                CurrentPendingMessages.AddLast(message);
+            }
+            else
+            {
+                CurrentPendingMessages = new LinkedList<String>();
+                CurrentPendingMessages.AddLast(message);
+                WebSocketController.PendingMessages.Add(userName, CurrentPendingMessages);
+            }
             return false;
         }
 

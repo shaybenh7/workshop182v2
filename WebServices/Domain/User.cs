@@ -75,7 +75,6 @@ namespace wsep182.Domain
                 this.userName = username;
                 this.password = password;
                 UserArchive.getInstance().updateUser(this);
-
                 return 0;
             }
             return user;
