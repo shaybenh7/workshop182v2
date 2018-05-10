@@ -42,7 +42,7 @@ namespace wsep182.Domain
                 if(u.getState() is Admin)
                 {
                     NotificationManager NM = NotificationManager.getInstance();
-                    NM.notifyUser(u.getUserName(), "a new user has been register to the system with username = " + newUser.getUserName());
+                    NM.notifyUser(u.getUserName(), "a new user has been registered to the system with username = " + newUser.getUserName());
                 }
             }
             return 0;

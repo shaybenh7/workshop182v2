@@ -187,40 +187,7 @@
                 return decodeURI(dc.substring(begin + prefix.length, end));
             }
         </script>
-        <script type="text/javascript">
-            var ws;
-            //localhost:53416/
-            $().ready(function () {
-                ws = new WebSocket("ws://" + "localhost:53416" +
-                    "/api/WebSocket/");
-
-                ws.onopen = function () {
-                    console.log("connected");
-                };
-                ws.onmessage = function (evt) {
-                    alert(evt.data);
-                };
-                ws.onerror = function (evt) {
-                    console.log(evt.message);
-                };
-                ws.onclose = function () {
-                    console.log("disconnected");
-                };
-                /*
-                $("#btnSend").click(function () {
-                    if (ws.readyState == WebSocket.OPEN) {
-                        ws.send($("#textInput").val());
-                    }
-                    else {
-                        $("#spanStatus").text("Connection is closed");
-                    }
-                });
-                $("#btnDisconnect").click(function () {
-                    ws.close();
-                });
-                */
-            });
-        </script>
+         <script src="vendor/JS/webSocket.js" type="text/javascript"></script>
 
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
         </asp:ContentPlaceHolder>
