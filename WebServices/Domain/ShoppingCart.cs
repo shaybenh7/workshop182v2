@@ -135,7 +135,7 @@ namespace wsep182.Domain
                 Sale s = SalesArchive.getInstance().getSale(uc.getSaleId());
                 ProductInStore theProduct = ProductArchive.getInstance().getProductInStore(s.ProductInStoreId);
                 LinkedList<PurchasePolicy> countrysPolicys = PurchasePolicyArchive.getInstance().getAllCountryPolicys(country,theProduct.store.storeId);
-                LinkedList<PurchasePolicy> categorysPolicys = PurchasePolicyArchive.getInstance().getAllCategoryPolicys(theProduct.Category,, theProduct.store.storeId);
+                LinkedList<PurchasePolicy> categorysPolicys = PurchasePolicyArchive.getInstance().getAllCategoryPolicys(theProduct.Category, theProduct.store.storeId);
                 LinkedList<PurchasePolicy> productPolicys = PurchasePolicyArchive.getInstance().getAllProductPolicys(theProduct.getProduct().name);
                 LinkedList<PurchasePolicy> productInStorePolicys = PurchasePolicyArchive.getInstance().getAllProductInStorePolicys(theProduct.getProductInStoreId());
 
