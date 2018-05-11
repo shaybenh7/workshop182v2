@@ -45,7 +45,7 @@ namespace wsep182.Domain
                     discounts.AddLast(toAdd);
                 }
             }
-            return 0;
+            return 1;
         }
 
         // type: 1-productInStore, 2 - category, 3- Product
