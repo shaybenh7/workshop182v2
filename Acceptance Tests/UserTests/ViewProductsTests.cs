@@ -34,7 +34,7 @@ namespace Acceptance_Tests.UserTests
             storeServices ss = storeServices.getInstance();
             ss.createStore("abowim", session);
             Store s = storeArchive.getInstance().getStore(1);
-            int pis=ss.addProductInStore("cola", 3.2, 10, session, 1);
+            int pis=ss.addProductInStore("cola", 3.2, 10, session, 1,"drinks");
             LinkedList<ProductInStore> pisList = us.viewProductsInStore(1);
             LinkedList<ProductInStore> piStorsList = us.viewProductsInStores();
             Assert.AreEqual(pisList.Count, 1);

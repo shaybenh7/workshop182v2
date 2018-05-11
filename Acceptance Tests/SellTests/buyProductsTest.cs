@@ -84,7 +84,6 @@ namespace Acceptance_Tests.SellTests
             Assert.IsNotNull(aviad);
             int storeId1= ss.createStore("abowim", zahi);
             int storeId2 = ss.createStore("Russian liquor", vadim);
-            Assert.IsNotNull(store);
             int pis = ss.addProductInStore("cola", 3.2, 10, zahi, storeId1,"Drinks");
             int pis2 = ss.addProductInStore("vodka", 3.2, 10, vadim, storeId2,"Liquor");
             Assert.IsNotNull(pis);

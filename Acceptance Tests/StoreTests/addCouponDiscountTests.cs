@@ -100,7 +100,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void AddCouponWithNullproduct()
         {
-            Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), null,1,null, "coupon", 10, "20/6/2018","")>-1);
+            Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1,null,null, 10, "20/6/2018","")>-1);
             Assert.IsNull(ca.getCoupon("copun", cola));
         }
 
@@ -109,7 +109,7 @@ namespace Acceptance_Tests.StoreTests
         {
             List<int> lst = new List<int>();
             lst.Add(cola);
-            Assert.IsTrue(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 0, "20/6/2018", "") > -1);
+            Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 0, "20/6/2018", "") > -1);
             Assert.IsNull(ca.getCoupon("copun", cola));
         }
 

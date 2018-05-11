@@ -299,7 +299,7 @@ namespace wsep182.Domain
         public virtual int addNewCoupons(User session, int storeId, String couponId, int type, List<int> pisId, List<string> catOrProductsNames
             , int percentage, string dueDate, string restrictions)
         {
-            if (session == null || couponId == null || percentage < 0 || dueDate == null || percentage <= 0)
+            if (session == null || couponId == null || percentage <= 0 || dueDate == null || percentage <= 0 || pisId==null || catOrProductsNames==null|| restrictions==null)
                 return -1;
             return CouponsArchive.getInstance().addNewCoupons(couponId, type, pisId, catOrProductsNames, percentage, dueDate, restrictions);
         }
