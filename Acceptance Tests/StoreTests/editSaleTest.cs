@@ -58,8 +58,8 @@ namespace Acceptance_Tests.StoreTests
 
             ss.addStoreManager(store.getStoreId(), "niv", itamar);
 
-            int c = ss.addProductInStore("cola", 3.2, 10, itamar, storeid);
-            int s = ss.addProductInStore("sprite", 5.3, 20, itamar, storeid);
+            int c = ss.addProductInStore("cola", 3.2, 10, itamar, storeid, "Drinks");
+            int s = ss.addProductInStore("sprite", 5.3, 20, itamar, storeid, "Drinks");
             cola = ProductArchive.getInstance().getProductInStore(c);
             sprite = ProductArchive.getInstance().getProductInStore(s);
             saleId = ss.addSaleToStore(itamar, store.getStoreId(), cola.getProductInStoreId(), 1, 1, "20.5.2018");
