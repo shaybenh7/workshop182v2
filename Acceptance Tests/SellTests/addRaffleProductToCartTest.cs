@@ -47,17 +47,21 @@ namespace Acceptance_Tests.SellTests
             itamar = us.startSession();
             us.register(itamar, "itamar", "123456");
             us.login(itamar, "itamar", "123456");
-            store = ss.createStore("Maria&Netta Inc.", itamar);
+            int storeId=ss.createStore("Maria&Netta Inc.", itamar);
+
+            Store store = storeArchive.getInstance().getStore(storeId);
 
             niv = us.startSession();
             us.register(niv, "niv", "123456");
             us.login(niv, "niv", "123456");
 
-            ss.addStoreManager(store, "niv", itamar);
+            ss.addStoreManager(storeId, "niv", itamar);
 
-            cola = ss.addProductInStore("cola", 3.2, 10, itamar, store);
-            sprite = ss.addProductInStore("sprite", 5.3, 20, itamar, store);
-            ss.addSaleToStore(itamar, store, cola.getProductInStoreId(), 3, 1, DateTime.Now.AddMonths(10).ToString());
+            int colaId = ss.addProductInStore("cola", 3.2, 10, itamar, storeId,"Drinks");
+            cola = ProductArchive.getInstance().getProductInStore(colaId);
+            int spriteId = ss.addProductInStore("sprite", 5.2, 100, itamar, storeId, "Drinks");
+            sprite = ProductArchive.getInstance().getProductInStore(spriteId);
+            ss.addSaleToStore(itamar, storeId, cola.getProductInStoreId(), 3, 1, DateTime.Now.AddMonths(10).ToString());
         }
 
 
@@ -65,60 +69,60 @@ namespace Acceptance_Tests.SellTests
         public void simpleAddRaffleProductToCart()
         {
             us.login(zahi, "zahi", "123456");
-            LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value, 1));
+            LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
+            Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 1)>0);
         }
         [TestMethod]
         public void AddProductToCartOfferToBig()
         {
             us.login(zahi, "zahi", "123456");
-            LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value, 8));
-            Assert.IsFalse(sellS.addRaffleProductToCart(niv, saleList.First.Value, 12));
+            LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
+            Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 8)>0);
+            Assert.IsFalse(sellS.addRaffleProductToCart(niv, saleList.First.Value.SaleId, 12)>0);
         }
         [TestMethod]
         public void AddProductToCartMaxOffer()
         {
             us.login(zahi, "zahi", "123456");
-            LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value, 8));
-            Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value, 1));
-            Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value, 2.2));
+            LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
+            Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 8)>0);
+            Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 1)>0);
+            Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 2.2)>);
         }
         [TestMethod]
         public void AddProductToCartNull()
         {
             us.login(zahi, "zahi", "123456");
-            LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            Assert.IsNull(sellS.addRaffleProductToCart(null, saleList.First.Value, 1));
-            Assert.IsNull(sellS.addRaffleProductToCart(zahi, null, 1));
+            LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
+            Assert.IsFalse(sellS.addRaffleProductToCart(null, saleList.First.Value.SaleId, 1)>0);
+            Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, -31)>0);
         }
         [TestMethod]
         public void AddProductToCartZero()
         {
             us.login(zahi, "zahi", "123456");
-            LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value, 0));
+            LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
+            Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 0)>0);
         }
         [TestMethod]
         public void AddProductToCartNegative()
         {
             us.login(zahi, "zahi", "123456");
-            LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value, -1));
+            LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
+            Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, -1)>0);
         }
         [TestMethod]
         public void AddProductToCartNormalSell()
         {
             us.login(zahi, "zahi", "123456");
-            int saleId = ss.addSaleToStore(itamar, store, sprite.getProductInStoreId(), 1, 1, "20/5/2018");
-            LinkedList<Sale> saleList = ss.viewSalesByStore(store);
+            int saleId = ss.addSaleToStore(itamar, store.getStoreId(), sprite.getProductInStoreId(), 1, 1, "20/5/2018");
+            LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
             foreach (Sale sale in saleList)
             {
                 if (sale.SaleId == saleId)
-                    Assert.IsFalse(sellS.addRaffleProductToCart(zahi, sale, 1));//normal product
+                    Assert.IsFalse(sellS.addRaffleProductToCart(zahi, sale.SaleId, 1)>0);//normal product
                 else
-                    Assert.IsTrue(sellS.addRaffleProductToCart(zahi, sale, 1));
+                    Assert.IsTrue(sellS.addRaffleProductToCart(zahi, sale.SaleId, 1)>0);
             }
         }
     }
