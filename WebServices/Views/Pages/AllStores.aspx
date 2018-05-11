@@ -41,7 +41,7 @@
                         string += "<div id=\"storeName" + i + "\">Store Name: " + storeName + "</div>"; // add sale name here to saleName1
                             string += "</a>";
                         string += "<span class=\"stext-105 cl3\">";
-                        string += "<div id=\"ownerName" + i + "\">Owner: " + ownerName + "</div>"; // add sale name here to storeName
+                        string += "<div id=\"ownerName" + i + "\">Store Creator: " + ownerName + "</div>"; // add sale name here to storeName
                             string += "</span>";
                         string += "</div>";
                         string += "</div>";

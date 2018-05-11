@@ -375,7 +375,7 @@ namespace WebService.Controllers
 
         [Route("api/store/removeNoCouponPolicyOnCategoty")]
         [HttpGet]
-        public String removeNoCouponPolicyOnCategoty(int storeId)
+        public String removeNoCouponPolicyOnCategoty(int storeId,string category)
         {
             if (System.Web.HttpContext.Current.Request.Cookies["HashCode"] == null)
             {
@@ -931,7 +931,7 @@ namespace WebService.Controllers
 
         [Route("api/store/getManagers")]
         [HttpGet]
-        public HttpResponseMessage getManagers(int storeId, String oldManageruserName)
+        public HttpResponseMessage getManagers(int storeId)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
             Object Managers = storeServices.getInstance().getManagers(storeId);

@@ -10,11 +10,11 @@
                 <div class="p-r-50 p-t-5 p-lr-0-lg">
                     <h4 id="store-name" class="mtext-105 cl2 js-name-detail p-b-14">Store Name:
                     </h4>
-                    <span class="mtext-106 cl2">*owners*
+                    <span id="owners" class="mtext-106 cl2">Owners- 
                     </span>
                     <br />
 
-                    <span class="mtext-106 cl2">*Managers*
+                    <span id="managers" class="mtext-106 cl2">Managers- 
                     </span>
                     <br /><br /><br />
 
@@ -128,8 +128,57 @@
                                     console.log(response);
                                 }
                             });
+
+                            
+
                         })(i);
                     }
+                    (function () {
+                        jQuery.ajax({
+                            type: "GET",
+                            url: "http://localhost:53416/api/store/getOwners?storeId=" + storeId, //add call to get price
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                console.log("here");
+                                console.log(response[0]["user"]["userName"]);
+                                var owners = document.getElementById("owners");
+                                var j;
+                                for (j = 0; j < response.length - 1; j++) {
+                                    owners.innerHTML += response[j]["user"]["userName"] + ", ";
+                                }
+                                owners.innerHTML += response[j]["user"]["userName"];
+
+                            },
+                            error: function (response) {
+                                console.log(response);
+                            }
+                        });
+                    })();
+
+                    (function () {
+                        jQuery.ajax({
+                            type: "GET",
+                            url: "http://localhost:53416/api/store/getManagers?storeId=" + storeId, //add call to get price
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                console.log("here");
+                                console.log(response[0]["user"]["userName"]);
+                                var owners = document.getElementById("managers");
+                                var j;
+                                for (j = 0; j < response.length - 1; j++) {
+                                    owners.innerHTML += response[j]["user"]["userName"] + ", ";
+                                }
+                                owners.innerHTML += response[j]["user"]["userName"];
+
+                            },
+                            error: function (response) {
+                                console.log(response);
+                            }
+                        });
+                    })();
+
                 },
                 error: function (response) {
                     console.log(response);
