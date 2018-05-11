@@ -53,8 +53,8 @@ namespace Acceptance_Tests.StoreTests
 
             ss.addStoreManager(store.getStoreId(), "niv", itamar);
 
-            cola = ProductArchive.getInstance().getProductInStore(ss.addProductInStore("cola", 3.2, 10, itamar, store.getStoreId()));
-            sprite = ProductArchive.getInstance().getProductInStore(ss.addProductInStore("sprite", 5.3, 20, itamar, store.getStoreId()));
+            cola = ProductArchive.getInstance().getProductInStore(ss.addProductInStore("cola", 3.2, 10, itamar, store.getStoreId(), "Drinks"));
+            sprite = ProductArchive.getInstance().getProductInStore(ss.addProductInStore("sprite", 5.3, 20, itamar, store.getStoreId(), "Drinks"));
 
         }
 
@@ -86,7 +86,7 @@ namespace Acceptance_Tests.StoreTests
             LinkedList<Sale> saleList1 = ss.viewSalesByStore(store.getStoreId());
             int storeId = ss.createStore("admin store", admin);
             Store store2 = storeArchive.getInstance().getStore(storeId);
-            int milkId = ss.addProductInStore("milk", 3.2, 10, admin, store2.getStoreId());
+            int milkId = ss.addProductInStore("milk", 3.2, 10, admin, store2.getStoreId(), "Drinks");
             ProductInStore milk = ProductArchive.getInstance().getProductInStore(milkId);
             int saleId2 = ss.addSaleToStore(admin, store2.getStoreId(), milk.getProductInStoreId(), 1, 1, "20/5/2018");
             LinkedList<Sale> saleList2 = ss.viewSalesByStore(store2.getStoreId());

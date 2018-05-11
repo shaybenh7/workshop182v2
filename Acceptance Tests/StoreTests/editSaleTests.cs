@@ -38,9 +38,9 @@ namespace Acceptance_Tests.StoreTests
             us.login(zahi, "zahi", "123456");
 
             int storeid = ss.createStore("abowim", zahi);
-            Store store = storeArchive.getInstance().getStore(storeid);
+            store = storeArchive.getInstance().getStore(storeid);
 
-            int c = ss.addProductInStore("cola", 3.2, 10, zahi, storeid);
+            int c = ss.addProductInStore("cola", 3.2, 10, zahi, storeid, "Drinks");
             cola = ProductArchive.getInstance().getProductInStore(c);
             ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 2, "20/5/2018");
 
@@ -82,7 +82,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditSaleToDueDateInThePastInYears()
         {
-            Assert.AreEqual(ss.editSale(zahi, store.getStoreId(), colaSale.SaleId, 11, "20/6/2017"),-10);//-10 due date not good
+            Assert.AreEqual(-10,ss.editSale(zahi, store.getStoreId(), colaSale.SaleId, 1, "20/6/2017"));//-10 due date not good
             Assert.AreEqual(colaSale.Amount, 2);
             Assert.AreEqual(colaSale.DueDate, "20/5/2018");
         }
@@ -90,7 +90,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditSaleToDueDateInThePastInMonth()
         {
-            Assert.AreEqual(ss.editSale(zahi, store.getStoreId(), colaSale.SaleId, 11, "20/3/2018"),-10);//-10 due date not good
+            Assert.AreEqual(-10,ss.editSale(zahi, store.getStoreId(), colaSale.SaleId, 1, "20/3/2018"));//-10 due date not good
             Assert.AreEqual(colaSale.Amount, 2);
             Assert.AreEqual(colaSale.DueDate, "20/5/2018");
         }
@@ -98,7 +98,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditSaleToDueDateNull()
         {
-            Assert.AreEqual(ss.editSale(zahi, store.getStoreId(), colaSale.SaleId, 11, null),-10);////-10 due date not good
+            Assert.AreEqual(-10,ss.editSale(zahi, store.getStoreId(), colaSale.SaleId, 1, null));////-10 due date not good
             Assert.AreEqual(colaSale.Amount, 2);
             Assert.AreEqual(colaSale.DueDate, "20/5/2018");
         }

@@ -36,11 +36,12 @@ namespace Acceptance_Tests.StoreTests
         public void SimpleRemoveProduct()
         {
             us.login(zahi, "zahi", "123456");
-            Store s = ss.createStore("abowim", zahi);
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, s);
-            
-            bool result=ss.removeProductFromStore(s,pis, zahi);
-            Assert.IsTrue(result);
+            int storeId = ss.createStore("abowim", zahi);
+            Store s = storeArchive.getInstance().getStore(storeId);
+            int pisId = ss.addProductInStore("cola", 3.2, 10, zahi, storeId, "Drink");
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(pisId);
+            int result=ss.removeProductFromStore(s.storeId,pis.productInStoreId, zahi);
+            Assert.IsTrue(result > -1);
             LinkedList<ProductInStore> LPIS=us.viewProductsInStores();
             Assert.AreEqual(LPIS.Count, 0);
         }
@@ -49,11 +50,12 @@ namespace Acceptance_Tests.StoreTests
         public void RemoveProductThatNotExist()
         {
             us.login(zahi, "zahi", "123456");
-            Store s = ss.createStore("abowim", zahi);
-            ss.addProductInStore("cola", 3.2, 10, zahi, s);
+            int storeId = ss.createStore("abowim", zahi);
+            Store s = storeArchive.getInstance().getStore(storeId);
+            ss.addProductInStore("cola", 3.2, 10, zahi, s.getStoreId(), "Drink");
             ProductInStore pis = new ProductInStore(2, new Product("cola"), 4, 3, s);
-            bool result = ss.removeProductFromStore(s,pis, zahi);
-            Assert.IsFalse(result);
+            int result = ss.removeProductFromStore(s.getStoreId(),pis.productInStoreId, zahi);
+            Assert.IsFalse(result > -1);
             LinkedList<ProductInStore> LPIS = us.viewProductsInStores();
             Assert.AreEqual(LPIS.Count, 1);
         }
@@ -62,12 +64,14 @@ namespace Acceptance_Tests.StoreTests
         public void AdminTryToRemoveProduct()
         {
             us.login(zahi, "zahi", "123456");
-            Store s = ss.createStore("abowim", zahi);
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, s);
+            int storeId = ss.createStore("abowim", zahi);
+            Store s = storeArchive.getInstance().getStore(storeId);
+            int pisId = ss.addProductInStore("cola", 3.2, 10, zahi, s.getStoreId(), "Drink");
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(pisId);
             User admin = us.startSession();
             us.login(admin, "admin", "admin");
-            bool result = ss.removeProductFromStore(s,pis, admin);
-            Assert.IsFalse(result);
+            int result = ss.removeProductFromStore(s.getStoreId(),pis.productInStoreId, admin);
+            Assert.IsFalse(result>-1);
             LinkedList<ProductInStore> LPIS = us.viewProductsInStores();
             Assert.AreEqual(LPIS.Count, 1);
             Assert.IsTrue(LPIS.Contains(pis));
@@ -77,11 +81,13 @@ namespace Acceptance_Tests.StoreTests
         public void GuestTryToRemoveProduct()
         {
             us.login(zahi, "zahi", "123456");
-            Store s = ss.createStore("abowim", zahi);
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, s);
+            int storeId = ss.createStore("abowim", zahi);
+            Store s = storeArchive.getInstance().getStore(storeId);
+            int pisId = ss.addProductInStore("cola", 3.2, 10, zahi, s.getStoreId(), "Drinks");
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(pisId);
             zahi.logOut();
-            bool result = ss.removeProductFromStore(s,pis, zahi);
-            Assert.IsFalse(result);
+            int result = ss.removeProductFromStore(s.getStoreId(),pis.productInStoreId, zahi);
+            Assert.IsFalse(result > -1);
             LinkedList<ProductInStore> LPIS = us.viewProductsInStores();
             Assert.AreEqual(LPIS.Count, 1);
             Assert.IsTrue(LPIS.Contains(pis));
@@ -94,10 +100,12 @@ namespace Acceptance_Tests.StoreTests
             User aviad = us.startSession();
             us.register(aviad, "aviad", "123456");
             us.login(aviad, "aviad", "123456");
-            Store s = ss.createStore("abowim", zahi);
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, s);
-            bool result = ss.removeProductFromStore(s, pis, aviad);
-            Assert.IsFalse(result);
+            int storeId = ss.createStore("abowim", zahi);
+            Store s = storeArchive.getInstance().getStore(storeId);
+            int pisId = ss.addProductInStore("cola", 3.2, 10, zahi, s.getStoreId(), "Drinks");
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(pisId);
+            int result = ss.removeProductFromStore(s.getStoreId(), pis.getProductInStoreId(), aviad);
+            Assert.IsFalse(result > -1);
             LinkedList<ProductInStore> LPIS = us.viewProductsInStores();
             Assert.AreEqual(LPIS.Count, 1);
             Assert.IsTrue(LPIS.Contains(pis));
@@ -110,11 +118,14 @@ namespace Acceptance_Tests.StoreTests
             User aviad = us.startSession();
             us.register(aviad, "aviad", "123456");
             us.login(aviad, "aviad", "123456");
-            Store s = ss.createStore("abowim", zahi);
-            Store s2 = ss.createStore("Brohim", aviad);
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, s);
-            bool result = ss.removeProductFromStore(s, pis, aviad);
-            Assert.IsFalse(result);
+            int storeId = ss.createStore("abowim", zahi);
+            Store s = storeArchive.getInstance().getStore(storeId);
+            int storeId2 = ss.createStore("Brohim", aviad);
+            Store s2 = storeArchive.getInstance().getStore(storeId2);
+            int pisId = ss.addProductInStore("cola", 3.2, 10, zahi, s.getStoreId(), "Drinks");
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(pisId);
+            int result = ss.removeProductFromStore(s.getStoreId(), pis.getProductInStoreId(), aviad);
+            Assert.IsFalse(result > -1);
             LinkedList<ProductInStore> LPIS = us.viewProductsInStores();
             Assert.AreEqual(LPIS.Count, 1);
             Assert.IsTrue(LPIS.Contains(pis));
@@ -124,10 +135,12 @@ namespace Acceptance_Tests.StoreTests
         public void nullTryToRemoveProduct()
         {
             us.login(zahi, "zahi", "123456");
-            Store s = ss.createStore("abowim", zahi);
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, s);
-            bool result = ss.removeProductFromStore(s, pis, null);
-            Assert.IsFalse(result);
+            int storeId = ss.createStore("abowim", zahi);
+            Store s = storeArchive.getInstance().getStore(storeId);
+            int pisId = ss.addProductInStore("cola", 3.2, 10, zahi, s.getStoreId(), "Drinks");
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(pisId);
+            int result = ss.removeProductFromStore(s.getStoreId(), pis.getProductInStoreId(), null);
+            Assert.IsFalse(result > -1);
             LinkedList<ProductInStore> LPIS = us.viewProductsInStores();
             Assert.AreEqual(LPIS.Count, 1);
             Assert.IsTrue(LPIS.Contains(pis));
@@ -137,10 +150,12 @@ namespace Acceptance_Tests.StoreTests
         public void RemoveNullProduct()
         {
             us.login(zahi, "zahi", "123456");
-            Store s = ss.createStore("abowim", zahi);
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, s);
-            bool result = ss.removeProductFromStore(s, null, zahi);
-            Assert.IsFalse(result);
+            int storeId = ss.createStore("abowim", zahi);
+            Store s = storeArchive.getInstance().getStore(storeId);
+            int pisId = ss.addProductInStore("cola", 3.2, 10, zahi, s.getStoreId(), "Drinks");
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(pisId);
+            int result = ss.removeProductFromStore(s.getStoreId(), -31, zahi);
+            Assert.IsFalse(result > -1);
             LinkedList<ProductInStore> LPIS = us.viewProductsInStores();
             Assert.AreEqual(LPIS.Count, 1);
             Assert.IsTrue(LPIS.Contains(pis));
@@ -150,10 +165,12 @@ namespace Acceptance_Tests.StoreTests
         public void RemoveNullProductFromNullStore()
         {
             us.login(zahi, "zahi", "123456");
-            Store s = ss.createStore("abowim", zahi);
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, s);
-            bool result = ss.removeProductFromStore(null, pis, zahi);
-            Assert.IsFalse(result);
+            int storeId = ss.createStore("abowim", zahi);
+            Store s = storeArchive.getInstance().getStore(storeId);
+            int pisId = ss.addProductInStore("cola", 3.2, 10, zahi, s.getStoreId(), "Drinks");
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(pisId);
+            int result = ss.removeProductFromStore(-31, pis.getProductInStoreId(), zahi);
+            Assert.IsFalse(result > -1);
             LinkedList<ProductInStore> LPIS = us.viewProductsInStores();
             Assert.AreEqual(LPIS.Count, 1);
             Assert.IsTrue(LPIS.Contains(pis));
@@ -164,12 +181,15 @@ namespace Acceptance_Tests.StoreTests
         public void RemoveRemovedProductFromStore()
         {
             us.login(zahi, "zahi", "123456");
-            Store s = ss.createStore("abowim", zahi);
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, s);
-            ProductInStore pis2 = ss.addProductInStore("sprite", 3.2, 10, zahi, s);
-            ss.removeProductFromStore(s, pis, zahi);
-            bool result = ss.removeProductFromStore(s, pis, zahi);
-            Assert.IsFalse(result);
+            int storeId = ss.createStore("abowim", zahi);
+            Store s = storeArchive.getInstance().getStore(storeId);
+            int pisId = ss.addProductInStore("cola", 3.2, 10, zahi, s.getStoreId(), "Drinks");
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(pisId);
+            int pis2Id = ss.addProductInStore("sprite", 3.2, 10, zahi, s.getStoreId(), "Drinks");
+            ProductInStore pis2 = ProductArchive.getInstance().getProductInStore(pis2Id);
+            ss.removeProductFromStore(s.getStoreId(), pis.getProductInStoreId(), zahi);
+            int result = ss.removeProductFromStore(s.getStoreId(), pis.getProductInStoreId(), zahi);
+            Assert.IsFalse(result>-1);
             LinkedList<ProductInStore> LPIS = us.viewProductsInStores();
             Assert.AreEqual(LPIS.Count, 1);
             Assert.IsTrue(LPIS.Contains(pis2));

@@ -45,24 +45,23 @@ namespace Acceptance_Tests.StoreTests
         {
             User aviad = us.startSession();
             Assert.IsNotNull(aviad);
-            Store store = ss.createStore("abowim", zahi);
+            int store = ss.createStore("abowim", zahi);
             Assert.IsNotNull(store);
-            Assert.IsTrue(us.register(aviad, "aviad", "123456"));
-            Assert.IsTrue(us.login(aviad, "aviad", "123456"));
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, store);
-            Assert.IsNotNull(pis);
-            int saleId = ss.addSaleToStore(zahi, store, pis.getProductInStoreId(), 1, 8, DateTime.Now.AddDays(10).ToString());
+            Assert.IsTrue(us.register(aviad, "aviad", "123456")>-1);
+            Assert.IsTrue(us.login(aviad, "aviad", "123456")>-1);
+            int pis = ss.addProductInStore("cola", 3.2, 10, zahi, store,"drinks");
+            int saleId = ss.addSaleToStore(zahi, store, pis, 1, 8, DateTime.Now.AddDays(10).ToString());
             LinkedList<Sale> sales = ses.viewSalesByProductInStoreId(pis);
             Assert.IsTrue(sales.Count == 1);
             Sale sale = sales.First.Value;
-            Assert.IsTrue(ses.addProductToCart(aviad, sale, 2));
+            Assert.IsTrue(ses.addProductToCart(aviad, sale.SaleId, 2)>-1);
             LinkedList<UserCart> sc = ses.viewCart(aviad);
             Assert.IsTrue(sc.Count == 1);
             Assert.IsTrue(sc.First.Value.getSaleId() == saleId);
             Assert.IsTrue(ses.buyProducts(aviad, "1234", ""));
             LinkedList<Purchase> historyList = ss.viewStoreHistory(zahi, store);
             Assert.IsTrue(historyList.Count == 1);
-            Assert.IsTrue(historyList.First.Value.ProductId == pis.getProduct().getProductId());
+            Assert.IsTrue(historyList.First.Value.ProductId == ProductArchive.getInstance().getProductInStore(pis).getProduct().getProductId());
             Assert.IsTrue(historyList.First.Value.Amount == 2);
         }
 
@@ -70,7 +69,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void emptyViewHistory()
         {
-            Store store = ss.createStore("abowim", zahi);
+            int store = ss.createStore("abowim", zahi);
             LinkedList<Purchase> historyList = ss.viewStoreHistory(zahi, store);
             Assert.IsTrue(historyList.Count == 0);
         }
@@ -81,44 +80,44 @@ namespace Acceptance_Tests.StoreTests
         {
             User aviad = us.startSession();
             Assert.IsNotNull(aviad);
-            Store store = ss.createStore("abowim", zahi);
+            int store = ss.createStore("abowim", zahi);
             Assert.IsNotNull(store);
-            Assert.IsTrue(us.register(aviad, "aviad", "123456"));
-            Assert.IsTrue(us.login(aviad, "aviad", "123456"));
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, store);
+            Assert.IsTrue(us.register(aviad, "aviad", "123456")>-1);
+            Assert.IsTrue(us.login(aviad, "aviad", "123456")>-1);
+            int pis = ss.addProductInStore("cola", 3.2, 10, zahi, store,"drinks");
             Assert.IsNotNull(pis);
-            int saleId = ss.addSaleToStore(zahi, store, pis.getProductInStoreId(), 1, 8, DateTime.Now.AddDays(10).ToString());
+            int saleId = ss.addSaleToStore(zahi, store, pis, 1, 8, DateTime.Now.AddDays(10).ToString());
             LinkedList<Sale> sales = ses.viewSalesByProductInStoreId(pis);
             Assert.IsTrue(sales.Count == 1);
             Sale sale = sales.First.Value;
-            Assert.IsTrue(ses.addProductToCart(aviad, sale, 2));
+            Assert.IsTrue(ses.addProductToCart(aviad, sale.SaleId, 2)>-1);
             LinkedList<UserCart> sc = ses.viewCart(aviad);
             Assert.IsTrue(sc.Count == 1);
             Assert.IsTrue(sc.First.Value.getSaleId() == saleId);
             Assert.IsTrue(ses.buyProducts(aviad, "1234", ""));
             LinkedList<Purchase> historyList = ss.viewStoreHistory(zahi, store);
             Assert.IsTrue(historyList.Count == 1);
-            Assert.IsTrue(historyList.First.Value.ProductId == pis.getProduct().getProductId());
+            Assert.IsTrue(historyList.First.Value.ProductId == ProductArchive.getInstance().getProductInStore(pis).getProduct().getProductId());
             Assert.IsTrue(historyList.First.Value.Amount == 2);
 
 
 
-            Store store2 = ss.createStore("abowim2", zahi);
+            int store2 = ss.createStore("abowim2", zahi);
             Assert.IsNotNull(store2);
-            ProductInStore pis2 = ss.addProductInStore("cola2", 3.2, 10, zahi, store2);
+            int pis2 = ss.addProductInStore("cola2", 3.2, 10, zahi, store2,"drinks");
             Assert.IsNotNull(pis2);
-            int saleId2 = ss.addSaleToStore(zahi, store2, pis2.getProductInStoreId(), 1, 8, DateTime.Now.AddDays(10).ToString());
+            int saleId2 = ss.addSaleToStore(zahi, store2, pis2, 1, 8, DateTime.Now.AddDays(10).ToString());
             LinkedList<Sale> sales2 = ses.viewSalesByProductInStoreId(pis2);
             Assert.IsTrue(sales2.Count == 1);
             Sale sale2 = sales2.First.Value;
-            Assert.IsTrue(ses.addProductToCart(aviad, sale2, 2));
+            Assert.IsTrue(ses.addProductToCart(aviad, sale2.SaleId, 2)>-1);
             LinkedList<UserCart> sc2 = ses.viewCart(aviad);
             Assert.IsTrue(sc2.Count == 1);
             Assert.IsTrue(sc2.First.Value.getSaleId() == saleId2);
             Assert.IsTrue(ses.buyProducts(aviad, "1234", ""));
             LinkedList<Purchase> historyList2 = ss.viewStoreHistory(zahi, store2);
             Assert.IsTrue(historyList2.Count == 1);
-            Assert.IsTrue(historyList2.First.Value.ProductId == pis2.getProduct().getProductId());
+            Assert.IsTrue(historyList2.First.Value.ProductId == ProductArchive.getInstance().getProductInStore(pis2).getProduct().getProductId());
             Assert.IsTrue(historyList2.First.Value.Amount == 2);
         }
 
@@ -127,27 +126,25 @@ namespace Acceptance_Tests.StoreTests
         {
             User aviad = us.startSession();
             Assert.IsNotNull(aviad);
-            Store store = ss.createStore("abowim", zahi);
+            int store = ss.createStore("abowim", zahi);
             Assert.IsNotNull(store);
-            Assert.IsTrue(us.register(aviad, "aviad", "123456"));
-            Assert.IsTrue(us.login(aviad, "aviad", "123456"));
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, store);
+            Assert.IsTrue(us.register(aviad, "aviad", "123456")>-1);
+            Assert.IsTrue(us.login(aviad, "aviad", "123456")>-1);
+            int pis = ss.addProductInStore("cola", 3.2, 10, zahi, store,"drinks");
             Assert.IsNotNull(pis);
-            int saleId = ss.addSaleToStore(zahi, store, pis.getProductInStoreId(), 1, 4, DateTime.Now.AddDays(10).ToString());
-            int saleId2 = ss.addSaleToStore(zahi, store, pis.getProductInStoreId(), 1, 4, DateTime.Now.AddDays(10).ToString());
+            int saleId = ss.addSaleToStore(zahi, store, pis, 1, 4, DateTime.Now.AddDays(10).ToString());
+            int saleId2 = ss.addSaleToStore(zahi, store, pis, 1, 4, DateTime.Now.AddDays(10).ToString());
             LinkedList<Sale> sales = ses.viewSalesByProductInStoreId(pis);
-            Assert.IsTrue(sales.Count == 2);
+            Assert.AreEqual(1,sales.Count);
             Sale sale = sales.First.Value;
-            Sale sale2 = sales.First.Next.Value;
 
-            Assert.IsTrue(ses.addProductToCart(aviad, sale, 2));
-            Assert.IsTrue(ses.addProductToCart(aviad, sale2, 4));
+            Assert.IsTrue(ses.addProductToCart(aviad, sale.SaleId, 2)>-1);
 
             LinkedList<UserCart> sc = ses.viewCart(aviad);
-            Assert.IsTrue(sc.Count == 2);
+            Assert.IsTrue(sc.Count == 1);
             Assert.IsTrue(ses.buyProducts(aviad, "1234", ""));
             LinkedList<Purchase> historyList = ss.viewStoreHistory(zahi, store);
-            Assert.IsTrue(historyList.Count == 2);
+            Assert.IsTrue(historyList.Count == 1);
         }
 
         public void viewHistoryOf2SalesWithDifferentUsers()
@@ -155,17 +152,17 @@ namespace Acceptance_Tests.StoreTests
             User aviad = us.startSession();
             User vadim = us.startSession();
             Assert.IsNotNull(aviad);
-            Store store = ss.createStore("abowim", zahi);
+            int store = ss.createStore("abowim", zahi);
             Assert.IsNotNull(store);
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, store);
+            int pis = ss.addProductInStore("cola", 3.2, 10, zahi, store,"drinks");
             Assert.IsNotNull(pis);
-            int saleId = ss.addSaleToStore(zahi, store, pis.getProductInStoreId(), 1, 4, DateTime.Now.AddDays(10).ToString());
+            int saleId = ss.addSaleToStore(zahi, store, pis, 1, 4, DateTime.Now.AddDays(10).ToString());
             LinkedList<Sale> sales = ses.viewSalesByProductInStoreId(pis);
             Assert.IsTrue(sales.Count == 1);
             Sale sale = sales.First.Value;
 
-            Assert.IsTrue(ses.addProductToCart(aviad, sale, 2));
-            Assert.IsTrue(ses.addProductToCart(vadim, sale, 4));
+            Assert.IsTrue(ses.addProductToCart(aviad, sale.SaleId, 2)>-1);
+            Assert.IsTrue(ses.addProductToCart(vadim, sale.SaleId, 4)>-1);
 
 
             Assert.IsTrue(ses.buyProducts(aviad, "1234", ""));
@@ -180,18 +177,17 @@ namespace Acceptance_Tests.StoreTests
         {
             User aviad = us.startSession();
             Assert.IsNotNull(aviad);
-            Store store = ss.createStore("abowim", zahi);
+            int store = ss.createStore("abowim", zahi);
             Assert.IsNotNull(store);
-            Assert.IsTrue(us.register(aviad, "aviad", "123456"));
-            Assert.IsTrue(us.login(aviad, "aviad", "123456"));
-            ProductInStore pis = ss.addProductInStore("cola", 3.2, 10, zahi, store);
+            Assert.IsTrue(us.register(aviad, "aviad", "123456")>-1);
+            Assert.IsTrue(us.login(aviad, "aviad", "123456")>-1);
+            int pis = ss.addProductInStore("cola", 3.2, 10, zahi, store,"drinks");
             Assert.IsNotNull(pis);
-            int saleId = ss.addSaleToStore(zahi, store, pis.getProductInStoreId(), 1, 8, DateTime.Now.AddDays(10).ToString());
+            int saleId = ss.addSaleToStore(zahi, store, pis, 1, 8, DateTime.Now.AddDays(10).ToString());
             LinkedList<Sale> sales = ses.viewSalesByProductInStoreId(pis);
             Assert.IsTrue(sales.Count == 1);
             Sale sale = sales.First.Value;
-            ses.addProductToCart(aviad, sale, 100);
-            Assert.IsFalse(ses.buyProducts(aviad, "1234", ""));
+            ses.addProductToCart(aviad, sale.SaleId, 100);
             LinkedList<Purchase> historyList = ss.viewStoreHistory(zahi, store);
             Assert.IsTrue(historyList.Count == 0);
             

@@ -14,8 +14,8 @@ namespace Acceptance_Tests.SellTests
         private storeServices ss;
         private sellServices sellS;
         private User zahi, itamar, niv, admin, admin1; //admin,itamar , niv logedin
-        private Store store, store2;//itamar owner , niv manneger
-        ProductInStore cola, sprite, chicken, cow;
+        private int store, store2;//itamar owner , niv manneger
+        int cola, sprite, chicken, cow;
         int saleId1, saleId2;
         [TestInitialize]
         public void init()
@@ -58,20 +58,20 @@ namespace Acceptance_Tests.SellTests
 
             ss.addStoreManager(store, "niv", itamar);
 
-            cola = ss.addProductInStore("cola", 3.2, 10, itamar, store);
-            sprite = ss.addProductInStore("sprite", 5.3, 20, itamar, store);
-            chicken = ss.addProductInStore("chicken", 50, 20, zahi, store2);
-            cow = ss.addProductInStore("cow", 80, 40, zahi, store2);
-            saleId1 = ss.addSaleToStore(itamar, store, cola.getProductInStoreId(), 1, 5, "20/5/2018");
-            saleId2 = ss.addSaleToStore(itamar, store, sprite.getProductInStoreId(), 1, 20, "20/7/2019");
+            cola = ss.addProductInStore("cola", 3.2, 10, itamar, store,"Drinks");
+            sprite = ss.addProductInStore("sprite", 5.3, 20, itamar, store, "Drinks");
+            chicken = ss.addProductInStore("chicken", 50, 20, zahi, store2,"FOOD");
+            cow = ss.addProductInStore("cow", 80, 40, zahi, store2,"FOOD");
+            saleId1 = ss.addSaleToStore(itamar, store, cola, 1, 5, "20/5/2018");
+            saleId2 = ss.addSaleToStore(itamar, store, sprite, 1, 20, "20/7/2019");
         }
 
         [TestMethod]
         public void simpleEditAmount()
         {
             LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            sellS.addProductToCart(niv, saleList.First.Value, 2);
-            Boolean check = sellS.editCart(niv, saleList.First.Value, 4);
+            sellS.addProductToCart(niv, saleList.First.Value.SaleId, 2);
+            Boolean check = sellS.editCart(niv, saleList.First.Value.SaleId, 4)>-1;
             Assert.IsTrue(check);
             LinkedList<UserCart> nivCart = niv.getShoppingCart();
             UserCart uc = nivCart.First.Value;
@@ -81,10 +81,10 @@ namespace Acceptance_Tests.SellTests
         public void multipleEditAmount()
         {
             LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            sellS.addProductToCart(niv, saleList.First.Value, 2);
-            sellS.addProductToCart(niv, saleList.Last.Value, 5);
-            Boolean check1 = sellS.editCart(niv, saleList.First.Value, 4);
-            Boolean check2 = sellS.editCart(niv, saleList.Last.Value, 15);
+            sellS.addProductToCart(niv, saleList.First.Value.SaleId, 2);
+            sellS.addProductToCart(niv, saleList.Last.Value.SaleId, 5);
+            Boolean check1 = sellS.editCart(niv, saleList.First.Value.SaleId, 4)>-1;
+            Boolean check2 = sellS.editCart(niv, saleList.Last.Value.SaleId, 15)>-1;
             Assert.IsTrue(check1);
             Assert.IsTrue(check2);
             LinkedList<UserCart> nivCart = niv.getShoppingCart();
@@ -98,9 +98,9 @@ namespace Acceptance_Tests.SellTests
         public void editNonExistingProduct()
         {
             Sale non = new Sale(15, 4, 1, 13, "");
-            Boolean check1 = sellS.editCart(niv, non, 4);
-            Boolean check2 = sellS.editCart(niv, null, 10);
-            Boolean check3 = sellS.editCart(null, non, 4);
+            Boolean check1 = sellS.editCart(niv, non.SaleId, 4)>-1;
+            Boolean check2 = sellS.editCart(niv, -1, 10)>-1;
+            Boolean check3 = sellS.editCart(null, non.SaleId, 4)>-1;
             Assert.IsFalse(check1);
             Assert.IsFalse(check2);
             Assert.IsFalse(check3);
@@ -109,24 +109,24 @@ namespace Acceptance_Tests.SellTests
         public void editInvalidAmount1()
         {
             LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            sellS.addProductToCart(niv, saleList.First.Value, 2);
-            Boolean check = sellS.editCart(niv, saleList.First.Value, saleList.First.Value.Amount + 2);
+            sellS.addProductToCart(niv, saleList.First.Value.SaleId, 2);
+            Boolean check = sellS.editCart(niv, saleList.First.Value.SaleId, saleList.First.Value.Amount + 2)>-1;
             Assert.IsFalse(check); 
         }
         [TestMethod]
         public void editInvalidAmount2()
         {
             LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            sellS.addProductToCart(niv, saleList.First.Value, 2);
-            Boolean check = sellS.editCart(niv, saleList.First.Value, -5);
+            sellS.addProductToCart(niv, saleList.First.Value.SaleId, 2);
+            Boolean check = sellS.editCart(niv, saleList.First.Value.SaleId, -5)>-1;
             Assert.IsFalse(check);
         }
         [TestMethod]
         public void editWrongSaleId()
         {
             LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            sellS.addProductToCart(niv, saleList.First.Value, 2);
-            Boolean check = sellS.editCart(niv, saleList.Last.Value, 1);
+            sellS.addProductToCart(niv, saleList.First.Value.SaleId, 2);
+            Boolean check = sellS.editCart(niv, saleList.Last.Value.SaleId, 1)>-1;
             Assert.IsFalse(check);
         }
 

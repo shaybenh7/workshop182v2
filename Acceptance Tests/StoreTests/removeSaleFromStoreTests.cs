@@ -40,7 +40,7 @@ namespace Acceptance_Tests.StoreTests
 
             store = storeArchive.getInstance().getStore(ss.createStore("Abowim", zahi));
 
-            cola = ProductArchive.getInstance().getProductInStore(ss.addProductInStore("cola", 10, 100, zahi, store.getStoreId()));
+            cola = ProductArchive.getInstance().getProductInStore(ss.addProductInStore("cola", 10, 100, zahi, store.getStoreId(), "Drinks"));
 
             ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 2, "20/5/2018");
 
@@ -64,13 +64,13 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void RemoveSaleWithNullSession()
         {
-            Assert.AreEqual(ss.removeSaleFromStore(null, store.getStoreId(), colaSale.SaleId),-1);//-1 not login || -4 could be 
+            Assert.AreEqual(-4,ss.removeSaleFromStore(null, store.getStoreId(), colaSale.SaleId));//-1 not login || -4 could be 
             Assert.AreEqual(ss.viewSalesByStore(store.getStoreId()).Count, 1);
         }
         [TestMethod]
         public void RemoveSaleWithNullStore()
         {
-            Assert.AreEqual(ss.removeSaleFromStore(zahi, -7, colaSale.SaleId),-6);//-6 if illegal store id
+            Assert.AreEqual(-4,ss.removeSaleFromStore(zahi, -7, colaSale.SaleId));//-6 if illegal store id
             Assert.AreEqual(ss.viewSalesByStore(store.getStoreId()).Count, 1);
         }
 

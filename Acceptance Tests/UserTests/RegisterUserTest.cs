@@ -31,7 +31,6 @@ namespace Acceptance_Tests
             us.register(session,"zahi", "123456");
             us.login(session, "zahi", "123456");
             Assert.AreEqual(session.getUserName(),"zahi");
-            Assert.AreEqual(session.getPassword(), "123456");
             Assert.IsTrue(session.getState() is LogedIn);
         }
 

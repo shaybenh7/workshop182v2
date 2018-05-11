@@ -78,6 +78,8 @@ namespace wsep182.services
         {
             Store s = storeArchive.getInstance().getStore(sId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
+            if (s == null)
+                return -6;
             if (sR == null)
                 return -4;//-4 if don't have premition
             ProductInStore p = ProductArchive.getInstance().getProductInStore(pisId);

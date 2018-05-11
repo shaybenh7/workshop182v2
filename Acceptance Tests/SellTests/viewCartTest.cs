@@ -14,8 +14,8 @@ namespace Acceptance_Tests.SellTests
         private storeServices ss;
         private sellServices sellS;
         private User zahi, itamar, niv, admin, admin1; //admin,itamar , niv logedin
-        private Store store, store2;//itamar owner , niv manneger
-        ProductInStore cola, sprite, chicken, cow;
+        private int store, store2;//itamar owner , niv manneger
+        int cola, sprite, chicken, cow;
         int saleId1, saleId2;
         [TestInitialize]
         public void init()
@@ -58,19 +58,19 @@ namespace Acceptance_Tests.SellTests
 
             ss.addStoreManager(store, "niv", itamar);
 
-            cola = ss.addProductInStore("cola", 3.2, 10, itamar, store);
-            sprite = ss.addProductInStore("sprite", 5.3, 20, itamar, store);
-            chicken = ss.addProductInStore("chicken", 50, 20, zahi, store2);
-            cow = ss.addProductInStore("cow", 80, 40, zahi, store2);
-            saleId1 = ss.addSaleToStore(itamar, store, cola.getProductInStoreId(), 1, 5, "20/5/2018");
-            saleId2 = ss.addSaleToStore(zahi, store2, chicken.getProductInStoreId(), 1, 15, "20/7/2019");
+            cola = ss.addProductInStore("cola", 3.2, 10, itamar, store,"drinks");
+            sprite = ss.addProductInStore("sprite", 5.3, 20, itamar, store, "drinks");
+            chicken = ss.addProductInStore("chicken", 50, 20, zahi, store2, "drinks");
+            cow = ss.addProductInStore("cow", 80, 40, zahi, store2,"food");
+            saleId1 = ss.addSaleToStore(itamar, store, cola, 1, 5, "20/5/2018");
+            saleId2 = ss.addSaleToStore(zahi, store2, chicken, 1, 15, "20/7/2019");
         }
 
         [TestMethod]
         public void simpleViewCart()
         {
             LinkedList<Sale> saleList = ss.viewSalesByStore(store);
-            sellS.addProductToCart(niv, saleList.First.Value, 1);
+            sellS.addProductToCart(niv, saleList.First.Value.SaleId, 1);
             LinkedList<UserCart> sc = sellS.viewCart(niv);
             Assert.AreEqual(sc.Count, 1);
             UserCart uc = sc.First.Value;
@@ -83,8 +83,8 @@ namespace Acceptance_Tests.SellTests
 
             LinkedList<Sale> saleList = ss.viewSalesByStore(store);
             LinkedList<Sale> saleList2 = ss.viewSalesByStore(store2);
-            sellS.addProductToCart(niv, saleList.First.Value, 1);
-            sellS.addProductToCart(niv, saleList2.First.Value, 5);
+            sellS.addProductToCart(niv, saleList.First.Value.SaleId, 1);
+            sellS.addProductToCart(niv, saleList2.First.Value.SaleId, 5);
             LinkedList<UserCart> sc = sellS.viewCart(niv);
             Assert.AreEqual(sc.Count, 2);
             UserCart uc1 = sc.First.Value;

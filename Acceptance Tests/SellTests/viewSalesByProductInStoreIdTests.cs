@@ -12,8 +12,8 @@ namespace Acceptance_Tests.SellTests
         private storeServices ss;
         private sellServices sell;
         private User zahi, itamar, niv, admin, admin1; //admin,itamar logedin
-        private Store store;//itamar owner , niv manneger
-        ProductInStore cola;
+        private int store;//itamar owner , niv manneger
+        int cola;
         int saleId;
         int raffleSale;
 
@@ -56,9 +56,9 @@ namespace Acceptance_Tests.SellTests
 
             ss.addStoreManager(store, "niv", itamar);
 
-            cola = ss.addProductInStore("cola", 3.2, 10, itamar, store);
-            saleId = ss.addSaleToStore(itamar, store, cola.getProductInStoreId(), 1, 1, "20.5.2018");
-            raffleSale = ss.addSaleToStore(itamar, store, cola.getProductInStoreId(), 3, 1, "20.5.2018");
+            cola = ss.addProductInStore("cola", 3.2, 10, itamar, store, "drinks");
+            saleId = ss.addSaleToStore(itamar, store, cola, 1, 1, "20.5.2018");
+            raffleSale = ss.addSaleToStore(itamar, store, cola, 3, 1, "20.5.2018");
 
         }
 

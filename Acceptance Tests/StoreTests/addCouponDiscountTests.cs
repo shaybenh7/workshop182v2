@@ -16,7 +16,7 @@ namespace Acceptance_Tests.StoreTests
         private CouponsArchive ca;
         private User zahi;
         private Store store;//itamar owner , niv manneger
-        private ProductInStore cola;
+        private int cola;
         private Sale colaSale;
 
         [TestInitialize]
@@ -44,73 +44,105 @@ namespace Acceptance_Tests.StoreTests
             int s = ss.createStore("Abowim", zahi);
             store = storeArchive.getInstance().getStore(s);
 
-            int c = ss.addProductInStore("cola", 10, 100, zahi, store.getStoreId());
+            int c = ss.addProductInStore("cola", 10, 100, zahi, store.getStoreId(), "drinks");
 
-            cola = ProductArchive.getInstance().getProductInStore(c);
-
-            ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 2, "20/5/2018");
+            ss.addSaleToStore(zahi, store.getStoreId(), cola, 1, 2, "20/5/2018");
 
             LinkedList<Sale> SL = ss.viewSalesByStore(store.getStoreId());
             foreach (Sale sale in SL)
             {
-                if (sale.ProductInStoreId == cola.getProductInStoreId())
+                if (sale.ProductInStoreId == cola)
                 {
                     colaSale = sale;
                 }
             }
         }
 
+        //addNewCoupons
+        // type: 1 for discount on productsInStore, 2 for discount on category, 3 for discount on entire product (in product archive)
+        [TestMethod]
+        public void SimpleAddCouponOnCategory()
+        {
+            List<int> lst = new List<int>();
+            lst.Add(cola);
+            List<string> lst2 = new List<string>();
+            lst2.Add("drinks");
+
+
+            Assert.IsTrue(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 2, lst, lst2, 10, "20/6/2018","")>-1);
+            Coupon c = ca.getCoupon("coupon", cola);
+            Assert.AreEqual(c.DueDate, "20/6/2018");
+            Assert.AreEqual(c.CouponId, "coupon");
+            Assert.AreEqual(c.Percentage, 10);
+        }
 
         [TestMethod]
         public void SimpleAddCoupon()
         {
-            Assert.IsTrue(ss.addCouponDiscount(zahi, store, "copun", cola, 10, "20/6/2018"));
-            Coupon c = ca.getCoupon("copun", cola.getProductInStoreId());
+            List<int> lst = new List<int>();
+            lst.Add(cola);
+            int temp = ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 10, "20/6/2018", "");
+            Assert.IsTrue(temp > -1);
+
+            Coupon c = ca.getCoupon("coupon", cola);
             Assert.AreEqual(c.DueDate, "20/6/2018");
-            Assert.AreEqual(c.CouponId, "copun");
+            Assert.AreEqual(c.CouponId, "coupon");
             Assert.AreEqual(c.Percentage, 10);
         }
 
         [TestMethod]
         public void AddCouponWithNullId()
         {
-            Assert.IsFalse(ss.addCouponDiscount(zahi, store, null, cola, 10, "20/6/2018"));
-            Assert.IsNull(ca.getCoupon("copun", cola.getProductInStoreId()));
+            List<int> lst = new List<int>();
+            lst.Add(cola);
+            int temp = ss.addNewCoupons(zahi, store.getStoreId(), null, 1, lst, null, 10, "20/6/2018", "");
+            Assert.IsFalse(temp > -1);
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
 
         [TestMethod]
         public void AddCouponWithNullproduct()
         {
-            Assert.IsFalse(ss.addCouponDiscount(zahi, store, "copun", null, 10, "20/6/2018"));
-            Assert.IsNull(ca.getCoupon("copun", cola.getProductInStoreId()));
+            int temp = ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, null, null, 10, "20/6/2018", "");
+            Assert.IsFalse(temp > -1);
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
 
         [TestMethod]
         public void AddCouponWithzeroPrecent()
         {
-            Assert.IsFalse(ss.addCouponDiscount(zahi, store, "copun", cola, 0, "20/6/2018"));
-            Assert.IsNull(ca.getCoupon("copun", cola.getProductInStoreId()));
+            List<int> lst = new List<int>();
+            lst.Add(cola);
+            Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 0, "20/6/2018", "") > -1);
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
 
         [TestMethod]
         public void AddCouponWithzNegPrecent()
         {
-            Assert.IsFalse(ss.addCouponDiscount(zahi, store, "copun", cola, -1, "20/6/2018"));
-            Assert.IsNull(ca.getCoupon("copun", cola.getProductInStoreId()));
+            List<int> lst = new List<int>();
+            lst.Add(cola);
+            int temp = ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, -10, "20/6/2018", "");
+            Assert.IsFalse(temp > -1);
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
 
         [TestMethod]
         public void AddCouponWithzNullDueDate()
         {
-            Assert.IsFalse(ss.addCouponDiscount(zahi, store, "copun", cola, 10, null));
-            Assert.IsNull(ca.getCoupon("copun", cola.getProductInStoreId()));
+            List<int> lst = new List<int>();
+            lst.Add(cola);
+            Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 10, null, "") > -1);
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
 
         [TestMethod]
         public void AddCouponWithzDueDateAllreadyPassed()
         {
-            Assert.IsFalse(ss.addCouponDiscount(zahi, store, "copun", cola, 10, DateTime.Now.AddDays(-1).ToString()));
-            Assert.IsNull(ca.getCoupon("copun", cola.getProductInStoreId()));
+            List<int> lst = new List<int>();
+            lst.Add(cola);
+            Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 10, DateTime.Now.AddDays(-1).ToString(), "") > -1);
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
     }
 }

@@ -71,31 +71,31 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * Function add to cart a new productInStore, which exist in the Store and sales archives
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void simpleAddToCart()
         {
-            Assert.IsTrue(cart.addToCart(aviad, sale1.SaleId, 1));
-            Assert.IsTrue(cart.addToCart(aviad, sale2.SaleId, 1));
+            Assert.IsTrue(cart.addToCart(aviad, sale1.SaleId, 1) > -1);
+            Assert.IsTrue(cart.addToCart(aviad, sale2.SaleId, 1) > -1);
         }
         [TestMethod]
         /**Description:
          * add to cart raffle iteam
-         * Outcome: TEST SOULD FAIL!
+         * Outcome: TEST Should FAIL!
          */
         public void addToCartWhithRaffleProduct()
         {
-            Assert.IsFalse(cart.addToCart(aviad, sale3.SaleId, 1));
+            Assert.IsFalse(cart.addToCart(aviad, sale3.SaleId, 1) > -1);
         }
 
         [TestMethod]
         /**Description:
         * Function add to cart a product that not exsist
-        * Outcome:  TEST SOULD RETURN FALSE!
+        * Outcome:  TEST Should RETURN FALSE!
         */
         public void addProductNotExsistToCart()
         {
-            Assert.IsFalse(cart.addToCart(aviad, 4, 1));
+            Assert.IsFalse(cart.addToCart(aviad, 4, 1) > -1);
         }
         [TestMethod]
         /**Description:
@@ -104,7 +104,7 @@ namespace UnitTests
          */
         public void addToCartAmountToBig()
         {
-            Assert.IsFalse(cart.addToCart(aviad, 1, 100));
+            Assert.IsFalse(cart.addToCart(aviad, 1, 100) > -1);
         }
         [TestMethod]
         /**Description:
@@ -113,61 +113,61 @@ namespace UnitTests
          */
         public void addToCartAmountZero()
         {
-            Assert.IsFalse(cart.addToCart(aviad, sale1.SaleId, 0));
+            Assert.IsFalse(cart.addToCart(aviad, sale1.SaleId, 0) > -1);
         }
         [TestMethod]
         /**Description:
          * add product To not log in
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void addToCartUserLogin()
         {
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
         }
         [TestMethod]
         /**Description:
          * add product To owner in store
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void addToCartUserToOwner()
         {
             zahi.login("zahi", "123456");
-            Assert.IsTrue(cart.addToCart(zahi, 1, 1));
+            Assert.IsTrue(cart.addToCart(zahi, 1, 1) > -1);
         }
         [TestMethod]
         /**Description:
          * negative amount
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void addToCartNegativeAmount()
         {
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.addToCart(aviad, 1, -1));
+            Assert.IsFalse(cart.addToCart(aviad, 1, -1) > -1);
         }
         [TestMethod]
         /**Description:
          * same product add twis
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void addToCartSameProduct()
         {
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
         }
         [TestMethod]
         /**Description:
          * same product add to diffrent users
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void addToCartSameProductByDiffrentUsers()
         {
             User shay = new User("shay", "123456");
             userA.addUser(shay);
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
-            Assert.IsTrue(cart.addToCart(shay, 1, 1));
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
+            Assert.IsTrue(cart.addToCart(shay, 1, 1) > -1);
         }
 
 
@@ -176,66 +176,68 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * Function add to cart a new productInStore, which exist in the Store and sales archives
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void simpleAddRaffleToCart()
         {
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3, 1));
+            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3.SaleId, 1) > -1);
         }
         [TestMethod]
         /**Description:
          *  add a normal product to raffle cart
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void AddRaffleToCartNoramalBuyProduct()
         {
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.addToCartRaffle(aviad, sale2, 1));
+            Assert.IsFalse(cart.addToCartRaffle(aviad, sale2.SaleId, 1) > -1);
         }
         [TestMethod]
         /**Description:
          *  gust add ruffle product
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
-        public void gustAddRaffleToCart()
+        public void userLoggedOutAddRaffleToCart()
         {
-            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3, 1));
+
+            int temp = cart.addToCartRaffle(aviad, sale3.SaleId, 1);
+            Assert.IsTrue(temp > -1);
         }
         [TestMethod]
         /**Description:
          *  zero price
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
         public void addRaffleToCartZeroPrice()
         {
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3, 0));
+            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3.SaleId, 0) > -1);
         }
         [TestMethod]
         /**Description:
          *   price bigger then the product
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
         public void addRaffleToCartBigPrice()
         {
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3, 200));
+            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3.SaleId, 200) > -1);
         }
         [TestMethod]
         /**Description:
          *   price bigger then the product
-         * Outcome:  SOULD PASS!
+         * Outcome:  Should PASS!
          */
         public void addRaffleToCartExactPrice()
         {
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3, 50));
+            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3.SaleId, 50) > -1);
         }
         [TestMethod]
         /**Description:
          *   price bigger then the product
-         * Outcome:  SOULD PASS!
+         * Outcome:  Should PASS!
          */
         public void simpleRaffleToCartAddTwoBids()
         {
@@ -243,23 +245,23 @@ namespace UnitTests
             shay.register("shay", "123456");
             shay.login("shay", "123456");
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3, 10));
-            Assert.IsTrue(cart.addToCartRaffle(shay, sale3, 10));
+            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3.SaleId, 10) > -1);
+            Assert.IsTrue(cart.addToCartRaffle(shay, sale3.SaleId, 10) > -1);
         }
         [TestMethod]
         /**Description:
          *   owner place bid
-         * Outcome:  SOULD PASS!
+         * Outcome:  Should PASS!
          */
         public void RaffleToCartAddAsOwner()
         {
             zahi.login("zahi", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(zahi, sale3, 10));
+            Assert.IsTrue(cart.addToCartRaffle(zahi, sale3.SaleId, 10) > -1);
         }
         [TestMethod]
         /**Description:
          *   owner place bid
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
         public void RaffleToCartTotalToBig()
         {
@@ -267,13 +269,13 @@ namespace UnitTests
             userA.addUser(shay);
             shay.login("shay", "123456");
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3, 10));
-            Assert.IsFalse(cart.addToCartRaffle(shay, sale3, 50));
+            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3.SaleId, 10) > -1);
+            Assert.IsTrue(cart.addToCartRaffle(shay, sale3.SaleId, 50) > -1);
         }
         [TestMethod]
         /**Description:
          *   Exact Total
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
         public void RaffleToCartExactTotal()
         {
@@ -281,31 +283,31 @@ namespace UnitTests
             shay.register("shay", "123456");
             shay.login("shay", "123456");
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3, 10));
-            Assert.IsTrue(cart.addToCartRaffle(shay, sale3, 50));
+            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3.SaleId, 10) > -1);
+            Assert.IsTrue(cart.addToCartRaffle(shay, sale3.SaleId, 50) > -1);
 
         }
         [TestMethod]
         /**Description:
          *   negative Bid
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
         public void RaffleToCartNegativeBid()
         {          
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3, -1));
+            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3.SaleId, -1) > -1);
         }
 
         [TestMethod]
         /**Description:
          * same product bids twis
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void RaffleToCartSameProduct()
         {
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
         }
 
         //getProductsInCart Tests
@@ -313,7 +315,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * return all produacts in shoppingCart
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void SimpleGetProdcts()
         {
@@ -328,7 +330,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * return all produacts in shoppingCart of 2 gust
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void getProdctsOfTwoGustCarts()
         {
@@ -349,7 +351,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * return all produacts in shoppingCart of 2 login
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void getProdctsOfTwoLoginCarts()
         {
@@ -372,7 +374,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * add the 2 products
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void getProdctsAddTwoProducts()
         {
@@ -397,7 +399,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * add the same product
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void getProdctsAddSameProduct()
         {
@@ -413,12 +415,12 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * return all produacts in shoppingCart
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void SimpleGetProdctsRaffle()
         {
             aviad.login("aviad", "123456");
-            cart.addToCartRaffle(aviad, sale3, 1);
+            cart.addToCartRaffle(aviad, sale3.SaleId, 1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             
             Assert.AreEqual(shopingCart.Count, 1);
@@ -429,13 +431,13 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * add the same product
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void getProdctsAddSameProductRaffle()
         {
             aviad.login("aviad", "123456");
-            cart.addToCartRaffle(aviad, sale3, 1);
-            cart.addToCartRaffle(aviad, sale3, 1);
+            cart.addToCartRaffle(aviad, sale3.SaleId, 1);
+            cart.addToCartRaffle(aviad, sale3.SaleId, 1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 1);
             Assert.AreEqual(shopingCart.First.Value.getAmount(), 1);
@@ -448,13 +450,13 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * Edit Cart
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void simpleEditCart()
         {
             aviad.login("aviad", "123456");
             cart.addToCart(aviad, sale1.SaleId, 1);
-            Assert.IsTrue(cart.editCart(aviad, sale1.SaleId, 2));
+            Assert.IsTrue(cart.editCart(aviad, sale1.SaleId, 2) > -1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             int c = shopingCart.Count;
             Assert.AreEqual(shopingCart.Count, 1);
@@ -464,24 +466,24 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * Edit raffle product
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void editCartRaffle()
         {
             aviad.login("aviad", "123456");
-            cart.addToCartRaffle(aviad, sale3, 1);
-            Assert.IsFalse(cart.editCart(aviad, sale3.SaleId, 2));
+            cart.addToCartRaffle(aviad, sale3.SaleId, 1);
+            Assert.IsFalse(cart.editCart(aviad, sale3.SaleId, 2) > -1);
         }
         [TestMethod]
         /**Description:
          * negative amount
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void editCartNegative()
         { 
             aviad.login("aviad", "123456");
             cart.addToCart(aviad, 1, 1);
-            Assert.IsFalse(cart.editCart(aviad, 1, -2));
+            Assert.IsFalse(cart.editCart(aviad, 1, -2) > -1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 1);
             Assert.AreEqual(shopingCart.First.Value.getAmount(), 1);
@@ -490,13 +492,13 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * zero amount
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void editCartZero()
         {
             aviad.login("aviad", "123456");
             cart.addToCart(aviad, sale1.SaleId, 1);
-            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 0));
+            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 0) > -1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 1);
             Assert.AreEqual(shopingCart.First.Value.getAmount(), 1);
@@ -505,13 +507,13 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * big amount
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void editCartBigAmount()
         {
             aviad.login("aviad", "123456");
             cart.addToCart(aviad, sale1.SaleId, 1);
-            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 100));
+            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 100) > -1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 1);
             Assert.AreEqual(shopingCart.First.Value.getAmount(), 1);
@@ -520,16 +522,16 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * big amount
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void editCartNotExistProduct()
         {
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 1));
+            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 1) > -1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 0);
             cart.addToCart(aviad, sale1.SaleId, 1);
-            Assert.IsFalse(cart.editCart(aviad, sale2.SaleId, 1));
+            Assert.IsFalse(cart.editCart(aviad, sale2.SaleId, 1) > -1);
             shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 1);
 

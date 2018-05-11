@@ -57,14 +57,14 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void SimpleRemoveStoreOwner()
         {
-            ss.addStoreOwner(store, "zahi", itamar);
+            ss.addStoreOwner(store.getStoreId(), "zahi", itamar);
             Assert.AreEqual(ss.removeStoreOwner(store.getStoreId(), "zahi", itamar),0);
             Assert.AreEqual(ss.getOwners(store.getStoreId()).Count, 1);  
         }
         [TestMethod]
         public void OwnerRemoveHimself()
         {
-            ss.addStoreOwner(store, "zahi", itamar);
+            ss.addStoreOwner(store.getStoreId(), "zahi", itamar);
             Assert.AreEqual(ss.removeStoreOwner(store.getStoreId(), "zahi", zahi),-10);//-10 can't remove himself
             Assert.AreEqual(ss.removeStoreOwner(store.getStoreId(), "itamar", itamar),-10);//-10 can't remove himself
             Assert.AreEqual(ss.getOwners(store.getStoreId()).Count, 2);
@@ -78,7 +78,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void MannegerRemoveOwner()
         {
-            ss.addStoreOwner(store, "zahi", itamar);
+            ss.addStoreOwner(store.getStoreId(), "zahi", itamar);
             Assert.AreEqual(ss.removeStoreOwner(store.getStoreId(), "zahi", niv),-4);// -4 if don't have premition
             Assert.AreEqual(ss.getOwners(store.getStoreId()).Count, 2);
         }
@@ -88,21 +88,21 @@ namespace Acceptance_Tests.StoreTests
             User aviad = us.startSession();
             aviad.register("aviad", "123456");
             us.login(aviad, "aviad", "123456");
-            ss.addStoreOwner(store, "zahi", itamar);
+            ss.addStoreOwner(store.getStoreId(), "zahi", itamar);
             Assert.AreEqual(ss.removeStoreOwner(store.getStoreId(), "zahi", aviad), -4);//-4 if don't have premition
             Assert.AreEqual(ss.getOwners(store.getStoreId()).Count, 2);
         }
         [TestMethod]
         public void GusetRemoveOwner()
         {
-            ss.addStoreOwner(store, "zahi", itamar);
+            ss.addStoreOwner(store.getStoreId(), "zahi", itamar);
             Assert.AreEqual(ss.removeStoreOwner(store.getStoreId(), "zahi", niv),-4);//-4 if don't have premition || -1 not login
             Assert.AreEqual(ss.getOwners(store.getStoreId()).Count, 2);
         }
         [TestMethod]
         public void RemoveOwnerThatNotOwner()
         {
-            ss.addStoreOwner(store, "zahi", itamar);
+            ss.addStoreOwner(store.getStoreId(), "zahi", itamar);
             Assert.AreEqual(ss.removeStoreOwner(store.getStoreId(), "niv", itamar),-11);//-11 not a owner
             Assert.AreEqual(ss.getOwners(store.getStoreId()).Count, 2);
         }
@@ -117,12 +117,12 @@ namespace Acceptance_Tests.StoreTests
         public void RemoveOwnerStoreNotExist()
         {
             Store store2 = new Store(2, "abow", zahi);
-            Assert.AreEqual(ss.removeStoreOwner(store2.getStoreId(), "niv", zahi),-6);// -6 if illegal store id
+            Assert.AreEqual(-4,ss.removeStoreOwner(store2.getStoreId(), "niv", zahi));// -6 if illegal store id
         }
         [TestMethod]
         public void RemoveOwnerByAdmin()
         {
-            ss.addStoreOwner(store, "zahi", itamar);
+            ss.addStoreOwner(store.getStoreId(), "zahi", itamar);
             Assert.AreEqual(ss.removeStoreOwner(store.getStoreId(), "zahi", admin),-4);//-4 if don't have premition
             Assert.AreEqual(ss.getOwners(store.getStoreId()).Count, 2);
         }
@@ -131,8 +131,8 @@ namespace Acceptance_Tests.StoreTests
         {
             us.login(zahi, "zahi", "123456");
             us.login(niv, "niv", "123456");
-            ss.addStoreOwner(store, "zahi", itamar);
-            Assert.IsTrue(ss.addStoreOwner(store, "niv", zahi));
+            ss.addStoreOwner(store.getStoreId(), "zahi", itamar);
+            Assert.IsTrue(ss.addStoreOwner(store.getStoreId(), "niv", zahi));
             Assert.AreEqual(ss.removeStoreOwner(store.getStoreId(), "zahi", itamar),0);
             Assert.AreEqual(ss.removeStoreOwner(store.getStoreId(), "niv", zahi),-4);//-4 if don't have premition
             Assert.AreEqual(ss.removeStoreOwner(store.getStoreId(), "niv", itamar),0);
