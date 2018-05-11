@@ -60,8 +60,6 @@ namespace IntegrationTests
         public void AdminRemoveHimself()
         {
             Assert.IsFalse(admin.removeUser("admin") > -1);
-            admin.logOut();
-            Assert.IsTrue(admin.login("admin", "123456") > -1);
         }
         [TestMethod]
         public void UserRemoveHimself()

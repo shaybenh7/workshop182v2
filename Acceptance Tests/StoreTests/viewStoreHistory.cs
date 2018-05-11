@@ -135,18 +135,16 @@ namespace Acceptance_Tests.StoreTests
             int saleId = ss.addSaleToStore(zahi, store, pis, 1, 4, DateTime.Now.AddDays(10).ToString());
             int saleId2 = ss.addSaleToStore(zahi, store, pis, 1, 4, DateTime.Now.AddDays(10).ToString());
             LinkedList<Sale> sales = ses.viewSalesByProductInStoreId(pis);
-            Assert.AreEqual(2,sales.Count);
+            Assert.AreEqual(1,sales.Count);
             Sale sale = sales.First.Value;
-            Sale sale2 = sales.First.Next.Value;
 
             Assert.IsTrue(ses.addProductToCart(aviad, sale.SaleId, 2)>-1);
-            Assert.IsTrue(ses.addProductToCart(aviad, sale2.SaleId, 4)>-1);
 
             LinkedList<UserCart> sc = ses.viewCart(aviad);
-            Assert.IsTrue(sc.Count == 2);
+            Assert.IsTrue(sc.Count == 1);
             Assert.IsTrue(ses.buyProducts(aviad, "1234", ""));
             LinkedList<Purchase> historyList = ss.viewStoreHistory(zahi, store);
-            Assert.IsTrue(historyList.Count == 2);
+            Assert.IsTrue(historyList.Count == 1);
         }
 
         public void viewHistoryOf2SalesWithDifferentUsers()
