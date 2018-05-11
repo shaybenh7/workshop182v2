@@ -71,14 +71,50 @@ namespace IntegrationTests
             Assert.AreEqual(13, pis.getAmount());
         }
         [TestMethod]
+        public void editProductInStoreWithoutManagerPermission()
+        {
+            int pisId = zahiOwner.addProductInStore(zahi, store, "cola2", 10, 4, "Drinks");
+            ProductInStore pis = ProductArchive.getInstance().getProductInStore(pisId);
+            Assert.AreEqual(2, store.getProductsInStore().Count);
+            aviadManeger.editProductInStore(aviad, pis, 13, 4.5);
+            Assert.AreEqual(10, pis.getPrice());
+            Assert.AreEqual(4, pis.getAmount());
+            zahiOwner.addManagerPermission(zahi, "addSaleToStore", store, "aviad");
+            aviadManeger.editProductInStore(aviad, pis, 13, 4.5);
+            Assert.AreEqual(10, pis.getPrice());
+            Assert.AreEqual(4, pis.getAmount());
+        }
+        [TestMethod]
         public void SimpleAddSaleeWithManagerPermission()
         {
             zahiOwner.addManagerPermission(zahi, "addSaleToStore", store, "aviad");
             Assert.IsTrue(aviadManeger.addSaleToStore(aviad, store, cola.getProductInStoreId(), 1, 1, DateTime.Now.AddMonths(1).ToString()) > -1);
             Assert.AreEqual(store.getAllSales().Count, 1);
         }
+        [TestMethod]
+        public void SimpleAddSaleeWithoutManagerPermission()
+        {
+            zahiOwner.addManagerPermission(zahi, "editProductInStore", store, "aviad");
+            Assert.IsFalse(aviadManeger.addSaleToStore(aviad, store, cola.getProductInStoreId(), 1, 1, DateTime.Now.AddMonths(1).ToString()) > -1);
+            Assert.AreEqual(store.getAllSales().Count, 0);
+        }
+        [TestMethod]
+        public void SimpleAddSaleeWithManagerPermissionNotGoodProduct()
+        {
+            zahiOwner.addManagerPermission(zahi, "addSaleToStore", store, "aviad");
+            Assert.IsFalse(aviadManeger.addSaleToStore(aviad, store, cola.getProductInStoreId(), -3, 1, DateTime.Now.AddMonths(1).ToString()) > -1);
+            Assert.AreEqual(store.getAllSales().Count, 0);
+        }
+        [TestMethod]
         public void SimpleAddSaleeWithOwner()
         {
+            Assert.IsTrue(zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 1, DateTime.Now.AddMonths(1).ToString()) > -1);
+            Assert.AreEqual(store.getAllSales().Count, 1);
+        }
+        [TestMethod]
+        public void SimpleAddSaleeWithOwnerTwice()
+        {
+            Assert.IsTrue(zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 1, DateTime.Now.AddMonths(1).ToString()) > -1);
             Assert.IsTrue(zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 1, DateTime.Now.AddMonths(1).ToString()) > -1);
             Assert.AreEqual(store.getAllSales().Count, 1);
         }
@@ -86,6 +122,17 @@ namespace IntegrationTests
         public void SimpleAddRaffleSaleWithOwner()
         {
             Assert.IsTrue(zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 3, 1, DateTime.Now.AddMonths(1).ToString()) > -1);
+        }
+        [TestMethod]
+        public void AddRaffleSaleWithOwnerWrongAmount()
+        {
+            Assert.IsTrue(zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 3, 2, DateTime.Now.AddMonths(1).ToString()) > -1);
+            Assert.IsFalse(zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 3, -2, DateTime.Now.AddMonths(1).ToString()) > -1);
+        }
+        [TestMethod]
+        public void RaffleSaleWithMannegerwithoutPremition()
+        {
+            Assert.IsFalse(aviadManeger.addSaleToStore(aviad, store, cola.getProductInStoreId(), 3, 1, DateTime.Now.AddMonths(1).ToString()) > -1);
         }
         [TestMethod]
         public void SimpleAddRaffleSaleWithManagerPermission()

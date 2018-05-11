@@ -62,12 +62,32 @@ namespace IntegrationTests
             Assert.AreEqual(aviad.getShoppingCart().First.Value.getSaleId(), saleId);
         }
         [TestMethod]
+        public void AddProductToCartTwice()
+        {
+            int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            LinkedList<Sale> saleList = store.getAllSales();
+            Assert.IsTrue(aviad.addToCart(saleList.First.Value.SaleId, 1) > -1);
+            Assert.IsTrue(aviad.addToCart(saleList.First.Value.SaleId, 1) > -1);
+            Assert.AreEqual(aviad.getShoppingCart().First.Value.getSaleId(), saleId);
+        }
+        [TestMethod]
+        public void AddProductToCartWrongAmount()
+        {
+            int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            LinkedList<Sale> saleList = store.getAllSales();
+            Assert.IsFalse(aviad.addToCart(saleList.First.Value.SaleId, 6) > -1);
+            Assert.IsFalse(aviad.addToCart(saleList.First.Value.SaleId, -1) > -1);
+        }
+
+
+        [TestMethod]
         public void AddRaffleProductToCart()
         {
             int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 3, 1, DateTime.Now.AddMonths(1).ToString());
             LinkedList<Sale> saleList = store.getAllSales(); ;
             Assert.IsTrue(aviad.addToCartRaffle(saleList.First.Value.SaleId, 1) > -1);
         }
+
         [TestMethod]
         public void EditAmount()
         {
@@ -81,11 +101,33 @@ namespace IntegrationTests
             Assert.AreEqual(uc.getAmount(), 4);
         }
         [TestMethod]
+        public void EditAmountBadAmount()
+        {
+            int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            LinkedList<Sale> saleList = store.getAllSales();
+            aviad.addToCart(saleList.First.Value.SaleId, 1);
+            int check = aviad.editCart(saleList.First.Value.SaleId, -2);
+            Assert.IsFalse(check > -1);
+            LinkedList<UserCart> aviadCart = aviad.getShoppingCart();
+            UserCart uc = aviadCart.First.Value;
+            Assert.AreEqual(uc.getAmount(), 1);
+        }
+
+        [TestMethod]
         public void viewSaleByProductInStoreId()
         {
             int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
-            Assert.AreEqual(1, User.viewSalesByProductInStoreId(cola.getProductInStoreId()).Count);
+            Assert.AreEqual(User.viewSalesByProductInStoreId(cola.getProductInStoreId()).Count, 1);
         }
+        [TestMethod]
+        public void viewSaleByProductInStoreIdTwiceAddSale()
+        {
+            zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 3, DateTime.Now.AddMonths(1).ToString());
+
+            Assert.AreEqual(User.viewSalesByProductInStoreId(cola.getProductInStoreId()).Count, 1);
+        }
+
 
 
         //User is creating a store, adding products
