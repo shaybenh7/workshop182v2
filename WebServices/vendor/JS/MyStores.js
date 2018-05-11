@@ -113,10 +113,12 @@ var addProductFunct = function () {
     productName = $("#product-name").val();
     price = $("#product-price").val();
     amount = $("#product-amount").val();
+    cat = $("#product-cat").val();
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/addProductInStore?productName=" + productName + "&price=" + price + "&amount=" + amount + "&storeId="+lastClickedStoreId,
+        url: "http://localhost:53416/api/store/addProductInStore?productName=" + productName + "&price=" + price
+            + "&amount=" + amount + "&storeId=" + lastClickedStoreId + "&category=" + cat,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
