@@ -75,8 +75,8 @@ namespace UnitTests
          */
         public void simpleAddToCart()
         {
-            Assert.IsTrue(cart.addToCart(aviad, sale1.SaleId, 1));
-            Assert.IsTrue(cart.addToCart(aviad, sale2.SaleId, 1));
+            Assert.IsTrue(cart.addToCart(aviad, sale1.SaleId, 1) > -1);
+            Assert.IsTrue(cart.addToCart(aviad, sale2.SaleId, 1) > -1);
         }
         [TestMethod]
         /**Description:
@@ -85,7 +85,7 @@ namespace UnitTests
          */
         public void addToCartWhithRaffleProduct()
         {
-            Assert.IsFalse(cart.addToCart(aviad, sale3.SaleId, 1));
+            Assert.IsFalse(cart.addToCart(aviad, sale3.SaleId, 1) > -1);
         }
 
         [TestMethod]
@@ -95,7 +95,7 @@ namespace UnitTests
         */
         public void addProductNotExsistToCart()
         {
-            Assert.IsFalse(cart.addToCart(aviad, 4, 1));
+            Assert.IsFalse(cart.addToCart(aviad, 4, 1) > -1);
         }
         [TestMethod]
         /**Description:
@@ -104,7 +104,7 @@ namespace UnitTests
          */
         public void addToCartAmountToBig()
         {
-            Assert.IsFalse(cart.addToCart(aviad, 1, 100));
+            Assert.IsFalse(cart.addToCart(aviad, 1, 100) > -1);
         }
         [TestMethod]
         /**Description:
@@ -113,7 +113,7 @@ namespace UnitTests
          */
         public void addToCartAmountZero()
         {
-            Assert.IsFalse(cart.addToCart(aviad, sale1.SaleId, 0));
+            Assert.IsFalse(cart.addToCart(aviad, sale1.SaleId, 0) > -1);
         }
         [TestMethod]
         /**Description:
@@ -123,7 +123,7 @@ namespace UnitTests
         public void addToCartUserLogin()
         {
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
         }
         [TestMethod]
         /**Description:
@@ -133,7 +133,7 @@ namespace UnitTests
         public void addToCartUserToOwner()
         {
             zahi.login("zahi", "123456");
-            Assert.IsTrue(cart.addToCart(zahi, 1, 1));
+            Assert.IsTrue(cart.addToCart(zahi, 1, 1) > -1);
         }
         [TestMethod]
         /**Description:
@@ -143,7 +143,7 @@ namespace UnitTests
         public void addToCartNegativeAmount()
         {
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.addToCart(aviad, 1, -1));
+            Assert.IsFalse(cart.addToCart(aviad, 1, -1) > -1);
         }
         [TestMethod]
         /**Description:
@@ -153,8 +153,8 @@ namespace UnitTests
         public void addToCartSameProduct()
         {
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
         }
         [TestMethod]
         /**Description:
@@ -166,8 +166,8 @@ namespace UnitTests
             User shay = new User("shay", "123456");
             userA.addUser(shay);
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
-            Assert.IsTrue(cart.addToCart(shay, 1, 1));
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
+            Assert.IsTrue(cart.addToCart(shay, 1, 1) > -1);
         }
 
 
@@ -181,7 +181,7 @@ namespace UnitTests
         public void simpleAddRaffleToCart()
         {
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3, 1));
+            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3.SaleId, 1) > -1);
         }
         [TestMethod]
         /**Description:
@@ -191,7 +191,7 @@ namespace UnitTests
         public void AddRaffleToCartNoramalBuyProduct()
         {
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.addToCartRaffle(aviad, sale2, 1));
+            Assert.IsFalse(cart.addToCartRaffle(aviad, sale2.SaleId, 1) > -1);
         }
         [TestMethod]
         /**Description:
@@ -200,7 +200,7 @@ namespace UnitTests
          */
         public void gustAddRaffleToCart()
         {
-            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3, 1));
+            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3.SaleId, 1) > -1);
         }
         [TestMethod]
         /**Description:
@@ -210,7 +210,7 @@ namespace UnitTests
         public void addRaffleToCartZeroPrice()
         {
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3, 0));
+            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3.SaleId, 0) > -1);
         }
         [TestMethod]
         /**Description:
@@ -220,7 +220,7 @@ namespace UnitTests
         public void addRaffleToCartBigPrice()
         {
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3, 200));
+            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3.SaleId, 200) > -1);
         }
         [TestMethod]
         /**Description:
@@ -230,7 +230,7 @@ namespace UnitTests
         public void addRaffleToCartExactPrice()
         {
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3, 50));
+            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3.SaleId, 50) > -1);
         }
         [TestMethod]
         /**Description:
@@ -243,8 +243,8 @@ namespace UnitTests
             shay.register("shay", "123456");
             shay.login("shay", "123456");
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3, 10));
-            Assert.IsTrue(cart.addToCartRaffle(shay, sale3, 10));
+            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3.SaleId, 10) > -1);
+            Assert.IsTrue(cart.addToCartRaffle(shay, sale3.SaleId, 10) > -1);
         }
         [TestMethod]
         /**Description:
@@ -254,7 +254,7 @@ namespace UnitTests
         public void RaffleToCartAddAsOwner()
         {
             zahi.login("zahi", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(zahi, sale3, 10));
+            Assert.IsTrue(cart.addToCartRaffle(zahi, sale3.SaleId, 10) > -1);
         }
         [TestMethod]
         /**Description:
@@ -267,8 +267,8 @@ namespace UnitTests
             userA.addUser(shay);
             shay.login("shay", "123456");
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3, 10));
-            Assert.IsFalse(cart.addToCartRaffle(shay, sale3, 50));
+            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3.SaleId, 10) > -1);
+            Assert.IsFalse(cart.addToCartRaffle(shay, sale3.SaleId, 50) > -1);
         }
         [TestMethod]
         /**Description:
@@ -281,8 +281,8 @@ namespace UnitTests
             shay.register("shay", "123456");
             shay.login("shay", "123456");
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3, 10));
-            Assert.IsTrue(cart.addToCartRaffle(shay, sale3, 50));
+            Assert.IsTrue(cart.addToCartRaffle(aviad, sale3.SaleId, 10) > -1);
+            Assert.IsTrue(cart.addToCartRaffle(shay, sale3.SaleId, 50) > -1);
 
         }
         [TestMethod]
@@ -293,7 +293,7 @@ namespace UnitTests
         public void RaffleToCartNegativeBid()
         {          
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3, -1));
+            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3.SaleId, -1) > -1);
         }
 
         [TestMethod]
@@ -304,8 +304,8 @@ namespace UnitTests
         public void RaffleToCartSameProduct()
         {
             aviad.login("aviad", "123456");
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
-            Assert.IsTrue(cart.addToCart(aviad, 1, 1));
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
+            Assert.IsTrue(cart.addToCart(aviad, 1, 1) > -1);
         }
 
         //getProductsInCart Tests
@@ -418,7 +418,7 @@ namespace UnitTests
         public void SimpleGetProdctsRaffle()
         {
             aviad.login("aviad", "123456");
-            cart.addToCartRaffle(aviad, sale3, 1);
+            cart.addToCartRaffle(aviad, sale3.SaleId, 1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             
             Assert.AreEqual(shopingCart.Count, 1);
@@ -434,8 +434,8 @@ namespace UnitTests
         public void getProdctsAddSameProductRaffle()
         {
             aviad.login("aviad", "123456");
-            cart.addToCartRaffle(aviad, sale3, 1);
-            cart.addToCartRaffle(aviad, sale3, 1);
+            cart.addToCartRaffle(aviad, sale3.SaleId, 1);
+            cart.addToCartRaffle(aviad, sale3.SaleId, 1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 1);
             Assert.AreEqual(shopingCart.First.Value.getAmount(), 1);
@@ -454,7 +454,7 @@ namespace UnitTests
         {
             aviad.login("aviad", "123456");
             cart.addToCart(aviad, sale1.SaleId, 1);
-            Assert.IsTrue(cart.editCart(aviad, sale1.SaleId, 2));
+            Assert.IsTrue(cart.editCart(aviad, sale1.SaleId, 2) > -1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             int c = shopingCart.Count;
             Assert.AreEqual(shopingCart.Count, 1);
@@ -469,8 +469,8 @@ namespace UnitTests
         public void editCartRaffle()
         {
             aviad.login("aviad", "123456");
-            cart.addToCartRaffle(aviad, sale3, 1);
-            Assert.IsFalse(cart.editCart(aviad, sale3.SaleId, 2));
+            cart.addToCartRaffle(aviad, sale3.SaleId, 1);
+            Assert.IsFalse(cart.editCart(aviad, sale3.SaleId, 2) > -1);
         }
         [TestMethod]
         /**Description:
@@ -481,7 +481,7 @@ namespace UnitTests
         { 
             aviad.login("aviad", "123456");
             cart.addToCart(aviad, 1, 1);
-            Assert.IsFalse(cart.editCart(aviad, 1, -2));
+            Assert.IsFalse(cart.editCart(aviad, 1, -2) > -1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 1);
             Assert.AreEqual(shopingCart.First.Value.getAmount(), 1);
@@ -496,7 +496,7 @@ namespace UnitTests
         {
             aviad.login("aviad", "123456");
             cart.addToCart(aviad, sale1.SaleId, 1);
-            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 0));
+            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 0) > -1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 1);
             Assert.AreEqual(shopingCart.First.Value.getAmount(), 1);
@@ -511,7 +511,7 @@ namespace UnitTests
         {
             aviad.login("aviad", "123456");
             cart.addToCart(aviad, sale1.SaleId, 1);
-            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 100));
+            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 100) > -1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 1);
             Assert.AreEqual(shopingCart.First.Value.getAmount(), 1);
@@ -525,11 +525,11 @@ namespace UnitTests
         public void editCartNotExistProduct()
         {
             aviad.login("aviad", "123456");
-            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 1));
+            Assert.IsFalse(cart.editCart(aviad, sale1.SaleId, 1) > -1);
             LinkedList<UserCart> shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 0);
             cart.addToCart(aviad, sale1.SaleId, 1);
-            Assert.IsFalse(cart.editCart(aviad, sale2.SaleId, 1));
+            Assert.IsFalse(cart.editCart(aviad, sale2.SaleId, 1) > -1);
             shopingCart = cart.getShoppingCartProducts(aviad);
             Assert.AreEqual(shopingCart.Count, 1);
 
