@@ -103,7 +103,8 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void AddCouponWithNullproduct()
         {
-            Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1,null,null, 10, "20/6/2018","")>-1);
+            int temp = ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, null, null, 10, "20/6/2018", "");
+            Assert.IsFalse(temp > -1);
             Assert.IsNull(ca.getCoupon("coupon", cola));
         }
 

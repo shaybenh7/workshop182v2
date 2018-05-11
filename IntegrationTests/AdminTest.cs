@@ -68,8 +68,6 @@ namespace IntegrationTests
         {
             zahi.login("zahi", "123456");
             Assert.IsFalse(zahi.removeUser("zahi") > -1);
-            zahi.logOut();
-            Assert.IsTrue(zahi.login("zahi", "123456") > -1);
         }
         [TestMethod]
         public void AdminRemoveAdmin()

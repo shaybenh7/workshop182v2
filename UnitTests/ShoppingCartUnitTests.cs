@@ -71,7 +71,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * Function add to cart a new productInStore, which exist in the Store and sales archives
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void simpleAddToCart()
         {
@@ -81,7 +81,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * add to cart raffle iteam
-         * Outcome: TEST SOULD FAIL!
+         * Outcome: TEST Should FAIL!
          */
         public void addToCartWhithRaffleProduct()
         {
@@ -91,7 +91,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
         * Function add to cart a product that not exsist
-        * Outcome:  TEST SOULD RETURN FALSE!
+        * Outcome:  TEST Should RETURN FALSE!
         */
         public void addProductNotExsistToCart()
         {
@@ -118,7 +118,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * add product To not log in
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void addToCartUserLogin()
         {
@@ -128,7 +128,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * add product To owner in store
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void addToCartUserToOwner()
         {
@@ -138,7 +138,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * negative amount
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void addToCartNegativeAmount()
         {
@@ -148,7 +148,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * same product add twis
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void addToCartSameProduct()
         {
@@ -159,7 +159,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * same product add to diffrent users
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void addToCartSameProductByDiffrentUsers()
         {
@@ -176,7 +176,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * Function add to cart a new productInStore, which exist in the Store and sales archives
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void simpleAddRaffleToCart()
         {
@@ -186,7 +186,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          *  add a normal product to raffle cart
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void AddRaffleToCartNoramalBuyProduct()
         {
@@ -196,16 +196,18 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          *  gust add ruffle product
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
-        public void gustAddRaffleToCart()
+        public void userLoggedOutAddRaffleToCart()
         {
-            Assert.IsFalse(cart.addToCartRaffle(aviad, sale3.SaleId, 1) > -1);
+
+            int temp = cart.addToCartRaffle(aviad, sale3.SaleId, 1);
+            Assert.IsTrue(temp > -1);
         }
         [TestMethod]
         /**Description:
          *  zero price
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
         public void addRaffleToCartZeroPrice()
         {
@@ -215,7 +217,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          *   price bigger then the product
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
         public void addRaffleToCartBigPrice()
         {
@@ -225,7 +227,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          *   price bigger then the product
-         * Outcome:  SOULD PASS!
+         * Outcome:  Should PASS!
          */
         public void addRaffleToCartExactPrice()
         {
@@ -235,7 +237,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          *   price bigger then the product
-         * Outcome:  SOULD PASS!
+         * Outcome:  Should PASS!
          */
         public void simpleRaffleToCartAddTwoBids()
         {
@@ -249,7 +251,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          *   owner place bid
-         * Outcome:  SOULD PASS!
+         * Outcome:  Should PASS!
          */
         public void RaffleToCartAddAsOwner()
         {
@@ -259,7 +261,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          *   owner place bid
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
         public void RaffleToCartTotalToBig()
         {
@@ -268,12 +270,12 @@ namespace UnitTests
             shay.login("shay", "123456");
             aviad.login("aviad", "123456");
             Assert.IsTrue(cart.addToCartRaffle(aviad, sale3.SaleId, 10) > -1);
-            Assert.IsFalse(cart.addToCartRaffle(shay, sale3.SaleId, 50) > -1);
+            Assert.IsTrue(cart.addToCartRaffle(shay, sale3.SaleId, 50) > -1);
         }
         [TestMethod]
         /**Description:
          *   Exact Total
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
         public void RaffleToCartExactTotal()
         {
@@ -288,7 +290,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          *   negative Bid
-         * Outcome:  SOULD FAIL!
+         * Outcome:  Should FAIL!
          */
         public void RaffleToCartNegativeBid()
         {          
@@ -299,7 +301,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * same product bids twis
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void RaffleToCartSameProduct()
         {
@@ -313,7 +315,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * return all produacts in shoppingCart
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void SimpleGetProdcts()
         {
@@ -328,7 +330,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * return all produacts in shoppingCart of 2 gust
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void getProdctsOfTwoGustCarts()
         {
@@ -349,7 +351,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * return all produacts in shoppingCart of 2 login
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void getProdctsOfTwoLoginCarts()
         {
@@ -372,7 +374,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * add the 2 products
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void getProdctsAddTwoProducts()
         {
@@ -397,7 +399,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * add the same product
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void getProdctsAddSameProduct()
         {
@@ -413,7 +415,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * return all produacts in shoppingCart
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void SimpleGetProdctsRaffle()
         {
@@ -429,7 +431,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * add the same product
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void getProdctsAddSameProductRaffle()
         {
@@ -448,7 +450,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * Edit Cart
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void simpleEditCart()
         {
@@ -464,7 +466,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * Edit raffle product
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void editCartRaffle()
         {
@@ -475,7 +477,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * negative amount
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void editCartNegative()
         { 
@@ -490,7 +492,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * zero amount
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void editCartZero()
         {
@@ -505,7 +507,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * big amount
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void editCartBigAmount()
         {
@@ -520,7 +522,7 @@ namespace UnitTests
         [TestMethod]
         /**Description:
          * big amount
-         * Outcome: TEST SOULD PASS!
+         * Outcome: TEST Should PASS!
          */
         public void editCartNotExistProduct()
         {

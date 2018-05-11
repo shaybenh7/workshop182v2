@@ -122,8 +122,9 @@ namespace IntegrationTests
         {
             zahiOwner.addStoreManager(zahi, store, "niv");
             zahiOwner.addManagerPermission(zahi, "removeManagerPermission", store, "aviad");
-            Assert.IsTrue(aviadManeger.removeStoreManager(aviad, store, "niv") > -1);
-            Assert.AreEqual(store.getManagers().Count, 1);
+            int temp = aviadManeger.removeStoreManager(aviad, store, "niv");
+            Assert.IsFalse(temp > -1);
+            Assert.AreEqual(store.getManagers().Count, 2);
         }
 
         [TestMethod]

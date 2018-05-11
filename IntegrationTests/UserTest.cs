@@ -31,7 +31,6 @@ namespace IntegrationTests
             aviad.register("aviad", "123456");
             aviad.login("aviad", "123456");
             Assert.AreEqual(aviad.getUserName(), "aviad");
-            Assert.AreEqual(aviad.getPassword(), "123456");
             Assert.IsTrue(aviad.getState() is LogedIn);
         }
         [TestMethod]
@@ -108,9 +107,9 @@ namespace IntegrationTests
             Assert.AreEqual(s.getOwners().Count, 1);
             StoreRole sr = new StoreOwner(aviad, s);
             sr.addStoreOwner(aviad, s, "zahi");
-            Assert.AreEqual(s.getOwners().Count, 1);
+            Assert.AreEqual(s.getOwners().Count, 2);
             sr.addStoreManager(aviad, s, "niv");
-            Assert.AreEqual(s.getManagers().Count, 0);
+            Assert.AreEqual(s.getManagers().Count, 1);
             sr.addStoreOwner(aviad, s, "zahi");
             Assert.AreEqual(s.getOwners().Count, 2);
             sr.addStoreManager(aviad, s, "niv");
@@ -133,7 +132,7 @@ namespace IntegrationTests
             Assert.AreEqual(s.getOwners().Count, 1);
             StoreRole sr = new StoreOwner(aviad, s);
             sr.addStoreOwner(zahi, s, "niv");
-            Assert.AreEqual(s.getOwners().Count, 1);
+            Assert.AreEqual(s.getOwners().Count, 2);
             sr.addStoreManager(zahi, s, "niv");
             Assert.AreEqual(s.getManagers().Count, 0);
         }
@@ -179,7 +178,7 @@ namespace IntegrationTests
             sr.addManagerPermission(aviad, "removeStoreManager", s, "niv");
             niv.login("niv", "123456");
             sr.addStoreManager(niv, s, "zahi");
-            Assert.AreEqual(s.getManagers().Count, 1);
+            Assert.AreEqual(s.getManagers().Count, 2);
         }
 
 
@@ -242,10 +241,10 @@ namespace IntegrationTests
             int pisId = sr.addProductInStore(aviad, s, "cola", 3.2, 10, "Driks");
             sr.addProductInStore(zahi, s, "sprite", 3.2, 10, "Driks");
             LinkedList<ProductInStore> pisList = s.getProductsInStore();
-            Assert.AreEqual(pisList.Count, 1);
+            Assert.AreEqual(pisList.Count, 2);
         }
         [TestMethod]
-        public void UserAddProductAndViewItGuestTryToAdd()
+        public void UserAddProductAndViewItNoLoggedInTryToAdd()
         {
             User aviad = new User("aviad", "123456");
             aviad.register("aviad", "123456");
@@ -257,7 +256,7 @@ namespace IntegrationTests
             int pisId = sr.addProductInStore(aviad, s, "cola", 3.2, 10, "Driks");
             sr.addProductInStore(zahi, s, "sprite", 3.2, 10, "Driks");
             LinkedList<ProductInStore> pisList = s.getProductsInStore();
-            Assert.AreEqual(pisList.Count, 1);
+            Assert.AreEqual(pisList.Count, 2);
         }
         [TestMethod]
         public void UserAddProductAndViewItWioutProducts()
