@@ -101,25 +101,25 @@
                                 </li>
 
                                 <li id="AllStoresMenuButton">
-                                    <a href="/AllStores">All Stores</a>
+                                    <a id="AllStoresLink" href="/AllStores">All Stores</a>
                                 </li>
                                 <li id="AllProductsMenuButton">
-                                    <a href="/AllProducts">All Products</a>
+                                    <a id="AllProductsLink" href="/AllProducts">All Products</a>
                                 </li>
                                 <li>
-                                    <a href="/api/user/fillDB">FILL DB</a>
+                                    <a id="fillDB" href="/api/user/fillDB">FILL DB</a>
                                 </li>
 
 
                                 <asp:PlaceHolder ID="MyStoresLink" Visible="false" runat="server">
                                     <li id="MyStoresMenuButton">
-                                        <a href="/MyStores">My Stores</a>
+                                        <a id="MyStoresPublicLink" href="/MyStores">My Stores</a>
                                     </li>
                                 </asp:PlaceHolder>
 
                                 <asp:PlaceHolder ID="adminPanelLink" Visible="false" runat="server">
                                     <li id="AdminMenuButton">
-                                        <a href="/admin">Admin Panel</a>
+                                        <a id="AdminPanelPublicLink" href="/admin">Admin Panel</a>
                                     </li>
                                 </asp:PlaceHolder>
 

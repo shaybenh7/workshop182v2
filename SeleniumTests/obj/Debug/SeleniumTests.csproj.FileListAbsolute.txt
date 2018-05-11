@@ -1,0 +1,16 @@
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\bin\Debug\SeleniumTests.dll
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\bin\Debug\SeleniumTests.pdb
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\bin\Debug\WebDriver.dll
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\bin\Debug\WebDriver.xml
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\obj\Debug\SeleniumTests.csprojResolveAssemblyReference.cache
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\obj\Debug\SeleniumTests.csproj.CoreCompileInputs.cache
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\obj\Debug\SeleniumTests.csproj.CopyComplete
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\obj\Debug\SeleniumTests.dll
+C:\Users\NivBenShabat\source\repos\wsep182\SeleniumTests\obj\Debug\SeleniumTests.pdb
