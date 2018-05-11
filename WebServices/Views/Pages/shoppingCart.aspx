@@ -190,19 +190,18 @@
         function checkoutFunc() {
             var country = $("#country").val();
             var address = $("#address").val();;
-
+            var creditcard = $("#creditCard").val();
             //now need to add stuff to the modal
             var mainDivModal = document.getElementById('shoppingCartModal');
             jQuery.ajax({
                 type: "GET",
-                url: "http://localhost:53416/api/sell/checkout?country=" + country + "&address=" + address,
+                url: "http://localhost:53416/api/sell/checkout?country=" + country + "&address=" + address+"&creditcard="+creditcard,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    if (response instanceof String)
-                        alert(response);
+                    if (response== "Error: user error!"||response=="Error: country and address fields cannot be empty!")
+                        alert("Error: All fields must be filled!");
                     else {
-                        console.log(response);
                         var i;
                         for (i = 0; i < response.length; i++) {
                             element = response[i];
@@ -278,7 +277,6 @@
 
 
         $("#purchase_btn").click(function () {
-            console.log("in purchase_btn func");
             var country = $("#country").val();
             var address = $("#address").val();
             var creditcard = $("#creditCard").val();
@@ -291,10 +289,10 @@
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
-                    
+                    alert(response);
 
                     
-                    //window.location.reload(false);
+                    window.location.reload(false);
 
                 },
                 error: function (response) {
