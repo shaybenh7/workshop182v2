@@ -239,12 +239,91 @@ namespace wsep182.Domain
             return -4;//-4 if don't have permission
         }
 
+        public override int removeAmountPolicyOnStore(User session, int storeId)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "changePolicy"))
+                return base.removeAmountPolicyOnStore(session, storeId);
+            return -4;//-4 if don't have permission
+        }
+
+        public override int removeAmountPolicyOnCategory(User session, int storeId, string category)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "changePolicy"))
+                return base.removeAmountPolicyOnCategory(session, storeId, category);
+            return -4;//-4 if don't have permission
+        }
+
+        public override int removeAmountPolicyOnProductInStore(User session, int storeId, int productInStoreId)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "changePolicy"))
+                return base.removeAmountPolicyOnProductInStore(session, storeId, productInStoreId);
+            return -4;//-4 if don't have permission
+        }
+
+        public override int removeAmountPolicyOnCountry(User session, int storeId, string country)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "changePolicy"))
+                return base.removeAmountPolicyOnCountry(session, storeId, country);
+            return -4;//-4 if don't have permission
+        }
+
+        public override int removeNoDiscountPolicyOnStore(User session, int storeId)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "changePolicy"))
+                return base.removeNoDiscountPolicyOnStore(session, storeId);
+            return -4;//-4 if don't have permission
+        }
+
+        public override int removeNoDiscountPolicyOnCategoty(User session, int storeId, String category)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "changePolicy"))
+                return base.removeNoDiscountPolicyOnCategoty(session, storeId,category);
+            return -4;//-4 if don't have permission
+        }
+
+        public override int removeNoDiscountPolicyOnProductInStore(User session, int storeId, int productInStoreId)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "changePolicy"))
+                return base.removeNoDiscountPolicyOnProductInStore(session, storeId, productInStoreId);
+            return -4;//-4 if don't have permission
+        }
+
+        public override int removeNoDiscountPolicyOnCountry(User session, int storeId,string country)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "changePolicy"))
+                return base.removeNoDiscountPolicyOnCountry(session, storeId, country);
+            return -4;//-4 if don't have permission
+        }
+
+        public override int removeNoCouponsPolicyOnStore(User session, int storeId)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "changePolicy"))
+                return base.removeNoCouponsPolicyOnStore(session, storeId);
+            return -4;//-4 if don't have permission
+        }
+
+
+        public override int removeNoCouponPolicyOnProductInStore(User session, int storeId, int productInStoreId)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "changePolicy"))
+                return base.removeNoCouponPolicyOnProductInStore(session, storeId, productInStoreId);
+            return -4;//-4 if don't have permission
+        }
+
+        public override int removeNoCouponPolicyOnCountry(User session, int storeId, string country)
+        {
+            if (premissions.checkPrivilege(storeId, session.getUserName(), "changePolicy"))
+                return base.removeNoCouponPolicyOnCountry(session, storeId, country);
+            return -4;//-4 if don't have permission
+        }
+
         public override LinkedList<Purchase> viewPurchasesHistory(User session, Store s)
         {
             if (premissions.checkPrivilege(s.getStoreId(), session.getUserName(), "viewPurchasesHistory"))
                 return base.viewPurchasesHistory(session, s);
             return null;
         }
+
 
     }
 }

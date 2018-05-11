@@ -55,6 +55,21 @@ namespace wsep182.Domain
             return -1;
         }
 
+        public virtual int removeAmountPolicyOnProduct(string productName)
+        {
+            return -1;
+        }
+
+        public virtual int removeNoDiscountPolicyOnProduct(string productName)
+        {
+            return -1;
+        }
+
+        public virtual int removeNoCouponsPolicyOnProduct(string productName)
+        {
+            return -1;
+        }
+
         public virtual Premissions getPremissions(User manager, Store s)
         {
             StoreRole sR = StoreRole.getStoreRole(s, manager);

@@ -41,25 +41,29 @@
 		
 		    username=$("#username").val();
             pass = $("#password1").val();
-            jQuery.ajax({
+            pass2 = $("#password2").val();
+            if (pass != pass2) {
+                $("#registerAlert").html('Failure - passwords does not match');
+            }
+            else {
+                jQuery.ajax({
                     type: "GET",
-                    url: "http://localhost:53416/api/user/register?username=" + username + "&password="+pass,
+                    url: "http://localhost:53416/api/user/register?username=" + username + "&password=" + pass,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function(response){ 
-				        if (response == "user successfuly added")
-                        {
-					        window.location.href = "http://localhost:53416/";
-				        }
-				        else
-                        {
-					        $("#registerAlert").html('Failure - ' + response);
-				        }
-			        },
-			        error: function(response){
-				        window.location.href = "http://localhost:53416/error";
-			        }
+                    success: function (response) {
+                        if (response == "user successfuly added") {
+                            window.location.href = "http://localhost:53416/";
+                        }
+                        else {
+                            $("#registerAlert").html('Failure - ' + response);
+                        }
+                    },
+                    error: function (response) {
+                        window.location.href = "http://localhost:53416/error";
+                    }
                 });
+            }
 	    });
     });
 
