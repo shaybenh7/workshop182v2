@@ -87,7 +87,7 @@ namespace Acceptance_Tests.SellTests
             LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
             Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 8)>0);
             Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 1)>0);
-            Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 2.2)>);
+            Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 2.2)>0);
         }
         [TestMethod]
         public void AddProductToCartNull()

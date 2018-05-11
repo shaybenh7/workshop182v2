@@ -78,7 +78,7 @@ namespace Acceptance_Tests.StoreTests
             us.login(aviad, "aviad", "123456");
             int storeid = ss.createStore("abowim", zahi);
             Store store = storeArchive.getInstance().getStore(storeid);
-            ss.addStoreOwner(store, "aviad", zahi);
+            ss.addStoreOwner(store.getStoreId(), "aviad", zahi);
             ss.addStoreManager(store.getStoreId(), "aviad", zahi);
             LinkedList<StoreManager>  managers = store.getManagers();
             Assert.AreEqual(managers.Count, 0);

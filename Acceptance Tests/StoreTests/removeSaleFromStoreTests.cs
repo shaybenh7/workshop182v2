@@ -40,7 +40,7 @@ namespace Acceptance_Tests.StoreTests
 
             store = storeArchive.getInstance().getStore(ss.createStore("Abowim", zahi));
 
-            cola = ProductArchive.getInstance().getProductInStore(ss.addProductInStore("cola", 10, 100, zahi, store.getStoreId()));
+            cola = ProductArchive.getInstance().getProductInStore(ss.addProductInStore("cola", 10, 100, zahi, store.getStoreId(), "Drinks"));
 
             ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 2, "20/5/2018");
 

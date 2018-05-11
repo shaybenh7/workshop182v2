@@ -43,11 +43,12 @@ namespace Acceptance_Tests.StoreTests
             int storeid = ss.createStore("abowim", zahi);
             Store store = storeArchive.getInstance().getStore(storeid);
 
-            cola = ss.addProductInStore("cola", 10, 100, zahi, store);
+            int colaId = ss.addProductInStore("cola", 10, 100, zahi, storeid, "Drinks");
+            cola = ProductArchive.getInstance().getProductInStore(colaId);
 
-            ss.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 2, "20/5/2018");
+            ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 2, "20/5/2018");
 
-            LinkedList<Sale> SL = ss.viewSalesByStore(store);
+            LinkedList<Sale> SL = ss.viewSalesByStore(store.getStoreId());
             foreach (Sale sale in SL)
             {
                 if (sale.ProductInStoreId == cola.getProductInStoreId())
