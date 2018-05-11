@@ -233,5 +233,20 @@ namespace IntegrationTests
             LinkedList<Sale> saleList = store.getAllSales();
             Assert.AreEqual(saleList.Count, 1);
         }
+
+        [TestMethod]
+        public void BuyHistoryStore()
+        {
+            int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            LinkedList<Sale> sales = User.viewSalesByProductInStoreId(cola.getProductInStoreId());
+            Assert.IsTrue(sales.Count == 1);
+            Sale sale = sales.First.Value;
+            Assert.IsTrue(aviad.addToCart(sale.SaleId, 1) > -1);
+            LinkedList<UserCart> sc = aviad.getShoppingCart();
+            Assert.IsTrue(sc.Count == 1);
+            Assert.IsTrue(sc.First.Value.getSaleId() == saleId);
+            Assert.IsTrue(aviad.buyProducts("1234", ""));
+            Assert.AreEqual(zahi.viewStoreHistory(store).Count, 1);
+        }
     }
 }

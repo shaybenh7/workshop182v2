@@ -94,5 +94,24 @@ namespace IntegrationTests
             Assert.IsFalse(admin.removeUser("itamar") > -1);
             Assert.AreEqual(store.getOwners().Count, 1);
         }
+        [TestMethod]
+        public void BuyHistoryStoreViewByAdmin()
+        {
+            niv.login("niv", "123456");
+            StoreOwner itamarOwner = new StoreOwner(itamar, store);
+            int colaId = itamarOwner.addProductInStore(itamar, store, "cola", 3.2, 10, "Drinks");
+            ProductInStore cola = ProductArchive.getInstance().getProductInStore(colaId);
+            int saleId = itamarOwner.addSaleToStore(itamar, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            LinkedList<Sale> sales = User.viewSalesByProductInStoreId(cola.getProductInStoreId());
+            Assert.IsTrue(sales.Count == 1);
+            Sale sale = sales.First.Value;
+            niv.login("niv", "123456");
+            Assert.IsTrue(niv.addToCart(sale.SaleId, 1) > -1);
+            LinkedList<UserCart> sc = niv.getShoppingCart();
+            Assert.IsTrue(sc.Count == 1);
+            Assert.IsTrue(sc.First.Value.getSaleId() == saleId);
+            Assert.IsTrue(niv.buyProducts("1234", ""));
+            Assert.AreEqual(admin.viewStoreHistory(store).Count, 1);
+        }
     }
 }
