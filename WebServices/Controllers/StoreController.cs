@@ -649,7 +649,7 @@ namespace WebService.Controllers
         }
 
         [Route("api/store/addManagerPermission")]
-        [HttpPut]
+        [HttpGet]
         public string addManagerPermission(int storeId, String ManageruserName,string permission)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
@@ -675,7 +675,7 @@ namespace WebService.Controllers
         }
 
         [Route("api/store/removeManagerPermission")]
-        [HttpDelete]
+        [HttpGet]
         public string removeManagerPermission(int storeId, String ManageruserName, string permission)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);

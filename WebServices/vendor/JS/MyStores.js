@@ -820,6 +820,69 @@ var fixRestricion = function (restriction, copunRaffle, copunInstant) {
     return Restriction;
 }
 
+var addmanagerPermision = function () {
+    manager = $("#manager-to-change-permissions").val();
+    if ($("#addProductInStore")[0].checked) {
+        sendAddManagerPremission(manager, "addProductInStore");
+    }
+    if ($("#editProductInStore")[0].checked) {
+        sendAddManagerPremission(manager, "editProductInStore");
+    }
+    if ($("#removeProductFromStore")[0].checked) {
+        sendAddManagerPremission(manager, "removeProductFromStore");
+    }
+    if ($("#addStoreManager")[0].checked) {
+        sendAddManagerPremission(manager, "addStoreManager");
+    }
+    if ($("#removeStoreManager")[0].checked) {
+        sendAddManagerPremission(manager, "removeStoreManager");
+    }
+    if ($("#addManagerPermission")[0].checked) {
+        sendAddManagerPremission(manager, "addManagerPermission");
+    }
+    if ($("#removeManagerPermission")[0].checked) {
+        sendAddManagerPremission(manager, "removeManagerPermission");
+    }
+    if ($("#viewPurchasesHistory")[0].checked) {
+        sendAddManagerPremission(manager, "viewPurchasesHistory");
+    }
+    if ($("#removeSaleFromStore")[0].checked) {
+        sendAddManagerPremission(manager, "removeSaleFromStore");
+    }
+    if ($("#editSale")[0].checked) {
+        sendAddManagerPremission(manager, "editSale");
+    }
+    if ($("#addSaleToStore")[0].checked) {
+        sendAddManagerPremission(manager, "addSaleToStore");
+    }
+    if ($("#addDiscount")[0].checked) {
+        sendAddManagerPremission(manager, "addDiscount");
+    }
+    if ($("#addNewCoupon")[0].checked) {
+        sendAddManagerPremission(manager, "addNewCoupon");
+    }
+    if ($("#addPolicy")[0].checked) {
+        sendAddManagerPremission(manager, "changePolicy");
+    }
+}
+
+var sendAddManagerPremission=function(manager,premission){
+    jQuery.ajax({
+        type: "GET",
+        url: "http://localhost:53416/api/store/addManagerPermission?storeId=" + lastClickedStoreId +
+            "&ManageruserName=" + manager + "&permission=" + premission ,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            alert(response);
+            window.location.reload(false);
+        },
+        error: function (response) {
+            console.log(response);
+
+        }
+    });
+}
 
 function modalLinkListener(e) {
     lastClickedStoreId = e["srcElement"]["dataset"]["id"];
