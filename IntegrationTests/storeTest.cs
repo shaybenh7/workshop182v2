@@ -13,8 +13,8 @@ namespace IntegrationTests
         private User shay;
         private User itamar; // not a real user
         private User niv; // guest
-        private Store store;
-        StoreRole zahiOwner;
+        private Store store, store2;
+        StoreRole zahiOwner, zahiOwnerStore2;
         StoreRole aviadManeger;
         ProductInStore cola;
 
@@ -47,7 +47,10 @@ namespace IntegrationTests
             niv.register("niv", "123456");
             int storeId = zahi.createStore("abowim");
             store = storeArchive.getInstance().getStore(storeId);
+            int storeId2 = zahi.createStore("broes");
+            store2 = storeArchive.getInstance().getStore(storeId2);
             zahiOwner = new StoreOwner(zahi, store);
+            zahiOwnerStore2 = new StoreOwner(zahi, store2);
             aviadManeger = new StoreManager(aviad, store);
             zahiOwner.addStoreManager(zahi, store, "aviad");
             niv.logOut();
@@ -58,18 +61,71 @@ namespace IntegrationTests
         [TestMethod]
         public void RemoveProductFromStore()
         {
-
             int result = zahiOwner.removeProductFromStore(zahi, store, cola);
             Assert.IsTrue(result > -1);
             LinkedList<ProductInStore> LPIS = store.getProductsInStore();
             Assert.AreEqual(LPIS.Count, 0);
         }
         [TestMethod]
+        public void RemoveProductFromStoreAsMannegerWithoutPremission()
+        {
+            int result = aviadManeger.removeProductFromStore(zahi, store, cola);
+            Assert.IsFalse(result > -1);
+            LinkedList<ProductInStore> LPIS = store.getProductsInStore();
+            Assert.AreEqual(LPIS.Count, 1);
+        }
+        [TestMethod]
+        public void RemoveProductFromStoreAsMannegerWithPremission()
+        {
+            zahiOwner.addManagerPermission(zahi, "removeProductFromStore", store, "aviad");
+            int result = aviadManeger.removeProductFromStore(zahi, store, cola);
+            Assert.IsTrue(result > -1);
+            LinkedList<ProductInStore> LPIS = store.getProductsInStore();
+            Assert.AreEqual(LPIS.Count, 0);
+        }
+        [TestMethod]
+        public void RemoveProductFromStoreTwice()
+        {
+            int result = aviadManeger.removeProductFromStore(zahi, store, cola);
+            Assert.IsTrue(result > -1);
+            int result2 = aviadManeger.removeProductFromStore(zahi, store, cola);
+            Assert.IsFalse(result > -1);
+            LinkedList<ProductInStore> LPIS = store.getProductsInStore();
+            Assert.AreEqual(LPIS.Count, 0);
+        }
+
+
+
+        [TestMethod]
         public void RemoveMangerFromStore()
         {
             Assert.IsTrue(zahiOwner.removeStoreManager(zahi, store, "aviad") > -1);
             Assert.AreEqual(store.getManagers().Count, 0);
         }
+        [TestMethod]
+        public void RemoveMangerFromStoreTwice()
+        {
+            Assert.IsTrue(zahiOwner.removeStoreManager(zahi, store, "aviad") > -1);
+            Assert.AreEqual(store.getManagers().Count, 0);
+            Assert.IsFalse(zahiOwner.removeStoreManager(zahi, store, "aviad") > -1);
+            Assert.AreEqual(store.getManagers().Count, 0);
+        }
+        [TestMethod]
+        public void RemoveMangerFromStoreAsMannegerWithoutPremition()
+        {
+            zahiOwner.addStoreManager(zahi, store, "niv");
+            Assert.IsFalse(aviadManeger.removeStoreManager(aviad, store, "niv") > -1);
+            Assert.AreEqual(store.getManagers().Count, 2);
+        }
+        [TestMethod]
+        public void RemoveMangerFromStoreAsMannegerWithPremition()
+        {
+            zahiOwner.addStoreManager(zahi, store, "niv");
+            zahiOwner.addManagerPermission(zahi, "removeManagerPermission", store, "aviad");
+            Assert.IsTrue(aviadManeger.removeStoreManager(aviad, store, "niv") > -1);
+            Assert.AreEqual(store.getManagers().Count, 1);
+        }
+
         [TestMethod]
         public void RemoveStoreOwner()
         {
