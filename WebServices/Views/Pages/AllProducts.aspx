@@ -44,6 +44,7 @@
                         string += "<div class=\"col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women\" style=\"width: 300px;padding: 17px;border-color: black;border-width: 1px;border-style: groove;margin-left:20px; margin-bottom: 20px;\"  >";
                         string += "<div class=\"block2\">";
                         string += "<div class=\"block2-pic hov-img0\">";
+                        string += "<img src=\"images/product-01New.jpg\" alt=\"IMG-PRODUCT\">";
                         if (typeOfSale==1)
                             string += "<a href=\"http://localhost:53416/viewInstantSale?saleId="+saleId+"\" class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">Quick Buy</a>";
                         else
@@ -51,9 +52,9 @@
                         string += "</div>";
                         string += "<div class=\"block2-txt flex-w flex-t p-t-14\">";
                         string += "<div class=\"block2-txt-child1 flex-col-l \">";
-                        string += "<a href=\"product-detail.html\" class=\"stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6\">";
-                        string += "<div id=\"productName" + i + "\">Product Name: </div>"; // add sale name here to saleName1
-                        string += "</a>";
+                        //string += "<a href=\"product-detail.html\" class=\"stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6\">";
+                        string += "<b><div id=\"productName" + i + "\">Product Name: </div></b>"; // add sale name here to saleName1
+                        //string += "</a>";
                         string += "<span class=\"stext-105 cl3\">";
                         string += "<div id=\"saleid" + i + "\">Sale id: " + saleId + " </div>"; // add sale id here to storeName
                          string += "<div id=\"ProductInStoreId" + i + "\">product in store id: "+pis+" </div>"; // add sale id here to storeName
