@@ -421,7 +421,7 @@
          
                                                 </div>
 
-                                                <input type="button" style="margin-left:700px;" value="Add permissions" onclick="addmanagerPermision()" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+                                                <input type="button" style="margin-left:700px;" value="Add permissions" onclick="addmanagerPermisionFunc()" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
 
 
 
@@ -772,7 +772,7 @@
                                                          instant sale
                                                 </div>
                                                 <div style="margin-top:40px;margin-left:700px;">
-                                                    <input type="button" value="Add discount" onclick="addDiscount()" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+                                                    <input type="button" value="Add discount" onclick="addDiscountFunc()" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
                                                 </div>
 
 

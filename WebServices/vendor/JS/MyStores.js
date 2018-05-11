@@ -836,7 +836,7 @@ var addProductInStorePolicy = function (minAmount, maxAmount, noDiscount, NoCopu
     }
 }
 
-var addDiscount = function () {
+var addDiscountFunc = function () {
     type = $("#typeOfDiscount")[0].selectedIndex + 1;
     DiscountPrecentage = $("#DiscountPrecentage2").val();
     DueDate = $("#discountDueDate").val();
@@ -930,7 +930,7 @@ var removeManagerPermision = function () {
     }
 }
 
-var addmanagerPermision = function () {
+var addmanagerPermisionFunc = function () {
     manager = $("#manager-to-change-permissions").val();
     if ($("#addProductInStore")[0].checked) {
         sendAddManagerPremission(manager, "addProductInStore");
