@@ -867,10 +867,12 @@ var fixRestricion = function (restriction, copunRaffle, copunInstant) {
     if (Restriction !== null && Restriction !== "") {
         Restriction = "COUNTRY=" + Restriction;
     }
+    if (Restriction !== null && Restriction !== "" && (RaffleCheck || InstantCheck))
+        Restriction += "/";
     RaffleCheck = $(copunRaffle)[0].checked;
     InstantCheck = $(copunInstant)[0].checked
     if (RaffleCheck || InstantCheck) {
-        Restriction += "/TOS=";
+        Restriction += "TOS=";
     }
     if (RaffleCheck & !InstantCheck) {
         Restriction += "3";
