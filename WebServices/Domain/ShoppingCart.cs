@@ -545,6 +545,61 @@ namespace wsep182.Domain
             }
         }
 
+        public LinkedList<UserCart> applyCoupon(User session, string couponId,string country)
+        {
+            Boolean skip = false;
+            foreach (UserCart uc in products)
+            {
+                Sale s = SalesArchive.getInstance().getSale(uc.getSaleId());
+                LinkedList<Coupon> relevantCoupons = CouponsArchive.getInstance().getAllCouponsById(s.ProductInStoreId);
+                LinkedList<PurchasePolicy> policys = PurchasePolicyArchive.getInstance().getAllRelevantPolicysForProductInStore(s.ProductInStoreId, country);
+                foreach (PurchasePolicy p in policys)
+                {
+                    if (p.NoCoupons)
+                        skip = true;
+                }
+                if (skip)
+                {
+                    skip = false;
+                    continue;
+                }
+                foreach (Coupon c in relevantCoupons)
+                {
+                    checkAndUpdateCouponByPolicy(uc, c, country, s.TypeOfSale);
+                }
+            }
+            return products;
+        }
+
+        public void checkAndUpdateCouponByPolicy(UserCart uc, Coupon c, string country, int typeOfSale)
+        {
+            if (DateTime.Compare(DateTime.Parse(c.DueDate), DateTime.Now) < 0)
+                return;
+            string restrictions = c.Restrictions;
+            if (restrictions.Equals(""))
+                uc.PriceAfterDiscount -= uc.PriceAfterDiscount * (c.Percentage / 100);
+            else
+            {
+                if (restrictions.Contains("TOS") && restrictions.Contains("COUNTRY"))
+                {
+                    if (restrictions.Contains(typeOfSale.ToString()) && restrictions.Contains(country))
+                        uc.PriceAfterDiscount -= uc.PriceAfterDiscount * (c.Percentage / 100);
+                }
+                else if (restrictions.Contains("TOS"))
+                {
+                    if (restrictions.Contains(typeOfSale.ToString()))
+                        uc.PriceAfterDiscount -= uc.PriceAfterDiscount * (c.Percentage / 100);
+                }
+                else if (restrictions.Contains("COUNTRY"))
+                {
+                    if (restrictions.Contains(country))
+                        uc.PriceAfterDiscount -= uc.PriceAfterDiscount * (c.Percentage / 100);
+                }
+            }
+        }
+
+
+
 
     }
 }

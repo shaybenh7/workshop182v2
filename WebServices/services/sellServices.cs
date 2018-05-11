@@ -116,5 +116,12 @@ namespace wsep182.services
             return RaffleSalesArchive.getInstance().getRemainingSumToPayInRaffleSale(saleId);
         }
 
+        public LinkedList<UserCart> applyCoupon(User session, string couponId,string country)
+        {
+            if (session == null)
+                return null;
+            return session.applyCoupon(couponId,country);
+        }
+
     }
 }
