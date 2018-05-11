@@ -65,7 +65,10 @@
                         string += "<span class=\"stext-105 cl3\">";
                         string += "<div id=\"storeName" + i + "\">Store Name: </div>"; // add sale name here to storeName
                         string += "</span>";
-                        string += "<span class=\"stext-105 cl3\">Kind of sale: " + typeOfSale + "</span>";
+                        if(typeOfSale == 1)
+                            string += "<span class=\"stext-105 cl3\">type of sale: instant sale</span>";
+                        else
+                            string += "<span class=\"stext-105 cl3\">type of sale: Raffle sale</span>";
                         string += "<span class=\"stext-105 cl3\" style=\"width: 100%;direction: rtl;\">";
                         string += "<div>";
                         if (typeOfSale == 1)
