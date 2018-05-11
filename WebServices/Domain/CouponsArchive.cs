@@ -185,7 +185,7 @@ namespace wsep182.Domain
                     coupons.AddLast(toAdd);
                 }
             }
-            return 0;
+            return 1;
         }
 
 

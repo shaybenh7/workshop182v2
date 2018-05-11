@@ -37,7 +37,6 @@ namespace wsep182.Domain
             lock (this)
             {
                 newStore = new Store(getNextStoreId(), storeName, storeOwner);
-                storeIndex++;
             }
             foreach (Store s in stores)
                 if (s.getStoreId() == newStore.getStoreId())
