@@ -68,8 +68,8 @@ namespace Acceptance_Tests.UserTests
             us.login(session, "zahi", "123456");
             storeServices ss = storeServices.getInstance();
             ss.createStore("abowim", session);
-            ss.addProductInStore("cola", 3.2, 10, session, 1);
-            ss.addProductInStore("sprite", 3.2, 10, session, 1);
+            ss.addProductInStore("cola", 3.2, 10, session, 1,"drinks");
+            ss.addProductInStore("sprite", 3.2, 10, session, 1, "drinks");
             LinkedList<ProductInStore> pisList = us.viewProductsInStore(1);
             LinkedList<ProductInStore> piStorsList = us.viewProductsInStores();
             Assert.AreEqual(pisList.Count, 2);
@@ -89,9 +89,9 @@ namespace Acceptance_Tests.UserTests
             storeServices ss = storeServices.getInstance();
             ss.createStore("abowim", session);
             ss.createStore("bro's", aviad);
-            ss.addProductInStore("cola", 3.2, 10, session, 1);
-            ss.addProductInStore("sprite", 3.2, 10, session, 1);
-            ss.addProductInStore("milk", 3.2, 10, aviad, 2);
+            ss.addProductInStore("cola", 3.2, 10, session, 1, "drinks");
+            ss.addProductInStore("sprite", 3.2, 10, session, 1, "drinks");
+            ss.addProductInStore("milk", 3.2, 10, aviad, 2, "milk");
             LinkedList<ProductInStore> pisList = us.viewProductsInStore(1);
             LinkedList<ProductInStore> pisList2 = us.viewProductsInStore(2);
             LinkedList<ProductInStore> piStorsList = us.viewProductsInStores();

@@ -122,7 +122,7 @@ namespace Acceptance_Tests.UserTests
         public void RemoveManager()
         {
             us.login(niv, "niv", "123456");
-            ss.addStoreManager(store, "niv", itamar);
+            ss.addStoreManager(store.getStoreId(), "niv", itamar);
             Assert.IsTrue(us.removeUser(admin,"niv") >= 0);
             Assert.IsFalse(us.login(niv,"niv", "123456") >= 0);
             Assert.AreEqual(store.getManagers().Count, 0);
@@ -136,7 +136,7 @@ namespace Acceptance_Tests.UserTests
         [TestMethod]
         public void RemoveNotCreatoreOwner()
         {
-            ss.addStoreOwner(store, "zahi", itamar);
+            ss.addStoreOwner(store.getStoreId(), "zahi", itamar);
             Assert.IsTrue(us.removeUser(admin,"zahi") >= 0);
             Assert.IsFalse(us.login(zahi,"zahi", "123456") >= 0);
             Assert.AreEqual(store.getOwners().Count, 1);
@@ -144,7 +144,7 @@ namespace Acceptance_Tests.UserTests
         [TestMethod]
         public void RemoveCreatoreOwnerWithAnotherOwner()
         {
-            ss.addStoreOwner(store, "zahi", itamar);
+            ss.addStoreOwner(store.getStoreId(), "zahi", itamar);
             Assert.AreEqual(store.getOwners().Count, 2);
             Assert.IsFalse(us.removeUser(admin,"itamar") >= 0);
             Assert.AreEqual(store.getOwners().Count, 2);
@@ -152,7 +152,7 @@ namespace Acceptance_Tests.UserTests
         [TestMethod]
         public void RemoveCreatorOwnerWithAnotherManager()
         {
-            ss.addStoreOwner(store, "niv", itamar);
+            ss.addStoreOwner(store.getStoreId(), "niv", itamar);
             Assert.IsFalse(us.removeUser(admin,"itamar") >= 0);
             //Assert.IsTrue(us.login(itamar,"itamar", "123456"));
             Assert.AreEqual(store.getOwners().Count, 2);
@@ -162,7 +162,7 @@ namespace Acceptance_Tests.UserTests
         {
             int s2 = ss.createStore("admin store", admin);
             Store store2 = storeArchive.getInstance().getStore(s2);
-            ss.addStoreManager(store2, "niv", admin);
+            ss.addStoreManager(store2.getStoreId(), "niv", admin);
             Assert.IsTrue(us.removeUser(admin,"niv") >= 0);
             Assert.IsFalse(us.login(niv,"niv", "123456") >= 0);
             Assert.AreEqual(store.getManagers().Count, 0);

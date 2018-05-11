@@ -88,7 +88,12 @@
     <None Include="packages.config" />
     <None Include="StoreTests\editSaleTests.cs.orig" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\WebServices\WebServices.csproj">
+      <Project>{C837D7D7-13BF-4C25-8D0A-8977867F87B2}</Project>
+      <Name>WebServices</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
