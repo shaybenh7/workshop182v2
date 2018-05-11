@@ -1002,6 +1002,45 @@
                     </div>
                 </div>
 
+     <div class="wrap-modal1 js-modal1 p-t-60 p-b-20" id="viewProductInStoreModal">
+                    <div class="overlay-modal1 js-hide-modal1"></div>
+                    
+                    <div class="container">
+                        <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent" style="padding-top: 25px;">
+
+                            <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+                                <img src="images/icons/icon-close.png" alt="CLOSE">
+                            </button>
+                            <div class="row">
+                                <div class="col-md-6 col-lg-7 p-b-30">
+                                    <div class="p-l-25 p-r-30 p-lr-0-lg">
+                                        <div class="wrap-slick3 flex-sb flex-w">
+
+                                            <div class="size-204 flex-w flex-m respon6-next">
+                                                <span class="mtext-106 cl2">All Product In Store</span>
+                                                <br />
+                                                <br />
+                                                <div id="ViewProduct" style=" margin-top:50px" class="size-204 respon6-next">
+                                                    
+                                                </div>
+                                                <br />
+                                                <br />
+                                                <br />
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
         <div class="wrap-modal1 js-modal1 p-t-60 p-b-20" id="viewAddPolicyModal">
                     <div class="overlay-modal1 js-hide-modal1"></div>
                     

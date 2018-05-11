@@ -31,6 +31,7 @@ $(document).ready(function () {
                     string += "<div class=\"flex-w m-r--5\">";
                     string += "<a href=\"#\" id=\"addProductInStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Product</a>";
                     string += "<a href=\"#\" id=\"editProductInStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Edit Product</a>";
+                    string += "<a href=\"#\" id=\"viewProductInStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"viewProducts(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">View Product</a>";
                     string += "<a href=\"#\" id=\"removeProductFromStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Product</a>";
                     string += "<a href=\"#\" id=\"addStoreManager" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Add Store Manager</a>";
                     string += "<a href=\"#\" id=\"removeStoreManager" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 " + disabledLinksInitial + "\">Remove Store Manager</a>";
@@ -354,6 +355,42 @@ function addSaleView(e) {
         }
     });
 
+}
+function viewProducts(e) {
+    modalLinkListener(e);
+    storeid = lastClickedStoreId;
+    jQuery.ajax({
+        type: "GET",
+        url: "http://localhost:53416/api/store/getProductInStore?storeId=" + lastClickedStoreId,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            var viewHistory = document.getElementById("ViewProduct");
+            if (response.length === 0) {
+                viewHistory.innerHTML = "<div style=\"padding-left: 30px;\"> there are no products in this store  </div>"
+            }
+            else {
+                viewHistory.innerHTML = "<div >"
+                for (var i = 0; i < response.length; i++){
+                    viewHistory.innerHTML += "<div style=\"width: 300px; padding: 17px; border-color: black; border-width: 1px; margin-left: 20px; margin-bottom: 20px; border-style: groove; \"> "+
+                        "<div> product in store id : " + response[i].productInStoreId + "</div>"+
+                        "<div>     product-id : " + response[i].product.productId + "</div>" +
+                        "<div>     product name : " + response[i].product.name + "</div>" +
+                        "<div>     price : " + response[i].price + "</div>" +
+                        "<div>     amount : " + response[i].quantity + "</div>" +
+                            "</div>";
+
+                }
+                viewHistory.innerHTML +="</div>"
+            }
+
+        },
+        error: function (response) {
+            console.log(response);
+
+        }
+    });
 }
 
 function viewHistory(e) {
