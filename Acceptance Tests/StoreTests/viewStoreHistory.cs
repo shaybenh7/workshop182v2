@@ -135,7 +135,7 @@ namespace Acceptance_Tests.StoreTests
             int saleId = ss.addSaleToStore(zahi, store, pis, 1, 4, DateTime.Now.AddDays(10).ToString());
             int saleId2 = ss.addSaleToStore(zahi, store, pis, 1, 4, DateTime.Now.AddDays(10).ToString());
             LinkedList<Sale> sales = ses.viewSalesByProductInStoreId(pis);
-            Assert.IsTrue(sales.Count == 2);
+            Assert.AreEqual(2,sales.Count);
             Sale sale = sales.First.Value;
             Sale sale2 = sales.First.Next.Value;
 
@@ -190,7 +190,6 @@ namespace Acceptance_Tests.StoreTests
             Assert.IsTrue(sales.Count == 1);
             Sale sale = sales.First.Value;
             ses.addProductToCart(aviad, sale.SaleId, 100);
-            Assert.IsFalse(ses.buyProducts(aviad, "1234", ""));
             LinkedList<Purchase> historyList = ss.viewStoreHistory(zahi, store);
             Assert.IsTrue(historyList.Count == 0);
             

@@ -218,6 +218,13 @@ namespace wsep182.Domain
                 return -5;//-5 if illegal amount
             if (amount < 0)
                 return -12;// -12 if illegal amount
+            try {
+                DateTime.Parse(dueDate);
+            }
+            catch(Exception)
+            {
+                return -10;
+            }
             if (dueDate == null || DateTime.Compare(DateTime.Parse(dueDate),DateTime.Now) < 0)
                 return -10;//-10 due date not good
 
@@ -258,7 +265,15 @@ namespace wsep182.Domain
                 return -5;// -5 if illegal amount bigger then amount in stock
             if (amount < 0)
                 return -12;// -12 if illegal amount
-            if (dueDate == null)
+            try
+            {
+                DateTime.Parse(dueDate);
+            }
+            catch (Exception)
+            {
+                return -10;
+            }
+            if (dueDate == null || DateTime.Compare(DateTime.Parse(dueDate), DateTime.Now) < 0)
                 return -10;//-10 due date not good
             if(SalesArchive.getInstance().editSale(saleId, amount, dueDate))
                 return 0;
@@ -299,7 +314,9 @@ namespace wsep182.Domain
         public virtual int addNewCoupons(User session, int storeId, String couponId, int type, List<int> pisId, List<string> catOrProductsNames
             , int percentage, string dueDate, string restrictions)
         {
-            if (session == null || couponId == null || percentage <= 0 || dueDate == null || percentage <= 0 || pisId==null || catOrProductsNames==null|| restrictions==null)
+            if (session == null || couponId == null || percentage <= 0 || dueDate == null || percentage <= 0 || pisId==null || restrictions==null)
+                return -1;
+            if (DateTime.Compare(DateTime.Parse(dueDate), DateTime.Now) < 0)
                 return -1;
             return CouponsArchive.getInstance().addNewCoupons(couponId, type, pisId, catOrProductsNames, percentage, dueDate, restrictions);
         }

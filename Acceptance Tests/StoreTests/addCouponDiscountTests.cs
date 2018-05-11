@@ -70,9 +70,9 @@ namespace Acceptance_Tests.StoreTests
 
 
             Assert.IsTrue(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 2, lst, lst2, 10, "20/6/2018","")>-1);
-            Coupon c = ca.getCoupon("copun", cola);
+            Coupon c = ca.getCoupon("coupon", cola);
             Assert.AreEqual(c.DueDate, "20/6/2018");
-            Assert.AreEqual(c.CouponId, "copun");
+            Assert.AreEqual(c.CouponId, "coupon");
             Assert.AreEqual(c.Percentage, 10);
         }
 
@@ -81,10 +81,12 @@ namespace Acceptance_Tests.StoreTests
         {
             List<int> lst = new List<int>();
             lst.Add(cola);
-            Assert.IsTrue(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 10, "20/6/2018", "") > -1);
-            Coupon c = ca.getCoupon("copun", cola);
+            int temp = ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 10, "20/6/2018", "");
+            Assert.IsTrue(temp > -1);
+
+            Coupon c = ca.getCoupon("coupon", cola);
             Assert.AreEqual(c.DueDate, "20/6/2018");
-            Assert.AreEqual(c.CouponId, "copun");
+            Assert.AreEqual(c.CouponId, "coupon");
             Assert.AreEqual(c.Percentage, 10);
         }
 
@@ -93,15 +95,16 @@ namespace Acceptance_Tests.StoreTests
         {
             List<int> lst = new List<int>();
             lst.Add(cola);
-            Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), null, 1, lst, null,10, "20/6/2018","")>-1);
-            Assert.IsNull(ca.getCoupon("copun", cola));
+            int temp = ss.addNewCoupons(zahi, store.getStoreId(), null, 1, lst, null, 10, "20/6/2018", "");
+            Assert.IsFalse(temp > -1);
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
 
         [TestMethod]
         public void AddCouponWithNullproduct()
         {
             Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1,null,null, 10, "20/6/2018","")>-1);
-            Assert.IsNull(ca.getCoupon("copun", cola));
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
 
         [TestMethod]
@@ -110,7 +113,7 @@ namespace Acceptance_Tests.StoreTests
             List<int> lst = new List<int>();
             lst.Add(cola);
             Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 0, "20/6/2018", "") > -1);
-            Assert.IsNull(ca.getCoupon("copun", cola));
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
 
         [TestMethod]
@@ -118,8 +121,9 @@ namespace Acceptance_Tests.StoreTests
         {
             List<int> lst = new List<int>();
             lst.Add(cola);
-            Assert.IsTrue(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, -10, "20/6/2018", "") > -1);
-            Assert.IsNull(ca.getCoupon("copun", cola));
+            int temp = ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, -10, "20/6/2018", "");
+            Assert.IsFalse(temp > -1);
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
 
         [TestMethod]
@@ -127,8 +131,8 @@ namespace Acceptance_Tests.StoreTests
         {
             List<int> lst = new List<int>();
             lst.Add(cola);
-            Assert.IsTrue(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 10, null, "") > -1);
-            Assert.IsNull(ca.getCoupon("copun", cola));
+            Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 10, null, "") > -1);
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
 
         [TestMethod]
@@ -136,8 +140,8 @@ namespace Acceptance_Tests.StoreTests
         {
             List<int> lst = new List<int>();
             lst.Add(cola);
-            Assert.IsTrue(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 10, DateTime.Now.AddDays(-1).ToString(), "") > -1);
-            Assert.IsNull(ca.getCoupon("copun", cola));
+            Assert.IsFalse(ss.addNewCoupons(zahi, store.getStoreId(), "coupon", 1, lst, null, 10, DateTime.Now.AddDays(-1).ToString(), "") > -1);
+            Assert.IsNull(ca.getCoupon("coupon", cola));
         }
     }
 }

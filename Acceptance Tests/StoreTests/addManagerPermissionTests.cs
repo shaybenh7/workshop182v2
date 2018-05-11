@@ -192,7 +192,7 @@ namespace Acceptance_Tests.StoreTests
             int p = ss.addProductInStore("cola", 10, 4, zahi, store.getStoreId(), "Drinks");
             ProductInStore pis = ProductArchive.getInstance().getProductInStore(p);
             int saleId = ss.addSaleToStore(aviad, store.getStoreId(), pis.getProductInStoreId(), 1, 100, DateTime.Now.AddYears(1).ToString());
-            Assert.AreEqual(-1,saleId);
+            Assert.IsFalse(saleId>0);
             ss.addManagerPermission("addSaleToStore", store.getStoreId(), aviad.getUserName(), zahi);
             saleId = ss.addSaleToStore(aviad, store.getStoreId(), pis.getProductInStoreId(), 1, 3, DateTime.Now.AddYears(1).ToString());
             Sale sale = SalesArchive.getInstance().getSalesByProductInStoreId(pis.getProductInStoreId()).First.Value;

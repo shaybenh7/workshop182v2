@@ -42,6 +42,7 @@ namespace Acceptance_Tests.StoreTests
 
             zahi = us.startSession();
             us.register(zahi, "zahi", "123456");
+            us.login(zahi, "zahi", "123456");
 
             itamar = us.startSession();
             us.register(itamar, "itamar", "123456");
@@ -49,7 +50,7 @@ namespace Acceptance_Tests.StoreTests
 
 
 
-            int storeid = ss.createStore("Maria&Netta Inc.", zahi);
+            int storeid = ss.createStore("MariaNettaInc", itamar);
             store = storeArchive.getInstance().getStore(storeid);
 
             niv = us.startSession();
@@ -106,9 +107,9 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditSaleWithNullParameters()
         {
-            Assert.AreEqual(ss.editSale(null, store.getStoreId(), saleId, 1, "20/5/2018"),-1);//-1 not login || -4 don't have premition
-            Assert.AreEqual(ss.editSale(itamar, -7, saleId, 1, "20/5/2018"),-6);//-6 if illegal store id
-            Assert.AreEqual(ss.editSale(itamar, store.getStoreId(), saleId, 1, null),-10);//-10 due date not good
+            Assert.AreEqual(-4,ss.editSale(null, store.getStoreId(), saleId, 1, "20/5/2018"));//-1 not login || -4 don't have premition
+            Assert.AreEqual(-4,ss.editSale(itamar, -7, saleId, 1, "20/5/2018"));//-6 if illegal store id
+            Assert.AreEqual(-10,ss.editSale(itamar, store.getStoreId(), saleId, 1, null));//-10 due date not good
         }
         [TestMethod]
         public void EditSaleWithDoesExistsSaleId()
@@ -118,7 +119,8 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void AddSaleWithDateNotGood()
         {
-            Assert.AreEqual(ss.editSale(itamar, store.getStoreId(), saleId, 1, "HEY"),-10);//-10 due date not good
+            int temp = ss.editSale(itamar, store.getStoreId(), saleId, 1, "HEY");
+            Assert.IsFalse(temp>0);//-10 due date not good
         }
     }
     }

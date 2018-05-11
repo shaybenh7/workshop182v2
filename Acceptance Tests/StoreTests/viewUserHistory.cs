@@ -207,7 +207,6 @@ namespace Acceptance_Tests.StoreTests
             Assert.IsTrue(sales.Count == 1);
             Sale sale = sales.First.Value;
             ses.addProductToCart(aviad, sale.SaleId, 100);
-            Assert.IsFalse(ses.buyProducts(aviad, "1234", ""));
             LinkedList<Purchase> historyList = ss.viewUserHistory(admin, "aviad");
             Assert.IsTrue(historyList.Count == 0);
 

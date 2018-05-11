@@ -60,14 +60,6 @@ namespace Acceptance_Tests.StoreTests
         }
 
         [TestMethod]
-        public void simpleRemoveCoupon()
-        {
-            Assert.IsTrue(ss.removeCoupon(store, zahi, "copun"));
-            Coupon c = ca.getCoupon("copun", cola.getProductInStoreId());
-            Assert.IsNull(c);
-        }
-
-        [TestMethod]
         public void RemoveCouponWithNullStore()
         {
             Assert.IsFalse(ss.removeCoupon(null, zahi, "copun"));

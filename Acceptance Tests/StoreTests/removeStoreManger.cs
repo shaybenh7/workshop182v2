@@ -76,7 +76,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void RemoveMangerByNotExistUser()
         {
-            Assert.AreEqual(ss.removeStoreManager(store.getStoreId(), "niv", zahi),-1);//-1 if user Not Login could be -4
+            Assert.AreEqual(-4,ss.removeStoreManager(store.getStoreId(), "niv", zahi));//-1 if user Not Login could be -4
             Assert.AreEqual(store.getManagers().Count, 1);
         }
         [TestMethod]

@@ -34,7 +34,7 @@ namespace Acceptance_Tests.StoreTests
             us.register(zahi, "zahi", "123456");
             us.login(zahi, "zahi", "123456");
             int storeid = ss.createStore("abowim", zahi);
-            Store store = storeArchive.getInstance().getStore(storeid);
+            store = storeArchive.getInstance().getStore(storeid);
             int c = ss.addProductInStore("cola", 3.2, 10, zahi, storeid, "Drinks");
             cola = ProductArchive.getInstance().getProductInStore(c);
 
@@ -51,7 +51,7 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditProductInStoreWithNullSession()
         {
-            Assert.AreEqual(ss.editProductInStore(null, store.getStoreId(), cola.getProductInStoreId(), 100, 5.2),-1);//-1 not log in can be -4 no premition
+            Assert.AreEqual(-4,ss.editProductInStore(null, store.getStoreId(), cola.getProductInStoreId(), 100, 5.2));//-1 not log in can be -4 no premition
             Assert.AreEqual(cola.getAmount(), 10);
             Assert.AreEqual(cola.getPrice(), 3.2);
         }
@@ -59,7 +59,8 @@ namespace Acceptance_Tests.StoreTests
         [TestMethod]
         public void EditProductInStoreWithNullStore()
         {
-            Assert.AreEqual(ss.editProductInStore(zahi, -7, cola.getProductInStoreId(), 100, 5.2),-6);//-6 if illegal store id
+            int temp = ss.editProductInStore(zahi, -7, cola.getProductInStoreId(), 100, 5.2);
+            Assert.AreEqual(-6,temp);//-6 if illegal store id
             Assert.AreEqual(cola.getAmount(), 10);
             Assert.AreEqual(cola.getPrice(), 3.2);
         }

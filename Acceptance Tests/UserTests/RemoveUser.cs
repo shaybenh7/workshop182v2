@@ -42,8 +42,8 @@ namespace Acceptance_Tests.UserTests
             itamar = us.startSession();
             us.register(itamar, "itamar", "123456");
             itamar.login("itamar", "123456");
-            itamar.createStore("Maria&Netta Inc.");
-            store = storeArchive.getInstance().getStore(1);
+            int id=itamar.createStore("Maria&Netta Inc.");
+            store = storeArchive.getInstance().getStore(id);
             niv = us.startSession();
             us.register(niv, "niv", "123456");
             
@@ -69,17 +69,17 @@ namespace Acceptance_Tests.UserTests
         [TestMethod]
         public void AdminRemoveHimself()
         {
-            Assert.IsFalse(us.removeUser(admin,"admin") >= 0);
-            admin.logOut();
-            Assert.IsTrue(us.login(admin,"admin", "123456") >= 0);
+            int temp = us.removeUser(admin, "admin");
+            Assert.IsFalse( temp>= 0);
+            int temp2 = us.login(admin, "admin", "123456");
+            Assert.IsTrue(temp2== -4);
         }
         [TestMethod]
         public void UserRemoveHimself()
         {
             us.login(zahi, "zahi", "123456");
             Assert.IsFalse(us.removeUser(zahi, "zahi") >= 0);
-            zahi.logOut();
-            Assert.IsTrue(us.login(zahi,"zahi", "123456") >= 0);
+            Assert.IsTrue(us.login(zahi,"zahi", "123456") == -4);
         }
         [TestMethod]
         public void UserRemoveUser()

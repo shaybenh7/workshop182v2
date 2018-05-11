@@ -50,7 +50,7 @@ namespace Acceptance_Tests.SellTests
             us.login(itamar, "itamar", "123456");
             int storeId = ss.createStore("Maria&Netta Inc.", itamar);
 
-            Store store = storeArchive.getInstance().getStore(storeId);
+            store = storeArchive.getInstance().getStore(storeId);
 
             niv = us.startSession();
             us.register(niv, "niv", "123456");
@@ -62,7 +62,7 @@ namespace Acceptance_Tests.SellTests
             cola = ProductArchive.getInstance().getProductInStore(colaId);
             int spriteId = ss.addProductInStore("sprite", 5.2, 100, itamar, storeId, "Drinks");
             sprite = ProductArchive.getInstance().getProductInStore(spriteId);
-            ss.addSaleToStore(itamar, storeId, cola.getProductInStoreId(), 3, 1, DateTime.Now.AddMonths(10).ToString());
+            ss.addSaleToStore(itamar, storeId, cola.getProductInStoreId(), 1, 10, DateTime.Now.AddMonths(10).ToString());
         }
 
 
@@ -78,16 +78,18 @@ namespace Acceptance_Tests.SellTests
         {
             us.login(zahi, "zahi", "123456");
             LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
-            Assert.IsFalse(sellS.addProductToCart(zahi, saleList.First.Value.SaleId, 8)>0);
-            Assert.IsFalse(sellS.addProductToCart(zahi, saleList.First.Value.SaleId, 12)>0);
+            int temp = sellS.addProductToCart(zahi, saleList.First.Value.SaleId, 800);
+            Assert.IsFalse(temp > 0);
+            Assert.IsFalse(sellS.addProductToCart(zahi, saleList.First.Value.SaleId, 1200)>0);
         }
         [TestMethod]
         public void AddProductToCartBuyMax()
         {
             us.login(zahi, "zahi", "123456");
             LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
-            Assert.IsFalse(sellS.addProductToCart(zahi, saleList.First.Value.SaleId, 8)>0);
-            Assert.IsTrue(sellS.addProductToCart(zahi, saleList.First.Value.SaleId, 1)>0);
+            Assert.IsFalse(sellS.addProductToCart(zahi, saleList.First.Value.SaleId, 11)>0);
+            int temp = sellS.addProductToCart(zahi, saleList.First.Value.SaleId, 9);
+            Assert.IsTrue(temp > 0);
             Assert.IsTrue(sellS.addProductToCart(niv, saleList.First.Value.SaleId, 4)>0);
         }
         [TestMethod]

@@ -29,7 +29,7 @@ namespace Acceptance_Tests.SellTests
             DiscountsArchive.restartInstance();
             RaffleSalesArchive.restartInstance();
             StorePremissionsArchive.restartInstance();
-
+            
             us = userServices.getInstance();
             ss = storeServices.getInstance();
             sellS = sellServices.getInstance();
@@ -49,7 +49,7 @@ namespace Acceptance_Tests.SellTests
             us.login(itamar, "itamar", "123456");
             int storeId=ss.createStore("Maria&Netta Inc.", itamar);
 
-            Store store = storeArchive.getInstance().getStore(storeId);
+            store = storeArchive.getInstance().getStore(storeId);
 
             niv = us.startSession();
             us.register(niv, "niv", "123456");
@@ -85,8 +85,10 @@ namespace Acceptance_Tests.SellTests
         {
             us.login(zahi, "zahi", "123456");
             LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
-            Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 8)>0);
-            Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 1)>0);
+            int temp2=sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 8);
+            Assert.IsFalse(temp2>0);
+            int temp = sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 1);
+            Assert.IsTrue(temp>0);
             Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 2.2)>0);
         }
         [TestMethod]

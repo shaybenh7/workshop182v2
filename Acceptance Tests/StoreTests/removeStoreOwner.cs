@@ -117,7 +117,7 @@ namespace Acceptance_Tests.StoreTests
         public void RemoveOwnerStoreNotExist()
         {
             Store store2 = new Store(2, "abow", zahi);
-            Assert.AreEqual(ss.removeStoreOwner(store2.getStoreId(), "niv", zahi),-6);// -6 if illegal store id
+            Assert.AreEqual(-4,ss.removeStoreOwner(store2.getStoreId(), "niv", zahi));// -6 if illegal store id
         }
         [TestMethod]
         public void RemoveOwnerByAdmin()

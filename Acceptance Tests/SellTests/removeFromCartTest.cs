@@ -52,7 +52,7 @@ namespace Acceptance_Tests.SellTests
             us.register(itamar, "itamar", "123456");
             us.login(itamar, "itamar", "123456");
             int storeId = ss.createStore("Maria&Netta Inc.", itamar);
-            Store store = storeArchive.getInstance().getStore(storeId);
+            store = storeArchive.getInstance().getStore(storeId);
 
             niv = us.startSession();
             us.register(niv, "niv", "123456");
