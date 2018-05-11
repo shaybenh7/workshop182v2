@@ -218,7 +218,7 @@ namespace wsep182.Domain
                 return -5;//-5 if illegal amount
             if (amount < 0)
                 return -12;// -12 if illegal amount
-            if (dueDate == null)
+            if (dueDate == null || DateTime.Compare(DateTime.Parse(dueDate),DateTime.Now) < 0)
                 return -10;//-10 due date not good
 
             if (pis.getStore().getStoreId() != s.getStoreId())

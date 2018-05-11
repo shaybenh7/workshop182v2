@@ -753,7 +753,7 @@ namespace WebService.Controllers
                 case -4:
                     return "Error: don't have permission";
                 case -5:
-                    return "Error: illegal amount bigger then amount in stock";
+                    return "Error: Illegal amount! The amount entered is bigger than the amount in stock";
                 case -6:
                     return "Error: illegal store id";
                 case -7:
@@ -779,7 +779,7 @@ namespace WebService.Controllers
         [HttpGet]
         public string removeSaleFromStore(int storeId, int saleId)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().removeSaleFromStore(session, storeId, saleId);
             
             switch (ans)
@@ -807,7 +807,7 @@ namespace WebService.Controllers
         [HttpGet]
         public string editSale(int storeId, int saleId, int amount, String dueDate)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = storeServices.getInstance().editSale(session, storeId, saleId, amount, dueDate);
             switch (ans)
             {
@@ -962,7 +962,7 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage getManagers(int storeId)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             Object Managers = storeServices.getInstance().getManagers(storeId);
             HttpResponseMessage response;
             if (Managers == null)
@@ -980,7 +980,7 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage viewSalesByStore(int storeId)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             Object sales = storeServices.getInstance().viewSalesByStore(storeId);
             HttpResponseMessage response;
             if (sales == null)
