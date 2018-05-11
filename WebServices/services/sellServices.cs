@@ -82,7 +82,7 @@ namespace wsep182.services
 
         public int buyProductsInCart(User session,string country, string address, string creditCard)
         {
-            if (session == null)
+            if (session == null|| country==null|| creditCard==null)
                 return -1;
             if (country.Equals("") || address.Equals(""))
                 return -2;
@@ -92,12 +92,12 @@ namespace wsep182.services
         }
 
         //VERSION 2 ADDITIONS
-        public Tuple<int, LinkedList<UserCart>> checkout(User session, string country, string address)
+        public Tuple<int, LinkedList<UserCart>> checkout(User session, string country, string address, string creditcard)
         {
             LinkedList<UserCart> ans = null;
-            if (session == null)
+            if (session == null||country == null || address == null|| creditcard==null)
                 return Tuple.Create(-2, ans); // -2 user error
-            if(country.Equals("") || address.Equals(""))
+            if(country.Equals("") || address.Equals("")|| creditcard.Equals(""))
                 return Tuple.Create(-3, ans); // -3 country or address cannot be empty error
             return session.checkout(country, address);
         }

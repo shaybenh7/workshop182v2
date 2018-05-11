@@ -276,12 +276,12 @@ namespace WebService.Controllers
         }
         [Route("api/sell/checkout")]
         [HttpGet]
-        public HttpResponseMessage checkout(string country, string address)
+        public HttpResponseMessage checkout(string country, string address, string creditcard)
         {
             string hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
             User session = hashServices.getUserByHash(hash);
             HttpResponseMessage response;
-            Tuple<int, LinkedList<UserCart>> ans = sellServices.getInstance().checkout(session, country, address);
+            Tuple<int, LinkedList<UserCart>> ans = sellServices.getInstance().checkout(session, country, address, creditcard);
             int confimation = ans.Item1;
             /* Confimation = -1 = everything is o.k
              * Errors:

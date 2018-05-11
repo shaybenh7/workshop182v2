@@ -66,19 +66,6 @@
                         </table>
                     </div>
 
-                    <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-                        <div class="flex-w flex-m m-r-20 m-tb-5">
-                            <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
-
-                            <div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-                                Apply coupon
-                            </div>
-                        </div>
-
-                        <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-                            Update Cart
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -203,19 +190,18 @@
         function checkoutFunc() {
             var country = $("#country").val();
             var address = $("#address").val();;
-
+            var creditcard = $("#creditCard").val();
             //now need to add stuff to the modal
             var mainDivModal = document.getElementById('shoppingCartModal');
             jQuery.ajax({
                 type: "GET",
-                url: "http://localhost:53416/api/sell/checkout?country=" + country + "&address=" + address,
+                url: "http://localhost:53416/api/sell/checkout?country=" + country + "&address=" + address+"&creditcard="+creditcard,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    if (response instanceof String)
-                        alert(response);
+                    if (response== "Error: user error!"||response=="Error: country and address fields cannot be empty!")
+                        alert("Error: All fields must be filled!");
                     else {
-                        console.log(response);
                         var i;
                         for (i = 0; i < response.length; i++) {
                             element = response[i];
@@ -291,7 +277,6 @@
 
 
         $("#purchase_btn").click(function () {
-            console.log("in purchase_btn func");
             var country = $("#country").val();
             var address = $("#address").val();
             var creditcard = $("#creditCard").val();
@@ -303,14 +288,16 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                                        console.log(response);
+                    console.log(response);
+                    alert(response);
 
-                    //alert(response);
-                    //window.location.reload(false);
+                    
+                    window.location.reload(false);
 
                 },
                 error: function (response) {
                     console.log(response);
+                    alert(response);
                     //window.location.reload(false);
                 }
             });

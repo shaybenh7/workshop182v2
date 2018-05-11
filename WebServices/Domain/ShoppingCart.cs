@@ -498,6 +498,8 @@ namespace wsep182.Domain
             foreach (UserCart uc in toDelete)
             {
                 products.Remove(uc);
+                if (!(session.getState() is Guest))
+                    UserCartsArchive.getInstance().removeUserCart(session.userName,uc.SaleId);
             }
             return allBought;
         }
