@@ -11,7 +11,7 @@ namespace wsep182.Domain
         private String couponId;
         private int productInStoreId;
         private double percentage;
-        private int type;
+        private int type; // type: 1- product in store , 2- category, 3- product
         private string category;
         private string productName;
         private string dueDate;

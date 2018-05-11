@@ -318,5 +318,13 @@ namespace WebService.Controllers
             return response;
         }
 
+        [Route("api/sell/applyCoupon")]
+        [HttpGet]
+        public HttpResponseMessage applyCoupon(string couponId,string country)
+        {
+            return null;
+        }
+
+
     }
 }

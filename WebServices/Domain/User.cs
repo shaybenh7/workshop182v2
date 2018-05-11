@@ -231,6 +231,10 @@ namespace wsep182.Domain
             return shoppingCart.getShoppingCartBeforeCheckout(this);
         }
 
+        public LinkedList<UserCart> applyCoupon(string couponId, string country)
+        {
+            return shoppingCart.applyCoupon(this, couponId,country);
+        }
 
 
     }
