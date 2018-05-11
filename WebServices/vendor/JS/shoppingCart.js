@@ -196,8 +196,8 @@ var checkoutFunc2 =function() {
 function applyCoupon() {
     var mainDivModal = document.getElementById('shoppingCartModal');
 
-    var coupon = $("#coupnnNameId").val;
-    var country = $("#country").val
+    var coupon = $("#coupnnNameId").val();
+    var country = $("#country").val();
     jQuery.ajax({
         type: "GET",
         url: "http://localhost:53416/api/sell/applyCoupon?couponId=" + coupon +
