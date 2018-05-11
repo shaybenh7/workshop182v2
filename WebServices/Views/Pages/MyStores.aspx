@@ -44,15 +44,9 @@
                                                 <div class="flex-w flex-r-m p-b-10">
                                                     <div></div>
 
-                                                    <div class="size-204 respon6-next">
-                                                        <div>
-                                                            <select name="time">
-                                                                <option>Choose category</option>
-                                                                <option>Chocolate</option>
-                                                                <option>Clothing</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
+                                                    <div class="wrap-input1 w-full p-b-4">
+                                                        <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="offer" id="product-cat" placeholder="Enter category">
+                                                        <div class="focus-input1 trans-04"></div>
                                                     </div>
                                                     <br />
                                                     <br />
@@ -113,17 +107,7 @@
 
 
                                                 <div class="flex-w flex-r-m p-b-10">
-                                                    <div></div>
-                                                    <div class="size-204 respon6-next">
-                                                        <div>
-                                                            <select name="time">
-                                                                <option>Choose category</option>
-                                                                <option>Chocolate</option>
-                                                                <option>Clothing</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
-                                                    </div>
+                                                    
                                                     <br />
                                                     <br />
                                                     <br />
