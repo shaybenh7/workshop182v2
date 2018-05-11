@@ -359,72 +359,69 @@
 
                                                 <div style="display: table; width: 100%;">
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="male" style="margin-top: 5px; margin-right: 10px;">
-                                                        addProductInStore
+                                                        <input type="checkbox" id="addProductInStore" name="gender" value="male" style="margin-top: 5px; margin-right: 10px;">
+                                                        Add product in store
                                                     </div>
 
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        editProductInStore
+                                                        <input type="checkbox" id="editProductInStore" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Edit product in store
                                                     </div>
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        removeProductFromStore  
+                                                        <input type="checkbox" id="removeProductFromStore" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Remove product from store  
                                                     </div>
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        addStoreManager  
+                                                        <input type="checkbox" id="addStoreManager" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Add store manager  
                                                     </div>
 
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        removeStoreManager  
+                                                        <input type="checkbox" id="removeStoreManager" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Remove store manager  
                                                     </div>
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        addManagerPermission  
+                                                        <input type="checkbox" id="addManagerPermission" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Add manager permission  
                                                     </div>
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        removeManagerPermission  
+                                                        <input type="checkbox" id="removeManagerPermission" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Remove manager permission  
                                                     </div>
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        viewPurchasesHistory  
+                                                        <input type="checkbox" id="viewPurchasesHistory" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        View purchases history  
                                                     </div>
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        removeSaleFromStore  
+                                                        <input type="checkbox" id="removeSaleFromStore" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Remove sale from store  
                                                     </div>
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        editSale  
+                                                        <input type="checkbox" id="editSale" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Edit sale  
                                                     </div>
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        addSaleToStore  
+                                                        <input type="checkbox" id="addSaleToStore" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Add sale to store  
                                                     </div>
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        addDiscount  
+                                                        <input type="checkbox" id="addDiscount" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Add discount  
                                                     </div>
 
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        addNewCoupon  
+                                                        <input type="checkbox" id="addNewCoupon" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Add new coupon  
                                                     </div>
+
                                                     <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        removeDiscount  
+                                                        <input type="checkbox" id="addPolicy" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
+                                                        Add policy  
                                                     </div>
-                                                    <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" value="female" style="margin-top: 5px; margin-right: 10px;">
-                                                        removeCoupon  
-                                                    </div>
+         
                                                 </div>
-                                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                    Add permissions
-                                                </button>
+
+                                                <input type="button" style="margin-left:700px;" value="Add permissions" onclick="addmanagerPermision()" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
 
 
 
