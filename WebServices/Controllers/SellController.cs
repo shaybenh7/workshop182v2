@@ -322,7 +322,19 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage applyCoupon(string couponId,string country)
         {
-            return null;
+            string hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
+            User session = hashServices.getUserByHash(hash);
+            HttpResponseMessage response;
+            LinkedList<UserCart> updatedCart = sellServices.getInstance().applyCoupon(session, couponId, country);
+            if(updatedCart == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Error: user error");
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, updatedCart);
+            }
+            return response;
         }
 
 
