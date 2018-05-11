@@ -705,7 +705,7 @@ namespace WebService.Controllers
         public HttpResponseMessage viewStoreHistory(int storeId)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
-            Object history = storeServices.getInstance().viewStoreHistory(session,storeId);
+            LinkedList<Purchase> history = storeServices.getInstance().viewStoreHistory(session,storeId);
             HttpResponseMessage response;
             if (history == null)
             {

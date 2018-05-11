@@ -482,6 +482,7 @@ namespace wsep182.Domain
                             BuyHistoryArchive.getInstance().addBuyHistory(productId, storeId, userName, offer, date, amount,
                                 typeOfSale);
                             RaffleSalesArchive.getInstance().sendMessageTORaffleWinner(sale.SaleId);
+                            SalesArchive.getInstance().setNewAmountForSale(product.getSaleId(), sale.Amount - product.getAmount());
                             toDelete.AddLast(product);
                         }
                         else
