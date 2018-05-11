@@ -379,6 +379,8 @@ function viewProducts(e) {
             else {
                 viewHistory.innerHTML = "<div >"
                 for (var i = 0; i < response.length; i++){
+                    if (response[i].isActive == 0)
+                        continue;
                     viewHistory.innerHTML += "<div style=\"width: 300px; padding: 17px; border-color: black; border-width: 1px; margin-left: 20px; margin-bottom: 20px; border-style: groove; \"> "+
                         "<div> product in store id : " + response[i].productInStoreId + "</div>"+
                         "<div>     product-id : " + response[i].product.productId + "</div>" +
