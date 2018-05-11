@@ -408,7 +408,25 @@ function viewHistory(e) {
                 viewHistory.innerHTML = "<div style=\"padding-left: 30px;\"> there were not purcheses from this store  </div>"
             }
             else {
-                viewHistory.innerHTML = "<div>  </div>"
+                viewHistory.innerHTML = "<div >"
+                for (var i = 0; i < response.length; i++) {
+                    newDiv= "<div style=\"width: 300px; padding: 17px; border-color: black; border-width: 1px; margin-left: 20px; margin-bottom: 20px; border-style: groove; \"> " +
+                        "<div> Buyer : " + response[i].UserName + "</div>" +
+                        "<div> product-id : " + response[i].ProductId + "</div>" +
+                        "<div> Date : " + response[i].Date + "</div>";
+                    if (response[i] == 1) {
+                        newDiv += "<div>Type of sale : instant sale</div>" +
+                            "</div>";
+                    }
+                    else {
+                        newDiv += "<div>Type of sale : Raffle sale</div>" +
+                            "</div>";
+                    }
+                    viewHistory.innerHTML += newDiv;
+                       
+
+                }
+                viewHistory.innerHTML += "</div>"
             }
             
         },

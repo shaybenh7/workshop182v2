@@ -982,7 +982,7 @@
                                                 <span class="mtext-106 cl2">Store History Purchase</span>
                                                 <br />
                                                 <br />
-                                                <div id="viewHistory" class="size-204 respon6-next">
+                                                <div id="viewHistory" style=" margin-top:50px" class="size-204 respon6-next">
                                                     
                                                 </div>
                                                 <br />
