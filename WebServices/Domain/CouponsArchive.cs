@@ -130,7 +130,7 @@ namespace wsep182.Domain
         {
             foreach (Coupon coupon in coupons)
             {
-                if (coupon.CouponId.Equals(couponId)
+                if (coupon.CouponId.Equals(couponId))
                 {
                     return coupon;
                 }

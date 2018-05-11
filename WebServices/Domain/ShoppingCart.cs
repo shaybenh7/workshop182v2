@@ -262,25 +262,18 @@ namespace wsep182.Domain
             {
                 return -6; // already have an instance of the raffle sale in the cart
             }
-           /*     
-            foreach(UserCart uc in session.getShoppingCart())
-            {
-                if (uc.getSaleId() == sale.SaleId)
-                    return false;
-            }
-            */
-            if (!(session.getState() is Guest))
-            {
-                UserCartsArchive.getInstance().updateUserCarts(session.getUserName(), sale.SaleId, 1,offer);
-            }
-            else
-            {
-                return -7; // cannot add a raffle sale to cart while on guest mode
-            }
             double remainingSum = getRemainingSumForOffers(sale.SaleId);
             if(offer > remainingSum || offer <= 0)
             {
                 return -8; // offer is bigger than remaining sum to pay
+            }
+            if (!(session.getState() is Guest))
+            {
+                UserCartsArchive.getInstance().updateUserCarts(session.getUserName(), sale.SaleId, 1, offer);
+            }
+            else
+            {
+                return -7; // cannot add a raffle sale to cart while on guest mode
             }
 
             //UserCart toAdd = UserCartsArchive.getInstance().getUserCart(session.getUserName(), sale.SaleId);
