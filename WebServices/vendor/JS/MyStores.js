@@ -820,6 +820,52 @@ var fixRestricion = function (restriction, copunRaffle, copunInstant) {
     return Restriction;
 }
 
+var removeManagerPermision = function () {
+    manager = $("#manager-to-delete-permissions").val();
+    if ($("#addProductInStore22")[0].checked) {
+        sendRemoveManagerPremission(manager, "addProductInStore");
+    }
+    if ($("#editProductInStore2")[0].checked) {
+        sendRemoveManagerPremission(manager, "editProductInStore");
+    }
+    if ($("#removeProductFromStore2")[0].checked) {
+        sendRemoveManagerPremission(manager, "removeProductFromStore");
+    }
+    if ($("#addStoreManager2")[0].checked) {
+        sendRemoveManagerPremission(manager, "addStoreManager");
+    }
+    if ($("#removeStoreManager2")[0].checked) {
+        sendRemoveManagerPremission(manager, "removeStoreManager");
+    }
+    if ($("#addManagerPermission2")[0].checked) {
+        sendRemoveManagerPremission(manager, "addManagerPermission");
+    }
+    if ($("#removeManagerPermission2")[0].checked) {
+        sendRemoveManagerPremission(manager, "removeManagerPermission");
+    }
+    if ($("#viewPurchasesHistory2")[0].checked) {
+        sendRemoveManagerPremission(manager, "viewPurchasesHistory");
+    }
+    if ($("#removeSaleFromStore2")[0].checked) {
+        sendRemoveManagerPremission(manager, "removeSaleFromStore");
+    }
+    if ($("#editSale2")[0].checked) {
+        sendRemoveManagerPremission(manager, "editSale");
+    }
+    if ($("#addSaleToStore2")[0].checked) {
+        sendRemoveManagerPremission(manager, "addSaleToStore");
+    }
+    if ($("#addDiscount2")[0].checked) {
+        sendRemoveManagerPremission(manager, "addDiscount");
+    }
+    if ($("#addNewCoupon2")[0].checked) {
+        sendRemoveManagerPremission(manager, "addNewCoupon");
+    }
+    if ($("#addPolicy2")[0].checked) {
+        sendRemoveManagerPremission(manager, "changePolicy");
+    }
+}
+
 var addmanagerPermision = function () {
     manager = $("#manager-to-change-permissions").val();
     if ($("#addProductInStore")[0].checked) {
@@ -866,11 +912,19 @@ var addmanagerPermision = function () {
     }
 }
 
-var sendAddManagerPremission=function(manager,premission){
+var sendRemoveManagerPremission = function (manager, premission) {
+    sendPremission(manager, premission, "api/store/removeManagerPermission")
+}
+
+var sendAddManagerPremission = function (manager, premission) {
+    sendPremission(manager, premission,"api/store/addManagerPermission")
+}
+
+var sendPremission = function (manager, premission, uri) {
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/addManagerPermission?storeId=" + lastClickedStoreId +
-            "&ManageruserName=" + manager + "&permission=" + premission ,
+        url: "http://localhost:53416/"+ uri +"?storeId=" + lastClickedStoreId +
+            "&ManageruserName=" + manager + "&permission=" + premission,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
