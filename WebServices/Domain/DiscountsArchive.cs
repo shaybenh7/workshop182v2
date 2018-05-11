@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace wsep182.Domain
 {
@@ -10,10 +11,15 @@ namespace wsep182.Domain
     {
         private LinkedList<Discount> discounts;
         private static DiscountsArchive instance;
+        System.Timers.Timer DiscountCollector;
 
         private DiscountsArchive()
         {
             discounts = new LinkedList<Discount>();
+            DiscountCollector = new System.Timers.Timer();
+            DiscountCollector.Elapsed += new ElapsedEventHandler(CheckFinishedDiscounts);
+            DiscountCollector.Interval = 60 * 60 * 1000; // interval of one hour
+            DiscountCollector.Enabled = true;
         }
         public static DiscountsArchive getInstance()
         {
@@ -25,6 +31,23 @@ namespace wsep182.Domain
         {
             instance = new DiscountsArchive();
         }
+
+        private void CheckFinishedDiscounts(object source, ElapsedEventArgs e)
+        {
+            LinkedList<Discount> discountToRemove = new LinkedList<Discount>();
+            foreach (Discount d in discounts)
+            {
+                if (DateTime.Now.CompareTo(DateTime.Parse(d.DueDate)) > 0)
+                {
+                    discountToRemove.AddLast(d);
+                }
+            }
+            foreach (Discount d in discountToRemove)
+            {
+                discounts.Remove(d);
+            }
+        }
+
 
         public int addNewDiscounts(int type, List<int> pisId,List<string> catOrProductsNames
            , int percentage, string dueDate, string restrictions)

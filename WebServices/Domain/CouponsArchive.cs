@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace wsep182.Domain
 {
@@ -10,10 +11,15 @@ namespace wsep182.Domain
     {
         private LinkedList<Coupon> coupons;
         private static CouponsArchive instance;
+        System.Timers.Timer couponCollector;
 
         private CouponsArchive()
         {
             coupons = new LinkedList<Coupon>();
+            couponCollector = new System.Timers.Timer();
+            couponCollector.Elapsed += new ElapsedEventHandler(CheckFinishedcoupon);
+            couponCollector.Interval = 60 * 60 * 1000; // interval of one hour
+            couponCollector.Enabled = true;
         }
         public static CouponsArchive getInstance()
         {
@@ -25,6 +31,23 @@ namespace wsep182.Domain
         {
             instance = new CouponsArchive();
         }
+
+        private void CheckFinishedcoupon(object source, ElapsedEventArgs e)
+        {
+            LinkedList<Coupon> CouponToRemove = new LinkedList<Coupon>();
+            foreach (Coupon c in coupons)
+            {
+                if (DateTime.Now.CompareTo(DateTime.Parse(c.DueDate)) > 0)
+                {
+                    CouponToRemove.AddLast(c);
+                }
+            }
+            foreach (Coupon c in CouponToRemove)
+            {
+                coupons.Remove(c);
+            }
+        }
+
 
         public Boolean addNewCoupon(String couponId, int productInStoreId, int percentage, String dueDate)
         {
