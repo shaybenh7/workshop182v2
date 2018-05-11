@@ -191,6 +191,8 @@ namespace wsep182.Domain
             LinkedList<Discount> ans = new LinkedList<Discount>();
             foreach(Discount d in discounts)
             {
+                if (DateTime.Compare(DateTime.Parse(d.DueDate), DateTime.Now) < 0)
+                    continue;
                 ProductInStore p = ProductArchive.getInstance().getProductInStore(productInStoreId);
                 string category = p.category;
                 string productName = p.product.name;

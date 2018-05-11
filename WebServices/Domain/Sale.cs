@@ -38,21 +38,15 @@ namespace wsep182.Domain
         public double getPriceAfterDiscount(int amount)
         {
             ProductInStore p = ProductArchive.getInstance().getProductInStore(productInStoreId);
-            Discount d = DiscountsArchive.getInstance().getDiscount(productInStoreId);
-            if (d != null)
+            LinkedList<Discount> dis = DiscountsArchive.getInstance().getAllDiscountsById(productInStoreId);
+            if (dis.Count != 0)
             {
-                DateTime currDate = DateTime.Today;
-                DateTime discountDueDate = DateTime.Parse(d.DueDate);
-                int result = DateTime.Compare(currDate, discountDueDate);
-                if (result < 0)
+                double initialPrice = p.getPrice();
+                foreach(Discount d in dis)
                 {
-                    return d.getPriceAfterDiscount(p.getPrice(), amount);
+                    initialPrice = initialPrice - initialPrice * (d.Percentage / 100);
                 }
-                //otherwise the date is not relvant
-                else
-                {
-                    return getPriceBeforeDiscount(amount);
-                }
+                return initialPrice;
             }
             else
             {
