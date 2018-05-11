@@ -95,7 +95,7 @@ namespace wsep182.services
         public Tuple<int, LinkedList<UserCart>> checkout(User session, string country, string address)
         {
             LinkedList<UserCart> ans = null;
-            if (session == null)
+            if (session == null||country == null || address == null)
                 return Tuple.Create(-2, ans); // -2 user error
             if(country.Equals("") || address.Equals(""))
                 return Tuple.Create(-3, ans); // -3 country or address cannot be empty error
