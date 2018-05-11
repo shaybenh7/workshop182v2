@@ -26,14 +26,14 @@ namespace WebServices
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
             
-            HttpCookie authCookie = Context.Request.Cookies["Session"];
+            HttpCookie authCookie = Context.Request.Cookies["HashCode"];
 
             if (authCookie == null || hashServices.getUserByHash(authCookie.Value) == null)
             {
                 User u = userServices.getInstance().startSession();
                 String hash = hashServices.generateID();
                 hashServices.configureUser(hash,u);
-                Response.Cookies[""]["Session"] = hash;
+                Response.Cookies[""]["HashCode"] = hash;
             }
             
         }

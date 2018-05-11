@@ -210,7 +210,7 @@
                                 success: function (response) {
                                     
                                     var productNameElement = document.getElementById("maxOffer");
-                                    productNameElement.innerHTML += response;
+                                    productNameElement.innerHTML += response.toFixed(2);;
                                 },
                                 error: function (response) {
                                     console.log(response);

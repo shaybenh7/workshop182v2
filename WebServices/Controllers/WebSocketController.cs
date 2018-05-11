@@ -93,23 +93,30 @@ namespace WebServices.Controllers
                 addMessage(hash, message);
                 return; //no such socket exists
             }
-
-            if (socket.State == WebSocketState.Open)
+            try
             {
-
-                var sendbuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(message));
-                
-                socket.SendAsync(sendbuffer, WebSocketMessageType.Text, true, CancellationToken.None)
-                            .ConfigureAwait(false);
-            }
-            else
-            {
-                lock (_users) //make sure the socket wasn't reconnected so we won't lose the socket
+                if (socket.State == WebSocketState.Open)
                 {
-                    _users.Remove(hash);
-                    addMessage(hash, message);
+
+                    var sendbuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(message));
+
+                    socket.SendAsync(sendbuffer, WebSocketMessageType.Text, true, CancellationToken.None)
+                                .ConfigureAwait(false);
                 }
-                
+                else
+                {
+                    lock (_users) //make sure the socket wasn't reconnected so we won't lose the socket
+                    {
+                        _users.Remove(hash);
+                        addMessage(hash, message);
+                    }
+
+                }
+            }
+            catch(System.ObjectDisposedException /*e*/)
+            {
+                _users.Remove(hash);
+                addMessage(hash, message);
             }
         }
 
