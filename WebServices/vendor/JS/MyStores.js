@@ -92,7 +92,7 @@ var editSaleView = function (e) {
 
 }
 
-$("#createStoreButton").click(function () {
+var createStoreButton = function () {
 
     Storename = $("#storeName").val();
 
@@ -111,7 +111,7 @@ $("#createStoreButton").click(function () {
             window.location.reload(false);
         }
     });
-});
+};
 
 
 var addProductFunct = function () {

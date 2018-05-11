@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="index Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MyStores.aspx.cs" Inherits="WebServices.Views.Pages.MyStores" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    
+
     <div class="row">
 
         <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50" style="max-width: 67%; flex: 0 0 67%;">
@@ -957,9 +957,7 @@
 
                 </div>
 
-                <button id="createStoreButton" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                    Create Store
-                </button>
+                <input type="button" value="Create Store" id="createStoreButton12" onclick="createStoreButton()" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"/>
             </div>
         </div>
     </div>
@@ -1122,7 +1120,7 @@
                 </div>
 
 
-
+            <script type="text/javascript" src="vendor/JS/MyStores.js"></script>
 
 
     <script type="text/javascript">
