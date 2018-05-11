@@ -1105,7 +1105,7 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <input type="button" value="Add product" onclick="addPolicy()" style="margin-left: 700px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+                                                <input type="button" id="addPolicy33" value="Add policy" onclick="addPolicy()" style="margin-left: 700px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
 
 
                                             </div>

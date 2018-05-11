@@ -440,6 +440,7 @@ function viewHistory(e) {
 
 var viewAddPolicy= function(e){
     modalLinkListener(e);
+    $("#addPolicy33").click(addPolicy);
     $("#PolicyType").on('change', function () {
         policyType = $("#PolicyType")[0].selectedIndex;
         changedTypeOfPolicy(policyType, "#PolicyChange");
@@ -532,26 +533,26 @@ var addCopun = function () {
 
 var addPolicy = function () {
     typeOfPolicy = $("#PolicyType")[0].selectedIndex ;
-    minAmpunt = $("#minPolicy").val();
+    minAmount = $("#minPolicy").val();
     maxAmount = $("#maxPolicy").val();
     noDiscount = $("#NoDiscount")[0].checked;
     NoCopuns = $("#NoCopuns")[0].checked
     PolicyChange = $("#PolicyChange").val();
     switch (typeOfPolicy) {
         case 0:
-            addProductInStorePolicy(minAmpunt, maxAmount, noDiscount, NoCopuns, PolicyChange);
+            addProductInStorePolicy(minAmount, maxAmount, noDiscount, NoCopuns, PolicyChange);
             break;
         case 1:
-            addCategoryPolicy(minAmpunt, maxAmount, noDiscount, NoCopuns, PolicyChange);
+            addCategoryPolicy(minAmount, maxAmount, noDiscount, NoCopuns, PolicyChange);
             break;
         case 2:
-            addStorePolicy(minAmpunt, maxAmount, noDiscount, NoCopuns);
+            addStorePolicy(minAmount, maxAmount, noDiscount, NoCopuns);
             break;
         case 3:
-            addCountryPolicy(minAmpunt, maxAmount, noDiscount, NoCopuns, PolicyChange);
+            addCountryPolicy(minAmount, maxAmount, noDiscount, NoCopuns, PolicyChange);
             break;
         case 4:
-            addProductPolicy(minAmpunt, maxAmount, noDiscount, NoCopuns, PolicyChange);
+            addProductPolicy(minAmount, maxAmount, noDiscount, NoCopuns, PolicyChange);
             break;
     }
 
