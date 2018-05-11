@@ -9,9 +9,11 @@ namespace wsep182.Domain
     public class ShoppingCart
     {
         LinkedList<UserCart> products;
+        LinkedList<string> usedCoupons;
         public ShoppingCart()
         {
             products = new LinkedList<UserCart>();
+            usedCoupons = new LinkedList<string>();
         }
 
         public LinkedList<UserCart> getShoppingCartProducts(User session)
@@ -547,6 +549,15 @@ namespace wsep182.Domain
 
         public LinkedList<UserCart> applyCoupon(User session, string couponId,string country)
         {
+            if (couponId == null || couponId.Equals(""))
+                return products;
+            if (country == null)
+                country = "";
+            if (usedCoupons.Contains(couponId))
+                return products;
+            Coupon coupon = CouponsArchive.getInstance().getCoupon(couponId);
+            if (coupon == null)
+                return products;
             Boolean skip = false;
             foreach (UserCart uc in products)
             {
@@ -563,11 +574,10 @@ namespace wsep182.Domain
                     skip = false;
                     continue;
                 }
-                foreach (Coupon c in relevantCoupons)
-                {
-                    checkAndUpdateCouponByPolicy(uc, c, country, s.TypeOfSale);
-                }
+                if (relevantCoupons.Contains(coupon))
+                    checkAndUpdateCouponByPolicy(uc, coupon, country, s.TypeOfSale);
             }
+            usedCoupons.AddLast(couponId);
             return products;
         }
 

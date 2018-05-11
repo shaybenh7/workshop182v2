@@ -126,6 +126,18 @@ namespace wsep182.Domain
             return true;
         }
 
+        public Coupon getCoupon(String couponId)
+        {
+            foreach (Coupon coupon in coupons)
+            {
+                if (coupon.CouponId.Equals(couponId)
+                {
+                    return coupon;
+                }
+            }
+            return null;
+        }
+
         public Coupon getCoupon(String couponId, int productInStoreId)
         {
             foreach (Coupon coupon in coupons)
