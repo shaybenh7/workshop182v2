@@ -55,7 +55,8 @@ namespace UnitTests
             userServices us = userServices.getInstance();
             User session = us.startSession();
             us.register(session, "zahi", "123456");
-            User u = g.login("zahi", "123456");
+            int uId = g.login("zahi", "123456");
+            User u = UserArchive.getInstance().getUser("zahi");
             Assert.AreEqual(u.getUserName(),"zahi");
         }
 
