@@ -4,6 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
 
+        <script type="text/javascript" src="./vendor/JS/shoppingCart.js" ></script>
 
     <!-- Shoping Cart -->
 
@@ -36,11 +37,9 @@
 
                                         <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
                                             <div class="flex-w flex-m m-r-20 m-tb-5">
-                                                <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
+                                                <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" id="coupnnNameId" type="text" name="coupon" placeholder="Coupon Code">
 
-                                                <div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-                                                    Apply coupon
-                                                </div>
+                                                <input type="button" value="Apply coupon" onclick="applyCoupon();" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5"/>
                                             </div>
                                             <input type="button" value="Purchase" id="purchase_btn" class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10" />
 
@@ -129,7 +128,7 @@
                             </span>
                         </div>
                     </div>
-                    <input type="button" value="Checkout" id="checkout_btn" onclick="checkoutFunc();" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" />
+                    <input type="button" value="Checkout" onclick="checkoutFunc2();" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" />
                 </div>
             </div>
 
@@ -187,94 +186,6 @@
     <script src="js/main.js"></script>
     <script>
 
-        function checkoutFunc() {
-            var country = $("#country").val();
-            var address = $("#address").val();;
-            var creditcard = $("#creditCard").val();
-            //now need to add stuff to the modal
-            var mainDivModal = document.getElementById('shoppingCartModal');
-            jQuery.ajax({
-                type: "GET",
-                url: "http://localhost:53416/api/sell/checkout?country=" + country + "&address=" + address+"&creditcard="+creditcard,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    if (response== "Error: user error!"||response=="Error: country and address fields cannot be empty!")
-                        alert("Error: All fields must be filled!");
-                    else {
-                        var i;
-                        for (i = 0; i < response.length; i++) {
-                            element = response[i];
-                            var amount = element["Amount"];
-                            var saleId = element["SaleId"];
-                            var totalBeforeDiscount = element["Price"];
-                            var totalAfterDiscount = element["PriceAfterDiscount"];
-                            var price = totalAfterDiscount / amount;
-                            var priceBeforeDiscount = totalBeforeDiscount / amount;
-                            if (element["Offer"] != 0) {
-                                price = element["Offer"];
-                            }
-                            if (element["Offer"] != 0) {
-                                totalAfterDiscount = element["Offer"] * amount;
-                            }
-                            var string = "";
-                            string += "<tr class=\"table_row\">";
-                            string += "<td class=\"column-1\" >";
-                            //string += "<div class=\"how-itemcart1\">";
-                            string += "<input type=\"image\" onclick=\"RemoveProductFromCart(" + saleId + ")\" src=\"images/removee.png\" id=\"remove" + i + "\" width=\"40\" height=\"40\">";
-                            //string += "</div>";
-                            string += "</td>";
-                            string += "<td class=\"column-2\" id=\"InitialpriceModal" + i + "\">" + priceBeforeDiscount.toFixed(2) + "</td>";
-                            string += "<td class=\"column-3\" id=\"FinalpriceModal" + i + "\">" + price.toFixed(2) + "</td>";
-                            string += "<td class=\"column-4\" id=\"quantityModal" + i + "\">" + amount + "</td>";
-                            string += "<td class=\"column-5\" id=\"totalModal" + i + "\">" + totalAfterDiscount.toFixed(2) + "</td>";
-                            string += "</tr>";
-                            mainDivModal.innerHTML += string;
-
-                            (function (i, saleId) {
-                                jQuery.ajax({
-                                    type: "GET",
-                                    url: "http://localhost:53416/api/user/viewSaleById?saleId=" + saleId,
-                                    contentType: "application/json; charset=utf-8",
-                                    dataType: "json",
-                                    success: function (response) {
-
-                                        jQuery.ajax({
-                                            type: "GET",
-                                            url: "http://localhost:53416/api/store/getProductInStoreById?id=" + response["ProductInStoreId"],
-                                            contentType: "application/json; charset=utf-8",
-                                            dataType: "json",
-                                            success: function (response) {
-                                                var productNameElement = document.getElementById("productName" + i);
-                                                productNameElement.innerHTML += response["product"]["name"];
-                                            },
-                                            error: function (response) {
-                                                console.log(response);
-                                            }
-                                        });
-
-                                    },
-                                    error: function (response) {
-                                        console.log(response);
-                                    }
-                                });
-
-                            })(i, saleId);
-
-                        }
-                        var element = document.getElementById("afterCheckoutModal");
-                        element.classList.add("show-modal1");
-                    }
-                },
-                error: function (response) {
-                    console.log("error");
-                    console.log(response);
-                    //window.location.href = "http://localhost:53416/error";
-                }
-            });
-
-        }
-
 
         $("#purchase_btn").click(function () {
             var country = $("#country").val();
@@ -304,7 +215,6 @@
         });
 
     </script>
-    <script src="vendor/JS/shoppingCart.js" type="text/javascript"></script>
 
 
 </asp:Content>
