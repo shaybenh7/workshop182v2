@@ -640,6 +640,10 @@ namespace wsep182.services
         public int addDiscounts(User session, int storeId, List<int> productInStores, int type,
            int percentage, List<string> categorysOrProductsName, string dueDate, string restrictions)
         {
+            if (type == 3)
+            {
+                return DiscountsArchive.getInstance().addNewDiscounts(type, productInStores, categorysOrProductsName, percentage, dueDate, restrictions);
+            }
             Store s = storeArchive.getInstance().getStore(storeId);
             StoreRole sR = StoreRole.getStoreRole(s, session);
             if (sR == null)
