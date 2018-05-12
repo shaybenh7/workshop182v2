@@ -233,5 +233,95 @@ namespace IntegrationTests
             LinkedList<Sale> saleList = store.getAllSales();
             Assert.AreEqual(saleList.Count, 1);
         }
+
+        [TestMethod]
+        public void BuyHistoryStore()
+        {
+            int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            LinkedList<Sale> sales = User.viewSalesByProductInStoreId(cola.getProductInStoreId());
+            Assert.IsTrue(sales.Count == 1);
+            Sale sale = sales.First.Value;
+            Assert.IsTrue(aviad.addToCart(sale.SaleId, 1) > -1);
+            LinkedList<UserCart> sc = aviad.getShoppingCart();
+            Assert.IsTrue(sc.Count == 1);
+            Assert.IsTrue(sc.First.Value.getSaleId() == saleId);
+            Assert.IsTrue(aviad.buyProducts("1234", ""));
+            Assert.AreEqual(zahi.viewStoreHistory(store).Count, 1);
+        }
+        [TestMethod]
+        public void BuyHistoryStoreWithoutAnyBuies()
+        {
+            int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            LinkedList<Sale> sales = User.viewSalesByProductInStoreId(cola.getProductInStoreId());
+            Assert.IsTrue(sales.Count == 1);
+            Sale sale = sales.First.Value;
+            Assert.IsTrue(aviad.addToCart(sale.SaleId, 1) > -1);
+            LinkedList<UserCart> sc = aviad.getShoppingCart();
+            Assert.IsTrue(sc.Count == 1);
+            Assert.IsTrue(sc.First.Value.getSaleId() == saleId);
+            Assert.AreEqual(zahi.viewStoreHistory(store).Count, 0);
+        }
+        [TestMethod]
+        public void BuyHistoryStoreWithoutPremition()
+        {
+            int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            LinkedList<Sale> sales = User.viewSalesByProductInStoreId(cola.getProductInStoreId());
+            Assert.IsTrue(sales.Count == 1);
+            Sale sale = sales.First.Value;
+            Assert.IsTrue(aviad.addToCart(sale.SaleId, 1) > -1);
+            LinkedList<UserCart> sc = aviad.getShoppingCart();
+            Assert.IsTrue(sc.Count == 1);
+            Assert.IsTrue(sc.First.Value.getSaleId() == saleId);
+            Assert.IsNull(aviad.viewStoreHistory(store));
+        }
+        [TestMethod]
+        public void BuyHistoryUser()
+        {
+            User admin = new User("admin", "123456");
+            admin.register("admin", "123456");
+            admin.login("admin", "123456");
+            int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            LinkedList<Sale> sales = User.viewSalesByProductInStoreId(cola.getProductInStoreId());
+            Assert.IsTrue(sales.Count == 1);
+            Sale sale = sales.First.Value;
+            Assert.IsTrue(aviad.addToCart(sale.SaleId, 1) > -1);
+            LinkedList<UserCart> sc = aviad.getShoppingCart();
+            Assert.IsTrue(sc.Count == 1);
+            Assert.IsTrue(sc.First.Value.getSaleId() == saleId);
+            Assert.IsTrue(aviad.buyProducts("1234", ""));
+            Assert.AreEqual(admin.viewUserHistory("aviad").Count, 1);
+        }
+        [TestMethod]
+        public void BuyHistoryUserWithoutAnyBuies()
+        {
+            User admin = new User("admin", "123456");
+            admin.register("admin", "123456");
+            admin.login("admin", "123456");
+            int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            LinkedList<Sale> sales = User.viewSalesByProductInStoreId(cola.getProductInStoreId());
+            Assert.IsTrue(sales.Count == 1);
+            Sale sale = sales.First.Value;
+            Assert.IsTrue(aviad.addToCart(sale.SaleId, 1) > -1);
+            LinkedList<UserCart> sc = aviad.getShoppingCart();
+            Assert.IsTrue(sc.Count == 1);
+            Assert.IsTrue(sc.First.Value.getSaleId() == saleId);
+            Assert.AreEqual(admin.viewUserHistory("aviad").Count, 0);
+        }
+        [TestMethod]
+        public void BuyHistoryUserWithoutPremition()
+        {
+            User admin = new User("admin", "123456");
+            admin.register("admin", "123456");
+            admin.login("admin", "123456");
+            int saleId = zahiOwner.addSaleToStore(zahi, store, cola.getProductInStoreId(), 1, 5, DateTime.Now.AddMonths(1).ToString());
+            LinkedList<Sale> sales = User.viewSalesByProductInStoreId(cola.getProductInStoreId());
+            Assert.IsTrue(sales.Count == 1);
+            Sale sale = sales.First.Value;
+            Assert.IsTrue(aviad.addToCart(sale.SaleId, 1) > -1);
+            LinkedList<UserCart> sc = aviad.getShoppingCart();
+            Assert.IsTrue(sc.Count == 1);
+            Assert.IsTrue(sc.First.Value.getSaleId() == saleId);
+            Assert.IsNull(zahi.viewUserHistory("aviad"));
+        }
     }
 }
