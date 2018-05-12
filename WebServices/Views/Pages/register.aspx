@@ -53,6 +53,7 @@
                     dataType: "json",
                     success: function (response) {
                         if (response == "user successfuly added") {
+                            alert("User successfuly added");
                             window.location.href = "http://localhost:53416/";
                         }
                         else {

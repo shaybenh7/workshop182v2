@@ -52,8 +52,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddProductToCart.cs" />
+    <Compile Include="AddProductToCartTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AddStoreTest.cs" />
+    <Compile Include="LoginTest.cs" />
+    <Compile Include="RegisterSimple.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

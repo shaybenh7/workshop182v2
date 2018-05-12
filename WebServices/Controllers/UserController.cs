@@ -16,7 +16,7 @@ namespace WebService.Controllers
         [HttpGet]
         public string register(String Username, String Password)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans = userServices.getInstance().register(session, Username, Password);
             switch (ans)
             {

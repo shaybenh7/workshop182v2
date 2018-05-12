@@ -27,7 +27,7 @@ $(document).ready(function () {
                     var string = "";
 
                     string += "<div class=\"p-t-50\" style=\"padding-left:50px\">";
-                    string += "<h4 class=\"mtext-112 cl2 p-b-27\">" + storeName + "</h4>";
+                    string += "<h4 id=\"storeNameHeader" + i +"\" class=\"mtext-112 cl2 p-b-27\">" + storeName + "</h4>";
                     string += "<div class=\"flex-w m-r--5\">";
                     string += "<a href=\"#\" id=\"addProductInStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 \">Add Product</a>";
                     string += "<a href=\"#\" id=\"editProductInStore" + i + "\" data-id=\"" + storeId + "\" onclick=\"modalLinkListener(event);\" class=\"flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5 \">Edit Product</a>";
