@@ -121,12 +121,13 @@ namespace wsep182.Domain
                 int index = 1;
                 Random rand = new Random();
                 int winner = rand.Next(1, (int)realPrice);
+                RaffleSale winnerS = null ;
                 foreach(RaffleSale r in relevant)
                 {
                     if (winner <= r.Offer+index && winner >= index)
                     {
                         NotificationManager.getInstance().notifyUser(r.UserName, "YOU WON THE RAFFLE SALE ON PRODUCT: " + getProductNameFromSaleId(r.SaleId));
-                        raffleSales.Remove(r);
+                        winnerS = r;
                         break;
                     } 
                     else
@@ -134,11 +135,15 @@ namespace wsep182.Domain
                         index += (int)r.Offer;
                     }
                 }
+                if(winnerS != null)
+                    relevant.Remove(winnerS);
                 foreach (RaffleSale r in relevant)
                 {
                     NotificationManager.getInstance().notifyUser(r.UserName, "YOU LOST THE RAFFLE SALE ON PRODUCT: " + getProductNameFromSaleId(r.SaleId));
                     raffleSales.Remove(r);
                 }
+
+
             }
         }
 
