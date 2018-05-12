@@ -25,6 +25,7 @@ namespace WebServices
                 if (u != null && u.getState() is Admin)
                 {
                     adminPanelLink.Visible = true;
+                    initdbLink.Visible = true;
                     MyStoresLink.Visible = true;
                     LoginRegisterLinks.Visible = false;
                     logout.Visible = true;

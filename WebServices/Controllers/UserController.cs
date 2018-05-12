@@ -52,6 +52,12 @@ namespace WebService.Controllers
             return response;
         }
 
+        [Route("api/user/initdb")]
+        [HttpGet]
+        public void initDB()
+        {
+            userServices.getInstance().init();
+        }
         [Route("api/user/viewProductsInStores")]
         [HttpGet]
         public HttpResponseMessage viewProductsInStores()
