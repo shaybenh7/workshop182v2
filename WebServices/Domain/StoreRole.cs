@@ -122,13 +122,17 @@ namespace wsep182.Domain
 
         public virtual int removeStoreManager(User session, Store s, String oldManager)
         {
+            User session2 = UserArchive.getInstance().getUser(oldManager);
             if (session == null  )
                 return -1;//-1 if user Not Login
             if (s == null)
                 return -3;//-3 if illegal store id
             if (oldManager == null)
                 return -6;// -6 old manager name doesn't exsist
-            if( storeArchive.getInstance().removeStoreRole(s.getStoreId(), oldManager))
+            StoreRole sr = storeArchive.getInstance().getStoreRole(s, session2);
+            if (sr != null && !(sr is StoreManager))
+                return -7;
+            if ( storeArchive.getInstance().removeStoreRole(s.getStoreId(), oldManager))
                 return 0;//OK
             return -5;//-5 database eror
         }

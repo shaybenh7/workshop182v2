@@ -642,6 +642,8 @@ namespace WebService.Controllers
                     return "error: the user is not a manager";
                 case -6:
                     return "error: database error";
+                case -7:
+                    return "error: trying to remove a user who is not a store manager";
                 case -10:
                     return "error: try to remove himself";
             }
