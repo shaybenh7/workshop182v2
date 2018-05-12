@@ -82,6 +82,8 @@ $(document).ready(function () {
                                         $("#removeManagerPermission" + i).css('display', 'none');
                                     if (response.addSaleToStore != true)
                                         $("#addSaleToStore" + i).css('display', 'none');
+                                    if (response.editSale != true)
+                                        $("#editSale" + i).css('display', 'none');
                                     if (response.removeSaleFromStore != true)
                                         $("#removeSaleFromStore" + i).css('display', 'none');
                                     if (response.addDiscount != true)
