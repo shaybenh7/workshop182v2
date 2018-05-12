@@ -8,7 +8,7 @@ using wsep182.services;
 namespace SeleniumTests
 {
     [TestClass]
-    public class addSaleToStore
+    public class removeStoreOwner
     {
         public static String URL = "http://localhost:53416/";
         IWebDriver driver = new ChromeDriver("./");
@@ -16,16 +16,16 @@ namespace SeleniumTests
         [TestInitialize]
         public void Initialize()
         {
+            userServices.getInstance().init();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(URL);
             Console.WriteLine("Opened URL");
 
-
             IWebElement login = driver.FindElement(By.Id("LoginLink"));
             login.Click();
             Thread.Sleep(sleepTime);
-            IWebElement userName = driver.FindElement(By.Id("username"));
-            userName.SendKeys("adminTest");
+            IWebElement userName2 = driver.FindElement(By.Id("username"));
+            userName2.SendKeys("adminTest");
             Thread.Sleep(sleepTime);
             IWebElement password = driver.FindElement(By.Id("password"));
             password.SendKeys("123456");
@@ -33,14 +33,16 @@ namespace SeleniumTests
             IWebElement btnLogin = driver.FindElement(By.Id("btnLogin"));
             btnLogin.Click();
             Thread.Sleep(sleepTime);
+            IAlert alert = null;
+
             IWebElement initdb;
             int i = 0;
             while (i == 0)
             {
                 try
                 {
-                    initdb = driver.FindElement(By.Id("initdbButton"));
                     Thread.Sleep(sleepTime);
+                    initdb = driver.FindElement(By.Id("initdbButton"));
                     i = 1;
                     initdb.Click();
                 }
@@ -56,10 +58,11 @@ namespace SeleniumTests
             logout.Click();
             Thread.Sleep(sleepTime);
 
+
             IWebElement register = driver.FindElement(By.Id("RegisterLink"));
             register.Click();
             Thread.Sleep(sleepTime);
-            userName = driver.FindElement(By.Id("username"));
+            IWebElement userName = driver.FindElement(By.Id("username"));
             userName.SendKeys("zahiSimpleRegister");
             Thread.Sleep(sleepTime);
             IWebElement password1 = driver.FindElement(By.Id("password1"));
@@ -71,20 +74,20 @@ namespace SeleniumTests
             IWebElement btnRegister = driver.FindElement(By.Id("btnRegister"));
             btnRegister.Click();
             Thread.Sleep(sleepTime);
-            IAlert alert = driver.SwitchTo().Alert();
-            alert.Accept();
+            IAlert alert1 = driver.SwitchTo().Alert();
+            alert1.Accept();
             Thread.Sleep(sleepTime);
-            login = driver.FindElement(By.Id("LoginLink"));
-            login.Click();
+            IWebElement login2 = driver.FindElement(By.Id("LoginLink"));
+            login2.Click();
             Thread.Sleep(sleepTime);
             userName = driver.FindElement(By.Id("username"));
             userName.SendKeys("zahiSimpleRegister");
             Thread.Sleep(sleepTime);
-            password = driver.FindElement(By.Id("password"));
-            password.SendKeys("123456");
+            IWebElement password3 = driver.FindElement(By.Id("password"));
+            password3.SendKeys("123456");
             Thread.Sleep(sleepTime);
-            btnLogin = driver.FindElement(By.Id("btnLogin"));
-            btnLogin.Click();
+            IWebElement btnLogin1 = driver.FindElement(By.Id("btnLogin"));
+            btnLogin1.Click();
             Thread.Sleep(sleepTime);
             IWebElement MystoreBtn = driver.FindElement(By.Id("MyStoresPublicLink"));
             MystoreBtn.Click();
@@ -99,57 +102,38 @@ namespace SeleniumTests
             alert.Accept();
             Thread.Sleep(sleepTime);
 
-            //add productToStore
-            IWebElement crateStoreBtn2 = driver.FindElement(By.Id("addProductInStore0"));
-            crateStoreBtn2.Click();
+            IWebElement addStoreOwnerBtn = driver.FindElement(By.Id("addStoreOwner0"));
+            addStoreOwnerBtn.Click();
             Thread.Sleep(sleepTime);
-            IWebElement productName = driver.FindElement(By.Id("product-name"));
-            productName.SendKeys("colaTests");
-            Thread.Sleep(sleepTime);
-
-            IWebElement productPrice = driver.FindElement(By.Id("product-price"));
-            productPrice.SendKeys("100");
+            IWebElement OwnerName = driver.FindElement(By.Id("new-owner-name"));
+            OwnerName.SendKeys("admin");
             Thread.Sleep(sleepTime);
 
-            IWebElement productAmount = driver.FindElement(By.Id("product-amount"));
-            productAmount.SendKeys("20");
-            Thread.Sleep(sleepTime);
-
-            IWebElement productCat = driver.FindElement(By.Id("product-cat"));
-            productCat.SendKeys("DRINKS");
-            Thread.Sleep(sleepTime);
-
-            IWebElement productBtn = driver.FindElement(By.Id("add_product_btn"));
-            productBtn.Click();
+            IWebElement AddOwner = driver.FindElement(By.Id("AddOwnerBtn"));
+            AddOwner.Click();
             Thread.Sleep(sleepTime);
 
             IAlert alert2 = driver.SwitchTo().Alert();
             alert2.Accept();
-
+            Thread.Sleep(sleepTime);
         }
-
-
         [TestMethod]
-        public void simpleAddSale()
+        public void removeOwner()
         {
-            IWebElement MystoreBtn = driver.FindElement(By.Id("MyStoresPublicLink"));
-            MystoreBtn.Click();
+            IWebElement removeStoreOwner = driver.FindElement(By.Id("removeStoreOwner0"));
+            removeStoreOwner.Click();
             Thread.Sleep(sleepTime);
-            IWebElement addSaleToStoreBtn = driver.FindElement(By.Id("addSaleToStore0"));
-            addSaleToStoreBtn.Click();
+            IWebElement oldOwnerName = driver.FindElement(By.Id("old-owner-name"));
+            oldOwnerName.SendKeys("admin");
             Thread.Sleep(sleepTime);
-            IWebElement amount = driver.FindElement(By.Id("product-amount-in-sale2"));
-            amount.SendKeys("2");
+
+            IWebElement removeOwner = driver.FindElement(By.Id("aviad-Remove-owner"));
+            removeOwner.Click();
             Thread.Sleep(sleepTime);
-            IWebElement date = driver.FindElement(By.Id("product-due-date2"));
-            date.SendKeys("31/05/2018");
-            Thread.Sleep(sleepTime);
-            IWebElement addSale = driver.FindElement(By.Id("AddSaleBtn"));
-            addSale.Click();
-            Thread.Sleep(sleepTime);
+
             IAlert alert = driver.SwitchTo().Alert();
             string alertText = alert.Text;
-            Assert.IsTrue(alertText.Contains("successfuly added"));
+            Assert.IsTrue(alertText.Contains("successfuly"));
             alert.Accept();
         }
         [TestCleanup]

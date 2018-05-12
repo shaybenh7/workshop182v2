@@ -111,7 +111,7 @@
                                                     <br />
                                                     <br />
                                                     <br />
-                                                    <input type="button" value="Edit product" onclick="editStoreProduct();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+                                                    <input type="button" value="Edit product" id="aviad-Edit-product" onclick="editStoreProduct();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
                                                 </div>
 
 
@@ -155,7 +155,7 @@
                                                 <br />
                                                 <br />
 
-                                                <input type="button" value="Remove product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="removeStoreProduct();"/>
+                                                <input type="button" value="Remove product" id="aviad-Remove-product" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="removeStoreProduct();"/>
 
 
 
@@ -278,7 +278,7 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <input type="button" value="Add Owner" onclick="addStoreOwner();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+                                                <input type="button" value="Add Owner" id="AddOwnerBtn" onclick="addStoreOwner();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
                                             </div>
                                         </div>
                                     </div>
@@ -316,7 +316,7 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <input type="button" onclick="removeStoreOwner();" value="Remove owner" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+                                                <input type="button" onclick="removeStoreOwner();" value="Remove owner" id="aviad-Remove-owner" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
 
                                             </div>
                                         </div>
@@ -690,7 +690,7 @@
                                                  </div>
                                                
 
-                                                <input type="button" value="Remove Sale" onclick="removeSale();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+                                                <input type="button" value="Remove Sale" id="aviad-Remove-Sale" onclick="removeSale();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
 
 
 
