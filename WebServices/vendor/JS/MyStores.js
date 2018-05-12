@@ -416,6 +416,7 @@ function viewProducts(e) {
                         "<div>     product name : " + response[i].product.name + "</div>" +
                         "<div>     price : " + response[i].price + "</div>" +
                         "<div>     amount : " + response[i].quantity + "</div>" +
+                        "<div>     category : " + response[i].category + "</div>" +
                             "</div>";
 
                 }
