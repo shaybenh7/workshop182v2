@@ -76,7 +76,7 @@
                         <asp:PlaceHolder ID="logout" Visible="false" runat="server">
                             <div class="right-top-bar flex-w h-full" style="cursor: pointer; color: #efe1e1;">
 
-                                <a onclick="logout();" class="flex-c-m trans-04 p-lr-25">Logout
+                                <a id="LogoutLink" onclick="logout();" class="flex-c-m trans-04 p-lr-25">Logout
                                 </a>
                             </div>
                         </asp:PlaceHolder>
@@ -115,6 +115,12 @@
                                 <asp:PlaceHolder ID="adminPanelLink" Visible="false" runat="server">
                                     <li id="AdminMenuButton">
                                         <a id="AdminPanelPublicLink" href="/admin">Admin Panel</a>
+                                    </li>
+                                </asp:PlaceHolder>
+
+                               <asp:PlaceHolder ID="initdbLink" Visible="false" runat="server">
+                                    <li id="initdbButton">
+                                        <a id="initdbPublicLink" href="/api/user/initdb">Init DB</a>
                                     </li>
                                 </asp:PlaceHolder>
 
