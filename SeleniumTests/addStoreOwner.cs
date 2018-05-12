@@ -8,7 +8,7 @@ using wsep182.services;
 namespace SeleniumTests
 {
     [TestClass]
-    public class addStoreManneger
+    public class addStoreOwner
     {
         public static String URL = "http://localhost:53416/";
         IWebDriver driver = new ChromeDriver("./");
@@ -67,20 +67,20 @@ namespace SeleniumTests
         [TestMethod]
         public void simpleAddMannegers()
         {
-            IWebElement addStoreBtn = driver.FindElement(By.Id("addStoreManager0"));
-            addStoreBtn.Click();
+            IWebElement addStoreOwnerBtn = driver.FindElement(By.Id("addStoreOwner0"));
+            addStoreOwnerBtn.Click();
             Thread.Sleep(sleepTime);
-            IWebElement mannegerName = driver.FindElement(By.Id("new-manager-name"));
-            mannegerName.SendKeys("admin");
+            IWebElement OwnerName = driver.FindElement(By.Id("new-owner-name"));
+            OwnerName.SendKeys("admin");
             Thread.Sleep(sleepTime);
 
-            IWebElement addManagerBtn = driver.FindElement(By.Id("Add-manager-Btn"));
-            addManagerBtn.Click();
+            IWebElement AddOwner = driver.FindElement(By.Id("AddOwnerBtn"));
+            AddOwner.Click();
             Thread.Sleep(sleepTime);
 
             IAlert alert = driver.SwitchTo().Alert();
             string alertText = alert.Text;
-            Assert.IsTrue(alertText.Contains("manager added successfuly"));
+            Assert.IsTrue(alertText.Contains("the User admin has been added as owner sussesfuly"));
             alert.Accept();
         }
         [TestCleanup]
