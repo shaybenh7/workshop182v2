@@ -91,9 +91,9 @@
                         string += "<div>";
                         if (typeOfSale == 1)
                         //    string += "<a href=\baseUrl+"/viewInstantSale?saleId="+saleId+"\" id=\"viewSale"+i+"\" class=\" stext-103  size-102 bg0 bor2 p-lr-15 trans-04 js-show-modal1\" style=\"display: contents;\">Buy</a>";
-                            string += "<input type=\"button\" value=\"Buy\" id=\"viewSale"+i+"\" onclick=\"location.href=\'http://localhost:53416/viewInstantSale?saleId="+saleId+"\'\" class=\"flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer\" />";
+                            string += "<input type=\"button\" value=\"Buy\" id=\"viewSale"+i+"\" onclick=\"location.href=\'"+baseUrl+ "/viewInstantSale?saleId="+saleId+"\'\" class=\"flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer\" />";
                         else
-                            string += "<input type=\"button\" value=\"Buy\" id=\"viewSale"+i+"\" onclick=\"location.href=\'http://localhost:53416/viewRaffleSale?saleId="+saleId+"\'\" class=\"flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer\" />";
+                            string += "<input type=\"button\" value=\"Buy\" id=\"viewSale"+i+"\" onclick=\"location.href=\'" + baseUrl + "/viewRaffleSale?saleId="+saleId+"\'\" class=\"flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer\" />";
                             //string += "<a href=\baseUrl+"/viewRaffleSale?saleId="+saleId+"\" id=\"viewSale"+i+"\" class=\" stext-103  size-102 bg0 bor2 p-lr-15 trans-04 js-show-modal1\"  style=\"display: contents;\">Buy</a>";
                         string += "</div>";
                         string += "</span>";
