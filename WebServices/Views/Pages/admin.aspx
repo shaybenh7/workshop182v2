@@ -182,85 +182,9 @@
 
 
     <script type="text/javascript">
-        var removeUserFunc = function () {
-            userName = $("#userName").val();
+        
 
-            jQuery.ajax({
-                type: "GET",
-                url: baseUrl+"/api/user/removeUser?userDeleted=" + userName,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    alert(response);
-                    window.location.reload(false);
-
-                },
-                error: function (response) {
-                    console.log(response);
-                    // window.location.reload(false); 
-                }
-            });
-        };
-
-        var viewHistory = function () {
-            name = $("#nameInput").val();
-            var ajaxURL = "";
-
-            if (document.getElementById('userRadio').checked) {
-                ajaxURL = baseUrl+"/api/store/viewUserHistory?userToGet=" + name;
-            } else if (document.getElementById('storeRadio').checked) {
-                ajaxURL = baseUrl+"/api/store/viewStoreHistory?storeId=" + name;
-            }
-
-            var mainDivModal = document.getElementById('historyTable');
-            jQuery.ajax({
-                type: "GET",
-                url: ajaxURL,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    var i;
-                    for (i = 0; i < response.length; i++) {
-                        element = response[i];
-                        var Amount = element["Amount"];
-                        var BuyId = element["BuyId"];
-                        var Date = element["Date"];
-                        var Price = element["Price"];
-                        var ProductId = element["ProductId"];
-                        var StoreId = element["StoreId"];
-                        var TypeOfSale = element["TypeOfSale"];
-                        var UserName = element["UserName"];
-
-                        var string = "";
-                        string += "<tr class=\"table_row\">";
-                        string += "<td class=\"column-2\">" + UserName + "</td>";
-                        string += "<td class=\"column-1\">" + StoreId + "</td>";
-                        string += "<td class=\"column-1\">" + ProductId + "</td>";
-                        string += "<td class=\"column-1\">" + BuyId + "</td>";
-                        string += "<td class=\"column-1\">" + Amount + "</td>";
-                        string += "<td class=\"column-1\">" + Price + "</td>";
-                        string += "<td class=\"column-1\">" + TypeOfSale + "</td>";
-                        string += "<td class=\"column-5\">" + Date + "</td>";
-
-                        string += "</tr>";
-                        mainDivModal.innerHTML += string;
-
-                    }
-
-                    var element = document.getElementById("viewHistoryModal");
-                    element.classList.add("show-modal1");
-                    //window.location.reload(false);
-
-                },
-                error: function (response) {
-                    console.log(response);
-                    // window.location.reload(false); 
-                }
-            });
-            //var element = document.getElementById("viewHistoryModal");
-            //element.classList.add("show-modal1");
-        };
+        
     </script>
     <script type="text/javascript">
         $(document).ready(function () {

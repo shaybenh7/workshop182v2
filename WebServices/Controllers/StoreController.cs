@@ -725,11 +725,18 @@ namespace WebService.Controllers
         public HttpResponseMessage viewUserHistory(String userToGet)
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
-            Object history = storeServices.getInstance().viewUserHistory(session, userToGet);
+            User u = UserArchive.getInstance().getUser(userToGet);
             HttpResponseMessage response;
+            if (u == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Error: user does not exist!");
+                return response;
+            }
+            Object history = storeServices.getInstance().viewUserHistory(session, userToGet);
+            
             if (history == null)
             {
-                response = Request.CreateResponse(HttpStatusCode.OK, "Errror: permissions or user not valid!");
+                response = Request.CreateResponse(HttpStatusCode.OK, "Error: permissions or user not valid!");
             }
             else
             {
