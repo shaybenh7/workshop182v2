@@ -69,8 +69,38 @@ namespace SeleniumTests
             IAlert alert = driver.SwitchTo().Alert();
             string alertText = alert.Text;
             Assert.IsTrue(alertText.Contains("successfuly added"));
+            alert.Accept();   
+        }
+        [TestMethod]
+        public void AddStoreEmptyStoreName()
+        {
+            IWebElement AllProducts = driver.FindElement(By.Id("MyStoresPublicLink"));
+            AllProducts.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement addStore = driver.FindElement(By.Id("storeName"));
+            addStore.SendKeys("        ");
+            Thread.Sleep(sleepTime);
+            IWebElement createStoreButton12 = driver.FindElement(By.Id("createStoreButton12"));
+            createStoreButton12.Click();
+            Thread.Sleep(sleepTime);
+            IAlert alert = driver.SwitchTo().Alert();
+            string alertText = alert.Text;
+            Assert.IsTrue(alertText.Contains("error: illegal store name"));
             alert.Accept();
-            
+        }
+        [TestMethod]
+        public void AddStoreSpaces()
+        {
+            IWebElement AllProducts = driver.FindElement(By.Id("MyStoresPublicLink"));
+            AllProducts.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement createStoreButton12 = driver.FindElement(By.Id("createStoreButton12"));
+            createStoreButton12.Click();
+            Thread.Sleep(sleepTime);
+            IAlert alert = driver.SwitchTo().Alert();
+            string alertText = alert.Text;
+            Assert.IsTrue(alertText.Contains("error: illegal store name"));
+            alert.Accept();
         }
         [TestCleanup]
         public void CleanUp()

@@ -23,9 +23,6 @@ namespace SeleniumTests
         [TestMethod]
         public void GUIviewAllStores()
         {
-            IWebElement fillDB = driver.FindElement(By.Id("fillDB"));
-            fillDB.Click();
-            Thread.Sleep(sleepTime);
             IWebElement AllProducts = driver.FindElement(By.Id("AllStoresLink"));
             AllProducts.Click();
             Thread.Sleep(sleepTime);
@@ -37,9 +34,6 @@ namespace SeleniumTests
         [TestMethod]
         public void GUIviewAllStoresAndGetInTheStore()
         {
-            IWebElement fillDB = driver.FindElement(By.Id("fillDB"));
-            fillDB.Click();
-            Thread.Sleep(sleepTime);
             IWebElement AllProducts = driver.FindElement(By.Id("AllStoresLink"));
             AllProducts.Click();
             Thread.Sleep(sleepTime);

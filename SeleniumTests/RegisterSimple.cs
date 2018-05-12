@@ -116,6 +116,76 @@ namespace SeleniumTests
             IWebElement registerAlert = driver.FindElement(By.Id("registerAlert"));
             Assert.IsTrue(registerAlert.Text.Contains("Failure - passwords does not match"));
         }
+        [TestMethod]
+        public void registerPasswordNotGood()
+        {
+            IWebElement register;
+            IWebElement userName;
+
+            IWebElement btnRegister;
+
+            register = driver.FindElement(By.Id("RegisterLink"));
+            register.Click();
+            Thread.Sleep(sleepTime);
+            userName = driver.FindElement(By.Id("username"));
+            userName.SendKeys("itamarr");
+            Thread.Sleep(sleepTime);
+            btnRegister = driver.FindElement(By.Id("btnRegister"));
+            btnRegister.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement registerAlert = driver.FindElement(By.Id("registerAlert"));
+            Assert.IsTrue(registerAlert.Text.Contains("Failure - error: password is not entered"));
+        }
+        [TestMethod]
+        public void registerNoUserName()
+        {
+            IWebElement register;
+            IWebElement password1;
+            IWebElement password2;
+            IWebElement btnRegister;
+
+            register = driver.FindElement(By.Id("RegisterLink"));
+            register.Click();
+            Thread.Sleep(sleepTime);
+            password1 = driver.FindElement(By.Id("password1"));
+            password1.SendKeys("126");
+            Thread.Sleep(sleepTime);
+            password2 = driver.FindElement(By.Id("password2"));
+            password2.SendKeys("126");
+            Thread.Sleep(sleepTime);
+            btnRegister = driver.FindElement(By.Id("btnRegister"));
+            btnRegister.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement registerAlert = driver.FindElement(By.Id("registerAlert"));
+            Assert.IsTrue(registerAlert.Text.Contains("Failure - error: username is not entered"));
+        }
+        [TestMethod]
+        public void registerUsernameOnlySpaces()
+        {
+            IWebElement register;
+            IWebElement userName;
+            IWebElement password1;
+            IWebElement password2;
+            IWebElement btnRegister;
+
+            register = driver.FindElement(By.Id("RegisterLink"));
+            register.Click();
+            Thread.Sleep(sleepTime);
+            userName = driver.FindElement(By.Id("username"));
+            userName.SendKeys("        ");
+            Thread.Sleep(sleepTime);
+            password1 = driver.FindElement(By.Id("password1"));
+            password1.SendKeys("126");
+            Thread.Sleep(sleepTime);
+            password2 = driver.FindElement(By.Id("password2"));
+            password2.SendKeys("126");
+            Thread.Sleep(sleepTime);
+            btnRegister = driver.FindElement(By.Id("btnRegister"));
+            btnRegister.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement registerAlert = driver.FindElement(By.Id("registerAlert"));
+            Assert.IsTrue(registerAlert.Text.Contains("Failure - error: username is not entered"));
+        }
         [TestCleanup]
         public void CleanUp()
         {
