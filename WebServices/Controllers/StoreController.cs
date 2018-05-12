@@ -670,6 +670,8 @@ namespace WebService.Controllers
                     return "Error: manager name doesn't exsist";
                 case -7:
                     return "Error: no such permission";
+                case -8:
+                    return ManageruserName + " is not a manager in this store";
             }
             return "Server error: not suppose to happen";
         }

@@ -216,6 +216,7 @@ namespace wsep182.services
 *          -5 database eror
 *          -6 manager name doesn't exsist
 *          -7 no such premition
+*          -8 the mannager to add is not a manager in this store
 *          -10 can't remove himself
 */
         public int addManagerPermission(String permission, int storeId, String managerToAdd, User session)

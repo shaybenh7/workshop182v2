@@ -178,6 +178,8 @@ namespace wsep182.Domain
             if (s == null)
                 return -3;// -3 if illegal store id
             StoreRole sR = storeArchive.getInstance().getStoreRole(s, manager);
+            if (!(sR is StoreManager))
+                return -8;
             if( correlate(manager, s, permission, sR, true))
                 return 0;
             return -7;//-7 no such premition
