@@ -116,27 +116,29 @@ namespace wsep182.Domain
                     relevant.AddLast(rs);
                 }
             }
-            if(acc == realPrice)
+            if (acc == realPrice)
             {
                 int index = 1;
                 Random rand = new Random();
                 int winner = rand.Next(1, (int)realPrice);
-                RaffleSale winnerS = null ;
-                foreach(RaffleSale r in relevant)
+                RaffleSale winnerS = null;
+                foreach (RaffleSale r in relevant)
                 {
-                    if (winner <= r.Offer+index && winner >= index)
+                    if (winner <= r.Offer + index && winner >= index)
                     {
                         NotificationManager.getInstance().notifyUser(r.UserName, "YOU WON THE RAFFLE SALE ON PRODUCT: " + getProductNameFromSaleId(r.SaleId));
                         winnerS = r;
                         break;
-                    } 
+                    }
                     else
                     {
                         index += (int)r.Offer;
                     }
                 }
-                if(winnerS != null)
+                if (winnerS != null) { 
+                    raffleSales.Remove(winnerS);
                     relevant.Remove(winnerS);
+                }
                 foreach (RaffleSale r in relevant)
                 {
                     NotificationManager.getInstance().notifyUser(r.UserName, "YOU LOST THE RAFFLE SALE ON PRODUCT: " + getProductNameFromSaleId(r.SaleId));
