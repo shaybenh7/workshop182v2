@@ -125,7 +125,8 @@ namespace wsep182.Domain
                 {
                     if (winner <= r.Offer+index && winner >= index)
                     {
-                        NotificationManager.getInstance().notifyUser(r.UserName, "YOU WON THE RAFFLE SALE: " + r.SaleId.ToString());
+                        NotificationManager.getInstance().notifyUser(r.UserName, "YOU WON THE RAFFLE SALE ON PRODUCT: " + getProductNameFromSaleId(r.SaleId));
+                        raffleSales.Remove(r);
                         break;
                     } 
                     else
@@ -134,9 +135,23 @@ namespace wsep182.Domain
                     }
                 }
                 foreach (RaffleSale r in relevant)
+                {
+                    NotificationManager.getInstance().notifyUser(r.UserName, "YOU LOST THE RAFFLE SALE ON PRODUCT: " + getProductNameFromSaleId(r.SaleId));
                     raffleSales.Remove(r);
+                }
             }
         }
+
+        private string getProductNameFromSaleId(int saleId)
+        {
+            string ans = "";
+            Sale s = SalesArchive.getInstance().getSale(saleId);
+            ProductInStore p = ProductArchive.getInstance().getProductInStore(s.ProductInStoreId);
+            ans = p.product.name;
+            return ans;
+        }
+
+
 
 
 
