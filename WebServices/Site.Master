@@ -48,7 +48,7 @@
 
 </head>
 
-<body >
+<body style="width:98%">
     <form runat="server">
         <div class="row">
 
