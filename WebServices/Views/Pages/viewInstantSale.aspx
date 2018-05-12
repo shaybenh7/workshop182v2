@@ -177,19 +177,39 @@
                     string += " <br /> <br />";
                     string += "<span id=\"salePrice\" class=\"mtext-106 cl2\">Price: "
                     string += "</span><br />";
-                    string += "<span id=\"saleOffers\" class=\"mtext-106 cl2\">Discount: *TODO*"
-                    string += "</span><br />";
                     string += "<span id=\"salePriceAfterDiscount\" class=\"mtext-106 cl2\">Price after discount:  "
                     string += "</span><br />";
                     string += "<span class=\"mtext-106 cl2\">Due Date: " + dueDate;
                     string += "</span><br />";
                     string += "<span class=\"mtext-106 cl2\">Quantity: " + quan;
                     string += "</span><br />";
-                    string += "<span class=\"mtext-106 cl2\">Type of sale: Instant";
-                    string += "</span><br />";
-                    string += "<p class=\"stext-102 cl3 p-t-23\">*POLICY: TODO*</p><br />";
+                    string += "<span id=\"policyOfInstantSale\" class=\"mtext-106 cl2\">Type of sale: Instant";
 
                     mainDiv.innerHTML += string;
+
+                    var replaceAllOccurences = function (string, from, to) {
+                        var newString = string.replace(from, to);
+                        if (newString == string)
+                            return newString;
+                        return replaceAllOccurences(newString, from, to);
+                    }
+
+                     jQuery.ajax({
+                                type: "GET",
+                                url: baseUrl+"/api/store/showPolicy?saleId=" + saleId,
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    var productNameElement = document.getElementById("policyOfInstantSale");
+                                    var str = "</span><br /><span class=\"mtext-106 cl2\">POLICY: <br>" + replaceAllOccurences(response, "\n", "<br>") + "</span>";
+                                     productNameElement.innerHTML += str;
+                                },
+                                error: function (response) {
+                                    console.log("response");
+                                }
+                            });
+
+                    
                     (function () {
 
                         $('#submit').click(function () {

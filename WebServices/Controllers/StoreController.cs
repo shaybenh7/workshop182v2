@@ -1080,12 +1080,13 @@ namespace WebService.Controllers
         }
         [Route("api/store/showPolicy")]
         [HttpGet]
-        public HttpResponseMessage showPolicy(int productInStoreId)
+        public HttpResponseMessage showPolicy(int saleId)
         {
             string hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
             User session = hashServices.getUserByHash(hash);
             HttpResponseMessage response;
             string ans = "Warning: Some of the restriction may change depending on the destination country! \n";
+            int productInStoreId = SalesArchive.getInstance().getSale(saleId).ProductInStoreId;
             ans += storeServices.getInstance().showPolicy(session, productInStoreId);
             response = Request.CreateResponse(HttpStatusCode.OK, ans);
             return response;
