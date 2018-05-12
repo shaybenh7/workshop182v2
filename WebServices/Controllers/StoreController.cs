@@ -944,7 +944,7 @@ namespace WebService.Controllers
         [HttpGet]
         public HttpResponseMessage getOwners(int storeId)
         {
-            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["Session"].Value);
+            User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             Object owners = storeServices.getInstance().getOwners(storeId);
             HttpResponseMessage response;
             if (owners == null)
