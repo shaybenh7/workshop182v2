@@ -900,13 +900,13 @@
                                                 <br />
 
                                                 <div style="display: flex; margin-bottom: 10px;">
-                                                        <input type="checkbox" name="gender" id="copunRaffle" value="male" style="margin-top: 5px; margin-right: 10px;">
+                                                        <input type="checkbox" name="gender" id="copunRaffle" value="male" style="margin-top: 5px; margin-right: 10px;" checked>
                                                         Raffle sale
                                                 </div>
                                                 <br />
                                                 <br />
                                                 <div style="display: flex; margin-bottom: 10px; margin-left: 60px;">
-                                                        <input type="checkbox" name="gender" id="copunInstant" value="male" style="margin-top: 5px; margin-right: 10px;">
+                                                        <input type="checkbox" name="gender" id="copunInstant" value="male" style="margin-top: 5px; margin-right: 10px;" checked>
                                                          instant sale
                                                 </div>
 

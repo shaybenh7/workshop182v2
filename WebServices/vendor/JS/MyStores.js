@@ -543,12 +543,20 @@ var changeTypeOfCopun = function (typeOfCopun, towhat) {
 }
 
 var addCopun = function () {
+    var a = $("#copunRaffle")[0].checked;
+    var b = $("#copunInstant")[0].checked;
+    if (!a && !b) {
+        alert("you have to check at least one of this checkboxes : Raffle sale, Instant sale")
+        return;
+    }
+
     copunId = $("#copun-id").val();
     typeOfCopun = $("#typeOfCopun")[0].selectedIndex+1;
     to_what = $("#to-what").val();
     Restriction = fixRestricion("#Restriction", "#copunRaffle", "#copunInstant");
     DiscountPrecentage = $("#DiscountPrecentage").val();
     CopunDueDate = $("#CopunDueDate").val();
+    
 
     jQuery.ajax({
         type: "GET",
@@ -897,10 +905,10 @@ var fixRestricion = function (restriction, copunRaffle, copunInstant) {
     if (Restriction !== null && Restriction !== "") {
         Restriction = "COUNTRY=" + Restriction;
     }
-    if (Restriction !== null && Restriction !== "" && (RaffleCheck || InstantCheck))
-        Restriction += "/";
     RaffleCheck = $(copunRaffle)[0].checked;
     InstantCheck = $(copunInstant)[0].checked
+    if (Restriction !== null && Restriction !== "" && (RaffleCheck || InstantCheck))
+        Restriction += "/";
     if (RaffleCheck || InstantCheck) {
         Restriction += "TOS=";
     }
