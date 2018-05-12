@@ -8,7 +8,7 @@ using wsep182.services;
 namespace SeleniumTests
 {
     [TestClass]
-    public class addSaleToStore
+    public class removeSallFromStore
     {
         public static String URL = "http://localhost:53416/";
         IWebDriver driver = new ChromeDriver("./");
@@ -125,15 +125,10 @@ namespace SeleniumTests
 
             IAlert alert2 = driver.SwitchTo().Alert();
             alert2.Accept();
+            Thread.Sleep(sleepTime);
 
-        }
-
-
-        [TestMethod]
-        public void simpleAddSale()
-        {
-            IWebElement MystoreBtn = driver.FindElement(By.Id("MyStoresPublicLink"));
-            MystoreBtn.Click();
+            IWebElement MystoreBtn2 = driver.FindElement(By.Id("MyStoresPublicLink"));
+            MystoreBtn2.Click();
             Thread.Sleep(sleepTime);
             IWebElement addSaleToStoreBtn = driver.FindElement(By.Id("addSaleToStore0"));
             addSaleToStoreBtn.Click();
@@ -147,9 +142,30 @@ namespace SeleniumTests
             IWebElement addSale = driver.FindElement(By.Id("AddSaleBtn"));
             addSale.Click();
             Thread.Sleep(sleepTime);
+            IAlert alert3 = driver.SwitchTo().Alert();
+            alert3.Accept();
+            Thread.Sleep(sleepTime);
+
+
+        }
+
+
+        [TestMethod]
+        public void simpleRemoveSale()
+        {
+            IWebElement removeSaleFromStore = driver.FindElement(By.Id("removeSaleFromStore0"));
+            removeSaleFromStore.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement productName = driver.FindElement(By.Id("Sale-id6"));
+            productName.SendKeys("3");
+            Thread.Sleep(sleepTime);
+            IWebElement removeSallBtn = driver.FindElement(By.Id("aviad-Remove-Sale"));
+            removeSallBtn.Click();
+            Thread.Sleep(sleepTime);
+
             IAlert alert = driver.SwitchTo().Alert();
             string alertText = alert.Text;
-            Assert.IsTrue(alertText.Contains("successfuly added"));
+            Assert.IsTrue(alertText.Contains("successfully"));
             alert.Accept();
         }
         [TestCleanup]
