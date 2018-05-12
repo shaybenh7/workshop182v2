@@ -7,7 +7,7 @@ using System.Threading;
 namespace SeleniumTests
 {
     [TestClass]
-    public class AddProductToCart
+    public class AddProductToCartTest
     {
         public static String URL = "http://localhost:53416/";
         IWebDriver driver = new ChromeDriver("./");
@@ -24,9 +24,6 @@ namespace SeleniumTests
         [TestMethod]
         public void GUIaddProductToCart()
         {
-            IWebElement fillDB = driver.FindElement(By.Id("fillDB"));
-            fillDB.Click();
-            Thread.Sleep(sleepTime);
             IWebElement AllProducts = driver.FindElement(By.Id("AllProductsLink"));
             AllProducts.Click();
             Thread.Sleep(sleepTime);
@@ -51,9 +48,6 @@ namespace SeleniumTests
         [TestMethod]
         public void GUIaddProductToCartIncreaseQuantity()
         {
-            IWebElement fillDB = driver.FindElement(By.Id("fillDB"));
-            fillDB.Click();
-            Thread.Sleep(sleepTime);
             IWebElement AllProducts = driver.FindElement(By.Id("AllProductsLink"));
             AllProducts.Click();
             Thread.Sleep(sleepTime);
@@ -84,9 +78,6 @@ namespace SeleniumTests
         [TestMethod]
         public void GUIaddProductToCartIncreaseDecreaseQuantity()
         {
-            IWebElement fillDB = driver.FindElement(By.Id("fillDB"));
-            fillDB.Click();
-            Thread.Sleep(sleepTime);
             IWebElement AllProducts = driver.FindElement(By.Id("AllProductsLink"));
             AllProducts.Click();
             Thread.Sleep(sleepTime);
