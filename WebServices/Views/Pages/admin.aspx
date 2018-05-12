@@ -2,8 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
-        <div class="row">
-            <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm " style="margin-left: 0px; margin-right: 0px">
+        <div class="row" style="margin-left:40px;">
+            <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm " style="margin-left: 0px; margin-right: 80px; margin-top:40px">
 
 
                 <div class="wrap-modal1 js-modal1 p-t-60 p-b-20" id="viewHistoryModal">
@@ -70,7 +70,7 @@
                 </div>
                 <input type="button" value="Remove User" id="removeUserButton" onclick="removeUserFunc();" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" />
             </div>
-            <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm" style="margin-left: 0px; margin-right: 0px">
+            <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm" style="margin-left: 0px; margin-right: 80px; margin-top:40px;">
                 <h4 class="mtext-109 cl2 p-b-30">View History</h4>
                 <div class="flex-w flex-t">
                     <input type="radio" id="userRadio" name="optradio" checked="checked">User
@@ -98,28 +98,41 @@
                 </div>
                 <input type="button" value="View Purchase History" id="viewHistoryButton" onclick="viewHistory();" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" />
             </div>
-            <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm" style="margin-left: 0px; margin-right: 0px">
-                <h4 class="mtext-109 cl2 p-b-30">Change Policy</h4>
-                <div class="flex-w flex-t bor12 p-t-15 p-b-30">
-                    <div class="size-208 w-full-ssm">
-                        <span class="stext-110 cl2">Username:
-                        </span>
-
-                    </div>
-                    <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-
-                        <div class="p-t-15">
-
-                            <div class="bor8 bg0 m-b-12">
-                                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="addPolicyText" name="userName" placeholder="Vadim">
-                            </div>
-
-
+            
+            <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm" style="margin-left: 0px; margin-right: 80px; margin-top:40px;width: 875px;height: 370px; margin-bottom: 100px;">
+                <h4 class="mtext-109 cl2 p-b-30">Add Policy</h4>
+                <div class="flex-w flex-t bor12 p-t-15 p-b-30" style="margin-top: -30px;">
+                        <div class="wrap-input1 w-full p-b-4">
+                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="minPolicyAdmin" name="storeName" placeholder="minmum amount">
                         </div>
-                    </div>
+                        <br />
+                        <br />
+                        <div class="wrap-input1 w-full p-b-4">
+                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="maxPolicyAdmin" name="storeName" placeholder="max amount">
+                        </div>
+                        <br />
+                        <br />
+                        <div style="display: flex; margin-bottom: 10px; margin-left:20px">
+                                <input type="checkbox" id="NoDiscountAdmin" name="gender" value="male" style="margin-top: 5px; margin-right: 10px;">
+                                without discount
+                        </div>
+                        <br />
+                        <br />
+                        <div style="display: flex; margin-bottom: 10px;margin-left:40px">
+                                <input type="checkbox" id="NoCopunsAdmin" name="gender" value="male" style="margin-top: 5px; margin-right: 10px;">
+                                without coupons
+                        </div>
+                        <br />
+                        <br />
+                        <div class="wrap-input1 w-full p-b-4">
+                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="ProductIdAdmin"  name="storeName" placeholder="enter product id">
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <input type="button" id="addPolicy33Admin" value="Add policy" onclick="addPolicyAdmin()" style="margin-left: 600px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
 
                 </div>
-                <input type="button" value="Add Policy" id="addPolicyButton" onclick="addProductFunct();" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" />
             </div>
         </div>
     </div>
@@ -214,5 +227,7 @@
             $("#AdminMenuButton").addClass("active-menu")
         });
     </script>
+                <script type="text/javascript" src="vendor/JS/AdminAddPolicy.js"></script>
+
 </asp:Content>
 
