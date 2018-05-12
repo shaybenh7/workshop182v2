@@ -24,24 +24,22 @@ namespace SeleniumTests
         [TestMethod]
         public void GUIaddProductToCart()
         {
-            //Console.WriteLine("before element");
-            //Find the Element
             IWebElement fillDB = driver.FindElement(By.Id("fillDB"));
             fillDB.Click();
             IWebElement AllProducts = driver.FindElement(By.Id("AllProductsLink"));
             AllProducts.Click();
             IWebElement sale1 = driver.FindElement(By.Id("viewSale0"));
             sale1.Click();
-
-            //Actions actions = new Actions(driver);
-            //actions.MoveToElement(sale1).Click().Perform();
             IWebElement submitViewInstantSale = driver.FindElement(By.Id("submit"));
             submitViewInstantSale.Click();
+            IAlert alert = driver.SwitchTo().Alert();
+            string alertText = alert.Text;
+            Assert.IsTrue(alertText.Contains("Product was added successfully!"));
+            alert.Accept();
             IWebElement shoppingCartIcon = driver.FindElement(By.Id("shoppingCartIcon"));
             shoppingCartIcon.Click();
             IWebElement productInCart = driver.FindElement(By.Id("productName0"));
             Assert.IsTrue(productInCart.Text.Equals("cola"));
-
         }
 
         [TestMethod]
