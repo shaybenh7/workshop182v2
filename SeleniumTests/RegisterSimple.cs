@@ -3,6 +3,7 @@ using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using wsep182.services;
 
 namespace SeleniumTests
 {
@@ -16,6 +17,7 @@ namespace SeleniumTests
         [TestInitialize]
         public void Initialize()
         {
+            userServices.getInstance().init();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(URL);
             Console.WriteLine("Opened URL");

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Threading;
+using wsep182.services;
 
 namespace SeleniumTests
 {
@@ -15,6 +16,7 @@ namespace SeleniumTests
         [TestInitialize]
         public void Initialize()
         {
+            userServices.getInstance().init();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(URL);
             Console.WriteLine("Opened URL");
@@ -42,7 +44,7 @@ namespace SeleniumTests
             shoppingCartIcon.Click();
             Thread.Sleep(sleepTime);
             IWebElement productInCart = driver.FindElement(By.Id("productName0"));
-            Assert.IsTrue(productInCart.Text.Equals("cola"));
+            Assert.IsTrue(productInCart.Text.Equals("Milk chocolate"));
         }
 
         [TestMethod]
@@ -70,7 +72,7 @@ namespace SeleniumTests
             Thread.Sleep(sleepTime);
             IWebElement productInCart = driver.FindElement(By.Id("productName0"));
             IWebElement productQuant = driver.FindElement(By.Id("quantity0"));
-            Assert.IsTrue(productInCart.Text.Equals("cola"));
+            Assert.IsTrue(productInCart.Text.Equals("Milk chocolate"));
             Assert.IsTrue(productQuant.Text.Equals("2"));
 
         }
@@ -109,7 +111,7 @@ namespace SeleniumTests
             Thread.Sleep(sleepTime);
             IWebElement productInCart = driver.FindElement(By.Id("productName0"));
             IWebElement productQuant = driver.FindElement(By.Id("quantity0"));
-            Assert.IsTrue(productInCart.Text.Equals("cola"));
+            Assert.IsTrue(productInCart.Text.Equals("Milk chocolate"));
             Assert.IsTrue(productQuant.Text.Equals("4"));
         }
 

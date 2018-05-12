@@ -98,5 +98,11 @@ namespace SeleniumTests
 
             Assert.IsTrue(false);
         }
+        [TestCleanup]
+        public void CleanUp()
+        {
+            driver.Close();
+            Console.WriteLine("Closed the browser");
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using wsep182.services;
 
 namespace SeleniumTests
 {
@@ -16,6 +17,7 @@ namespace SeleniumTests
         [TestInitialize]
         public void Initialize()
         {
+            userServices.getInstance().init();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(URL);
             Console.WriteLine("Opened URL");
@@ -28,7 +30,7 @@ namespace SeleniumTests
             login.Click();
             Thread.Sleep(sleepTime);
             IWebElement userName = driver.FindElement(By.Id("username"));
-            userName.SendKeys("zahi");
+            userName.SendKeys("admin");
             Thread.Sleep(sleepTime);
             IWebElement password = driver.FindElement(By.Id("password"));
             password.SendKeys("123456");
@@ -39,7 +41,7 @@ namespace SeleniumTests
 
             IWebElement welcome = driver.FindElement(By.Id("welcome"));
             String welcomeText = welcome.Text;
-            Assert.IsTrue(welcomeText.Contains("Welcome zahi"));
+            Assert.IsTrue(welcomeText.Contains("Welcome admin"));
         }
         [TestMethod]
         public void loginNotExist()
@@ -66,7 +68,7 @@ namespace SeleniumTests
             login.Click();
             Thread.Sleep(sleepTime);
             IWebElement userName = driver.FindElement(By.Id("username"));
-            userName.SendKeys("itamar");
+            userName.SendKeys("admin");
             Thread.Sleep(sleepTime);
             IWebElement password = driver.FindElement(By.Id("password"));
             password.SendKeys("1234567");
@@ -99,7 +101,7 @@ namespace SeleniumTests
             login.Click();
             Thread.Sleep(sleepTime);
             IWebElement userName = driver.FindElement(By.Id("username"));
-            userName.SendKeys("itamar");
+            userName.SendKeys("admin");
             Thread.Sleep(sleepTime);
             IWebElement btnLogin = driver.FindElement(By.Id("btnLogin"));
             btnLogin.Click();
