@@ -1078,5 +1078,19 @@ namespace WebService.Controllers
             }
             return response;
         }
+        [Route("api/store/showPolicy")]
+        [HttpGet]
+        public HttpResponseMessage showPolicy(int productInStoreId)
+        {
+            string hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
+            User session = hashServices.getUserByHash(hash);
+            HttpResponseMessage response;
+            string ans = "Warning: Some of the restriction may change depending on the destination country! \n";
+            ans += storeServices.getInstance().showPolicy(session, productInStoreId);
+            response = Request.CreateResponse(HttpStatusCode.OK, ans);
+            return response;
+        }
+
+
     }
 }

@@ -659,6 +659,11 @@ namespace wsep182.services
                 , dueDate, restrictions);
         }
 
+        public string showPolicy(User session, int productInStoreId)
+        {
+           return PurchasePolicyArchive.getInstance().showPolicy(productInStoreId);
+        }
+
 
     }
 }
