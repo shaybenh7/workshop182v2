@@ -33,6 +33,78 @@ namespace wsep182.Domain
             instance = new PurchasePolicyArchive();
         }
 
+        public string showPolicy(int productInStoreId)
+        {
+            string ans = "";
+            LinkedList<PurchasePolicy> relevantPolicys = getAllRelevantPolicysForProductInStore(productInStoreId, "");
+            if (relevantPolicys.Count == 0)
+                return "There are no resrictions for this product!\n";
+
+            if (isExistNoDiscountsRestrictions(relevantPolicys))
+                ans += "-There are no discounts for this product.\n";
+            if(isExistNoCouponsRestrictions(relevantPolicys))
+                ans += "-This product does not support the use of coupons.\n";
+            if (isExistAmountRestrictions(relevantPolicys))
+            {
+                // finding amount intersection of all restricions
+                int minAvailable = -1;
+                int maxAvailable = -1;
+                foreach(PurchasePolicy p in relevantPolicys)
+                {
+                    if (!p.NoLimit)
+                    {
+                        if(minAvailable == -1 && maxAvailable == -1)
+                        {
+                            minAvailable = p.MinAmount;
+                            maxAvailable = p.MaxAmount;
+                        }
+                        else
+                        {
+                            if (p.MinAmount > minAvailable)
+                                minAvailable = p.MinAmount;
+                            if (p.MaxAmount < maxAvailable)
+                                maxAvailable = p.MaxAmount;
+                        }
+                    }
+                }
+                ans += "-Minimum amount per order: " + minAvailable.ToString() +"\n";
+                ans += "-Maximum amount per order: " + maxAvailable.ToString() + "\n";
+            }
+            return ans;
+        }
+
+        private bool isExistAmountRestrictions(LinkedList<PurchasePolicy> list)
+        {
+            foreach(PurchasePolicy p in list)
+            {
+                if (!p.NoLimit)
+                    return true;
+            }
+            return false;
+        }
+        private bool isExistNoDiscountsRestrictions(LinkedList<PurchasePolicy> list)
+        {
+            foreach (PurchasePolicy p in list)
+            {
+                if (!p.NoDiscount)
+                    return true;
+            }
+            return false;
+        }
+        private bool isExistNoCouponsRestrictions(LinkedList<PurchasePolicy> list)
+        {
+            foreach (PurchasePolicy p in list)
+            {
+                if (!p.NoCoupons)
+                    return true;
+            }
+            return false;
+        }
+
+
+
+
+
         private void appendLists(LinkedList<PurchasePolicy> first, LinkedList<PurchasePolicy> second)
         {
             foreach (PurchasePolicy p in second)
