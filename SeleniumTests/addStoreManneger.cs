@@ -8,7 +8,7 @@ using wsep182.services;
 namespace SeleniumTests
 {
     [TestClass]
-    public class AddProductToStore
+    public class addStoreManneger
     {
         public static String URL = "http://localhost:53416/";
         IWebDriver driver = new ChromeDriver("./");
@@ -64,36 +64,23 @@ namespace SeleniumTests
             Thread.Sleep(sleepTime);
 
         }
-
         [TestMethod]
-        public void simpleAddProduct()
+        public void simpleAddMannegers()
         {
-            IWebElement crateStoreBtn = driver.FindElement(By.Id("addProductInStore0"));
-            crateStoreBtn.Click();
+            IWebElement addStoreBtn = driver.FindElement(By.Id("addStoreManager0"));
+            addStoreBtn.Click();
             Thread.Sleep(sleepTime);
-            IWebElement productName = driver.FindElement(By.Id("product-name"));
-            productName.SendKeys("colaTests");
-            Thread.Sleep(sleepTime);
-
-            IWebElement productPrice = driver.FindElement(By.Id("product-price"));
-            productPrice.SendKeys("100");
+            IWebElement mannegerName = driver.FindElement(By.Id("new-manager-name"));
+            mannegerName.SendKeys("admin");
             Thread.Sleep(sleepTime);
 
-            IWebElement productAmount = driver.FindElement(By.Id("product-amount"));
-            productAmount.SendKeys("20");
-            Thread.Sleep(sleepTime);
-
-            IWebElement productCat = driver.FindElement(By.Id("product-cat"));
-            productCat.SendKeys("DRINKS");
-            Thread.Sleep(sleepTime);
-
-            IWebElement productBtn = driver.FindElement(By.Id("add_product_btn"));
-            productBtn.Click();
+            IWebElement addManagerBtn = driver.FindElement(By.Id("Add-manager-Btn"));
+            addManagerBtn.Click();
             Thread.Sleep(sleepTime);
 
             IAlert alert = driver.SwitchTo().Alert();
             string alertText = alert.Text;
-            Assert.IsTrue(alertText.Contains("successfuly added"));
+            Assert.IsTrue(alertText.Contains("manager added successfuly"));
             alert.Accept();
         }
     }
