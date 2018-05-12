@@ -112,8 +112,7 @@ namespace Acceptance_Tests.StoreTests
             Sale sale2 = sales2.First.Value;
             Assert.IsTrue(ses.addProductToCart(aviad, sale2.SaleId, 2)>-1);
             LinkedList<UserCart> sc2 = ses.viewCart(aviad);
-            Assert.IsTrue(sc2.Count == 1);
-            Assert.IsTrue(sc2.First.Value.getSaleId() == saleId2);
+            Assert.IsTrue(sc2.Count == 2);
             Assert.IsTrue(ses.buyProducts(aviad, "1234", ""));
             LinkedList<Purchase> historyList2 = ss.viewStoreHistory(zahi, store2);
             Assert.IsTrue(historyList2.Count == 1);

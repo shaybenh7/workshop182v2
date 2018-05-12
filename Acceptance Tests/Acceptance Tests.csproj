@@ -58,7 +58,6 @@
     <Compile Include="StoreTests\addCouponDiscountTests.cs" />
     <Compile Include="StoreTests\addDiscountTests.cs" />
     <Compile Include="StoreTests\addManagerPermissionTests.cs" />
-    <Compile Include="StoreTests\AddPermissionToManager.cs" />
     <Compile Include="StoreTests\addProductInStoreTest.cs" />
     <Compile Include="StoreTests\addSaleToStoreTest.cs" />
     <Compile Include="StoreTests\AddStoreManagerTests.cs" />
@@ -86,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="StoreTests\editSaleTests.cs.orig" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebServices\WebServices.csproj">

@@ -1,6 +1,7 @@
 ﻿using System;
 using wsep182.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace UnitTests
 {
@@ -39,7 +40,26 @@ namespace UnitTests
         public void getSalePriceWithDiscount()
         {
             int percentage = 50;
-            discountsArchive.addNewDiscount(milkInStore.getProductInStoreId(),1,"", percentage, "20/6/2020","");
+            List<int> lst = new List<int>();
+            lst.Add(milkInStore.getProductInStoreId());
+            discountsArchive.addNewDiscounts(1, lst,null, percentage, "20/6/2020","");
+            double price = 200;
+            int amount = 5;
+            sale = new Sale(1, milkInStore.getProductInStoreId(), 1, 50, "20/5/2020");
+            double check = sale.getPriceAfterDiscount(amount);
+            double res = (price * amount) - ((((Double)(price * amount * percentage)) / 100));
+            Assert.AreEqual(res,check);
+        }
+
+        [TestMethod]
+        public void getSalePriceWithDiscountCategory()
+        {
+            int percentage = 50;
+            List<int> lst = new List<int>();
+            lst.Add(milkInStore.getProductInStoreId());
+            List<string> cat = new List<string>();
+            cat.Add(milkInStore.Category);
+            discountsArchive.addNewDiscounts(2, lst, cat, percentage, "20/6/2020", "");
             double price = 200;
             int amount = 5;
             sale = new Sale(1, milkInStore.getProductInStoreId(), 1, 50, "20/5/2020");
@@ -47,6 +67,7 @@ namespace UnitTests
             double res = (price * amount) - ((((Double)(price * amount * percentage)) / 100));
             Assert.AreEqual(res, check);
         }
+
         [TestMethod]
         public void getSalePriceWithInvalidDiscount()
         {

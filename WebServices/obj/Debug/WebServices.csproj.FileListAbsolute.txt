@@ -266,9 +266,6 @@ C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\
 C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\System.Web.WebPages.dll
 C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\System.Web.WebPages.Razor.dll
 C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\WebGrease.dll
-C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\wsep182.exe
-C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\wsep182.pdb
-C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\wsep182.exe.config
 C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\Newtonsoft.Json.xml
 C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\System.Net.Http.Formatting.xml
@@ -397,3 +394,5 @@ C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\WebDriver.dll
 C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\WebDriver.xml
 C:\Programing\c#\workshop182v2\WebServices\bin\WebDriver.dll
 C:\Programing\c#\workshop182v2\WebServices\bin\WebDriver.xml
+C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\WebDriver.dll
+C:\Users\Shay Ben Haim\Desktop\workshopv2\workshop182\workshop182v2\WebServices\bin\WebDriver.xml

@@ -46,7 +46,7 @@ namespace wsep182.Domain
                 {
                     initialPrice = initialPrice - initialPrice * (d.Percentage / 100);
                 }
-                return initialPrice;
+                return initialPrice*amount;
             }
             else
             {

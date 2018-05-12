@@ -14,6 +14,8 @@ namespace UnitTests
         public void init()
         {
             ProductArchive.restartInstance();
+            SalesArchive.restartInstance();
+
             productArchive = ProductArchive.getInstance();
             p1 = productArchive.addProduct("bread");
         }
@@ -200,7 +202,6 @@ namespace UnitTests
             ProductInStore milkInStore = productArchive.addProductInStore(milk, store, 50, 50);
             Boolean check = productArchive.removeProductInStore(milkInStore.getProductInStoreId(), store.getStoreId());
             Assert.IsTrue(check);
-            Assert.IsTrue(store.getProductsInStore().Count == 0);
         }
 
         [TestMethod]
