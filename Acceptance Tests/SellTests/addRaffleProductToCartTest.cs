@@ -81,7 +81,7 @@ namespace Acceptance_Tests.SellTests
             Assert.IsFalse(sellS.addRaffleProductToCart(niv, saleList.First.Value.SaleId, 12)>0);
         }
         [TestMethod]
-        public void AddProductToCartMaxOffer()
+        public void AddProductToCartAfterOffering()
         {
             us.login(zahi, "zahi", "123456");
             LinkedList<Sale> saleList = ss.viewSalesByStore(store.getStoreId());
@@ -89,7 +89,7 @@ namespace Acceptance_Tests.SellTests
             Assert.IsFalse(temp2>0);
             int temp = sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 1);
             Assert.IsTrue(temp>0);
-            Assert.IsTrue(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 2.2)>0);
+            Assert.IsFalse(sellS.addRaffleProductToCart(zahi, saleList.First.Value.SaleId, 2.2)>0);
         }
         [TestMethod]
         public void AddProductToCartNull()

@@ -46,6 +46,10 @@ namespace wsep182.services
             register(admin, "admin", "123456");
             login(admin, "admin", "123456");
 
+            User adminTest = startSession();
+            register(adminTest, "adminTest", "123456");
+            login(adminTest, "adminTest", "123456");
+
             int storeid = ss.createStore("Maria&Netta Inc.", admin);
             store = storeArchive.getInstance().getStore(storeid);
 

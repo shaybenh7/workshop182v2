@@ -25,7 +25,7 @@ namespace WebServices
                 if (u != null && u.getState() is Admin)
                 {
                     adminPanelLink.Visible = true;
-                    initdbLink.Visible = true;
+
                     MyStoresLink.Visible = true;
                     LoginRegisterLinks.Visible = false;
                     logout.Visible = true;
@@ -38,6 +38,11 @@ namespace WebServices
                     welcome.Visible = true;
                     welcome.Text = "Welcome "+ u.getUserName();
                 }
+                if (u != null && u.getUserName()=="adminTest")
+                {
+                    initdbLink.Visible = true;
+                }
+
             }
         }
     }

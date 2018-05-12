@@ -25,7 +25,7 @@ namespace SeleniumTests
             login.Click();
             Thread.Sleep(sleepTime);
             IWebElement userName = driver.FindElement(By.Id("username"));
-            userName.SendKeys("admin");
+            userName.SendKeys("adminTest");
             Thread.Sleep(sleepTime);
             IWebElement password = driver.FindElement(By.Id("password"));
             password.SendKeys("123456");
@@ -33,13 +33,16 @@ namespace SeleniumTests
             IWebElement btnLogin = driver.FindElement(By.Id("btnLogin"));
             btnLogin.Click();
             Thread.Sleep(sleepTime);
+
+            Thread.Sleep(sleepTime);
+
             IWebElement initdb;
             int i = 0;
             while (i == 0) {
                 try
                 {
-                    initdb = driver.FindElement(By.Id("initdbButton"));
                     Thread.Sleep(sleepTime);
+                    initdb = driver.FindElement(By.Id("initdbButton"));
                     i = 1;
                     initdb.Click();
                 }
