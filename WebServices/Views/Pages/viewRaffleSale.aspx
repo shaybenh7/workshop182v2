@@ -148,7 +148,7 @@
                     string += "</span><br />";
                     string += "<span class=\"mtext-106 cl2\">Type of sale: Raffle";
                     string += "</span><br />";
-                    string += "<p class=\"stext-102 cl3 p-t-23\">*POLICY: TODO*</p><br />";
+                    string += "<span class=\"mtext-106 cl2\" id=\"policyOfRaffleSale\">POLICY:<br> </span><br />";
                     string += "<div class=\"size-204 flex-w flex-m respon6-next\">";
                     string += "<div class=\"wrap-input1 w-full p-b-4\">";
                     string += "<input class=\"input1 bg-none plh1 stext-107 cl7\" type=\"text\" name=\"myOffer\" id=\"myOffer\" placeholder=\"Enter your offer\">";
@@ -164,10 +164,30 @@
                     string += "</div> </div> </div>";
 
 
-                    
+                    var replaceAllOccurences = function (string, from, to) {
+                        var newString = string.replace(from, to);
+                        if (newString == string)
+                            return newString;
+                        return replaceAllOccurences(newString, from, to);
+                    }
 
 
                     mainDiv.innerHTML += string;
+
+                    jQuery.ajax({
+                                type: "GET",
+                                url: baseUrl+"/api/store/showPolicy?saleId=" + saleId,
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    var productNameElement = document.getElementById("policyOfRaffleSale");
+                                    var str = replaceAllOccurences(response, "\n", "<br>") ;
+                                     productNameElement.innerHTML += str;
+                                },
+                                error: function (response) {
+                                    console.log("response");
+                                }
+                            });
                     (function () {
                         
                             $('#submit').click(function () {
