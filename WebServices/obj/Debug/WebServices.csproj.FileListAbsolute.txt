@@ -395,3 +395,5 @@ C:\Programing\workshop182v2\WebServices\obj\Debug\WebServices.csproj.CopyComplet
 C:\Programing\c#\workshop182v2\WebServices\bin\System.Net.WebSockets.dll
 C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\WebDriver.dll
 C:\Users\NivBenShabat\source\repos\wsep182\WebServices\bin\WebDriver.xml
+C:\Programing\c#\workshop182v2\WebServices\bin\WebDriver.dll
+C:\Programing\c#\workshop182v2\WebServices\bin\WebDriver.xml

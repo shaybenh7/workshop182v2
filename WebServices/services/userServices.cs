@@ -22,52 +22,34 @@ namespace wsep182.services
             }
             return instance;
         }
-        private void init()
+        public void init()
         {
+            ProductArchive.restartInstance();
+            SalesArchive.restartInstance();
+            storeArchive.restartInstance();
+            UserArchive.restartInstance();
+            UserCartsArchive.restartInstance();
+            BuyHistoryArchive.restartInstance();
+            CouponsArchive.restartInstance();
+            DiscountsArchive.restartInstance();
+            RaffleSalesArchive.restartInstance();
+            StorePremissionsArchive.restartInstance();
+
             storeServices ss;
-            User zahi, itamar, niv, admin, admin1, vova; //admin,itamar logedin
-            Store store;//itamar owner , niv manneger
-            ProductInStore cola, sprite;
+            User admin;
+            Store store;
             sellServices sells;
-            int saleId;
-            int raffleSale;
             ss = storeServices.getInstance();
             sells = sellServices.getInstance();
             admin = startSession();
             register(admin, "admin", "123456");
             login(admin, "admin", "123456");
 
-            admin1 = startSession();
-            register(admin1, "admin1", "123456");
-            zahi = startSession();
-            register(zahi, "zahi", "123456");
-            login(zahi, "zahi", "123456");
-
-            vova = startSession();
-            register(vova, "vova", "123456");
-            login(vova, "vova", "123456");
-
-            itamar = startSession();
-            register(itamar, "itamar", "123456");
-            login(itamar, "itamar", "123456");
-
-            int storeid = ss.createStore("Maria&Netta Inc.", zahi);
+            int storeid = ss.createStore("Maria&Netta Inc.", admin);
             store = storeArchive.getInstance().getStore(storeid);
-            niv = startSession();
-            register(niv, "niv", "123456");
-            login(niv, "niv", "123456");
 
-            ss.addStoreManager(store.getStoreId(), "niv", zahi);
-            StoreRole sR = StoreRole.getStoreRole(store, zahi);
-            sR.addManagerPermission(zahi, "addProductInStore", store, "niv");
-
-
-            int c = ss.addProductInStore("cola", 3.2, 100, zahi, storeid, "drinks");
-            int s = ss.addProductInStore("sprite", 5.3, 20, zahi, storeid, "drinks");
-            cola = ProductArchive.getInstance().getProductInStore(c);
-            sprite = ProductArchive.getInstance().getProductInStore(s);
-            saleId = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 50, DateTime.Now.AddDays(10).ToString());
-            raffleSale = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 3, 3, DateTime.Now.AddDays(10).ToString());
+            int c = ss.addProductInStore("Milk chocolate", 3.2, 30, admin, storeid, "chocolate");
+            int s = ss.addProductInStore("Dark chocolate", 5.3, 30, admin, storeid, "chocolate");
 
         }
         // req 1.1

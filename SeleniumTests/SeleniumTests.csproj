@@ -57,9 +57,16 @@
     <Compile Include="AddStoreTest.cs" />
     <Compile Include="LoginTest.cs" />
     <Compile Include="RegisterSimple.cs" />
+    <Compile Include="AddProductToStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebServices\WebServices.csproj">
+      <Project>{c837d7d7-13bf-4c25-8d0a-8977867f87b2}</Project>
+      <Name>WebServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
