@@ -117,7 +117,7 @@ var checkoutFunc2 =function() {
         success: function (response) {
             if (response == "Error: user error!" || response == "Error: country and address fields cannot be empty!")
                 alert("Error: All fields must be filled!");
-            else if (response == "Error: item with sale Id 1 does not fulfill its buying policy!"){
+            else if (response.includes("Error: item with sale Id") || response.includes("does not fulfill its buying policy!")  ) {
                 alert(response);
             }
             else {
