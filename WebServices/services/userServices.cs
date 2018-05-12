@@ -53,10 +53,10 @@ namespace wsep182.services
             int storeid = ss.createStore("Maria&Netta Inc.", admin);
             store = storeArchive.getInstance().getStore(storeid);
 
-            int c = ss.addProductInStore("Milk chocolate", 3.2, 300, admin, storeid, "chocolate");
-            int s = ss.addProductInStore("Dark chocolate", 5.3, 300, admin, storeid, "chocolate");
-            ss.addSaleToStore(admin, storeid, c, 1, 50, "18/11/2018");
-            ss.addSaleToStore(admin, storeid, s, 3, 50, "18/11/2018");
+            int c = ss.addProductInStore("Milk chocolate", 3.2, 30, admin, storeid, "chocolate");
+            int s = ss.addProductInStore("Dark chocolate", 5.3, 30, admin, storeid, "chocolate");
+            ss.addSaleToStore(admin, storeid, c, 1, 20, "18/11/2018");
+            ss.addSaleToStore(admin, storeid, s, 3, 20, "18/11/2018");
 
         }
         // req 1.1
