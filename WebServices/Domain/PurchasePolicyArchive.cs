@@ -86,7 +86,7 @@ namespace wsep182.Domain
         {
             foreach (PurchasePolicy p in list)
             {
-                if (!p.NoDiscount)
+                if (p.NoDiscount)
                     return true;
             }
             return false;
@@ -95,7 +95,7 @@ namespace wsep182.Domain
         {
             foreach (PurchasePolicy p in list)
             {
-                if (!p.NoCoupons)
+                if (p.NoCoupons)
                     return true;
             }
             return false;
