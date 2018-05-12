@@ -18,6 +18,40 @@ namespace SeleniumTests
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(URL);
             Console.WriteLine("Opened URL");
+            IWebElement login = driver.FindElement(By.Id("LoginLink"));
+            login.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement userName = driver.FindElement(By.Id("username"));
+            userName.SendKeys("adminTest");
+            Thread.Sleep(sleepTime);
+            IWebElement password = driver.FindElement(By.Id("password"));
+            password.SendKeys("123456");
+            Thread.Sleep(sleepTime);
+            IWebElement btnLogin = driver.FindElement(By.Id("btnLogin"));
+            btnLogin.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement initdb;
+            int i = 0;
+            while (i == 0)
+            {
+                try
+                {
+                    initdb = driver.FindElement(By.Id("initdbButton"));
+                    Thread.Sleep(sleepTime);
+                    i = 1;
+                    initdb.Click();
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+            Thread.Sleep(sleepTime);
+
+
+            IWebElement logout = driver.FindElement(By.Id("LogoutLink"));
+            logout.Click();
+            Thread.Sleep(sleepTime);
         }
 
         [TestMethod]
@@ -29,7 +63,7 @@ namespace SeleniumTests
             IWebElement store0 = driver.FindElement(By.Id("storeName0"));
             Assert.IsTrue(store0.Text.Equals("Store Name: Maria&Netta Inc."));
             IWebElement storeCreator = driver.FindElement(By.Id("ownerName0"));
-            Assert.IsTrue(storeCreator.Text.Equals("Store Creator: zahi"));
+            Assert.IsTrue(storeCreator.Text.Contains("Store Creator: admin"));
         }
         [TestMethod]
         public void GUIviewAllStoresAndGetInTheStore()
@@ -43,9 +77,7 @@ namespace SeleniumTests
             IWebElement storeName = driver.FindElement(By.Id("store-name"));
             Assert.IsTrue(storeName.Text.Contains("Maria&Netta Inc."));
             IWebElement owner = driver.FindElement(By.Id("owners"));
-            Assert.IsTrue(owner.Text.Contains("zahi"));
-            IWebElement manager = driver.FindElement(By.Id("managers"));
-            Assert.IsTrue(manager.Text.Contains("niv"));
+            Assert.IsTrue(owner.Text.Contains("admin"));
             IWebElement product0 = driver.FindElement(By.Id("productName0"));
             Assert.IsTrue(product0.Text.Contains("cola"));
             IWebElement product1 = driver.FindElement(By.Id("productName1"));
