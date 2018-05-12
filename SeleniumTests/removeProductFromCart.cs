@@ -8,7 +8,7 @@ using wsep182.services;
 namespace SeleniumTests
 {
     [TestClass]
-    public class addStoreManneger
+    public class removeProductFromCart
     {
         public static String URL = "http://localhost:53416/";
         IWebDriver driver = new ChromeDriver("./");
@@ -63,25 +63,31 @@ namespace SeleniumTests
             alert.Accept();
             Thread.Sleep(sleepTime);
 
+            //add product to cart
+            IWebElement AllProducts = driver.FindElement(By.Id("AllProductsLink"));
+            AllProducts.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement sale1 = driver.FindElement(By.Id("viewSale0"));
+            sale1.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement submitViewInstantSale = driver.FindElement(By.Id("submit"));
+            submitViewInstantSale.Click();
+            Thread.Sleep(sleepTime);
+            IAlert alert2 = driver.SwitchTo().Alert();
+            alert2.Accept();
+            Thread.Sleep(sleepTime);
+            IWebElement shoppingCartIcon = driver.FindElement(By.Id("shoppingCartIcon"));
+            shoppingCartIcon.Click();
+            Thread.Sleep(sleepTime);
         }
         [TestMethod]
-        public void simpleAddMannegers()
+        public void simpleRemoveProductFromCart()
         {
-            IWebElement addStoreBtn = driver.FindElement(By.Id("addStoreManager0"));
-            addStoreBtn.Click();
+            IWebElement removebtn = driver.FindElement(By.Id("remove0"));
+            removebtn.Click();
             Thread.Sleep(sleepTime);
-            IWebElement mannegerName = driver.FindElement(By.Id("new-manager-name"));
-            mannegerName.SendKeys("admin");
-            Thread.Sleep(sleepTime);
-
-            IWebElement addManagerBtn = driver.FindElement(By.Id("Add-manager-Btn"));
-            addManagerBtn.Click();
-            Thread.Sleep(sleepTime);
-
-            IAlert alert = driver.SwitchTo().Alert();
-            string alertText = alert.Text;
-            Assert.IsTrue(alertText.Contains("manager added successfuly"));
-            alert.Accept();
+            IWebElement totalPrice = driver.FindElement(By.Id("total-price"));
+            Assert.IsTrue(totalPrice.Text.Contains("0.00"));
         }
         [TestCleanup]
         public void CleanUp()
@@ -89,5 +95,6 @@ namespace SeleniumTests
             driver.Close();
             Console.WriteLine("Closed the browser");
         }
+    
     }
 }

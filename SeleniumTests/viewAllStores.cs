@@ -51,5 +51,11 @@ namespace SeleniumTests
             IWebElement product1 = driver.FindElement(By.Id("productName1"));
             Assert.IsTrue(product1.Text.Contains("cola"));
         }
+        [TestCleanup]
+        public void CleanUp()
+        {
+            driver.Close();
+            Console.WriteLine("Closed the browser");
+        }
     }
 }
