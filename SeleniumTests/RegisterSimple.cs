@@ -17,10 +17,46 @@ namespace SeleniumTests
         [TestInitialize]
         public void Initialize()
         {
-            userServices.getInstance().init();
+
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(URL);
             Console.WriteLine("Opened URL");
+
+            IWebElement login = driver.FindElement(By.Id("LoginLink"));
+            login.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement userName = driver.FindElement(By.Id("username"));
+            userName.SendKeys("admin");
+            Thread.Sleep(sleepTime);
+            IWebElement password = driver.FindElement(By.Id("password"));
+            password.SendKeys("123456");
+            Thread.Sleep(sleepTime);
+            IWebElement btnLogin = driver.FindElement(By.Id("btnLogin"));
+            btnLogin.Click();
+            Thread.Sleep(sleepTime);
+            IWebElement initdb;
+            int i = 0;
+            while (i == 0)
+            {
+                try
+                {
+                    initdb = driver.FindElement(By.Id("initdbButton"));
+                    Thread.Sleep(sleepTime);
+                    i = 1;
+                    initdb.Click();
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+            Thread.Sleep(sleepTime);
+
+            IWebElement logout = driver.FindElement(By.Id("LogoutLink"));
+            logout.Click();
+            Thread.Sleep(sleepTime);
+
+
         }
 
         [TestMethod]
