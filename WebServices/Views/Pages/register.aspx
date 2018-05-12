@@ -48,20 +48,20 @@
             else {
                 jQuery.ajax({
                     type: "GET",
-                    url: "http://localhost:53416/api/user/register?username=" + username + "&password=" + pass,
+                    url: baseUrl+"/api/user/register?username=" + username + "&password=" + pass,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
                         if (response == "user successfuly added") {
                             alert("User successfuly added");
-                            window.location.href = "http://localhost:53416/";
+                            window.location.href = baseUrl+"/";
                         }
                         else {
                             $("#registerAlert").html('Failure - ' + response);
                         }
                     },
                     error: function (response) {
-                        window.location.href = "http://localhost:53416/error";
+                        window.location.href = baseUrl+"/error";
                     }
                 });
             }

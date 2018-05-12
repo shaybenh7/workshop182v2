@@ -1,7 +1,6 @@
 ﻿var ws;
-//localhost:53416/
 $().ready(function () {
-    ws = new WebSocket("ws://" + "localhost:53416" +
+    ws = new WebSocket("ws://" + window.location.host +
         "/api/WebSocket/");
 
     ws.onopen = function () {

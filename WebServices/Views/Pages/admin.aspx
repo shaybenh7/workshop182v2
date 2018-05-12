@@ -134,7 +134,7 @@
 
             jQuery.ajax({
                 type: "GET",
-                url: "http://localhost:53416/api/user/removeUser?userDeleted=" + userName,
+                url: baseUrl+"/api/user/removeUser?userDeleted=" + userName,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -154,9 +154,9 @@
             var ajaxURL = "";
 
             if (document.getElementById('userRadio').checked) {
-                ajaxURL = "http://localhost:53416/api/store/viewUserHistory?userToGet=" + name;
+                ajaxURL = baseUrl+"/api/store/viewUserHistory?userToGet=" + name;
             } else if (document.getElementById('storeRadio').checked) {
-                ajaxURL = "http://localhost:53416/api/store/viewStoreHistory?storeId=" + name;
+                ajaxURL = baseUrl+"/api/store/viewStoreHistory?storeId=" + name;
             }
 
             var mainDivModal = document.getElementById('historyTable');

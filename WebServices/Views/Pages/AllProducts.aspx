@@ -18,7 +18,7 @@
 
     <script type="text/javascript">
         function loadModal(saleId) {
-            document.getElementById("modalContent").innerHTML = '<object type="text/html" data="http://localhost:53416/viewInstantSale?saleId=' + saleId + ' ></object>';
+            document.getElementById("modalContent").innerHTML = '<object type="text/html" data='+baseUrl+'"/viewInstantSale?saleId=' + saleId + ' ></object>';
         }
     </script>
 
@@ -29,7 +29,7 @@
             var mainDiv = document.getElementById('allSalesComponent');
             jQuery.ajax({
                 type: "GET",
-                url: "http://localhost:53416/api/user/viewAllSales",
+                url: baseUrl+"/api/user/viewAllSales",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -45,13 +45,13 @@
                         string += "<div class=\"block2\">";
                         string += "<div class=\"block2-pic hov-img0\">";
                         //string += "<img src=\"images/product-01New.jpg\" alt=\"IMG-PRODUCT\">";
-                        string += "<a href=\"http://localhost:53416/viewInstantSale?saleId=" + saleId + "\" id=\"viewSaleFromPicture" + i + "\"";
+                        string += "<a href=\""+baseUrl+"/viewInstantSale?saleId=" + saleId + "\" id=\"viewSaleFromPicture" + i + "\"";
                         string += "<img src=\"images/itamar.jpg\" alt=\"IMG-PRODUCT\">";
                         string += "</a>";
                         if (typeOfSale==1)
-                            string += "<a href=\"http://localhost:53416/viewInstantSale?saleId="+saleId+"\" id=\"viewSaleFromInnerPicture"+i+"\" class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">Quick Buy</a>";
+                            string += "<a href=\""+baseUrl+"/viewInstantSale?saleId="+saleId+"\" id=\"viewSaleFromInnerPicture"+i+"\" class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">Quick Buy</a>";
                         else
-                            string += "<a href=\"http://localhost:53416/viewRaffleSale?saleId="+saleId+"\" id=\"viewSaleFromInnerPicture"+i+"\" class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">Quick Buy</a>";
+                            string += "<a href=\""+baseUrl+"/viewRaffleSale?saleId="+saleId+"\" id=\"viewSaleFromInnerPicture"+i+"\" class=\"block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1\">Quick Buy</a>";
                         string += "</div>";
                         string += "<div class=\"block2-txt flex-w flex-t p-t-14\">";
                         string += "<div class=\"block2-txt-child1 flex-col-l \">";
@@ -75,11 +75,11 @@
                         string += "<span class=\"stext-105 cl3\" style=\"width: 100%;direction: rtl;\">";
                         string += "<div>";
                         if (typeOfSale == 1)
-                        //    string += "<a href=\"http://localhost:53416/viewInstantSale?saleId="+saleId+"\" id=\"viewSale"+i+"\" class=\" stext-103  size-102 bg0 bor2 p-lr-15 trans-04 js-show-modal1\" style=\"display: contents;\">Buy</a>";
-                            string += "<input type=\"button\" value=\"Buy\" id=\"viewSale"+i+"\" onclick=\"location.href=\'http://localhost:53416/viewInstantSale?saleId="+saleId+"\'\" class=\"flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer\" />";
+                        //    string += "<a href=\"+baseUrl+"/viewInstantSale?saleId="+saleId+"\" id=\"viewSale"+i+"\" class=\" stext-103  size-102 bg0 bor2 p-lr-15 trans-04 js-show-modal1\" style=\"display: contents;\">Buy</a>";
+                            string += "<input type=\"button\" value=\"Buy\" id=\"viewSale"+i+"\" onclick=\"location.href=\""+baseUrl+"/viewInstantSale?saleId="+saleId+"\'\" class=\"flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer\" />";
                         else
-                            string += "<input type=\"button\" value=\"Buy\" id=\"viewSale"+i+"\" onclick=\"location.href=\'http://localhost:53416/viewRaffleSale?saleId="+saleId+"\'\" class=\"flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer\" />";
-                            //string += "<a href=\"http://localhost:53416/viewRaffleSale?saleId="+saleId+"\" id=\"viewSale"+i+"\" class=\" stext-103  size-102 bg0 bor2 p-lr-15 trans-04 js-show-modal1\"  style=\"display: contents;\">Buy</a>";
+                            string += "<input type=\"button\" value=\"Buy\" id=\"viewSale"+i+"\" onclick=\"location.href=\""+baseUrl+"/viewRaffleSale?saleId="+saleId+"\'\" class=\"flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer\" />";
+                            //string += "<a href=\"+baseUrl+"/viewRaffleSale?saleId="+saleId+"\" id=\"viewSale"+i+"\" class=\" stext-103  size-102 bg0 bor2 p-lr-15 trans-04 js-show-modal1\"  style=\"display: contents;\">Buy</a>";
                         string += "</div>";
                         string += "</span>";
                         string += "</div>";
@@ -90,7 +90,7 @@
                         (function (i) {
                             jQuery.ajax({
                                 type: "GET",
-                                url: "http://localhost:53416/api/store/getProductInStoreById?id=" + pis,
+                                url: baseUrl+"/api/store/getProductInStoreById?id=" + pis,
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
                                 success: function (response) {
@@ -107,7 +107,7 @@
 
                             jQuery.ajax({
                                 type: "GET",
-                                url: "http://localhost:53416/api/store/checkPriceOfAProduct?saleId=" + saleId, //add call to get price
+                                url: baseUrl+"/api/store/checkPriceOfAProduct?saleId=" + saleId, //add call to get price
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
                                 success: function (response) {
@@ -123,7 +123,7 @@
                 },
                 error: function (response) {
                     console.log(response);
-                    window.location.href = "http://localhost:53416/error";
+                    window.location.href = baseUrl+"/error";
                 }
             });
         });

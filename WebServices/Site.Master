@@ -44,7 +44,10 @@
     <script src="js/validators.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+    <script type="text/javascript">
+        var getUrl = window.location;
+        var baseUrl = getUrl.protocol + "//" + getUrl.host
+    </script>
 
 </head>
 
@@ -142,14 +145,14 @@
                     document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
                 }
 
-                window.location.href = "http://localhost:53416/";
+                window.location.href = baseUrl+"/";
             }
             $(document).ready(function () {
                 var myCookie = getCookie("HashCode");
                 if (myCookie == null) {
                     jQuery.ajax({
                         type: "GET",
-                        url: "http://localhost:53416/api/user/generateHash",
+                        url: baseUrl+"/api/user/generateHash",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (response) {
@@ -157,7 +160,7 @@
                         },
                         error: function (response) {
                             console.log(response);
-                            window.location.href = "http://localhost:53416/error";
+                            window.location.href = baseUrl+"/error";
                         }
                     });
                 }

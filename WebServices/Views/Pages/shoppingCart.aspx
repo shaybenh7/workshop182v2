@@ -195,7 +195,7 @@
 
             jQuery.ajax({
                 type: "GET",
-                url: "http://localhost:53416/api/sell/buyProductsInCart?country=" + country + "&address=" + address + "&creditcard=" + creditcard,
+                url: baseUrl+"/api/sell/buyProductsInCart?country=" + country + "&address=" + address + "&creditcard=" + creditcard,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {

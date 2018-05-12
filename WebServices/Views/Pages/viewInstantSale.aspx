@@ -160,7 +160,7 @@
             var mainDiv = document.getElementById('viewInstantSaleComponent');
             jQuery.ajax({
                 type: "GET",
-                url: "http://localhost:53416/api/user/viewSaleById?saleId=" + saleId,
+                url: baseUrl+"/api/user/viewSaleById?saleId=" + saleId,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -195,7 +195,7 @@
                         $('#submit').click(function () {
                             jQuery.ajax({
                                 type: "PUT",
-                                url: "http://localhost:53416/api/store/addProductToCart?saleId=" + saleId + "&amount=" + document.getElementById("num-product").value,
+                                url: baseUrl+"/api/store/addProductToCart?saleId=" + saleId + "&amount=" + document.getElementById("num-product").value,
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
                                 success: function (response) {
@@ -209,7 +209,7 @@
 
                         jQuery.ajax({
                             type: "GET",
-                            url: "http://localhost:53416/api/store/getProductInStoreById?id=" + pis,
+                            url: baseUrl+"/api/store/getProductInStoreById?id=" + pis,
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: function (response) {
@@ -226,7 +226,7 @@
                         });
                         jQuery.ajax({
                             type: "GET",
-                            url: "http://localhost:53416/api/store/checkPriceOfAProduct?saleId=" + saleId, //add call to get price
+                            url: baseUrl+"/api/store/checkPriceOfAProduct?saleId=" + saleId, //add call to get price
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: function (response) {
@@ -240,7 +240,7 @@
                         });
                         jQuery.ajax({
                             type: "GET",
-                            url: "http://localhost:53416/api/store/checkPriceOfAProductBeforeDiscount?saleId=" + saleId, //add call to get price
+                            url: baseUrl+"/api/store/checkPriceOfAProductBeforeDiscount?saleId=" + saleId, //add call to get price
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: function (response) {
@@ -256,7 +256,7 @@
                 },
                 error: function (response) {
                     console.log("fuck");
-                    window.location.href = "http://localhost:53416/error";
+                    window.location.href = baseUrl+"/error";
                 }
             });
         });

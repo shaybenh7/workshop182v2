@@ -42,7 +42,7 @@
 
                 jQuery.ajax({
                     type: "GET",
-                    url: "http://localhost:53416/api/user/login?username=" + username + "&password=" + pass,
+                    url: baseUrl+"/api/user/login?username=" + username + "&password=" + pass,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
@@ -50,7 +50,7 @@
                         //console.log(response[1]);
                         if (response == "user successfuly logged in") {
                             //document.cookie = "HashCode=" + response[1]; //saves the hash code as a cookie
-                            window.location.href = "http://localhost:53416/";
+                            window.location.href = baseUrl+"/";
                         }
                         else {
                             $("#loginAlert").html('Failure - ' + response);
@@ -58,7 +58,7 @@
                     },
                     error: function (response) {
                         console.log(response);
-                        window.location.href = "http://localhost:53416/error";
+                        window.location.href = baseUrl+"/error";
                     }
                 });
             });

@@ -2,7 +2,7 @@
     var mainDiv = document.getElementById('shoppingCart');
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/sell/getShoppingCartBeforeCheckout",
+        url: baseUrl+"/api/sell/getShoppingCartBeforeCheckout",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -44,14 +44,14 @@
                 (function (i, saleId) {
                     jQuery.ajax({
                         type: "GET",
-                        url: "http://localhost:53416/api/user/viewSaleById?saleId=" + saleId,
+                        url: baseUrl+"/api/user/viewSaleById?saleId=" + saleId,
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function (response) {
 
                             jQuery.ajax({
                                 type: "GET",
-                                url: "http://localhost:53416/api/store/getProductInStoreById?id=" + response["ProductInStoreId"],
+                                url: baseUrl+"/api/store/getProductInStoreById?id=" + response["ProductInStoreId"],
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
                                 success: function (response) {
@@ -79,7 +79,7 @@
         },
         error: function (response) {
             console.log(response);
-            window.location.href = "http://localhost:53416/error";
+            window.location.href = baseUrl+"/error";
         }
     });
 });
@@ -87,7 +87,7 @@
 var RemoveProductFromCart = function (saleId) {
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/sell/removeFromCart?saleId=" + saleId,
+        url: baseUrl+"/api/sell/removeFromCart?saleId=" + saleId,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -97,7 +97,7 @@ var RemoveProductFromCart = function (saleId) {
         },
         error: function (response) {
             console.log("responseeee");
-            window.location.href = "http://localhost:53416/error";
+            window.location.href = baseUrl+"/error";
         }
     });
 }
@@ -111,7 +111,7 @@ var checkoutFunc2 =function() {
     var mainDivModal = document.getElementById('shoppingCartModal');
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/sell/checkout?country=" + country + "&address=" + address + "&creditcard=" + creditcard,
+        url: baseUrl+"/api/sell/checkout?country=" + country + "&address=" + address + "&creditcard=" + creditcard,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -154,14 +154,14 @@ var checkoutFunc2 =function() {
                     (function (i, saleId) {
                         jQuery.ajax({
                             type: "GET",
-                            url: "http://localhost:53416/api/user/viewSaleById?saleId=" + saleId,
+                            url: baseUrl+"/api/user/viewSaleById?saleId=" + saleId,
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: function (response) {
 
                                 jQuery.ajax({
                                     type: "GET",
-                                    url: "http://localhost:53416/api/store/getProductInStoreById?id=" + response["ProductInStoreId"],
+                                    url: baseUrl+"/api/store/getProductInStoreById?id=" + response["ProductInStoreId"],
                                     contentType: "application/json; charset=utf-8",
                                     dataType: "json",
                                     success: function (response) {
@@ -189,7 +189,7 @@ var checkoutFunc2 =function() {
         error: function (response) {
             console.log("error");
             console.log(response);
-            //window.location.href = "http://localhost:53416/error";
+            //window.location.href = baseUrl+"/error";
         }
     });
 
@@ -203,7 +203,7 @@ function applyCoupon() {
     var country = $("#country").val();
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/sell/applyCoupon?couponId=" + coupon +
+        url: baseUrl+"/api/sell/applyCoupon?couponId=" + coupon +
             "&country=" + country,
         contentType: "application/json; charset=utf-8",
         dataType: "json",

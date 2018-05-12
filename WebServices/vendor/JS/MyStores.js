@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/user/getAllStoresUnderUser",
+        url: baseUrl+"/api/user/getAllStoresUnderUser",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -55,7 +55,7 @@ $(document).ready(function () {
                         (function (i, storeId) {
                             jQuery.ajax({
                                 type: "GET",
-                                url: "http://localhost:53416/api/user/getPremissionsOfAManager?storeId=" + storeId,
+                                url: baseUrl+"/api/user/getPremissionsOfAManager?storeId=" + storeId,
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
                                 success: function (response) { //iterate through premissions and enable links
@@ -109,7 +109,7 @@ $(document).ready(function () {
         },
         error: function (response) {
             console.log(response);
-            window.location.href = "http://localhost:53416/error";
+            window.location.href = baseUrl+"/error";
         }
     });
 
@@ -127,7 +127,7 @@ var createStoreButton = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/createStore?storeName=" + Storename,
+        url: baseUrl+"/api/store/createStore?storeName=" + Storename,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -151,7 +151,7 @@ var addProductFunct = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/addProductInStore?productName=" + productName + "&price=" + price
+        url: baseUrl+"/api/store/addProductInStore?productName=" + productName + "&price=" + price
             + "&amount=" + amount + "&storeId=" + lastClickedStoreId + "&category=" + cat,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -172,7 +172,7 @@ var addNewManager = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/addStoreManager?storeId=" + lastClickedStoreId + "&newManager=" + ManagerName,
+        url: baseUrl+"/api/store/addStoreManager?storeId=" + lastClickedStoreId + "&newManager=" + ManagerName,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -192,7 +192,7 @@ var RemoveStoreManager = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/removeStoreManager?storeId=" + lastClickedStoreId + "&oldManageruserName=" + ManagerName,
+        url: baseUrl+"/api/store/removeStoreManager?storeId=" + lastClickedStoreId + "&oldManageruserName=" + ManagerName,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -212,7 +212,7 @@ var addStoreOwner = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/addStoreOwner?storeId=" + lastClickedStoreId + "&newOwner=" + NewOwnerName,
+        url: baseUrl+"/api/store/addStoreOwner?storeId=" + lastClickedStoreId + "&newOwner=" + NewOwnerName,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -232,7 +232,7 @@ var removeStoreOwner = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/removeStoreOwner?storeId=" + lastClickedStoreId + "&oldOwner=" + OldOwnerName,
+        url: baseUrl+"/api/store/removeStoreOwner?storeId=" + lastClickedStoreId + "&oldOwner=" + OldOwnerName,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -254,7 +254,7 @@ var editStoreProduct = function () {
     
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/editProductInStore?productInStoreId=" + productId +
+        url: baseUrl+"/api/store/editProductInStore?productInStoreId=" + productId +
             "&price=" + price + "&amount=" + amount + "&storeId=" + lastClickedStoreId,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -275,7 +275,7 @@ var removeStoreProduct = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/removeProductFromStore?storeId=" + lastClickedStoreId +
+        url: baseUrl+"/api/store/removeProductFromStore?storeId=" + lastClickedStoreId +
             "&ProductInStoreId=" + productId, 
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -303,7 +303,7 @@ var addSale = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/addSaleToStore?storeId=" + lastClickedStoreId +
+        url: baseUrl+"/api/store/addSaleToStore?storeId=" + lastClickedStoreId +
             "&pisId=" + productId + "&typeOfSale=" + kindOfSale + "&amount=" + amount +
             "&dueDtae=" + date,
         contentType: "application/json; charset=utf-8",
@@ -327,7 +327,7 @@ var editSale = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/editSale?storeId=" + lastClickedStoreId +
+        url: baseUrl+"/api/store/editSale?storeId=" + lastClickedStoreId +
             "&saleId=" + saleId + "&amount=" + amount + "&dueDate=" + date +
             "&dueDtae=" + date,
         contentType: "application/json; charset=utf-8",
@@ -349,7 +349,7 @@ var removeSale = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/removeSaleFromStore?storeId=" + lastClickedStoreId +
+        url: baseUrl+"/api/store/removeSaleFromStore?storeId=" + lastClickedStoreId +
             "&saleId=" + saleId ,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -370,7 +370,7 @@ function addSaleView(e) {
     modalLinkListener(e);
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/getProductInStore?storeId=" + lastClickedStoreId,
+        url: baseUrl+"/api/store/getProductInStore?storeId=" + lastClickedStoreId,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -396,7 +396,7 @@ function viewProducts(e) {
     storeid = lastClickedStoreId;
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/getProductInStore?storeId=" + lastClickedStoreId,
+        url: baseUrl+"/api/store/getProductInStore?storeId=" + lastClickedStoreId,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -436,7 +436,7 @@ function viewHistory(e) {
     storeid = lastClickedStoreId;
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/viewStoreHistory?storeId=" + lastClickedStoreId,
+        url: baseUrl+"/api/store/viewStoreHistory?storeId=" + lastClickedStoreId,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -552,7 +552,7 @@ var addCopun = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/addCouponDiscount?storeId=" + lastClickedStoreId +
+        url: baseUrl+"/api/store/addCouponDiscount?storeId=" + lastClickedStoreId +
             "&couponId=" + copunId + "&type=" + typeOfCopun + "&towaht=" + to_what +
             "&percentage=" + DiscountPrecentage + "&dueDate=" + CopunDueDate +
             "&restrictions=" + Restriction ,
@@ -600,7 +600,7 @@ var addProductPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, pId
     if (minAmount !== undefined && minAmount !== "" && maxAmount !== undefined && maxAmount !== "") {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/user/setAmountPolicyOnProduct?productName=" + pId +
+            url: baseUrl+"/api/user/setAmountPolicyOnProduct?productName=" + pId +
                 "&minAmount=" + minAmount + "&maxAmount=" + maxAmount,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -617,7 +617,7 @@ var addProductPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, pId
     if (noDiscount) {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/user/setAmountPolicyOnProduct?productName=" + pId ,
+            url: baseUrl+"/api/user/setAmountPolicyOnProduct?productName=" + pId ,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -634,7 +634,7 @@ var addProductPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, pId
     if (NoCopuns) {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/user/setNoCouponsPolicyOnProduct?productName=" + pId ,
+            url: baseUrl+"/api/user/setNoCouponsPolicyOnProduct?productName=" + pId ,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -653,7 +653,7 @@ var addCountryPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, cou
     if (minAmount !== undefined && minAmount !== "" && maxAmount !== undefined && maxAmount !== "") {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setAmountPolicyOnCountry?storeId=" + lastClickedStoreId +
+            url: baseUrl+"/api/store/setAmountPolicyOnCountry?storeId=" + lastClickedStoreId +
                 "&country=" + country + "&minAmount=" + minAmount + "&maxAmount=" + maxAmount,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -670,7 +670,7 @@ var addCountryPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, cou
     if (noDiscount) {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setNoDiscountPolicyOnCountry?storeId=" + lastClickedStoreId +
+            url: baseUrl+"/api/store/setNoDiscountPolicyOnCountry?storeId=" + lastClickedStoreId +
                 "&country=" + country,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -687,7 +687,7 @@ var addCountryPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, cou
     if (NoCopuns) {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setNoCouponPolicyOnCountry?storeId=" + lastClickedStoreId +
+            url: baseUrl+"/api/store/setNoCouponPolicyOnCountry?storeId=" + lastClickedStoreId +
                 "&country=" + country,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -707,7 +707,7 @@ var addStorePolicy = function (minAmount, maxAmount, noDiscount, NoCopuns) {
     if (minAmount !== undefined && minAmount !== "" && maxAmount !== undefined && maxAmount !== "") {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setAmountPolicyOnStore?storeId=" + lastClickedStoreId +
+            url: baseUrl+"/api/store/setAmountPolicyOnStore?storeId=" + lastClickedStoreId +
                 "&minAmount=" + minAmount + "&maxAmount=" + maxAmount,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -724,7 +724,7 @@ var addStorePolicy = function (minAmount, maxAmount, noDiscount, NoCopuns) {
     if (noDiscount) {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setNoDiscountPolicyOnStore?storeId=" + lastClickedStoreId ,
+            url: baseUrl+"/api/store/setNoDiscountPolicyOnStore?storeId=" + lastClickedStoreId ,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -740,7 +740,7 @@ var addStorePolicy = function (minAmount, maxAmount, noDiscount, NoCopuns) {
     if (NoCopuns) {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setNoCouponsPolicyOnStore?storeId=" + lastClickedStoreId,
+            url: baseUrl+"/api/store/setNoCouponsPolicyOnStore?storeId=" + lastClickedStoreId,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
@@ -759,7 +759,7 @@ var addCategoryPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, ca
     if (minAmount !== undefined && minAmount !== "" && maxAmount !== undefined && maxAmount !== "") {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setAmountPolicyOnCategory?storeId=" + lastClickedStoreId +
+            url: baseUrl+"/api/store/setAmountPolicyOnCategory?storeId=" + lastClickedStoreId +
                 "&category=" + catName + "&minAmount=" + minAmount + "&maxAmount=" + maxAmount,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -776,7 +776,7 @@ var addCategoryPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, ca
     if (noDiscount) {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setNoDiscountPolicyOnCategoty?storeId=" + lastClickedStoreId +
+            url: baseUrl+"/api/store/setNoDiscountPolicyOnCategoty?storeId=" + lastClickedStoreId +
                 "&category=" + catName,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -793,7 +793,7 @@ var addCategoryPolicy = function (minAmpunt, maxAmount, noDiscount, NoCopuns, ca
     if (NoCopuns) {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setNoDiscountPolicyOnCategoty?storeId=" + lastClickedStoreId +
+            url: baseUrl+"/api/store/setNoDiscountPolicyOnCategoty?storeId=" + lastClickedStoreId +
                 "&category=" + catName,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -814,7 +814,7 @@ var addProductInStorePolicy = function (minAmount, maxAmount, noDiscount, NoCopu
     {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setAmountPolicyOnProductInStore?storeId=" + lastClickedStoreId +
+            url: baseUrl+"/api/store/setAmountPolicyOnProductInStore?storeId=" + lastClickedStoreId +
                 "&productInStoreId=" + pisId + "&minAmount=" + minAmount + "&maxAmount=" + maxAmount,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -832,7 +832,7 @@ var addProductInStorePolicy = function (minAmount, maxAmount, noDiscount, NoCopu
     {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setNoDiscountPolicyOnProductInStore?storeId=" + lastClickedStoreId +
+            url: baseUrl+"/api/store/setNoDiscountPolicyOnProductInStore?storeId=" + lastClickedStoreId +
                 "&productInStoreId=" + pisId,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -850,7 +850,7 @@ var addProductInStorePolicy = function (minAmount, maxAmount, noDiscount, NoCopu
     {
         jQuery.ajax({
             type: "GET",
-            url: "http://localhost:53416/api/store/setNoCouponPolicyOnProductInStore?storeId=" + lastClickedStoreId +
+            url: baseUrl+"/api/store/setNoCouponPolicyOnProductInStore?storeId=" + lastClickedStoreId +
                 "&productInStoreId=" + pisId,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -875,7 +875,7 @@ var addDiscountFunc = function () {
 
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/api/store/addDiscount?storeId=" + lastClickedStoreId +
+        url: baseUrl+"/api/store/addDiscount?storeId=" + lastClickedStoreId +
             "&type=" + type + "&percentage=" + DiscountPrecentage +
             "&toWhat=" + to_what + "&dueDate=" + DueDate +
             "&restrictions=" + Restriction,
@@ -1019,7 +1019,7 @@ var sendAddManagerPremission = function (manager, premission) {
 var sendPremission = function (manager, premission, uri) {
     jQuery.ajax({
         type: "GET",
-        url: "http://localhost:53416/"+ uri +"?storeId=" + lastClickedStoreId +
+        url: baseUrl+"/"+ uri +"?storeId=" + lastClickedStoreId +
             "&ManageruserName=" + manager + "&permission=" + premission,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
