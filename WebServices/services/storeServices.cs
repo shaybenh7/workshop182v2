@@ -10,7 +10,10 @@ namespace wsep182.services
     public class storeServices
     {
         private static storeServices instance = null;
-        private storeServices() { }
+        private storeServices() {
+
+        }
+
         public static storeServices getInstance()
         {
             if (instance == null)
@@ -19,6 +22,7 @@ namespace wsep182.services
             }
             return instance;
         }
+
 
         //req 2.2
         /*

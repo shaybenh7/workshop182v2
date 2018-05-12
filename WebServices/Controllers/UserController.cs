@@ -80,67 +80,6 @@ namespace WebService.Controllers
         }
 
 
-        [Route("api/user/fillDB")]
-        [HttpGet]
-        public void fillDB()
-        {
-            userServices us;
-            storeServices ss;
-            User zahi, itamar, niv, admin, admin1, vova; //admin,itamar logedin
-            Store store;//itamar owner , niv manneger
-            ProductInStore cola, sprite;
-            sellServices sells;
-            int saleId;
-            int raffleSale;
-            us = userServices.getInstance();
-            ss = storeServices.getInstance();
-            sells = sellServices.getInstance();
-            admin = us.startSession();
-            us.register(admin, "admin", "123456");
-            us.login(admin, "admin", "123456");
-
-            admin1 = us.startSession();
-            us.register(admin1, "admin1", "123456");
-
-            String hash = System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value;
-            //zahi = hashServices.getUserByHash(hash);
-            zahi = us.startSession();
-            us.register(zahi, "zahi", "123456");
-            us.login(zahi, "zahi", "123456");
-
-            vova = us.startSession();
-            us.register(vova, "vova", "123456");
-            us.login(vova, "vova", "123456");
-
-            itamar = us.startSession();
-            us.register(itamar, "itamar", "123456");
-            us.login(itamar, "itamar", "123456");
-
-
-
-            int storeid = ss.createStore("Maria&Netta Inc.", zahi);
-            store = storeArchive.getInstance().getStore(storeid);
-            niv = us.startSession();
-            us.register(niv, "niv", "123456");
-            us.login(niv, "niv", "123456");
-
-            ss.addStoreManager(store.getStoreId(), "niv", zahi);
-            StoreRole sR = StoreRole.getStoreRole(store, zahi);
-            sR.addManagerPermission(zahi, "addProductInStore",store,"niv");
-
-
-            int c = ss.addProductInStore("cola", 3.2, 100, zahi, storeid, "drinks");
-            int s = ss.addProductInStore("sprite", 5.3, 20, zahi, storeid, "drinks");
-            cola = ProductArchive.getInstance().getProductInStore(c);
-            sprite = ProductArchive.getInstance().getProductInStore(s);
-            saleId = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 1, 50, DateTime.Now.AddDays(10).ToString());
-            raffleSale = ss.addSaleToStore(zahi, store.getStoreId(), cola.getProductInStoreId(), 3, 3, DateTime.Now.AddDays(10).ToString());
-            
-            User session = hashServices.getUserByHash(hash);
-            
-            //sells.addProductToCart(session, saleId, 3);
-        }
-
         [Route("api/user/viewStores")]
         [HttpGet]
         public HttpResponseMessage viewStores()

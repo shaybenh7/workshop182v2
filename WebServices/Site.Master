@@ -105,10 +105,6 @@
                                 <li id="AllProductsMenuButton">
                                     <a id="AllProductsLink" href="/AllProducts">All Products</a>
                                 </li>
-                                <li>
-                                    <a id="fillDB" href="/api/user/fillDB">FILL DB</a>
-                                </li>
-
 
                                 <asp:PlaceHolder ID="MyStoresLink" Visible="false" runat="server">
                                     <li id="MyStoresMenuButton">
