@@ -196,7 +196,7 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <input type="button" value="Add manager" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="addNewManager()"/>
+                                                <input type="button" value="Add manager" id="Add-manager-Btn" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="addNewManager()"/>
 
 
 
@@ -237,7 +237,7 @@
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <input type="button" value="Remove manager" onclick="RemoveStoreManager();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+                                                <input type="button" value="Remove manager" id="Remove-manager-Btn" onclick="RemoveStoreManager();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
 
 
 
@@ -596,7 +596,7 @@
                                                     <br />
                                                     <br />
                                                     <br />
-                                                    <input type="button" value="Add sale" onclick="addSale();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+                                                    <input type="button" value="Add sale" id="AddSaleBtn" onclick="addSale();" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
                                                 </div>
                                             </div>
                                         </div>

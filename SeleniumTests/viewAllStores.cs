@@ -23,8 +23,8 @@ namespace SeleniumTests
         [TestMethod]
         public void GUIviewAllStores()
         {
-            IWebElement AllProducts = driver.FindElement(By.Id("AllStoresLink"));
-            AllProducts.Click();
+            IWebElement AllStores = driver.FindElement(By.Id("AllStoresLink"));
+            AllStores.Click();
             Thread.Sleep(sleepTime);
             IWebElement store0 = driver.FindElement(By.Id("storeName0"));
             Assert.IsTrue(store0.Text.Equals("Store Name: Maria&Netta Inc."));
