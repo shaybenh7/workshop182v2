@@ -846,6 +846,8 @@ namespace WebService.Controllers
         {
             User session = hashServices.getUserByHash(System.Web.HttpContext.Current.Request.Cookies["HashCode"].Value);
             int ans;
+            List<int> emptyInt = new List<int>();
+            List<string> emptyString = new List<string>();
             if (type == 1)
             {
                 List<int> pisId = new List<int>();
@@ -860,7 +862,7 @@ namespace WebService.Controllers
                         return "product id cannot be string";
                     }
                 }
-                ans = storeServices.getInstance().addNewCoupons(session, storeId, couponId, type, pisId, null, percentage, dueDate, restrictions);
+                ans = storeServices.getInstance().addNewCoupons(session, storeId, couponId, type, pisId, emptyString, percentage, dueDate, restrictions);
             }
             else
             {
@@ -870,7 +872,7 @@ namespace WebService.Controllers
                 {
                     catOrPname.Add(words[i]);
                 }
-                ans = storeServices.getInstance().addNewCoupons(session, storeId, couponId, type, null, catOrPname, percentage, dueDate, restrictions);
+                ans = storeServices.getInstance().addNewCoupons(session, storeId, couponId, type, emptyInt, catOrPname, percentage, dueDate, restrictions);
 
             }
             if (ans > 0)
