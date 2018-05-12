@@ -134,6 +134,46 @@
 
                 </div>
             </div>
+
+              <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm" style="margin-left: 0px; margin-right: 80px; margin-top:40px;width: 875px;height: 370px; margin-bottom: 100px; margin-top: -50px;">
+                <h4 class="mtext-109 cl2 p-b-30">Add Discount</h4>
+                <div class="flex-w flex-t bor12 p-t-15 p-b-30" style="margin-top: -30px;">
+                        <div class="wrap-input1 w-full p-b-4">
+                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="zahiProductsName" name="storeName" placeholder="enter the product names you want the copun to act on divide by ','"">
+                        </div>
+                        <br />
+                        <br />
+                        <div class="wrap-input1 w-full p-b-4">
+                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="zahiDiscountPrecentage" name="storeName" placeholder="enter the discount precentage">
+                        </div>
+                        <div class="wrap-input1 w-full p-b-4">
+                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="zahiDueDateDiscount"  name="storeName" placeholder="enter due date">
+                        </div>
+                        <br />
+                        <br />
+                        <div style="display: flex; margin-bottom: 10px; margin-left:20px">
+                                <input type="checkbox" id="RaffleAdminDiscount" name="gender" value="male" style="margin-top: 5px; margin-right: 10px;">
+                                Raffle sale
+                        </div>
+                        
+                        <br />
+                        <br />
+                        <div style="display: flex; margin-bottom: 10px;margin-left:40px">
+                                <input type="checkbox" id="InstanteAdminDiscount" name="gender" value="male" style="margin-top: 5px; margin-right: 10px;">
+                                Instant sale
+                        </div>
+                        <br />
+                        <br />
+                        <div class="wrap-input1 w-full p-b-4">
+                            <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="zahiCountryDiscount"  name="storeName" placeholder="enter the contry you want the copun to act on (divide by ',' )">
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <input type="button" id="addPolicy33AdminDiscount" value="Add discount" onclick="addDiscountAdmin()" style="margin-left: 600px;" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"/>
+
+                </div>
+            </div>
         </div>
     </div>
 
