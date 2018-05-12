@@ -60,12 +60,38 @@ $(document).ready(function () {
                                 dataType: "json",
                                 success: function (response) { //iterate through premissions and enable links
                                     response = response["privileges"];
-                                    for (var key in response) {
-                                        if (response.hasOwnProperty(key) && response[key] === true) {
-                                            enableLink(key + i);
-                                            //document.getElementById(key + i).onclick = modalLinkListener;
-                                        }
-                                    }
+                                    if (response.addProductInStore != true)
+                                        $("#addProductInStore"+i).css('display', 'none');
+                                    if (response.editProductInStore != true)
+                                        $("#editProductInStore" + i).css('display', 'none');
+                                    if (response.viewProductInStore != true)
+                                        $("#viewProductInStore" + i).css('display', 'none');
+                                    if (response.removeProductFromStore != true)
+                                        $("#removeProductFromStore" + i).css('display', 'none');
+                                    if (response.addStoreManager != true)
+                                        $("#addStoreManager" + i).css('display', 'none');
+                                    if (response.removeStoreManager != true)
+                                        $("#removeStoreManager" + i).css('display', 'none');
+                                    if (response.addStoreOwner != true)
+                                        $("#addStoreOwner" + i).css('display', 'none');
+                                    if (response.removeStoreOwner != true)
+                                        $("#removeStoreOwner" + i).css('display', 'none');
+                                    if (response.addManagerPermission != true)
+                                        $("#addManagerPermission" + i).css('display', 'none');
+                                    if (response.removeManagerPermission != true)
+                                        $("#removeManagerPermission" + i).css('display', 'none');
+                                    if (response.addSaleToStore != true)
+                                        $("#addSaleToStore" + i).css('display', 'none');
+                                    if (response.removeSaleFromStore != true)
+                                        $("#removeSaleFromStore" + i).css('display', 'none');
+                                    if (response.addDiscount != true)
+                                        $("#addDiscount" + i).css('display', 'none');
+                                    if (response.addNewCoupon != true)
+                                        $("#addNewCoupon" + i).css('display', 'none');
+                                    if (response.viewPurchasesHistory != true)
+                                        $("#viewPurchasesHistory" + i).css('display', 'none');
+                                    if (response.viewAddPolicy != true)
+                                        $("#viewAddPolicy" + i).css('display', 'none');
                                 },
                                 error: function (response) {
                                     console.log(response);
@@ -74,6 +100,7 @@ $(document).ready(function () {
 
                         })(i, storeId);
                     }
+
                 }
 
             }
