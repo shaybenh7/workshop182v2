@@ -53,11 +53,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddProductToCartTest.cs" />
+    <Compile Include="addSaleToStore.cs" />
+    <Compile Include="addStoreManneger.cs" />
+    <Compile Include="addStoreOwner.cs" />
+    <Compile Include="editProductInStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AddStoreTest.cs" />
     <Compile Include="LoginTest.cs" />
     <Compile Include="RegisterSimple.cs" />
     <Compile Include="AddProductToStore.cs" />
+    <Compile Include="removeProductFromCart.cs" />
+    <Compile Include="removeProductFromStore.cs" />
+    <Compile Include="removeSallFromStore.cs" />
+    <Compile Include="removeStoreManneger.cs" />
+    <Compile Include="removeStoreOwner.cs" />
+    <Compile Include="viewAllProducts.cs" />
+    <Compile Include="viewAllStores.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

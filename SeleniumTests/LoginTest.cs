@@ -67,7 +67,7 @@ namespace SeleniumTests
             login.Click();
             Thread.Sleep(sleepTime);
             IWebElement userName = driver.FindElement(By.Id("username"));
-            userName.SendKeys("admin");
+            userName.SendKeys("adminTest");
             Thread.Sleep(sleepTime);
             IWebElement password = driver.FindElement(By.Id("password"));
             password.SendKeys("123456");
@@ -78,7 +78,7 @@ namespace SeleniumTests
 
             IWebElement welcome = driver.FindElement(By.Id("welcome"));
             String welcomeText = welcome.Text;
-            Assert.IsTrue(welcomeText.Contains("Welcome admin"));
+            Assert.IsTrue(welcomeText.Contains("Welcome adminTest"));
         }
         [TestMethod]
         public void loginNotExist()
